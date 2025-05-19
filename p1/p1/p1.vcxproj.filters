@@ -1,0 +1,370 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\00.MainGame">
+      <UniqueIdentifier>{b42018c9-e001-4c17-9167-118e0ba9bd35}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Manager">
+      <UniqueIdentifier>{25d5780a-aed7-4455-b50f-045fccb7f6af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Scene">
+      <UniqueIdentifier>{9770d5ca-d3a0-46b4-ad26-ea416f33962a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Object">
+      <UniqueIdentifier>{08963768-fcf0-4438-8115-36e4f85da442}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Object\Game">
+      <UniqueIdentifier>{21dc960d-5746-4090-80cb-e37c58b00616}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Scene\Game">
+      <UniqueIdentifier>{c6cd21ad-1984-4fa5-8b8e-61e125dca2b8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Header">
+      <UniqueIdentifier>{501951b3-298b-454a-a7d9-824c1ecb04a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Header\Default">
+      <UniqueIdentifier>{85e69d77-e988-4485-b915-7e5001be7c99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Object\Game\Entity">
+      <UniqueIdentifier>{502bd086-82b1-4ac1-82c3-efef3969010f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Object\Game\Projectile">
+      <UniqueIdentifier>{12d51a32-1bbc-4a74-b0a2-1357de0620eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Object\Game\ObjectPool">
+      <UniqueIdentifier>{080d73d6-8e89-4117-a838-e0ee6bbc4097}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Object\Game\Entity\Monster">
+      <UniqueIdentifier>{469c2a9d-3c8b-4e0a-99ef-03f8f4479b11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Object\Game\Entity\Player">
+      <UniqueIdentifier>{ef9ab584-5155-4679-af98-8a1589794d4f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\04.Component">
+      <UniqueIdentifier>{35286b06-38a3-42ce-8e29-e3b544656950}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\04.Component\Game">
+      <UniqueIdentifier>{70db8f92-0d7f-4c3f-9e07-28ec5dc01ba1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\04.Component\Collision">
+      <UniqueIdentifier>{8fec97ec-277d-4bba-968d-403938b5bb07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\04.Component\Camera">
+      <UniqueIdentifier>{f0b5d863-b611-4f1d-8ee7-f4209b33ec47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\05.Resource">
+      <UniqueIdentifier>{2214833f-add5-4b17-bacc-e0a1da1e5a37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\05.Resource\2D">
+      <UniqueIdentifier>{429151fd-5b5c-489a-af4d-f6175c9ed5d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\04.Component\2D">
+      <UniqueIdentifier>{34959d14-6a59-4fa4-bb94-cf3e5d8cc108}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Object\Game\Entity\Monster\Fubura">
+      <UniqueIdentifier>{f76dda96-e34f-4755-b21f-31ebf7e3906d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Object\Game\Entity\Monster\Shubangelion">
+      <UniqueIdentifier>{d5d52d75-e6d1-4ff2-a955-8b51f31efc16}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Object\Game\Entity\Monster\Fubura\Shuconbu">
+      <UniqueIdentifier>{a691603b-5009-4d11-892a-a80639a26a2a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\06.Ui">
+      <UniqueIdentifier>{e4293bfd-e24b-4434-ad7f-2c8b9cf03cdb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\06.Ui\Game">
+      <UniqueIdentifier>{e584b847-4e46-4303-85d1-7eeb05104127}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Object\Game\Spawner">
+      <UniqueIdentifier>{ca34c74a-720f-4e3f-bb1c-db08f3a63f25}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Object\Game\Entity\Monster\NormalMonster">
+      <UniqueIdentifier>{0626b4bd-cc55-4219-ac52-9907786b5baf}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="framework.h">
+      <Filter>소스 파일\99.Header\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>소스 파일\99.Header\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>소스 파일\99.Header\Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Types.h">
+      <Filter>소스 파일\99.Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Values.h">
+      <Filter>소스 파일\99.Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums.h">
+      <Filter>소스 파일\99.Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Defines.h">
+      <Filter>소스 파일\99.Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>소스 파일\99.Header</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
+      <Filter>소스 파일\99.Header</Filter>
+    </ClInclude>
+    <ClInclude Include="00.MainGame\Game.h">
+      <Filter>소스 파일\00.MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="00.MainGame\p1.h">
+      <Filter>소스 파일\00.MainGame</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\CollisionManager.h">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\InputManager.h">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\ObjectManager.h">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\ResourceManager.h">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\SceneManager.h">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\Singleton.h">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\TimeManager.h">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="02.Scene\Scene.h">
+      <Filter>소스 파일\02.Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="02.Scene\Game\DevScene.h">
+      <Filter>소스 파일\02.Scene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\GameObject.h">
+      <Filter>소스 파일\03.Object</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\ObjectFactory.h">
+      <Filter>소스 파일\03.Object</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Projectile\Bullet.h">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\ObjectPool\ObjectPool.h">
+      <Filter>소스 파일\03.Object\Game\ObjectPool</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Entity\Entity.h">
+      <Filter>소스 파일\03.Object\Game\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Entity\Player\Player.h">
+      <Filter>소스 파일\03.Object\Game\Entity\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Entity\Monster\Monster.h">
+      <Filter>소스 파일\03.Object\Game\Entity\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Entity\Monster\Fubura.h">
+      <Filter>소스 파일\03.Object\Game\Entity\Monster\Fubura</Filter>
+    </ClInclude>
+    <ClInclude Include="04.Component\Component.h">
+      <Filter>소스 파일\04.Component</Filter>
+    </ClInclude>
+    <ClInclude Include="04.Component\Collision\BoxCollider.h">
+      <Filter>소스 파일\04.Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="04.Component\Collision\Collider.h">
+      <Filter>소스 파일\04.Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="04.Component\Collision\SphereCollider.h">
+      <Filter>소스 파일\04.Component\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="04.Component\Camera\CameraComponent.h">
+      <Filter>소스 파일\04.Component\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="04.Component\2D\SpriteRenderer.h">
+      <Filter>소스 파일\04.Component\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="05.Resource\ResourceBase.h">
+      <Filter>소스 파일\05.Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="05.Resource\2D\Animator.h">
+      <Filter>소스 파일\05.Resource\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="05.Resource\2D\Sprite.h">
+      <Filter>소스 파일\05.Resource\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="05.Resource\2D\Texture.h">
+      <Filter>소스 파일\05.Resource\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="04.Component\2D\AnimationComponent.h">
+      <Filter>소스 파일\04.Component\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Projectile\Laser.h">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Entity\Monster\Shubangelion.h">
+      <Filter>소스 파일\03.Object\Game\Entity\Monster\Shubangelion</Filter>
+    </ClInclude>
+    <ClInclude Include="06.Ui\Ui.h">
+      <Filter>소스 파일\06.Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="06.Ui\Button.h">
+      <Filter>소스 파일\06.Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="02.Scene\Game\StartScene.h">
+      <Filter>소스 파일\02.Scene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Spawner\Spawner.h">
+      <Filter>소스 파일\03.Object\Game\Spawner</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Entity\Monster\NormalMonster.h">
+      <Filter>소스 파일\03.Object\Game\Entity\Monster\NormalMonster</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Utils.cpp">
+      <Filter>소스 파일\99.Header</Filter>
+    </ClCompile>
+    <ClCompile Include="pch.cpp">
+      <Filter>소스 파일\99.Header</Filter>
+    </ClCompile>
+    <ClCompile Include="p1.cpp">
+      <Filter>소스 파일\00.MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>소스 파일\00.MainGame</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\CollisionManager.cpp">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\InputManager.cpp">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\ObjectManager.cpp">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\ResourceManager.cpp">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\SceneManager.cpp">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\Singleton.cpp">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\TimeManager.cpp">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="02.Scene\Scene.cpp">
+      <Filter>소스 파일\02.Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="02.Scene\Game\DevScene.cpp">
+      <Filter>소스 파일\02.Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\GameObject.cpp">
+      <Filter>소스 파일\03.Object</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\ObjectFactory.cpp">
+      <Filter>소스 파일\03.Object</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Projectile\Bullet.cpp">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\ObjectPool\ObjectPool.cpp">
+      <Filter>소스 파일\03.Object\Game\ObjectPool</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Entity\Entity.cpp">
+      <Filter>소스 파일\03.Object\Game\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Entity\Player\Player.cpp">
+      <Filter>소스 파일\03.Object\Game\Entity\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Entity\Monster\Monster.cpp">
+      <Filter>소스 파일\03.Object\Game\Entity\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Entity\Monster\Fubura.cpp">
+      <Filter>소스 파일\03.Object\Game\Entity\Monster\Fubura</Filter>
+    </ClCompile>
+    <ClCompile Include="04.Component\Component.cpp">
+      <Filter>소스 파일\04.Component</Filter>
+    </ClCompile>
+    <ClCompile Include="04.Component\Collision\BoxCollider.cpp">
+      <Filter>소스 파일\04.Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="04.Component\Collision\Collider.cpp">
+      <Filter>소스 파일\04.Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="04.Component\Collision\SphereCollider.cpp">
+      <Filter>소스 파일\04.Component\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="04.Component\Camera\CameraComponent.cpp">
+      <Filter>소스 파일\04.Component\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="04.Component\2D\SpriteRenderer.cpp">
+      <Filter>소스 파일\04.Component\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="05.Resource\ResourceBase.cpp">
+      <Filter>소스 파일\05.Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="05.Resource\2D\Animator.cpp">
+      <Filter>소스 파일\05.Resource\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="05.Resource\2D\Sprite.cpp">
+      <Filter>소스 파일\05.Resource\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="05.Resource\2D\Texture.cpp">
+      <Filter>소스 파일\05.Resource\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="04.Component\2D\AnimationComponent.cpp">
+      <Filter>소스 파일\04.Component\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Projectile\Laser.cpp">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Entity\Monster\Shubangelion.cpp">
+      <Filter>소스 파일\03.Object\Game\Entity\Monster\Shubangelion</Filter>
+    </ClCompile>
+    <ClCompile Include="06.Ui\Ui.cpp">
+      <Filter>소스 파일\06.Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="06.Ui\Button.cpp">
+      <Filter>소스 파일\06.Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="02.Scene\Game\StartScene.cpp">
+      <Filter>소스 파일\02.Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Spawner\Spawner.cpp">
+      <Filter>소스 파일\03.Object\Game\Spawner</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Entity\Monster\NormalMonster.cpp">
+      <Filter>소스 파일\03.Object\Game\Entity\Monster\NormalMonster</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="p1.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="p1.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>17.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{95e9f459-a641-4492-bfec-57c7bd4622d7}</ProjectGuid>
+    <RootNamespace>p1</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+    </ClCompile>
+    <Link>
+      <SubSystem>Windows</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="00.MainGame\Game.h" />
+    <ClInclude Include="00.MainGame\p1.h" />
+    <ClInclude Include="01.Manager\CollisionManager.h" />
+    <ClInclude Include="01.Manager\InputManager.h" />
+    <ClInclude Include="01.Manager\ObjectManager.h" />
+    <ClInclude Include="01.Manager\ResourceManager.h" />
+    <ClInclude Include="01.Manager\SceneManager.h" />
+    <ClInclude Include="01.Manager\Singleton.h" />
+    <ClInclude Include="01.Manager\TimeManager.h" />
+    <ClInclude Include="02.Scene\Game\DevScene.h" />
+    <ClInclude Include="02.Scene\Game\StartScene.h" />
+    <ClInclude Include="02.Scene\Scene.h" />
+    <ClInclude Include="03.Object\Entity\Entity.h" />
+    <ClInclude Include="03.Object\Entity\Monster\Monster.h" />
+    <ClInclude Include="03.Object\Entity\Monster\Fubura.h" />
+    <ClInclude Include="03.Object\Entity\Monster\NormalMonster.h" />
+    <ClInclude Include="03.Object\Entity\Monster\Shubangelion.h" />
+    <ClInclude Include="03.Object\Entity\Player\Player.h" />
+    <ClInclude Include="03.Object\GameObject.h" />
+    <ClInclude Include="03.Object\ObjectFactory.h" />
+    <ClInclude Include="03.Object\ObjectPool\ObjectPool.h" />
+    <ClInclude Include="03.Object\Projectile\Bullet.h" />
+    <ClInclude Include="03.Object\Projectile\Laser.h" />
+    <ClInclude Include="03.Object\Spawner\Spawner.h" />
+    <ClInclude Include="04.Component\2D\AnimationComponent.h" />
+    <ClInclude Include="04.Component\2D\SpriteRenderer.h" />
+    <ClInclude Include="04.Component\Camera\CameraComponent.h" />
+    <ClInclude Include="04.Component\Collision\BoxCollider.h" />
+    <ClInclude Include="04.Component\Collision\Collider.h" />
+    <ClInclude Include="04.Component\Collision\SphereCollider.h" />
+    <ClInclude Include="04.Component\Component.h" />
+    <ClInclude Include="05.Resource\2D\Animator.h" />
+    <ClInclude Include="05.Resource\2D\Sprite.h" />
+    <ClInclude Include="05.Resource\2D\Texture.h" />
+    <ClInclude Include="05.Resource\ResourceBase.h" />
+    <ClInclude Include="06.Ui\Button.h" />
+    <ClInclude Include="06.Ui\Ui.h" />
+    <ClInclude Include="Defines.h" />
+    <ClInclude Include="Enums.h" />
+    <ClInclude Include="framework.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="Resource.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="Types.h" />
+    <ClInclude Include="Utils.h" />
+    <ClInclude Include="Values.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="01.Manager\CollisionManager.cpp" />
+    <ClCompile Include="01.Manager\InputManager.cpp" />
+    <ClCompile Include="01.Manager\ObjectManager.cpp" />
+    <ClCompile Include="01.Manager\ResourceManager.cpp" />
+    <ClCompile Include="01.Manager\SceneManager.cpp" />
+    <ClCompile Include="01.Manager\Singleton.cpp" />
+    <ClCompile Include="01.Manager\TimeManager.cpp" />
+    <ClCompile Include="02.Scene\Game\DevScene.cpp" />
+    <ClCompile Include="02.Scene\Game\StartScene.cpp" />
+    <ClCompile Include="02.Scene\Scene.cpp" />
+    <ClCompile Include="03.Object\Entity\Entity.cpp" />
+    <ClCompile Include="03.Object\Entity\Monster\Monster.cpp" />
+    <ClCompile Include="03.Object\Entity\Monster\Fubura.cpp" />
+    <ClCompile Include="03.Object\Entity\Monster\NormalMonster.cpp" />
+    <ClCompile Include="03.Object\Entity\Monster\Shubangelion.cpp" />
+    <ClCompile Include="03.Object\Entity\Player\Player.cpp" />
+    <ClCompile Include="03.Object\GameObject.cpp" />
+    <ClCompile Include="03.Object\ObjectFactory.cpp" />
+    <ClCompile Include="03.Object\ObjectPool\ObjectPool.cpp" />
+    <ClCompile Include="03.Object\Projectile\Bullet.cpp" />
+    <ClCompile Include="03.Object\Projectile\Laser.cpp" />
+    <ClCompile Include="03.Object\Spawner\Spawner.cpp" />
+    <ClCompile Include="04.Component\2D\AnimationComponent.cpp" />
+    <ClCompile Include="04.Component\2D\SpriteRenderer.cpp" />
+    <ClCompile Include="04.Component\Camera\CameraComponent.cpp" />
+    <ClCompile Include="04.Component\Collision\BoxCollider.cpp" />
+    <ClCompile Include="04.Component\Collision\Collider.cpp" />
+    <ClCompile Include="04.Component\Collision\SphereCollider.cpp" />
+    <ClCompile Include="04.Component\Component.cpp" />
+    <ClCompile Include="05.Resource\2D\Animator.cpp" />
+    <ClCompile Include="05.Resource\2D\Sprite.cpp" />
+    <ClCompile Include="05.Resource\2D\Texture.cpp" />
+    <ClCompile Include="05.Resource\ResourceBase.cpp" />
+    <ClCompile Include="06.Ui\Button.cpp" />
+    <ClCompile Include="06.Ui\Ui.cpp" />
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="p1.cpp" />
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="p1.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="p1.ico" />
+    <Image Include="small.ico" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

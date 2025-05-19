@@ -1,0 +1,51 @@
+#pragma once
+#include "../../03.Object/GameObject.h"
+
+class Animator;
+class AnimationComponent;
+
+enum class LaserState
+{
+	Start,
+	Fire,
+
+	LaserStatEnd
+};
+
+struct LaserInfo
+{
+	float _duration = 0;
+	float _time = 0;
+	float _dmg = 0;
+};
+
+class Laser : public GameObject
+{
+	using Super = GameObject;
+public:
+	Laser();
+	virtual ~Laser();
+
+	virtual void Init() override;
+	virtual void Update() override;
+	virtual void Render(HDC hdc) override;
+
+	void Activate(Vec2 pos, float duration);
+	void SetDemage(float dmg) { _info._dmg = dmg; }
+
+	virtual void OnTriggerEnter(Collider* collider, Collider* other) override;
+	virtual void OnTriggerStay(Collider* collider, Collider* other) override;
+	virtual void OnTriggerExit(Collider* collider, Collider* other) override;
+
+	virtual void Reset() override;
+
+	void SetState(LaserState state);
+	void UpdateAnimation();
+private:
+	LaserInfo _info;
+	float _sumTime = .8f;
+	LaserState _state = LaserState::Start;
+	Animator* _laser[2] = {};
+	AnimationComponent* _ani = nullptr;
+};
+

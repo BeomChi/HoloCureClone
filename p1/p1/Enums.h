@@ -1,0 +1,49 @@
+#pragma once
+
+enum class SceneType
+{
+	None,
+	DevScene,
+	GameScene,
+	StartScene,
+
+	MenuScene,
+	SceneEnd
+};
+
+
+enum class EntityType
+{
+	Player,
+	Monster,
+
+
+	EntityTypeEnd
+};
+
+enum class ColliderType
+{
+	Box,
+	Sphere,
+};
+
+enum LAYER_TYPE
+{
+	LAYER_BACKGROUND,
+	LAYER_OBJECT,
+	LAYER_UI,
+
+	LAYER_MAXCOUNT
+};
+
+enum Dir
+{
+	DIR_LEFT,
+	DIR_RIGHT,
+};
+
+enum enumAttack
+{
+	CHARGE,
+	ATTACK,
+};

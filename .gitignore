@@ -1,0 +1,15 @@
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.VC.db
+*.VC.opendb
+
+# Build artifacts
+bin/
+obj/
+Debug/
+Release/
+*.log

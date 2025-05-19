@@ -1,0 +1,87 @@
+#include "../../pch.h"
+#include "Collider.h"
+#include "../../03.Object/GameObject.h"
+#include "BoxCollider.h"
+#include "SphereCollider.h"
+
+Collider::Collider(ColliderType colliderType) :_colliderType(colliderType)
+{
+}
+
+Collider::~Collider()
+{
+}
+
+void Collider::Init()
+{
+}
+
+void Collider::Update()
+{
+}
+
+void Collider::Render(HDC hdc)
+{
+}
+
+bool Collider::CheckCollision(Collider* other)
+{
+    return false;
+}
+
+bool Collider::CheckCollisionBoxToBox(BoxCollider* b1, BoxCollider* b2)
+{
+    RECT intersect = {};
+
+    return MyIntersectRect(&intersect,b1->GetOwner(),b2->GetOwner());
+}
+
+bool Collider::CheckCollisionSphereToSphere(SphereCollider* s1, SphereCollider* s2)
+{
+    Vec2 p1 = s1->GetOwner()->GetPos();
+    float r1 = s1->GetRadius();
+
+
+    Vec2 p2 = s2->GetOwner()->GetPos();
+    float r2 = s2->GetRadius();
+
+    Vec2 dir = p1 - p2;
+    float dist = dir.Length();
+
+
+    return dist <= r1 + r2;
+}
+
+bool Collider::CheckCollisionBoxToSphere(BoxCollider* b1, SphereCollider* s2)
+{
+
+    return false;
+}
+
+bool Collider::MyIntersectRect(LPRECT lrRect, GameObject* r1, GameObject* r2)
+{
+    Vec2 size1 = r1->GetSize();
+    Vec2 size2 = r2->GetSize();
+
+    float dx = abs(r1->GetPos().x - r2->GetPos().x);
+    float dy = abs(r1->GetPos().y - r2->GetPos().y);
+
+    float half1X = size1.x / 2;
+    float half1Y = size1.y / 2;
+    float half2X = size2.x / 2;
+    float half2Y = size2.y / 2;
+
+    if (dx < half1X + half2X && dy < half1Y + half2Y)
+    {
+        if (lrRect)
+        {
+            lrRect->left = static_cast<int32>(max(r1->GetPos().x - half1X, r2->GetPos().x - half2X));
+            lrRect->right = static_cast<int32>(min(r1->GetPos().x + half1X, r2->GetPos().x + half2X));
+            lrRect->top = static_cast<int32>(max(r1->GetPos().y - half1Y, r2->GetPos().y - half2Y));
+            lrRect->bottom = static_cast<int32>(min(r1->GetPos().y + half1Y, r2->GetPos().y + half2Y));
+        }
+        return true;
+    }
+
+    return false;
+}
