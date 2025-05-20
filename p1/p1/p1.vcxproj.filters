@@ -234,6 +234,15 @@
     <ClInclude Include="03.Object\Entity\Monster\NormalMonster.h">
       <Filter>소스 파일\03.Object\Game\Entity\Monster\NormalMonster</Filter>
     </ClInclude>
+    <ClInclude Include="01.Manager\StageManager.h">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\GameManager.h">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\SpawnManager.h">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
@@ -352,6 +361,15 @@
     </ClCompile>
     <ClCompile Include="03.Object\Entity\Monster\NormalMonster.cpp">
       <Filter>소스 파일\03.Object\Game\Entity\Monster\NormalMonster</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\StageManager.cpp">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\GameManager.cpp">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\SpawnManager.cpp">
+      <Filter>소스 파일\01.Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

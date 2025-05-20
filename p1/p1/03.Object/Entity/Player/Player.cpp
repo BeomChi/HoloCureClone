@@ -28,7 +28,7 @@ Player::~Player()
 void Player::Init()
 {
 	// 플레이어 초기화
-	_info._currentHp = 100.f;
+	_info._currentHp = 65.f;
 	_info._maxHp = _info._currentHp;
 	_info._atk = 5.f;
 	_info._speed = 200.f;

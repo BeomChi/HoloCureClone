@@ -3,6 +3,7 @@
 #include "../../01.Manager/TimeManager.h"
 #include "../../01.Manager/ObjectManager.h"
 #include "../../01.Manager/SceneManager.h"
+#include "../../01.Manager/SpawnManager.h"
 #include "../../03.Object/ObjectPool/ObjectPool.h"
 #include "../../03.Object/Entity/Monster/NormalMonster.h"
 
@@ -17,7 +18,8 @@ Spawner::~Spawner()
 
 void Spawner::Init()
 {
-
+	_spawnMaxCount = GET_SINGLE(SpawnManager)->GetMaxSpawnCount();
+	_spawnDelay = GET_SINGLE(SpawnManager)->GetSpawnDelay();
 }
 
 void Spawner::Update()
@@ -28,7 +30,7 @@ void Spawner::Update()
 	_time += deltaTime;
 
 	_sumTime += deltaTime;
-	if (_spawnDelay <= _sumTime && _spawnCount < _spawnMaxCount)
+	if (_spawnDelay <= _sumTime && GET_SINGLE(SpawnManager)->CheckSpawn())
 	{
 		int32 x = RandomRange(0, GWinSizeX);
 		int32 y = RandomRange(0, GWinSizeY);
@@ -40,7 +42,7 @@ void Spawner::Update()
 		GET_SINGLE(ObjectManager)->AddObject(monster);
 
 		_sumTime = 0;
-		_spawnCount++;
+		GET_SINGLE(SpawnManager)->AddCurrentSpawnCount();
 	}
 }
 

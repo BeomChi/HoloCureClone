@@ -133,11 +133,14 @@
     <ClInclude Include="00.MainGame\Game.h" />
     <ClInclude Include="00.MainGame\p1.h" />
     <ClInclude Include="01.Manager\CollisionManager.h" />
+    <ClInclude Include="01.Manager\GameManager.h" />
     <ClInclude Include="01.Manager\InputManager.h" />
     <ClInclude Include="01.Manager\ObjectManager.h" />
     <ClInclude Include="01.Manager\ResourceManager.h" />
     <ClInclude Include="01.Manager\SceneManager.h" />
     <ClInclude Include="01.Manager\Singleton.h" />
+    <ClInclude Include="01.Manager\SpawnManager.h" />
+    <ClInclude Include="01.Manager\StageManager.h" />
     <ClInclude Include="01.Manager\TimeManager.h" />
     <ClInclude Include="02.Scene\Game\DevScene.h" />
     <ClInclude Include="02.Scene\Game\StartScene.h" />
@@ -179,11 +182,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="01.Manager\CollisionManager.cpp" />
+    <ClCompile Include="01.Manager\GameManager.cpp" />
     <ClCompile Include="01.Manager\InputManager.cpp" />
     <ClCompile Include="01.Manager\ObjectManager.cpp" />
     <ClCompile Include="01.Manager\ResourceManager.cpp" />
     <ClCompile Include="01.Manager\SceneManager.cpp" />
     <ClCompile Include="01.Manager\Singleton.cpp" />
+    <ClCompile Include="01.Manager\SpawnManager.cpp" />
+    <ClCompile Include="01.Manager\StageManager.cpp" />
     <ClCompile Include="01.Manager\TimeManager.cpp" />
     <ClCompile Include="02.Scene\Game\DevScene.cpp" />
     <ClCompile Include="02.Scene\Game\StartScene.cpp" />

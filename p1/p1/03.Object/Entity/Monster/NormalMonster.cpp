@@ -111,7 +111,7 @@ void NormalMonster::Move(float deltaTime)
 		SetDir(DIR_LEFT);
 	}
 
-	if (dist <= 50)
+	if (dist <= 25)
 	{
 		_info._speed = 0;
 
