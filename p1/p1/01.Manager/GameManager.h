@@ -15,8 +15,12 @@ public:
 
 	float GetPlayeTime() { return _playTime; }
 
+	int32 GetCurrentStage() { return _stage; }
+
 private:
 	Player* _player = nullptr;
 	float _playTime = 0.f;
+
+	int32 _stage = 0;
 };
 

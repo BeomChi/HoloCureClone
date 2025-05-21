@@ -4,6 +4,8 @@
 #include "../../01.Manager/TimeManager.h"
 #include "../../01.Manager/ObjectManager.h"
 #include "../../01.Manager/ResourceManager.h"
+#include "../../01.Manager/SpawnManager.h"
+#include "../../01.Manager/StageManager.h"
 #include "../../03.Object/Entity/Player/Player.h"
 #include "../../03.Object/ObjectPool/ObjectPool.h"
 #include "../../03.Object/Spawner/Spawner.h"
@@ -135,6 +137,10 @@ void DevScene::Init()
 		ani->SetInfo({ texture, L"Shubagelion_Attack",{128,135}, 0, 9, 0, 1.f });
 	}
 
+	GET_SINGLE(SpawnManager)->SetMaxSpawnCount(40);
+	GET_SINGLE(SpawnManager)->Init();
+	GET_SINGLE(StageManager)->StartStage();
+
 	GET_SINGLE(ObjectPool)->Init();
 	{
 		Player* player = GET_SINGLE(ObjectPool)->Get<Player>(L"Player");
@@ -157,11 +163,7 @@ void DevScene::Init()
 		monster->SetPos({ 800,800 });
 		GET_SINGLE(ObjectManager)->AddObject(monster);
 	}*/
-	{
-		Spawner* spawn = new Spawner();
-		spawn->SetSpawnMaxCount(20);
-		GET_SINGLE(ObjectManager)->AddObject(spawn);
-	}
+
 
 	Super::Init();
 }
@@ -169,11 +171,12 @@ void DevScene::Init()
 void DevScene::Update()
 {
 	Super::Update();
-
+	GET_SINGLE(StageManager)->Update();
 }
 
 void DevScene::Render(HDC hdc)
 {
 	Super::Render(hdc);
+	GET_SINGLE(SpawnManager)->Render(hdc);
 }
 

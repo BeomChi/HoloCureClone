@@ -12,18 +12,11 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
-	float GetTime() { return _time; }
-
-	void SetSpawnMaxCount(int32 count) { _spawnMaxCount = count; }
-	int32 GetSpawnCount() { return _spawnCount; }
-	void SubSpawnCount() { _spawnCount--; }
+	void NormalMonsterSpawn();
+	void SpawnMidleBoss(int32 Stage);
+	void SpawnBoss(int32 Stage);
 
 private:
-	float _time = 0;
-	float _spawnDelay = 3;
-	float _sumTime = 0;
-
-	int32 _spawnCount = 0;
-	int32 _spawnMaxCount = 0;
+	
 };
 

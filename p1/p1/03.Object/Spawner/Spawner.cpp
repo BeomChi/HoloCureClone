@@ -18,38 +18,61 @@ Spawner::~Spawner()
 
 void Spawner::Init()
 {
-	_spawnMaxCount = GET_SINGLE(SpawnManager)->GetMaxSpawnCount();
-	_spawnDelay = GET_SINGLE(SpawnManager)->GetSpawnDelay();
+	
 }
 
 void Spawner::Update()
 {
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
-
-	// UI 용 나중에 게임 매니저 만들면 거기로 옮길 것
-	_time += deltaTime;
-
-	_sumTime += deltaTime;
-	if (_spawnDelay <= _sumTime && GET_SINGLE(SpawnManager)->CheckSpawn())
-	{
-		int32 x = RandomRange(0, GWinSizeX);
-		int32 y = RandomRange(0, GWinSizeY);
-
-		Vec2 pos = GET_SINGLE(SceneManager)->ScreenToWorld({ (float)x,(float)y });
-
-		NormalMonster* monster = GET_SINGLE(ObjectPool)->Get<NormalMonster>(L"NormalMonster");
-		monster->SetPos({ pos.x,pos.y });
-		GET_SINGLE(ObjectManager)->AddObject(monster);
-
-		_sumTime = 0;
-		GET_SINGLE(SpawnManager)->AddCurrentSpawnCount();
-	}
+	
 }
 
 void Spawner::Render(HDC hdc)
 {
-	{
-		wstring str = std::format(L"현재 스폰된 몬스터({0})", _spawnCount);
-		::TextOut(hdc, GWinSizeX / 2, 30, str.c_str(), static_cast<int32>(str.size()));
-	}
+	
+}
+
+void Spawner::NormalMonsterSpawn()
+{
+	int32 x = RandomRange(0, GWinSizeX);
+	int32 y = RandomRange(0, GWinSizeY);
+
+	Vec2 pos = GET_SINGLE(SceneManager)->ScreenToWorld({ (float)x,(float)y });
+
+	NormalMonster* monster = GET_SINGLE(ObjectPool)->Get<NormalMonster>(L"NormalMonster");
+	monster->SetPos({ pos.x,pos.y });
+	GET_SINGLE(ObjectManager)->AddObject(monster);
+
+	GET_SINGLE(SpawnManager)->AddCurrentSpawnCount();
+}
+
+void Spawner::SpawnMidleBoss(int32 Stage)
+{
+	// 지금은 이렇게 해놓지만 나중에 스테이지에 맞게 소환하도록 해야함
+	// 이차원 배열로 해서 [stage - 1][현재 소환된 중간보스 수]
+	int32 x = RandomRange(0, GWinSizeX);
+	int32 y = RandomRange(0, GWinSizeY);
+
+	Vec2 pos = GET_SINGLE(SceneManager)->ScreenToWorld({ (float)x,(float)y });
+
+	NormalMonster* monster = GET_SINGLE(ObjectPool)->Get<NormalMonster>(L"Fubura");
+	monster->SetPos({ pos.x,pos.y });
+	GET_SINGLE(ObjectManager)->AddObject(monster);
+
+	GET_SINGLE(SpawnManager)->AddCurrentSpawnCount();
+}
+
+void Spawner::SpawnBoss(int32 Stage)
+{
+	// 보스 소환 코드
+	int32 x = RandomRange(0, GWinSizeX);
+	int32 y = RandomRange(0, GWinSizeY);
+
+	Vec2 pos = GET_SINGLE(SceneManager)->ScreenToWorld({ (float)x,(float)y });
+
+	// 나중에 보스 만들면 바꿔야함
+	NormalMonster* monster = GET_SINGLE(ObjectPool)->Get<NormalMonster>(L"Fubura");
+	monster->SetPos({ pos.x,pos.y });
+	GET_SINGLE(ObjectManager)->AddObject(monster);
+
+	GET_SINGLE(SpawnManager)->AddCurrentSpawnCount();
 }

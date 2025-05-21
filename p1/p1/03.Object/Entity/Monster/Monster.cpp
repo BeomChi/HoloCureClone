@@ -4,6 +4,7 @@
 #include "../../../01.Manager/ObjectManager.h"
 #include "../../../01.Manager/ResourceManager.h"
 #include "../../../01.Manager/SceneManager.h"
+#include "../../../01.Manager/SpawnManager.h"
 #include "../../../04.Component/2D/AnimationComponent.h"
 #include "../../../04.Component/Collision/BoxCollider.h"
 #include "../../../05.Resource/2D/Animator.h"
@@ -29,6 +30,7 @@ void Monster::Update()
 	if (_info._isDead)
 	{
 		_isActivity = false;
+		GET_SINGLE(SpawnManager)->SubCurrentSpawnCount();
 		// 게임 매니저에다가 점수 +
 	}
 	
