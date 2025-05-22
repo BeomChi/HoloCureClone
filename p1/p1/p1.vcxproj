@@ -152,6 +152,7 @@
     <ClInclude Include="03.Object\Entity\Monster\Shubangelion.h" />
     <ClInclude Include="03.Object\Entity\Player\Player.h" />
     <ClInclude Include="03.Object\GameObject.h" />
+    <ClInclude Include="03.Object\Item\Item.h" />
     <ClInclude Include="03.Object\ObjectFactory.h" />
     <ClInclude Include="03.Object\ObjectPool\ObjectPool.h" />
     <ClInclude Include="03.Object\Projectile\Bullet.h" />
@@ -201,6 +202,7 @@
     <ClCompile Include="03.Object\Entity\Monster\Shubangelion.cpp" />
     <ClCompile Include="03.Object\Entity\Player\Player.cpp" />
     <ClCompile Include="03.Object\GameObject.cpp" />
+    <ClCompile Include="03.Object\Item\Item.cpp" />
     <ClCompile Include="03.Object\ObjectFactory.cpp" />
     <ClCompile Include="03.Object\ObjectPool\ObjectPool.cpp" />
     <ClCompile Include="03.Object\Projectile\Bullet.cpp" />

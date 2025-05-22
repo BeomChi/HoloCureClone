@@ -25,18 +25,24 @@ public:
 	virtual void OnTriggerEnter(Collider* collider, Collider* other) override;
 	virtual void OnTriggerExit(Collider* collider, Collider* other) override;
 
+	void AddExp(float exp) { _info._exp += exp; }
+	void SetMaxExp(float maxExp) { _info._maxExp = maxExp; }
+
+	void CheckLevelUpExp();
+	void LevelUp();
 
 	virtual void Reset() override;
 	
 private:
 	void InputMove(float deltaTime);
 	void Idle(float deltaTime);
-	void Attack();
+	void Attack(float deltaTime);
 
 
 private:
 	float _firePosLength = 0;
-
-
+	float _attackDelayTime = 2;
+	float _lastAttackTime = 0;
+	float _sumTime = 0;
 };
 

@@ -94,6 +94,9 @@
     <Filter Include="소스 파일\03.Object\Game\Entity\Monster\NormalMonster">
       <UniqueIdentifier>{0626b4bd-cc55-4219-ac52-9907786b5baf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03.Object\Game\Item">
+      <UniqueIdentifier>{a288c316-91d8-49fe-b76b-e109701d7d1d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -243,6 +246,9 @@
     <ClInclude Include="01.Manager\SpawnManager.h">
       <Filter>소스 파일\01.Manager</Filter>
     </ClInclude>
+    <ClInclude Include="03.Object\Item\Item.h">
+      <Filter>소스 파일\03.Object\Game\Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
@@ -370,6 +376,9 @@
     </ClCompile>
     <ClCompile Include="01.Manager\SpawnManager.cpp">
       <Filter>소스 파일\01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Item\Item.cpp">
+      <Filter>소스 파일\03.Object\Game\Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

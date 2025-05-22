@@ -71,7 +71,8 @@ void Player::Update()
 	Super::Update();
 
 	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
-	
+	_sumTime += deltaTime;
+
 	if (_info._isDead)
 	{
 		_isActivity = false;
@@ -87,7 +88,7 @@ void Player::Update()
 		break;
 	}
 
-	Attack();
+	Attack(deltaTime);
 
 }
 
@@ -150,6 +151,25 @@ void Player::OnTriggerEnter(Collider* collider, Collider* other)
 
 void Player::OnTriggerExit(Collider* collider, Collider* other)
 {
+}
+
+void Player::CheckLevelUpExp()
+{
+	while (_info._exp >= _info._maxExp)
+	{
+		LevelUp();
+	}
+}
+
+void Player::LevelUp()
+{
+	_info._level++;
+	_info._exp -= _info._maxExp;
+	_info._maxExp *= static_cast<int32>(_info._maxExp * 1.2f);
+
+	// UI 갱신
+
+	// 무기나 방어구 강화창
 }
 
 void Player::Reset()
@@ -222,9 +242,9 @@ void Player::Idle(float deltaTime)
 	}
 }
 
-void Player::Attack()
+void Player::Attack(float deltaTime)
 {
-	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::LeftMouse))
+	if (_sumTime - _lastAttackTime >=_attackDelayTime )
 	{
 		Bullet* bullet = GET_SINGLE(ObjectPool)->Get<Bullet>(L"Bullet");
 		if (bullet == nullptr)
@@ -236,8 +256,9 @@ void Player::Attack()
 			bullet->SetPos(GetFirePos());
 			bullet->SetDir(GetMousePosToPlayerDir());
 			bullet->SetDmg(_info._atk);
-			//bullet->SetIsActivity(true);
 			GET_SINGLE(ObjectManager)->AddObject(bullet);
 		}
+
+		_lastAttackTime = _sumTime;
 	}
 }
