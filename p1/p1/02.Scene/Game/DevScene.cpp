@@ -6,6 +6,7 @@
 #include "../../01.Manager/ResourceManager.h"
 #include "../../01.Manager/SpawnManager.h"
 #include "../../01.Manager/StageManager.h"
+#include "../../03.Object/Item/Experinence/ExperinenceObject.h"
 #include "../../03.Object/Entity/Player/Player.h"
 #include "../../03.Object/ObjectPool/ObjectPool.h"
 #include "../../03.Object/Spawner/Spawner.h"
@@ -50,15 +51,23 @@ void DevScene::Init()
 	GET_SINGLE(ResourceManager)->LoadTexture(L"ShubangelionLeft", L"Sprite\\Monster\\Shubangelion\\ShubangelionLeft.bmp");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"ShubangelionRight", L"Sprite\\Monster\\Shubangelion\\ShubangelionRight.bmp");
 
+	GET_SINGLE(ResourceManager)->LoadTexture(L"Exp", L"Sprite\\Object\\Exp.bmp");
 
 	GET_SINGLE(ResourceManager)->CreateSprite(L"Stage01", GET_SINGLE(ResourceManager)->GetTexture(L"Stage01"));
+
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Exp01", GET_SINGLE(ResourceManager)->GetTexture(L"Exp"), 0, 0, 16, 18);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Exp02", GET_SINGLE(ResourceManager)->GetTexture(L"Exp"), 16, 0, 16, 18);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Exp03", GET_SINGLE(ResourceManager)->GetTexture(L"Exp"), 32, 0, 16, 18);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Exp04", GET_SINGLE(ResourceManager)->GetTexture(L"Exp"), 48, 0, 16, 18);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Exp05", GET_SINGLE(ResourceManager)->GetTexture(L"Exp"), 64, 0, 16, 18);
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Exp06", GET_SINGLE(ResourceManager)->GetTexture(L"Exp"), 80, 0, 16, 18);
 	
 	{
 		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"Stage01");
 
 		GameObject* background = new GameObject();
 		SpriteRenderer* renderer = new SpriteRenderer();
-		renderer->SetSprtie(sprite);
+		renderer->SetSprite(sprite);
 		background->SetLayer(LAYER_BACKGROUND);
 
 		const Vec2Int size = sprite->GetSize();

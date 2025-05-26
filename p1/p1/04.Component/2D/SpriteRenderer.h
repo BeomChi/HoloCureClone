@@ -13,7 +13,8 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
-	void SetSprtie(Sprite* sprite) { _sprite = sprite; }
+	void SetSprite(Sprite* sprite) { _sprite = sprite; }
+	Sprite* GetSprite() { return _sprite; }
 
 private:
 	Sprite* _sprite = nullptr;

@@ -5,6 +5,8 @@
 #include "../../../01.Manager/ResourceManager.h"
 #include "../../../01.Manager/SceneManager.h"
 #include "../../../01.Manager/SpawnManager.h"
+#include "../../../03.Object/ObjectPool/ObjectPool.h"
+#include "../../../03.Object/Item/Experinence/ExperinenceObject.h"
 #include "../../../04.Component/2D/AnimationComponent.h"
 #include "../../../04.Component/Collision/BoxCollider.h"
 #include "../../../05.Resource/2D/Animator.h"
@@ -29,9 +31,14 @@ void Monster::Update()
 
 	if (_info._isDead)
 	{
-		_isActivity = false;
 		GET_SINGLE(SpawnManager)->SubCurrentSpawnCount();
-		// 게임 매니저에다가 점수 +
+		
+		// 경험치 및 아이템 드랍
+		ExperinenceObject* exp = GET_SINGLE(ObjectPool)->Get<ExperinenceObject>(L"Exp");
+		exp->SetPos(_pos);
+		
+		GET_SINGLE(ObjectManager)->AddObject(exp);
+		_isActivity = false;
 	}
 	
 }

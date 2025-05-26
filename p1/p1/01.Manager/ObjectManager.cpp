@@ -17,6 +17,7 @@ void ObjectManager::UpdateAll()
 		for (GameObject* obj : _objects[i])
 			obj->Update();
 
+
 		for (GameObject* obj : _objects[i])
 		{
 			if (!obj->GetIsActivity())

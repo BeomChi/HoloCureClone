@@ -97,6 +97,9 @@
     <Filter Include="소스 파일\03.Object\Game\Item">
       <UniqueIdentifier>{a288c316-91d8-49fe-b76b-e109701d7d1d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03.Object\Game\Item\Experience">
+      <UniqueIdentifier>{967139fb-6e80-4452-9a33-119c8e3d57fe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -249,6 +252,9 @@
     <ClInclude Include="03.Object\Item\Item.h">
       <Filter>소스 파일\03.Object\Game\Item</Filter>
     </ClInclude>
+    <ClInclude Include="03.Object\Item\Experinence\ExperinenceObject.h">
+      <Filter>소스 파일\03.Object\Game\Item\Experience</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
@@ -379,6 +385,9 @@
     </ClCompile>
     <ClCompile Include="03.Object\Item\Item.cpp">
       <Filter>소스 파일\03.Object\Game\Item</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Item\Experinence\ExperinenceObject.cpp">
+      <Filter>소스 파일\03.Object\Game\Item\Experience</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

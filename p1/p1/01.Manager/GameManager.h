@@ -3,6 +3,16 @@
 
 class Player;
 
+enum class GameState
+{
+	None,
+	Title,
+	InGame,
+	Paused,
+	GameOver,
+	Clear
+};
+
 class GameManager : public Singleton<GameManager>
 {
 	friend class Singleton<GameManager>;
@@ -22,5 +32,7 @@ private:
 	float _playTime = 0.f;
 
 	int32 _stage = 0;
+
+	GameState _state = GameState::None;
 };
 

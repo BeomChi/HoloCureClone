@@ -17,6 +17,7 @@ private:
 private:
 	RECT _rect = {};
 	HDC hdcBack = {};
+		
 	HBITMAP _bmpBack = {};
 
 };

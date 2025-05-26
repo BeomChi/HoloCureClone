@@ -38,7 +38,7 @@ void Bullet::Init()
 		{
 			Sprite* sprtie = GET_SINGLE(ResourceManager)->GetSprite(L"GuraImage");
 			SpriteRenderer* renderer = new SpriteRenderer();
-			renderer->SetSprtie(sprtie);
+			renderer->SetSprite(sprtie);
 
 			AddComponent(renderer);
 		}

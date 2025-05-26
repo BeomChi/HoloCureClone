@@ -2,6 +2,13 @@
 #include "../GameObject.h"
 
 
+enum class ItemType
+{
+	Exp,
+	Heal,
+	Equipment
+};
+
 
 class Item :    public GameObject
 {
@@ -13,5 +20,13 @@ public:
 	virtual void Init() override;
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
+
+
+	ItemType GetItemType() const { return _itemType; }
+
+	void MoveTo(GameObject* obj);
+
+protected:
+	ItemType _itemType;
 };
 
