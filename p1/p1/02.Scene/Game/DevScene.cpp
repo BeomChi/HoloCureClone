@@ -156,6 +156,22 @@ void DevScene::Init()
 		player->SetPos({ 400,400 });
 		GET_SINGLE(ObjectManager)->AddObject(player);
 	}
+	{
+		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"Exp01");
+
+		GameObject* background = new GameObject();
+		SpriteRenderer* renderer = new SpriteRenderer();
+		renderer->SetSprite(sprite);
+		//background->SetLayer(LAYER_BACKGROUND);
+
+		const Vec2Int size = sprite->GetSize();
+
+		background->SetPos({200,200});
+		//background->SetScale({ 2,2 });
+
+		background->AddComponent(renderer);
+		GET_SINGLE(ObjectManager)->AddObject(background);
+	}
 
 	/*{
 		Fubura* monster = GET_SINGLE(ObjectPool)->Get<Fubura>(L"Fubura");

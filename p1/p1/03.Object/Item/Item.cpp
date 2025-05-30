@@ -12,14 +12,17 @@ Item::~Item()
 
 void Item::Init()
 {
+	Super::Init();
 }
 
 void Item::Update()
 {
+	Super::Update();
 }
 
 void Item::Render(HDC hdc)
 {
+	Super::Render(hdc);
 }
 
 void Item::MoveTo(GameObject* obj)
@@ -30,4 +33,9 @@ void Item::MoveTo(GameObject* obj)
 	dir.Normalize();
 
 	_pos += dir * deltatime * 100.f;
+}
+
+void Item::Reset()
+{
+
 }

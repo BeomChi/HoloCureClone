@@ -2,6 +2,7 @@
 #include "ExperinenceObject.h"
 #include "../../../01.Manager/ResourceManager.h"
 #include "../../../01.Manager/SceneManager.h"
+#include "../../../01.Manager/GameManager.h"
 #include "../../../03.Object/Entity/Player/Player.h"
 #include "../../../04.Component/2D/SpriteRenderer.h"
 #include "../../../05.Resource/2D/Sprite.h"
@@ -38,14 +39,19 @@ void ExperinenceObject::Init()
 	AddComponent(sprite);
 
 	_exp = _expArr[rand];
+
+	Super::Init();
 }
 
 void ExperinenceObject::Update()
 {
+	Super::Update();
 }
 
 void ExperinenceObject::Render(HDC hdc)
 {
+	Super::Render(hdc);
+
 	{
 		Vec2 pos = GET_SINGLE(SceneManager)->WorldToScreen(_pos);
 		wstring str = std::format(L"Exp :({0})", _exp);
@@ -57,4 +63,12 @@ void ExperinenceObject::AddToExp(Player* obj)
 {
 	obj->AddExp(_exp);
 	obj->CheckLevelUpExp();
+}
+
+void ExperinenceObject::ApplyEffect()
+{
+	if (_player == nullptr)
+		return;
+
+	AddToExp(_player);
 }

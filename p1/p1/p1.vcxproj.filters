@@ -97,7 +97,13 @@
     <Filter Include="소스 파일\03.Object\Game\Item">
       <UniqueIdentifier>{a288c316-91d8-49fe-b76b-e109701d7d1d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\03.Object\Game\Item\Experience">
+    <Filter Include="소스 파일\03.Object\Game\Item\FieldDrop">
+      <UniqueIdentifier>{68bb9441-8444-4b7a-a579-d57e5925abad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Object\Game\Item\FieldDrop\Heal">
+      <UniqueIdentifier>{de4a39cd-cd4a-4b4e-9fb6-4102ffdaa91b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Object\Game\Item\FieldDrop\Experience">
       <UniqueIdentifier>{967139fb-6e80-4452-9a33-119c8e3d57fe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -253,7 +259,10 @@
       <Filter>소스 파일\03.Object\Game\Item</Filter>
     </ClInclude>
     <ClInclude Include="03.Object\Item\Experinence\ExperinenceObject.h">
-      <Filter>소스 파일\03.Object\Game\Item\Experience</Filter>
+      <Filter>소스 파일\03.Object\Game\Item\FieldDrop\Experience</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Item\Heal\Heal.h">
+      <Filter>소스 파일\03.Object\Game\Item\FieldDrop\Heal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -387,7 +396,10 @@
       <Filter>소스 파일\03.Object\Game\Item</Filter>
     </ClCompile>
     <ClCompile Include="03.Object\Item\Experinence\ExperinenceObject.cpp">
-      <Filter>소스 파일\03.Object\Game\Item\Experience</Filter>
+      <Filter>소스 파일\03.Object\Game\Item\FieldDrop\Experience</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Item\Heal\Heal.cpp">
+      <Filter>소스 파일\03.Object\Game\Item\FieldDrop\Heal</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -16,7 +16,7 @@ public:
 	virtual void Render(HDC hdc) override;
 
 	void AddToExp(Player* obj);
-
+	virtual void ApplyEffect() override;
 private:
 	int _expArr[6] = { 5,10,25,50,75,100 };
 	int _exp = 0;
