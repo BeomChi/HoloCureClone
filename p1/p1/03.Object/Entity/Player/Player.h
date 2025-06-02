@@ -31,6 +31,8 @@ public:
 	void CheckLevelUpExp();
 	void LevelUp();
 
+	void Heal(float heal);
+
 	virtual void Reset() override;
 	
 private:

@@ -32,6 +32,7 @@ void Player::Init()
 	_info._maxHp = _info._currentHp;
 	_info._atk = 5.f;
 	_info._speed = 200.f;
+	_info._maxExp = 10;
 
 
 	_entityType = EntityType::Player;
@@ -165,11 +166,26 @@ void Player::LevelUp()
 {
 	_info._level++;
 	_info._exp -= _info._maxExp;
-	_info._maxExp *= static_cast<int32>(_info._maxExp * 1.2f);
+	_info._maxExp = static_cast<int32>(_info._maxExp * 1.2f);
+	_info._maxHp = static_cast<int32>(_info._maxHp * 1.2f);
+	_info._atk = static_cast<int32>(_info._atk * 1.2f);
+	_info._currentHp = _info._maxHp;
+
+	cout << "현재 최대 경험치 : " << _info._maxExp << endl;
+	cout << "현재 최대 체력 : " << _info._maxHp << endl;
+	cout << "현재 공격력 : " << _info._atk << endl;
 
 	// UI 갱신
 
 	// 무기나 방어구 강화창
+}
+
+void Player::Heal(float heal)
+{
+	_info._currentHp += heal;
+
+	if (_info._currentHp > _info._maxHp)
+		_info._currentHp = _info._maxHp;
 }
 
 void Player::Reset()

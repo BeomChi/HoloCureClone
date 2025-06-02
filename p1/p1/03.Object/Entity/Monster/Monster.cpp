@@ -1,6 +1,7 @@
 #include "../../../pch.h"
 #include "Monster.h"
 #include "../../../01.Manager/CollisionManager.h"
+#include "../../../01.Manager/GameManager.h"
 #include "../../../01.Manager/ObjectManager.h"
 #include "../../../01.Manager/ResourceManager.h"
 #include "../../../01.Manager/SceneManager.h"
@@ -35,6 +36,7 @@ void Monster::Update()
 		
 		// 경험치 및 아이템 드랍
 		ExperinenceObject* exp = GET_SINGLE(ObjectPool)->Get<ExperinenceObject>(L"Exp");
+		exp->SetPlayer(GET_SINGLE(GameManager)->GetPlayer());
 		exp->SetPos(_pos);
 		
 		GET_SINGLE(ObjectManager)->AddObject(exp);

@@ -6,9 +6,9 @@ class AnimationComponent;
 
 struct Info
 {
-	float _currentHp = 0;
-	float _maxHp = 0;
-	float _atk = 0;
+	int32 _currentHp = 0;
+	int32 _maxHp = 0;
+	int32 _atk = 0;
 	float _speed = 0;
 	int32 _exp = 0;
 	int32 _maxExp = 0;

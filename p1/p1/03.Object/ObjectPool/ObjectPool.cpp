@@ -9,6 +9,7 @@
 #include "../Entity/Monster/NormalMonster.h"
 #include "../Projectile/Laser.h"
 #include "../Item/Experinence/ExperinenceObject.h"
+#include "../Item/Heal/Heal.h"
 
 
 void ObjectPool::Init()
@@ -26,6 +27,7 @@ void ObjectPool::Init()
 	ReigsterCreator<Laser>(L"Laser");
 
 	ReigsterCreator<ExperinenceObject>(L"Exp");
+	ReigsterCreator<Heal>(L"Heal");
 
 	
 

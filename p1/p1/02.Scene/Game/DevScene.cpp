@@ -6,6 +6,7 @@
 #include "../../01.Manager/ResourceManager.h"
 #include "../../01.Manager/SpawnManager.h"
 #include "../../01.Manager/StageManager.h"
+#include "../../01.Manager/GameManager.h"
 #include "../../03.Object/Item/Experinence/ExperinenceObject.h"
 #include "../../03.Object/Entity/Player/Player.h"
 #include "../../03.Object/ObjectPool/ObjectPool.h"
@@ -155,6 +156,8 @@ void DevScene::Init()
 		Player* player = GET_SINGLE(ObjectPool)->Get<Player>(L"Player");
 		player->SetPos({ 400,400 });
 		GET_SINGLE(ObjectManager)->AddObject(player);
+		GET_SINGLE(GameManager)->SetPlayer(player);
+
 	}
 	{
 		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"Exp01");

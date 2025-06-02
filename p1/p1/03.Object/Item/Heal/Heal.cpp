@@ -46,6 +46,8 @@ void Heal::Init()
 void Heal::Update()
 {
 	Super::Update();
+
+	PlayerDistance();
 }
 
 void Heal::Render(HDC hdc)
@@ -61,7 +63,7 @@ void Heal::Render(HDC hdc)
 
 void Heal::AddToHeal(Player* obj)
 {
-	
+	obj->Heal(50.f);
 
 }
 

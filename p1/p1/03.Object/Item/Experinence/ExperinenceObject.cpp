@@ -46,6 +46,8 @@ void ExperinenceObject::Init()
 void ExperinenceObject::Update()
 {
 	Super::Update();
+
+	PlayerDistance();
 }
 
 void ExperinenceObject::Render(HDC hdc)

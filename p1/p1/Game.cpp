@@ -71,6 +71,16 @@ void Game::Init(HWND hwnd)
 	HBITMAP prev = (HBITMAP)::SelectObject(hdcBack, _bmpBack); // DC와 BMP를 연결
 	::DeleteObject(prev);
 
+	AllocConsole(); // 콘솔 생성
+	FILE* fp;
+	freopen_s(&fp, "CONOUT$", "w", stdout);  // 표준 출력 연결
+	freopen_s(&fp, "CONIN$", "r", stdin);    // 표준 입력 연결
+	freopen_s(&fp, "CONOUT$", "w", stderr);  // 표준 에러 연결
+
+	cout.clear();  // iostream 상태 초기화
+	cin.clear();
+	cerr.clear();
+
 	GET_SINGLE(TimeManager)->Init();
 	GET_SINGLE(InputManager)->Init(hwnd);
 	GET_SINGLE(ResourceManager)->Init(hwnd, fs::path(L"D:\\gitHub\\C++_WinApi\\HoloCureClone\\p1\\Resource"));

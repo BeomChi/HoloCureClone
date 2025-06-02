@@ -31,11 +31,15 @@ public:
 
 	virtual void ApplyEffect() abstract;
 
+	bool PlayerDistance();
+
 protected:
 	ItemType _itemType;
 	Player* _player = nullptr;
 
-	float _moveSpeed = 100.f;
+	float _moveSpeed = 500.f;
+
+	// 이거 나중에 플레이어나 게임 매니저에서 관리 해주는 걸로
 	float _absorbDistance = 5.f;
 };
 
