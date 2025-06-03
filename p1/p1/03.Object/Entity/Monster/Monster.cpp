@@ -8,6 +8,7 @@
 #include "../../../01.Manager/SpawnManager.h"
 #include "../../../03.Object/ObjectPool/ObjectPool.h"
 #include "../../../03.Object/Item/Experinence/ExperinenceObject.h"
+#include "../../../03.Object/Item/Heal/Heal.h"
 #include "../../../04.Component/2D/AnimationComponent.h"
 #include "../../../04.Component/Collision/BoxCollider.h"
 #include "../../../05.Resource/2D/Animator.h"
@@ -38,8 +39,12 @@ void Monster::Update()
 		ExperinenceObject* exp = GET_SINGLE(ObjectPool)->Get<ExperinenceObject>(L"Exp");
 		exp->SetPlayer(GET_SINGLE(GameManager)->GetPlayer());
 		exp->SetPos(_pos);
-		
 		GET_SINGLE(ObjectManager)->AddObject(exp);
+		
+		Heal* heal = GET_SINGLE(ObjectPool)->Get<Heal>(L"Heal");
+		heal->SetPos(_pos);
+		GET_SINGLE(ObjectManager)->AddObject(heal);
+
 		_isActivity = false;
 	}
 	

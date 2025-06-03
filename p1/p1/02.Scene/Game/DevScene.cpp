@@ -53,6 +53,7 @@ void DevScene::Init()
 	GET_SINGLE(ResourceManager)->LoadTexture(L"ShubangelionRight", L"Sprite\\Monster\\Shubangelion\\ShubangelionRight.bmp");
 
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Exp", L"Sprite\\Object\\Exp.bmp");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"HealObject", L"Sprite\\Object\\Hamburger.bmp");
 
 	GET_SINGLE(ResourceManager)->CreateSprite(L"Stage01", GET_SINGLE(ResourceManager)->GetTexture(L"Stage01"));
 
@@ -145,6 +146,11 @@ void DevScene::Init()
 		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"ShubagelionAttack");
 		Animator* ani = GET_SINGLE(ResourceManager)->CreateAnimator(L"Shubagelion_Attack");
 		ani->SetInfo({ texture, L"Shubagelion_Attack",{128,135}, 0, 9, 0, 1.f });
+	}
+	{
+		Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"HealObject");
+		Animator* ani = GET_SINGLE(ResourceManager)->CreateAnimator(L"HealObject");
+		ani->SetInfo({ texture, L"HealObject",{32,32}, 0, 8, 0, 1.f });
 	}
 
 	GET_SINGLE(SpawnManager)->SetMaxSpawnCount(40);
