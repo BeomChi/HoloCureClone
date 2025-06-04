@@ -106,6 +106,15 @@
     <Filter Include="소스 파일\03.Object\Game\Item\FieldDrop\Experience">
       <UniqueIdentifier>{967139fb-6e80-4452-9a33-119c8e3d57fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03.Object\Game\Item\Equipment">
+      <UniqueIdentifier>{6388439d-8ae5-4668-808e-7ce94d568cc0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Object\Game\Item\Equipment\Weapon">
+      <UniqueIdentifier>{f4f886e1-d4b4-4272-8acc-8527af94e35c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Object\Game\Item\Equipment\Armor">
+      <UniqueIdentifier>{dd20c859-a5d2-4219-b180-1c68e4717856}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -264,6 +273,9 @@
     <ClInclude Include="03.Object\Item\Heal\Heal.h">
       <Filter>소스 파일\03.Object\Game\Item\FieldDrop\Heal</Filter>
     </ClInclude>
+    <ClInclude Include="03.Object\Item\Equipment\Equipment.h">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
@@ -400,6 +412,9 @@
     </ClCompile>
     <ClCompile Include="03.Object\Item\Heal\Heal.cpp">
       <Filter>소스 파일\03.Object\Game\Item\FieldDrop\Heal</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Item\Equipment\Equipment.cpp">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

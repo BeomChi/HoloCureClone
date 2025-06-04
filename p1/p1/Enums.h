@@ -27,6 +27,13 @@ enum class ColliderType
 	Sphere,
 };
 
+enum class Equip
+{
+	Weapon,
+	Armor,
+	None
+};
+
 enum LAYER_TYPE
 {
 	LAYER_BACKGROUND,
