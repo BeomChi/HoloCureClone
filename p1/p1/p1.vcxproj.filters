@@ -276,6 +276,9 @@
     <ClInclude Include="03.Object\Item\Equipment\Equipment.h">
       <Filter>소스 파일\03.Object\Game\Item\Equipment</Filter>
     </ClInclude>
+    <ClInclude Include="03.Object\Item\Equipment\Weapon\PistolShoot.h">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Armor</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
@@ -415,6 +418,9 @@
     </ClCompile>
     <ClCompile Include="03.Object\Item\Equipment\Equipment.cpp">
       <Filter>소스 파일\03.Object\Game\Item\Equipment</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Item\Equipment\Weapon\PistolShoot.cpp">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Armor</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

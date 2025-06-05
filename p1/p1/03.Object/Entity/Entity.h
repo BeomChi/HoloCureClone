@@ -13,6 +13,7 @@ struct Info
 	int32 _exp = 0;
 	int32 _maxExp = 0;
 	int32 _level = 1;
+	float _dmgMultiplier = 1;
 
 	bool _isDead = false;
 };

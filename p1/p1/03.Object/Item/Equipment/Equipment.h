@@ -20,17 +20,30 @@ struct EquipInfo
 	int32 _count = 1;		// 생성 갯수
 	int32 _dmg = 0;			// 데미지
 
-	float _range = 1;
-	float _dmg = 0;
-	float _delay = 0;
-	float _coolTime = 0;
+	float _range = 1;			// 공격 범위		
+	float _attackDelay = 0;		// 공격 주기
+	float _coolTime = 0;		// 공격 쿨타임
+	float _dmgMultiplier = 1;	// 데미지 배율
+};
+
+enum class EffectType
+{
+	DamageBoost,
+	IncreaseProjectileCount,
+	PierceCountUp,
+	BounceOnMaxPierce,
+	AttackSpeedUp,
+	DelayedDamage,
+	None
 };
 
 struct EquipEffect {
-	float dmgMultiplier;		// 데미지 배율
-	float rangeBonus;			// 공격 범위
-	float cooldownReduction;	// 쿨타임
-	float _attackDelay;			// 데미지 딜레이 시간
+	EffectType _type = EffectType::None;
+
+	float _value = 0.f;		// 예: 대미지 20% → 0.2, 공격속도 25% → 0.25
+	int _intValue = 0;		// 예: 탄환 수 증가, 관통 수 증가
+
+	std::string _desc;		// UI 툴팁에 쓸 설명
 };
 
 
@@ -62,6 +75,11 @@ public:
 
 	// 장비 업그레이드
 	virtual void UpgradeEquip(Player& player);
+
+	void ApplyEffectByLevel(int32 level);
+
+
+	int32 CalculateDamge();
 
 protected:
 	EquipInfo _info;								// 장비 정보

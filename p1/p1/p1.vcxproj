@@ -153,6 +153,7 @@
     <ClInclude Include="03.Object\Entity\Player\Player.h" />
     <ClInclude Include="03.Object\GameObject.h" />
     <ClInclude Include="03.Object\Item\Equipment\Equipment.h" />
+    <ClInclude Include="03.Object\Item\Equipment\Weapon\PistolShoot.h" />
     <ClInclude Include="03.Object\Item\Experinence\ExperinenceObject.h" />
     <ClInclude Include="03.Object\Item\Heal\Heal.h" />
     <ClInclude Include="03.Object\Item\Item.h" />
@@ -206,6 +207,7 @@
     <ClCompile Include="03.Object\Entity\Player\Player.cpp" />
     <ClCompile Include="03.Object\GameObject.cpp" />
     <ClCompile Include="03.Object\Item\Equipment\Equipment.cpp" />
+    <ClCompile Include="03.Object\Item\Equipment\Weapon\PistolShoot.cpp" />
     <ClCompile Include="03.Object\Item\Experinence\ExperinenceObject.cpp" />
     <ClCompile Include="03.Object\Item\Heal\Heal.cpp" />
     <ClCompile Include="03.Object\Item\Item.cpp" />

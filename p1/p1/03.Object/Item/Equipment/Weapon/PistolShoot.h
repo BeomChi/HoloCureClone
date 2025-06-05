@@ -1,0 +1,33 @@
+#pragma once
+#include "../Equipment.h"
+
+
+class PistolShoot :    public Equipment
+{
+	using Super = Item;
+public:
+	PistolShoot();
+	virtual ~PistolShoot() override;
+
+	virtual void Init() override;
+	virtual void Update() override;
+	virtual void Render(HDC hdc) override;
+
+	// 장비 착용 시 패시브 효과 적용
+	virtual void OnEquipEffect(Player& player) override;
+
+	// 장비 해제 시 효과 제거
+	virtual void OnUnequipEffect(Player& player) override;
+
+	Vec2 GetFirePos();
+	Vec2 GetMousePosToPlayerDir();
+
+private:
+	bool _fire = false;
+	int32 _fireCount = 0;
+	float _sumTime = 0;
+
+	float _firePosLength = 30;
+	float _lastAttackTime = 0;
+};
+
