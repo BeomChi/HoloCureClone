@@ -22,6 +22,12 @@ void PistolShoot::Init()
 {
 	SetEquipInfo({ 1,7,3,0,1,0,3,1 });
 
+	_levelEffects[1] = EquipEffect{
+	EffectType::None,
+	0.f,
+	0,
+	"아메의 기본 무기."
+	};
 	_levelEffects[2] = EquipEffect{
 	EffectType::IncreaseProjectileCount,
 	0.f,
