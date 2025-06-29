@@ -1,4 +1,4 @@
-#include "../../../pch.h"
+#include "pch.h"
 #include "Monster.h"
 #include "../../../01.Manager/CollisionManager.h"
 #include "../../../01.Manager/GameManager.h"
@@ -24,6 +24,8 @@ Monster::~Monster()
 void Monster::Init()
 {
 	InitCommon();
+	_aniSpawn = GET_SINGLE(ResourceManager)->GetAnimator(L"FanSpawn");
+	_aniDie = GET_SINGLE(ResourceManager)->GetAnimator(L"FanDie");
 }
 
 void Monster::Update()
@@ -33,19 +35,26 @@ void Monster::Update()
 
 	if (_info._isDead)
 	{
-		GET_SINGLE(SpawnManager)->SubCurrentSpawnCount();
 		
-		// 경험치 및 아이템 드랍
-		ExperinenceObject* exp = GET_SINGLE(ObjectPool)->Get<ExperinenceObject>(L"Exp");
-		exp->SetPlayer(GET_SINGLE(GameManager)->GetPlayer());
-		exp->SetPos(_pos);
-		GET_SINGLE(ObjectManager)->AddObject(exp);
-		
-		Heal* heal = GET_SINGLE(ObjectPool)->Get<Heal>(L"Heal");
-		heal->SetPos(_pos);
-		GET_SINGLE(ObjectManager)->AddObject(heal);
+		SetState(State::Die);
 
-		_isActivity = false;
+		if (_ani->CheckCurrentAnimationEnd())
+		{
+			GET_SINGLE(SpawnManager)->SubCurrentSpawnCount();
+
+			// 경험치 및 아이템 드랍
+			ExperinenceObject* exp = GET_SINGLE(ObjectPool)->Get<ExperinenceObject>(L"Exp");
+			exp->SetPlayer(GET_SINGLE(GameManager)->GetPlayer());
+			exp->SetPos(_pos);
+			GET_SINGLE(ObjectManager)->AddObject(exp);
+
+			Heal* heal = GET_SINGLE(ObjectPool)->Get<Heal>(L"Heal");
+			heal->SetPlayer(GET_SINGLE(GameManager)->GetPlayer());
+			heal->SetPos(_pos);
+			GET_SINGLE(ObjectManager)->AddObject(heal);
+
+			_isActivity = false;
+		}
 	}
 	
 }

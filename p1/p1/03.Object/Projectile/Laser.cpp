@@ -1,4 +1,4 @@
-#include "../../pch.h"
+#include "pch.h"
 #include "Laser.h"
 #include "../../01.Manager/ResourceManager.h"
 #include "../../01.Manager/TimeManager.h"
@@ -21,11 +21,11 @@ Laser::~Laser()
 
 void Laser::Init()
 {
-	_laser[CHARGE] = GET_SINGLE(ResourceManager)->GetAnimator(L"FuburaLaserStart");
+	_laser[START] = GET_SINGLE(ResourceManager)->GetAnimator(L"FuburaLaserStart");
 	_laser[ATTACK] = GET_SINGLE(ResourceManager)->GetAnimator(L"FuburaLaser");
 
 	_ani = new AnimationComponent();
-	_ani->SetAnimation(_laser[CHARGE]);
+	_ani->SetAnimation(_laser[START]);
 
 	BoxCollider* boxCollider = new BoxCollider();
 	boxCollider->SetShowDebug(true);
@@ -47,6 +47,7 @@ void Laser::Update()
 	Super::Update();
 
 	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	_sumTime += deltaTime;
 	_info._time += deltaTime;
 
 	if (_info._time >= _info._duration)
@@ -87,7 +88,7 @@ void Laser::OnTriggerStay(Collider* collider, Collider* other)
 
 	if (other->GetOwner()->GetEntityType() == EntityType::Player)
 	{
-		_sumTime += GET_SINGLE(TimeManager)->GetDeltaTime();
+		//_sumTime += GET_SINGLE(TimeManager)->GetDeltaTime();
 
 		if (_sumTime >= 1.f)
 		{
@@ -119,7 +120,7 @@ void Laser::UpdateAnimation()
 	switch(_state)
 	{
 	case LaserState::Start:
-		_ani->SetAnimation(_laser[CHARGE]);
+		_ani->SetAnimation(_laser[START]);
 		break;
 	case LaserState::Fire:
 		_ani->SetAnimation(_laser[ATTACK]);

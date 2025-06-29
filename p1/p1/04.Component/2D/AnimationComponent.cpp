@@ -1,4 +1,4 @@
-#include "../../pch.h"
+#include "pch.h"
 #include "AnimationComponent.h"
 #include "../../05.Resource/2D/Animator.h"
 #include "../../05.Resource/2D/Texture.h"

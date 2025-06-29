@@ -1,5 +1,6 @@
-#include "../../pch.h"
+#include "pch.h"
 #include "Entity.h"
+#include "../../01.Manager/ResourceManager.h"
 #include "../../04.Component/2D/AnimationComponent.h"
 
 Entity::Entity() 
@@ -13,6 +14,7 @@ Entity::~Entity()
 void Entity::Init()
 {
 	Super::Init();
+	
 }
 
 void Entity::Update()
@@ -22,6 +24,7 @@ void Entity::Update()
 	if (_info._currentHp <= 0)
 	{
 		_info._isDead = true;
+		SetState(State::Die);
 	}
 }
 
@@ -69,7 +72,8 @@ void Entity::UpdateAnimation()
 		break;
 	case State::Attack:
 		_ani->SetAnimation(_aniAttack[_attack]);
-	case State::Watch:
+	case State::Spawn:
+		_ani->SetAnimation(_aniSpawn);
 		break;
 	}
 }

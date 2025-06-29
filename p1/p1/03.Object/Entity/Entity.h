@@ -23,7 +23,8 @@ enum class State
 	Idle,
 	Move,
 	Attack,
-	Watch,
+	Spawn,
+	Die,
 };
 
 class Entity : public GameObject
@@ -44,6 +45,8 @@ public:
 	void SetDir(Dir dir);
 	void SetenumAttack(enumAttack attack);
 
+	Dir GetDir() { return _dir; }
+
 	void UpdateAnimation();
 
 	virtual void Reset() override;
@@ -52,11 +55,13 @@ protected:
 	Info _info;
 	State _state = State::Idle;
 	Dir _dir = DIR_LEFT;
-	enumAttack _attack = CHARGE;
+	enumAttack _attack = START;
 
 	Animator* _aniIdle[2] = {};
 	Animator* _aniMove[2] = {};
 	Animator* _aniAttack[2] = {};
+	Animator* _aniSpawn = {};
+	Animator* _aniDie = {};
 
 	AnimationComponent* _ani = nullptr;
 };

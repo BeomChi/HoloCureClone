@@ -1,4 +1,4 @@
-#include "../../pch.h"
+#include "pch.h"
 #include "CameraComponent.h"
 #include "../../03.Object/GameObject.h"
 #include "../../01.Manager/SceneManager.h"

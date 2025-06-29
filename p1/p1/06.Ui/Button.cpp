@@ -1,4 +1,4 @@
-#include "../pch.h"
+#include "pch.h"
 #include "Button.h"
 #include "../01.Manager/InputManager.h"
 #include "../01.Manager/TimeManager.h"

@@ -1,4 +1,4 @@
-#include "../../../pch.h"
+#include "pch.h"
 #include "Heal.h"
 #include "../../../01.Manager/ResourceManager.h"
 #include "../../../01.Manager/SceneManager.h"

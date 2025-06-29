@@ -1,4 +1,4 @@
-#include "../../pch.h"
+#include "pch.h"
 #include "Spawner.h"
 #include "../../01.Manager/TimeManager.h"
 #include "../../01.Manager/ObjectManager.h"
@@ -40,6 +40,7 @@ void Spawner::NormalMonsterSpawn()
 
 	NormalMonster* monster = GET_SINGLE(ObjectPool)->Get<NormalMonster>(L"NormalMonster");
 	monster->SetPos({ pos.x,pos.y });
+	monster->SetState(State::Spawn);
 	GET_SINGLE(ObjectManager)->AddObject(monster);
 
 	GET_SINGLE(SpawnManager)->AddCurrentSpawnCount();
@@ -56,6 +57,7 @@ void Spawner::SpawnMidleBoss(int32 Stage)
 
 	NormalMonster* monster = GET_SINGLE(ObjectPool)->Get<NormalMonster>(L"Fubura");
 	monster->SetPos({ pos.x,pos.y });
+	monster->SetState(State::Spawn);
 	GET_SINGLE(ObjectManager)->AddObject(monster);
 
 	GET_SINGLE(SpawnManager)->AddCurrentSpawnCount();

@@ -1,4 +1,4 @@
-#include "../pch.h"
+#include "pch.h"
 #include "StageManager.h"
 #include "TimeManager.h"
 #include "SpawnManager.h"

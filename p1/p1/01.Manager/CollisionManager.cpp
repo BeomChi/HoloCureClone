@@ -1,4 +1,4 @@
-#include "../pch.h"
+#include "pch.h"
 #include "CollisionManager.h"
 #include "../04.Component/Collision/Collider.h"
 #include "../03.Object/GameObject.h"
@@ -23,6 +23,15 @@ void CollisionManager::Update()
 		{
 			Collider* src = col[i];
 			Collider* dest = col[j];
+
+			// 몬스터끼리 충돌 무시
+			if (src->GetOwner()->GetEntityType() == EntityType::Monster
+				&& dest->GetOwner()->GetEntityType() == EntityType::Monster)
+				continue;
+
+			// 비활성 상태이면 충돌 무시
+			if (!src->GetOwner()->GetIsActivity() || dest->GetOwner()->GetIsActivity())
+				continue;
 
 			if (src->CheckCollision(dest))
 			{

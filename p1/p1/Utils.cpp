@@ -33,3 +33,4 @@ void Utils::DrawLineColored(HDC hdc, Pos from, Pos to, COLORREF color)
 	::SelectObject(hdc, oldPen);
 	::DeleteObject(pen);
 }
+

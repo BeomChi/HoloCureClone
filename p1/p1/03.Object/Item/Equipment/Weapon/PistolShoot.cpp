@@ -1,4 +1,4 @@
-#include "../../../../pch.h"
+#include "pch.h"
 #include "PistolShoot.h"
 #include "../../../../01.Manager/InputManager.h"
 #include "../../../../01.Manager/TimeManager.h"
@@ -20,7 +20,7 @@ PistolShoot::~PistolShoot()
 
 void PistolShoot::Init()
 {
-	SetEquipInfo({ 1,7,3,0,1,0,3,1 });
+	SetEquipInfo({ L"PistolShoot",1,7,3,0,1,0,3,1});
 
 	_levelEffects[1] = EquipEffect{
 	EffectType::None,
@@ -121,11 +121,19 @@ Vec2 PistolShoot::GetMousePosToPlayerDir()
 	Vec2 Pos = GET_SINGLE(SceneManager)->ScreenToWorld(mousePos);
 	Vector firePos = GET_SINGLE(GameManager)->GetPlayer()->GetPos();
 
-	float dirX = Pos.x - _pos.x;
-	float dirY = Pos.y - _pos.y;
+	float dirX = Pos.x - firePos.x;
+	float dirY = Pos.y - firePos.y;
 
 	Vector dir = { dirX,dirY };
 	dir.Normalize();
 
 	return dir;
+}
+
+void PistolShoot::ApplyEffect()
+{
+}
+
+void PistolShoot::UseAbility(const Player& player)
+{
 }

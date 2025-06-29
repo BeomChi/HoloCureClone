@@ -37,6 +37,7 @@ enum class Equip
 enum LAYER_TYPE
 {
 	LAYER_BACKGROUND,
+	LAYER_AREAATTACK,
 	LAYER_OBJECT,
 	LAYER_UI,
 
@@ -51,6 +52,7 @@ enum Dir
 
 enum enumAttack
 {
-	CHARGE,
+	START,
 	ATTACK,
+	END
 };

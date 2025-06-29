@@ -1,4 +1,4 @@
-#include "../pch.h"
+#include "pch.h"
 #include "SceneManager.h"
 #include "../02.Scene/Game/DevScene.h"
 #include "../02.Scene/Game/StartScene.h"

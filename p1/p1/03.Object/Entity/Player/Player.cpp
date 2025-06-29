@@ -1,4 +1,4 @@
-#include "../../../pch.h"
+#include "pch.h"
 #include "Player.h"
 #include "../../../01.Manager/InputManager.h"
 #include "../../../01.Manager/TimeManager.h"
@@ -8,6 +8,7 @@
 #include "../../../01.Manager/CollisionManager.h"
 #include "../../Projectile/Bullet.h"
 #include "../../ObjectPool/ObjectPool.h"
+#include "../../Item/Equipment/Equipment.h"
 #include "../../../04.Component/Collision/BoxCollider.h"
 #include "../../../04.Component/Camera/CameraComponent.h"
 #include "../../../04.Component/2D/AnimationComponent.h"
@@ -19,6 +20,7 @@ Player::Player()
 	_aniIdle[DIR_RIGHT] = GET_SINGLE(ResourceManager)->GetAnimator(L"Gura_IdleRight");
 	_aniMove[DIR_LEFT] = GET_SINGLE(ResourceManager)->GetAnimator(L"GuraMoveLeft");
 	_aniMove[DIR_RIGHT] = GET_SINGLE(ResourceManager)->GetAnimator(L"GuraMoveRight");
+	_aniDie = GET_SINGLE(ResourceManager)->GetAnimator(L"PlayerDie");
 }
 
 Player::~Player()
@@ -59,8 +61,8 @@ void Player::Init()
 		GET_SINGLE(CollisionManager)->AddCollider(boxCollider);
 	}
 	{
-		CameraComponent* camera = new CameraComponent();
-		AddComponent(camera);
+		//CameraComponent* camera = new CameraComponent();
+		//AddComponent(camera);
 	}
 
 	// 컴포넌트 Init
@@ -76,7 +78,11 @@ void Player::Update()
 
 	if (_info._isDead)
 	{
-		_isActivity = false;
+		SetState(State::Die);
+		if (_ani->CheckCurrentAnimationEnd())
+		{
+			_isActivity = false;
+		}
 	}
 
 	switch (_state)
@@ -89,25 +95,14 @@ void Player::Update()
 		break;
 	}
 
-	Attack(deltaTime);
+	//UpdateEquipments();
+	//Attack(deltaTime);
 
 }
 
 void Player::Render(HDC hdc)
 {
 	Super::Render(hdc);
-	//// 현재 플레이어 좌표
-	/*{
-		wstring str = std::format(L"플레이어 위치({0}, {1})", _pos.x,_pos.y);
-		::TextOut(hdc, GWinSizeX / 2, 10, str.c_str(), static_cast<int32>(str.size()));
-	}*/
-
-	//// 총구 위치
-	//{
-	//	Vec2 a = GetFirePos();
-	//	wstring str = std::format(L"총구 위치({0}, {1})", a.x, a.y);
-	//	::TextOut(hdc, GWinSizeX / 2, 30, str.c_str(), static_cast<int32>(str.size()));
-	//}
 	{
 		Vec2 pos = GET_SINGLE(SceneManager)->WorldToScreen(_pos);
 		wstring str = std::format(L"Player :({0})", _info._currentHp);
@@ -191,6 +186,21 @@ void Player::Heal(float heal)
 void Player::Reset()
 {
 }
+
+//void Player::AddEquiment(Equipment* equip)
+//{
+//	_equipments.push_back(equip);
+//	equip->OnEquipEffect(*this);
+//}
+//
+//void Player::UpdateEquipments()
+//{
+//	for (auto equip : _equipments)
+//	{
+//		if (equip)
+//			equip->Update(); // 무기 사용 로직 등
+//	}
+//}
 
 
 

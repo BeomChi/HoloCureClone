@@ -115,6 +115,9 @@
     <Filter Include="소스 파일\03.Object\Game\Item\Equipment\Armor">
       <UniqueIdentifier>{dd20c859-a5d2-4219-b180-1c68e4717856}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03.Object\Game\Camera">
+      <UniqueIdentifier>{ffa1a873-aaed-423b-8130-449a5dba4a40}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -276,8 +279,41 @@
     <ClInclude Include="03.Object\Item\Equipment\Equipment.h">
       <Filter>소스 파일\03.Object\Game\Item\Equipment</Filter>
     </ClInclude>
+    <ClInclude Include="03.Object\Camera\Camera.h">
+      <Filter>소스 파일\03.Object\Game\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Projectile\Lava.h">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClInclude>
     <ClInclude Include="03.Object\Item\Equipment\Weapon\PistolShoot.h">
-      <Filter>소스 파일\03.Object\Game\Item\Equipment\Armor</Filter>
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Item\Equipment\Weapon\EliteLavaBucket.h">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Projectile\BLBookObj.h">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Item\Equipment\Weapon\BLBook.h">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\EquipmentManager.h">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="06.Ui\Image.h">
+      <Filter>소스 파일\06.Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Projectile\EnCurseObj.h">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Item\Equipment\Weapon\EnCurse.h">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Projectile\Miasma.h">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Item\Equipment\Weapon\SpiderCooking.h">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -419,8 +455,41 @@
     <ClCompile Include="03.Object\Item\Equipment\Equipment.cpp">
       <Filter>소스 파일\03.Object\Game\Item\Equipment</Filter>
     </ClCompile>
+    <ClCompile Include="03.Object\Camera\Camera.cpp">
+      <Filter>소스 파일\03.Object\Game\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Projectile\Lava.cpp">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClCompile>
     <ClCompile Include="03.Object\Item\Equipment\Weapon\PistolShoot.cpp">
-      <Filter>소스 파일\03.Object\Game\Item\Equipment\Armor</Filter>
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Item\Equipment\Weapon\EliteLavaBucket.cpp">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Projectile\BLBookObj.cpp">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Item\Equipment\Weapon\BLBook.cpp">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\EquipmentManager.cpp">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="06.Ui\Image.cpp">
+      <Filter>소스 파일\06.Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Projectile\EnCurseObj.cpp">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Item\Equipment\Weapon\EnCurse.cpp">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Projectile\Miasma.cpp">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Item\Equipment\Weapon\SpiderCooking.cpp">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

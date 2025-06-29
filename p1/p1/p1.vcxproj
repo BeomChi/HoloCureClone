@@ -104,9 +104,10 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalIncludeDirectories>D:\gitHub\C++_WinApi\HoloCureClone\p1\p1;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -133,6 +134,7 @@
     <ClInclude Include="00.MainGame\Game.h" />
     <ClInclude Include="00.MainGame\p1.h" />
     <ClInclude Include="01.Manager\CollisionManager.h" />
+    <ClInclude Include="01.Manager\EquipmentManager.h" />
     <ClInclude Include="01.Manager\GameManager.h" />
     <ClInclude Include="01.Manager\InputManager.h" />
     <ClInclude Include="01.Manager\ObjectManager.h" />
@@ -145,6 +147,7 @@
     <ClInclude Include="02.Scene\Game\DevScene.h" />
     <ClInclude Include="02.Scene\Game\StartScene.h" />
     <ClInclude Include="02.Scene\Scene.h" />
+    <ClInclude Include="03.Object\Camera\Camera.h" />
     <ClInclude Include="03.Object\Entity\Entity.h" />
     <ClInclude Include="03.Object\Entity\Monster\Monster.h" />
     <ClInclude Include="03.Object\Entity\Monster\Fubura.h" />
@@ -153,14 +156,22 @@
     <ClInclude Include="03.Object\Entity\Player\Player.h" />
     <ClInclude Include="03.Object\GameObject.h" />
     <ClInclude Include="03.Object\Item\Equipment\Equipment.h" />
+    <ClInclude Include="03.Object\Item\Equipment\Weapon\BLBook.h" />
+    <ClInclude Include="03.Object\Item\Equipment\Weapon\EliteLavaBucket.h" />
+    <ClInclude Include="03.Object\Item\Equipment\Weapon\EnCurse.h" />
     <ClInclude Include="03.Object\Item\Equipment\Weapon\PistolShoot.h" />
+    <ClInclude Include="03.Object\Item\Equipment\Weapon\SpiderCooking.h" />
     <ClInclude Include="03.Object\Item\Experinence\ExperinenceObject.h" />
     <ClInclude Include="03.Object\Item\Heal\Heal.h" />
     <ClInclude Include="03.Object\Item\Item.h" />
     <ClInclude Include="03.Object\ObjectFactory.h" />
     <ClInclude Include="03.Object\ObjectPool\ObjectPool.h" />
+    <ClInclude Include="03.Object\Projectile\BLBookObj.h" />
     <ClInclude Include="03.Object\Projectile\Bullet.h" />
+    <ClInclude Include="03.Object\Projectile\EnCurseObj.h" />
     <ClInclude Include="03.Object\Projectile\Laser.h" />
+    <ClInclude Include="03.Object\Projectile\Lava.h" />
+    <ClInclude Include="03.Object\Projectile\Miasma.h" />
     <ClInclude Include="03.Object\Spawner\Spawner.h" />
     <ClInclude Include="04.Component\2D\AnimationComponent.h" />
     <ClInclude Include="04.Component\2D\SpriteRenderer.h" />
@@ -174,6 +185,7 @@
     <ClInclude Include="05.Resource\2D\Texture.h" />
     <ClInclude Include="05.Resource\ResourceBase.h" />
     <ClInclude Include="06.Ui\Button.h" />
+    <ClInclude Include="06.Ui\Image.h" />
     <ClInclude Include="06.Ui\Ui.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="Enums.h" />
@@ -187,6 +199,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="01.Manager\CollisionManager.cpp" />
+    <ClCompile Include="01.Manager\EquipmentManager.cpp" />
     <ClCompile Include="01.Manager\GameManager.cpp" />
     <ClCompile Include="01.Manager\InputManager.cpp" />
     <ClCompile Include="01.Manager\ObjectManager.cpp" />
@@ -199,6 +212,7 @@
     <ClCompile Include="02.Scene\Game\DevScene.cpp" />
     <ClCompile Include="02.Scene\Game\StartScene.cpp" />
     <ClCompile Include="02.Scene\Scene.cpp" />
+    <ClCompile Include="03.Object\Camera\Camera.cpp" />
     <ClCompile Include="03.Object\Entity\Entity.cpp" />
     <ClCompile Include="03.Object\Entity\Monster\Monster.cpp" />
     <ClCompile Include="03.Object\Entity\Monster\Fubura.cpp" />
@@ -207,14 +221,22 @@
     <ClCompile Include="03.Object\Entity\Player\Player.cpp" />
     <ClCompile Include="03.Object\GameObject.cpp" />
     <ClCompile Include="03.Object\Item\Equipment\Equipment.cpp" />
+    <ClCompile Include="03.Object\Item\Equipment\Weapon\BLBook.cpp" />
+    <ClCompile Include="03.Object\Item\Equipment\Weapon\EliteLavaBucket.cpp" />
+    <ClCompile Include="03.Object\Item\Equipment\Weapon\EnCurse.cpp" />
     <ClCompile Include="03.Object\Item\Equipment\Weapon\PistolShoot.cpp" />
+    <ClCompile Include="03.Object\Item\Equipment\Weapon\SpiderCooking.cpp" />
     <ClCompile Include="03.Object\Item\Experinence\ExperinenceObject.cpp" />
     <ClCompile Include="03.Object\Item\Heal\Heal.cpp" />
     <ClCompile Include="03.Object\Item\Item.cpp" />
     <ClCompile Include="03.Object\ObjectFactory.cpp" />
     <ClCompile Include="03.Object\ObjectPool\ObjectPool.cpp" />
+    <ClCompile Include="03.Object\Projectile\BLBookObj.cpp" />
     <ClCompile Include="03.Object\Projectile\Bullet.cpp" />
+    <ClCompile Include="03.Object\Projectile\EnCurseObj.cpp" />
     <ClCompile Include="03.Object\Projectile\Laser.cpp" />
+    <ClCompile Include="03.Object\Projectile\Lava.cpp" />
+    <ClCompile Include="03.Object\Projectile\Miasma.cpp" />
     <ClCompile Include="03.Object\Spawner\Spawner.cpp" />
     <ClCompile Include="04.Component\2D\AnimationComponent.cpp" />
     <ClCompile Include="04.Component\2D\SpriteRenderer.cpp" />
@@ -228,11 +250,12 @@
     <ClCompile Include="05.Resource\2D\Texture.cpp" />
     <ClCompile Include="05.Resource\ResourceBase.cpp" />
     <ClCompile Include="06.Ui\Button.cpp" />
+    <ClCompile Include="06.Ui\Image.cpp" />
     <ClCompile Include="06.Ui\Ui.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="p1.cpp" />
     <ClCompile Include="pch.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Utils.cpp" />
   </ItemGroup>

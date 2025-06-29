@@ -1,4 +1,4 @@
-#include "../../../pch.h"
+#include "pch.h"
 #include "Shubangelion.h"
 #include "../../../01.Manager/TimeManager.h"
 #include "../../../01.Manager/ResourceManager.h"
@@ -26,13 +26,13 @@ void Shubangelion::Init()
 	_aniMove[DIR_LEFT] = GET_SINGLE(ResourceManager)->GetAnimator(L"Shubangelion_MoveLeft");
 	_aniMove[DIR_RIGHT] = GET_SINGLE(ResourceManager)->GetAnimator(L"Shubangelion_MoveRight");
 
-	_aniAttack[CHARGE] = GET_SINGLE(ResourceManager)->GetAnimator(L"Shubangelion_Charge");
+	_aniAttack[START] = GET_SINGLE(ResourceManager)->GetAnimator(L"Shubangelion_Charge");
 	_aniAttack[ATTACK] = GET_SINGLE(ResourceManager)->GetAnimator(L"Shubagelion_Attack");
 
 	_ani = new AnimationComponent();
 	_ani->SetAnimation(_aniIdle[_dir]);
 	SetState(State::Move);
-	_attack = CHARGE;
+	_attack = START;
 
 	_score = 500;
 
@@ -61,6 +61,12 @@ void Shubangelion::Update()
 	case State::Attack:
 		Attack(deltaTime);
 		break;
+	case State::Spawn:
+		if (_ani->CheckCurrentAnimationEnd())
+		{
+			SetState(State::Move);
+		}
+		break;
 	}
 	
 }
@@ -83,7 +89,7 @@ void Shubangelion::InitStat()
 void Shubangelion::Reset()
 {
 	SetState(State::Move);
-	_attack = CHARGE;
+	_attack = START;
 	InitStat();
 }
 

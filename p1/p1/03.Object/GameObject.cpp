@@ -1,4 +1,4 @@
-#include "../pch.h"
+#include "pch.h"
 #include "GameObject.h"
 #include "../04.Component/Component.h"
 #include "../01.Manager/CollisionManager.h"

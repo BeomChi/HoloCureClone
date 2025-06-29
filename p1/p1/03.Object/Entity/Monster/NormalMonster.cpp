@@ -1,4 +1,4 @@
-#include "../../../pch.h"
+#include "pch.h"
 #include "NormalMonster.h"
 #include "../../../01.Manager/TimeManager.h"
 #include "../../../01.Manager/ResourceManager.h"
@@ -68,6 +68,12 @@ void NormalMonster::Update()
 		break;
 	case State::Attack:
 		Attack(deltaTime);
+		break;
+	case State::Spawn:
+		if (_ani->CheckCurrentAnimationEnd())
+		{
+			SetState(State::Move);
+		}
 		break;
 	}
 	

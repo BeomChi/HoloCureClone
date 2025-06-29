@@ -15,6 +15,7 @@ enum class KeyType
 	KEY_2 = '2',
 	KEY_3 = '3',
 	KEY_4 = '4',
+	KEY_0 = '0',
 
 	W = 'W',
 	A = 'A',

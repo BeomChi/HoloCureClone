@@ -1,4 +1,4 @@
-#include "../pch.h"
+#include "pch.h"
 #include "ObjectManager.h"
 #include "../03.Object/GameObject.h"
 #include "../03.Object/ObjectPool/ObjectPool.h"
@@ -32,6 +32,7 @@ void ObjectManager::UpdateAll()
 
 		_objects[i].insert(_objects[i].end(),
 			_pendingObjects[i].begin(), _pendingObjects[i].end());
+
 		_pendingObjects[i].clear();
 	}
 }
@@ -69,5 +70,4 @@ void ObjectManager::RemoveObject(GameObject* object)
 void ObjectManager::AddObject(GameObject* object)
 {
 	_pendingObjects[object->GetLayer()].push_back(object);
-	int a = 0;
 }

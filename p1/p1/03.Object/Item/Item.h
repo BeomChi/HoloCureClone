@@ -7,7 +7,8 @@ enum class ItemType
 {
 	Exp,
 	Heal,
-	Equipment
+	Equipment,
+	None
 };
 
 

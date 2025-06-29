@@ -29,5 +29,11 @@ private:
 
 	float _firePosLength = 30;
 	float _lastAttackTime = 0;
+
+	//Vec2 _pos = {};
+
+	// Equipment을(를) 통해 상속됨
+	virtual void ApplyEffect() override;
+	virtual void UseAbility(const Player& player) override;
 };
 

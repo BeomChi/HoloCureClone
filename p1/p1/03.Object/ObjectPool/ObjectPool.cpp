@@ -1,4 +1,4 @@
-#include "../../pch.h"
+#include "pch.h"
 #include "ObjectPool.h"
 #include "../GameObject.h"
 #include "../ObjectFactory.h"
@@ -8,6 +8,9 @@
 #include "../Entity/Monster/Shubangelion.h"
 #include "../Entity/Monster/NormalMonster.h"
 #include "../Projectile/Laser.h"
+#include "../Projectile/Lava.h"
+#include "../Projectile/BLBookObj.h"
+#include "../Projectile/EnCurseObj.h"
 #include "../Item/Experinence/ExperinenceObject.h"
 #include "../Item/Heal/Heal.h"
 
@@ -25,6 +28,10 @@ void ObjectPool::Init()
 	ReigsterCreator<NormalMonster>(L"NormalMonster");
 
 	ReigsterCreator<Laser>(L"Laser");
+	ReigsterCreator<Lava>(L"Lava");
+
+	ReigsterCreator<BLBookObj>(L"BLBook");
+	ReigsterCreator<EnCurseObj>(L"EnCurseObj");
 
 	ReigsterCreator<ExperinenceObject>(L"Exp");
 	ReigsterCreator<Heal>(L"Heal");

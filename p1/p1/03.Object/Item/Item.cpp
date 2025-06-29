@@ -1,10 +1,11 @@
-#include "../../pch.h"
+#include "pch.h"
 #include "Item.h"
 #include "../../01.Manager/TimeManager.h"
 #include "../../03.Object/Entity/Player/Player.h"
 
 Item::Item()
 {
+	_itemType = ItemType::None;
 }
 
 Item::~Item()

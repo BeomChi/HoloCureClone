@@ -30,11 +30,11 @@ private:
 	ObjectFactory _factory;
 };
 
-template<typename T>
-inline T* ObjectManager::CreateAddGameObject()
-{
-	T* obj = _factory.CreateObject<T>();
-	_pendingObjects.push_back(obj);
+template<typename T>  
+inline T* ObjectManager::CreateAddGameObject()  
+{  
+   T* obj = _factory.CreateObject<T>();  
+   _pendingObjects[obj->GetLayer()].push_back(obj); // Fix: Access the correct layer in _pendingObjects array.  
 
-	return obj;
+   return obj;  
 }

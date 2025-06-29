@@ -1,4 +1,4 @@
-#include "../pch.h"
+#include "pch.h"
 #include "Scene.h"
 #include "../01.Manager/ObjectManager.h"
 #include "../01.Manager/CollisionManager.h"

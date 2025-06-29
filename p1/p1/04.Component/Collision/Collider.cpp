@@ -1,4 +1,4 @@
-#include "../../pch.h"
+#include "pch.h"
 #include "Collider.h"
 #include "../../03.Object/GameObject.h"
 #include "BoxCollider.h"

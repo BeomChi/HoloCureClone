@@ -1,4 +1,4 @@
-#include "../../pch.h"
+#include "pch.h"
 #include "Bullet.h"
 #include "../../01.Manager/TimeManager.h"
 #include "../../03.Object/Entity/Entity.h"
@@ -20,28 +20,31 @@ Bullet::~Bullet()
 
 void Bullet::Init()
 {
-	_size = { 50, 50 };
+	//_size = { 50, 50 };
 	_info._speed = 500;
 
 	// component
 	{
+		{
+			Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"Bullet06");
+			SpriteRenderer* renderer = new SpriteRenderer();
+			renderer->SetSprite(sprite);
+			SetSize({ (float)sprite->GetSize().x, (float)sprite->GetSize().y });
+
+
+			AddComponent(renderer);
+		}
 		// collider
 		{
 			BoxCollider* collider = new BoxCollider();
-			collider->SetSize(_size);
+			collider->SetSize(_renderSize);
 			collider->SetShowDebug(true);
 			AddComponent(collider);
 			SetCollider(collider);
 
 			GET_SINGLE(CollisionManager)->AddCollider(collider);
 		}
-		{
-			Sprite* sprtie = GET_SINGLE(ResourceManager)->GetSprite(L"GuraImage");
-			SpriteRenderer* renderer = new SpriteRenderer();
-			renderer->SetSprite(sprtie);
-
-			AddComponent(renderer);
-		}
+		
 	}
 	Super::Init();
 }

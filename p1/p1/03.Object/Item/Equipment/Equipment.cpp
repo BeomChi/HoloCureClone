@@ -1,11 +1,11 @@
-#include "../../../pch.h"
+#include "pch.h"
 #include "Equipment.h"
 #include "../../../01.Manager/GameManager.h"
 #include "../../../03.Object/Entity/Player/Player.h"
 
 Equipment::Equipment()
 {
-	_itemType = ItemType::Equipment;
+	//_itemType = ItemType::Equipment;
 }
 
 Equipment::~Equipment()
@@ -14,22 +14,23 @@ Equipment::~Equipment()
 
 void Equipment::Init()
 {
-	Super::Init();
+	//Super::Init();
 }
 
 void Equipment::Update()
 {
-	Super::Update();
+	//Super::Update();
 }
 
 void Equipment::Render(HDC hdc)
 {
-	Super::Render(hdc);
+	//Super::Render(hdc);
 }
 
 
 void Equipment::SetEquipInfo(const EquipInfo& info)
 {
+	_info._name = info._name;
 	_info._count = info._count;
 	_info._level = 1;
 	_info._maxLevel = info._maxLevel;
@@ -39,6 +40,7 @@ void Equipment::SetEquipInfo(const EquipInfo& info)
 	 _info._attackDelay = info._attackDelay;
 	 _info._coolTime = info._coolTime;
 	 _info._dmgMultiplier = info._dmgMultiplier;
+	 _info._duration = info._duration;
 }
 
 void Equipment::ResetEquipInfo()

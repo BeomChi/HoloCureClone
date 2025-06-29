@@ -1,7 +1,7 @@
 #pragma once
 #include "../Entity.h"
 
-
+class Equipment;
 
 
 
@@ -34,6 +34,10 @@ public:
 	void Heal(float heal);
 
 	virtual void Reset() override;
+
+	// 장비 테스트
+	//void AddEquiment(Equipment* equip);
+	//void UpdateEquipments();
 	
 private:
 	void InputMove(float deltaTime);
@@ -46,5 +50,7 @@ private:
 	float _attackDelayTime = 2;
 	float _lastAttackTime = 0;
 	float _sumTime = 0;
+
+	//vector<Equipment*> _equipments;
 };
 

@@ -178,3 +178,4 @@ struct VectorInt
 using Pos = Vector;
 using Vec2 = Vector;
 using Vec2Int = VectorInt;
+

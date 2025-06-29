@@ -23,7 +23,8 @@ public:
 	
 
 private:
-	vector<wstring> _monsterContainer = { L"Fubura",L"Shubangelion" };
+	vector<wstring> _monsterContainer = { L"Sukonbu",L"SukonbuTypeB",L"SukonbuTypeK",
+											L"SukonbuTypeN",L"SukonbuTypeT" };
 
 	float _sumTime = 0;
 	float _pattenrTime = 0;

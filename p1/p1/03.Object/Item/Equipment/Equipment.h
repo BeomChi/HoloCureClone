@@ -15,6 +15,7 @@ class Player;
 
 struct EquipInfo
 {
+	wstring _name;
 	int32 _level = 1;		// 레벨
 	int32 _maxLevel = 0;	// 최대 레벨
 	int32 _count = 1;		// 생성 갯수
@@ -24,6 +25,7 @@ struct EquipInfo
 	float _attackDelay = 0;		// 공격 주기
 	float _coolTime = 0;		// 공격 쿨타임
 	float _dmgMultiplier = 1;	// 데미지 배율
+	float _duration = 0;		// 지속 시간
 };
 
 enum class EffectType
@@ -47,16 +49,15 @@ struct EquipEffect {
 };
 
 
-class Equipment :    public Item
+class Equipment
 {
-	using Super = Item;
 public:
 	Equipment();
-	virtual ~Equipment() override;
+	virtual ~Equipment() ;
 
-	virtual void Init() override;
-	virtual void Update() override;
-	virtual void Render(HDC hdc) override;
+	virtual void Init() ;
+	virtual void Update() ;
+	virtual void Render(HDC hdc) ;
 
 	// 장비 착용 시 패시브 효과 적용
 	virtual void OnEquipEffect(Player& player) abstract;
@@ -78,8 +79,20 @@ public:
 
 	void ApplyEffectByLevel(int32 level);
 
+	virtual void ApplyEffect() abstract;
 
 	int32 CalculateDamge();
+
+	const wstring& GetName() { return _info._name; }
+
+	int RandomRange(int min, int max)
+	{
+		std::random_device rd;
+		std::mt19937 mt(rd());
+		std::uniform_int_distribution<int32_t> dist(min, max);
+
+		return dist(mt);
+	}
 
 protected:
 	EquipInfo _info;								// 장비 정보

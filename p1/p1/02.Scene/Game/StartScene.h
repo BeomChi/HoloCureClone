@@ -2,6 +2,7 @@
 #include "../Scene.h"
 
 class Button;
+class GameObject;
 
 class StartScene : public Scene
 {
@@ -18,4 +19,5 @@ public:
 
 private:
 	Button* _ui = nullptr;
+	vector<GameObject*> _uis;
 };
