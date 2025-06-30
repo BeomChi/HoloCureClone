@@ -27,9 +27,11 @@ void ObjectManager::UpdateAll()
 			}
 		}
 
+		// 오브젝트 제거
 		for (GameObject* obj : toRemove[i])
 			RemoveObject(obj);
 
+		// 임시 보관소에 있던 오브젝트들을 추가
 		_objects[i].insert(_objects[i].end(),
 			_pendingObjects[i].begin(), _pendingObjects[i].end());
 
@@ -37,6 +39,7 @@ void ObjectManager::UpdateAll()
 	}
 }
 
+// 전체 렌더
 void ObjectManager::RenderAll(HDC hdc)
 {
 	for (const vector<GameObject*>& gameObj : _objects)
@@ -45,6 +48,7 @@ void ObjectManager::RenderAll(HDC hdc)
 
 }
 
+// 오브젝트 전체 삭제
 void ObjectManager::Clear()
 {
 	for(const vector<GameObject*>& gameObj : _objects)
@@ -55,6 +59,7 @@ void ObjectManager::Clear()
 		_objects[i].clear();
 }
 
+// 오브젝트 제거
 void ObjectManager::RemoveObject(GameObject* object)
 {
 	auto& v = _objects[object->GetLayer()];
@@ -67,6 +72,7 @@ void ObjectManager::RemoveObject(GameObject* object)
 	v.erase(it);
 }
 
+// 임시 저장소에 추가
 void ObjectManager::AddObject(GameObject* object)
 {
 	_pendingObjects[object->GetLayer()].push_back(object);

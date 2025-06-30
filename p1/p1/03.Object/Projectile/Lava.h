@@ -33,6 +33,8 @@ public:
 
 	void Activate(Vec2 pos, float duration);
 	void SetDemage(float dmg) { _info._dmg = dmg; }
+	void SetAttackDelay(float delay) { _info._attackDelay = delay; }
+	void SetDuration(float duration) { _info._duration = duration; }
 
 	virtual void OnTriggerEnter(Collider* collider, Collider* other) override;
 	virtual void OnTriggerStay(Collider* collider, Collider* other) override;
@@ -43,7 +45,7 @@ public:
 	void SetState(LavaState state);
 	void UpdateAnimation();
 
-	void SetAttackDelay(float attackDelay) { _info._attackDelay = attackDelay; }
+	
 	
 private:
 	LavaInfo _info;

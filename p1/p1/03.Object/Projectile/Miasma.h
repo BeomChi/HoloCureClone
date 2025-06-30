@@ -26,7 +26,9 @@ public:
 	//void Activate()
 
 	void SetDmg(float dmg) { _info._dmg = dmg; }
+	void SetAttackDelay(float delay) { _info._attackDelay = delay; }
 	void SetScaleMultple(float scale);
+
 
 	virtual void OnTriggerEnter(Collider* collider, Collider* other) override;
 	virtual void OnTriggerStay(Collider* collider, Collider* other) override;

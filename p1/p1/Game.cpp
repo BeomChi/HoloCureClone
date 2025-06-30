@@ -20,12 +20,16 @@
 //그 보스가 죽었는지 스테이지 매니저에서 판단해야 하기 때문.
 // 현재 중간 보스 밖에 없기에 보스 만들기
 // 
-//경험치, 체력 회복 등의 필드 드랍템 추가
-//드랍 조건은 몬스터가 죽을 때 연동 가능함.
 // 랜덤으로 나오는 상자 및 강화 모루 추가하기
 // 
-//인벤토리 시스템 추가
-//역할 : 장비, 소비 아이템, 드랍 아이템 처리 준비.
+// UI 작업하기
+// 플레이어 관련, 게임 시작화면 관련, 장비, 피격시 데미지 표시
+// 
+// 발사체들 info 하나로 정리해서 관리하기
+// Init 함수들도 통일성주기
+// 위에 발사체 클래스 하나에 콜리젼 set 함수 다 올리기
+// 오브젝트 매니저 제거하고 씬이 오브젝트 들고 있게 하기
+// UI 작업하기 전에 하자
 // 
 //장비 시스템 추가
 //인벤토리가 어느 정도 작동한 뒤 연동해서 마무리.
@@ -86,14 +90,16 @@ void Game::Update()
 {
 	GET_SINGLE(TimeManager)->Update();
 	GET_SINGLE(InputManager)->Update();
-	GET_SINGLE(SceneManager)->Update();
 	GET_SINGLE(GameManager)->Update();
+	GET_SINGLE(SceneManager)->Update();
 
 }
 
 void Game::Render()
 {
 	GET_SINGLE(SceneManager)->Render(hdcBack);
+
+
 	uint32 fps = GET_SINGLE(TimeManager)->GetFps();
 	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
 	

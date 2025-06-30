@@ -9,16 +9,11 @@ struct EnCurseObjInfo
 	int32 _count = 0;
 };
 
-enum class DirState
-{
-	Left,
-	Right,
 
-	LaserStatEnd
-};
 
 class Animator;
 class AnimationComponent;
+
 
 class EnCurseObj :   public GameObject
 {
@@ -31,7 +26,7 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
-	void SetDir(DirState dir) { _dir = dir; }
+	//void SetDir(DirState dir) { _dir = dir; }
 	void SetDmg(float dmg) { _info._dmg = dmg; }
 
 	virtual void OnTriggerEnter(Collider* collider, Collider* other) override;

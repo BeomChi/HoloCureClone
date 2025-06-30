@@ -39,6 +39,7 @@ void Player::Init()
 
 	_entityType = EntityType::Player;
 	_firePosLength = 50.f;
+	_dir = DIR_RIGHT;
 	
 	// 플레이어에 들어갈 컴포넌트
 	{

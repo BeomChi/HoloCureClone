@@ -157,8 +157,10 @@
     <ClInclude Include="03.Object\GameObject.h" />
     <ClInclude Include="03.Object\Item\Equipment\Equipment.h" />
     <ClInclude Include="03.Object\Item\Equipment\Weapon\BLBook.h" />
+    <ClInclude Include="03.Object\Item\Equipment\Weapon\Bomb.h" />
     <ClInclude Include="03.Object\Item\Equipment\Weapon\EliteLavaBucket.h" />
     <ClInclude Include="03.Object\Item\Equipment\Weapon\EnCurse.h" />
+    <ClInclude Include="03.Object\Item\Equipment\Weapon\FanBeam.h" />
     <ClInclude Include="03.Object\Item\Equipment\Weapon\PistolShoot.h" />
     <ClInclude Include="03.Object\Item\Equipment\Weapon\SpiderCooking.h" />
     <ClInclude Include="03.Object\Item\Experinence\ExperinenceObject.h" />
@@ -167,8 +169,11 @@
     <ClInclude Include="03.Object\ObjectFactory.h" />
     <ClInclude Include="03.Object\ObjectPool\ObjectPool.h" />
     <ClInclude Include="03.Object\Projectile\BLBookObj.h" />
+    <ClInclude Include="03.Object\Projectile\BombExplode.h" />
+    <ClInclude Include="03.Object\Projectile\BombObj.h" />
     <ClInclude Include="03.Object\Projectile\Bullet.h" />
     <ClInclude Include="03.Object\Projectile\EnCurseObj.h" />
+    <ClInclude Include="03.Object\Projectile\FanBeamObj.h" />
     <ClInclude Include="03.Object\Projectile\Laser.h" />
     <ClInclude Include="03.Object\Projectile\Lava.h" />
     <ClInclude Include="03.Object\Projectile\Miasma.h" />
@@ -222,8 +227,10 @@
     <ClCompile Include="03.Object\GameObject.cpp" />
     <ClCompile Include="03.Object\Item\Equipment\Equipment.cpp" />
     <ClCompile Include="03.Object\Item\Equipment\Weapon\BLBook.cpp" />
+    <ClCompile Include="03.Object\Item\Equipment\Weapon\Bomb.cpp" />
     <ClCompile Include="03.Object\Item\Equipment\Weapon\EliteLavaBucket.cpp" />
     <ClCompile Include="03.Object\Item\Equipment\Weapon\EnCurse.cpp" />
+    <ClCompile Include="03.Object\Item\Equipment\Weapon\FanBeam.cpp" />
     <ClCompile Include="03.Object\Item\Equipment\Weapon\PistolShoot.cpp" />
     <ClCompile Include="03.Object\Item\Equipment\Weapon\SpiderCooking.cpp" />
     <ClCompile Include="03.Object\Item\Experinence\ExperinenceObject.cpp" />
@@ -232,8 +239,11 @@
     <ClCompile Include="03.Object\ObjectFactory.cpp" />
     <ClCompile Include="03.Object\ObjectPool\ObjectPool.cpp" />
     <ClCompile Include="03.Object\Projectile\BLBookObj.cpp" />
+    <ClCompile Include="03.Object\Projectile\BombExplode.cpp" />
+    <ClCompile Include="03.Object\Projectile\BombObj.cpp" />
     <ClCompile Include="03.Object\Projectile\Bullet.cpp" />
     <ClCompile Include="03.Object\Projectile\EnCurseObj.cpp" />
+    <ClCompile Include="03.Object\Projectile\FanBeamObj.cpp" />
     <ClCompile Include="03.Object\Projectile\Laser.cpp" />
     <ClCompile Include="03.Object\Projectile\Lava.cpp" />
     <ClCompile Include="03.Object\Projectile\Miasma.cpp" />

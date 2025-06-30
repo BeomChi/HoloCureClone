@@ -30,7 +30,7 @@ void BoxCollider::Render(HDC hdc)
     if (_showDebug == false)
         return;
 
-    Vec2 pos = GET_SINGLE(SceneManager)->WorldToScreen(GetOwner()->GetPos());
+    Vec2 pos = GET_SINGLE(SceneManager)->WorldToScreen(GetOwner()->GetPos() + _offset);
 
     HBRUSH myBrush = (HBRUSH)::GetStockObject(NULL_BRUSH);
     HBRUSH oldBrush = (HBRUSH)::SelectObject(hdc, myBrush);

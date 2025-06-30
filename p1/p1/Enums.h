@@ -56,3 +56,11 @@ enum enumAttack
 	ATTACK,
 	END
 };
+
+enum class DirState
+{
+	Left,
+	Right,
+
+	LaserStatEnd
+};

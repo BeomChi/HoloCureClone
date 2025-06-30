@@ -22,6 +22,8 @@
 #include "../../03.Object/Item/Equipment/Weapon/BLBook.h"
 #include "../../03.Object/Item/Equipment/Weapon/EnCurse.h"
 #include "../../03.Object/Item/Equipment/Weapon/SpiderCooking.h"
+#include "../../03.Object/Item/Equipment/Weapon/FanBeam.h"
+#include "../../03.Object/Item/Equipment/Weapon/Bomb.h"
 #include "../../04.Component/2D/SpriteRenderer.h"
 #include "../../04.Component/2D/AnimationComponent.h"
 #include "../../05.Resource/2D/Texture.h"
@@ -75,11 +77,14 @@ void DevScene::Init()
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Bullets", L"Sprite\\Object\\Bullets.bmp");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"BLBook", L"Sprite\\Object\\BLBook.bmp");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Miasma", L"Sprite\\Object\\Miasma.bmp");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"Bomb", L"Sprite\\Object\\Bomb.bmp");
 
 	GET_SINGLE(ResourceManager)->LoadTexture(L"EnCurse", L"Sprite\\Object\\EnCurse.bmp");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"FanBeam", L"Sprite\\Object\\FanBeam.bmp");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"LavaStart", L"Sprite\\Object\\LavaStart.bmp");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"LavaLoop", L"Sprite\\Object\\LavaLoop.bmp");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"LavaEnd", L"Sprite\\Object\\LavaEnd.bmp");
+	GET_SINGLE(ResourceManager)->LoadTexture(L"Explode", L"Sprite\\Object\\Explode.bmp");
 
 
 	GET_SINGLE(ResourceManager)->CreateSprite(L"Stage01", GET_SINGLE(ResourceManager)->GetTexture(L"Stage01"));
@@ -100,6 +105,7 @@ void DevScene::Init()
 	
 	GET_SINGLE(ResourceManager)->CreateSprite(L"BLBook", GET_SINGLE(ResourceManager)->GetTexture(L"BLBook"));
 	GET_SINGLE(ResourceManager)->CreateSprite(L"Miasma", GET_SINGLE(ResourceManager)->GetTexture(L"Miasma"));
+	GET_SINGLE(ResourceManager)->CreateSprite(L"Bomb", GET_SINGLE(ResourceManager)->GetTexture(L"Bomb"));
 	
 	{
 		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"Stage01");
@@ -242,6 +248,21 @@ void DevScene::Init()
 					Animator* ani = GET_SINGLE(ResourceManager)->CreateAnimator(L"EnCurseLeft");
 					ani->SetInfo({ texture, L"EnCurseLeft",{36,21}, 0, 7, 1, 0.5f });
 				}
+				{
+					Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"FanBeam");
+					Animator* ani = GET_SINGLE(ResourceManager)->CreateAnimator(L"FanBeamRight");
+					ani->SetInfo({ texture, L"FanBeamRight",{466,51}, 0, 9, 0, 1.f });
+				}
+				{
+					Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"FanBeam");
+					Animator* ani = GET_SINGLE(ResourceManager)->CreateAnimator(L"FanBeamLeft");
+					ani->SetInfo({ texture, L"FanBeamLeft",{466,51}, 0, 9, 1, 1.f });
+				}
+				{
+					Texture* texture = GET_SINGLE(ResourceManager)->GetTexture(L"Explode");
+					Animator* ani = GET_SINGLE(ResourceManager)->CreateAnimator(L"BombExplode");
+					ani->SetInfo({ texture, L"BombExplode",{128,128}, 0, 12, 0, 1.f });
+				}
 			}
 		}
 	}
@@ -311,9 +332,9 @@ void DevScene::Init()
 		GET_SINGLE(ObjectManager)->AddObject(player);
 		GET_SINGLE(GameManager)->SetPlayer(player);
 
-		SpiderCooking* pistol = new SpiderCooking();
-		pistol->Init();
-		GET_SINGLE(EquipmentManager)->AddEquiment(pistol);
+		Bomb* tsetWeapon = new Bomb();
+		tsetWeapon->Init();
+		GET_SINGLE(EquipmentManager)->AddEquiment(tsetWeapon);
 	}
 	{
 		Camera* camera = new Camera();

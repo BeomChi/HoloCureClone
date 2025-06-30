@@ -10,61 +10,114 @@ C++ 및 WinAPI를 기반으로 게임 루프, 객체 관리, 시스템 매니저
 본 프로젝트는 비영리적인 포트폴리오 목적으로만 제작되며, 상업적 사용은 일절 없습니다.
 참고 리소스는 일부 원작 리소스를 기반으로 하고 있습니다.
 
-🎯 개발 목표
+---
 
-C++과 WinAPI로 직접 게임 루프, 렌더링, 입력, 타이밍 구현
+## 🎯 프로젝트 목적
 
-오브젝트 풀, 상태 머신, 매니저 등 게임 시스템 설계 연습
+- WinAPI 기반의 저수준 게임 루프, 렌더링, 입력, 타이밍 직접 구현
+- 오브젝트 풀, 상태 머신, 매니저 등 게임 구조 설계 능력 향상
+- 실제 게임 구조를 분석하고 C++로 직접 구현하여 이해도 증진
+- 스테이지 및 전투 시스템 단계적 구현을 통한 성장
 
-실제 게임의 구조를 분석하고 직접 구현하여 이해도 향상
+---
 
-스테이지 시스템과 전투 시스템을 단계적으로 구현
+## ⚙️ 개발 환경
 
-⚙️ 개발 환경
+| 항목 | 내용 |
+|------|------|
+| **언어** | C++ |
+| **플랫폼** | Windows API (WinAPI) |
+| **IDE** | Visual Studio 2022 |
+| **버전 관리** | Git, SourceTree |
 
-언어: C++
+---
 
-플랫폼: Windows API (WinAPI)
+## ✅ 현재 구현된 기능
 
-개발 툴: Visual Studio 2022
+- ✔ 오브젝트 풀 시스템 구현
+- ✔ 몬스터 자동 스폰 및 위치 랜덤 생성
+- ✔ 몬스터 상태 시스템 (Update / Dead 등)
+- ✔ 스폰 매니저 설계 및 몬스터 수 제어
+- ✔ 기본 씬 구성 및 게임 루프 구조 설계
 
-버전 관리: Git, SourceTree
+---
 
-✅ 현재 구현된 기능
+## 🧪 향후 계획
 
-✔ 오브젝트 풀 시스템 구현
+- [ ] 보스 몬스터 및 전투 패턴 추가
+- [ ] 경험치, 체력 드랍 등 필드 아이템 시스템
+- [ ] 인벤토리 및 장비 장착 UI
+- [ ] 플레이어 강화 시스템
+- [ ] 씬 전환 및 스테이지 완료 조건 구현
 
-✔ 몬스터 자동 스폰 및 위치 랜덤 생성
+---
 
-✔ Monster 상태 시스템 (Update/Dead 처리 등)
+## 📊 시스템 구조도 (텍스트 기반)
 
-✔ 스폰 매니저 설계 및 몬스터 카운트 제어
+[Main.cpp]
+|
+[GameManager]
+├── [SceneManager]
+│ ├── Scene_Title
+│ └── Scene_Stage
+├── [ObjectManager]
+├── [TimeManager]
+├── [InputManager]
+└── [SpawnManager]
 
-✔ 기본 씬 구성 및 게임 루프 기반 게임 구조 설계
+---
 
-🧩 구조 설계 방향
+## 🧩 구조 설계 방향
 
-GameManager → 전역 시간, 진행 상황, 상태 저장 등 총괄
+| 모듈 | 설명 |
+|------|------|
+| **GameManager** | 게임 루프 및 전역 상태 관리 |
+| **SceneManager** | 씬 로딩 및 전환 담당 |
+| **ObjectManager** | 모든 게임 오브젝트 업데이트 및 제거 |
+| **SpawnManager** | 몬스터 스폰 및 파동 제어 |
+| **ObjectPool** | 재사용 가능한 오브젝트(투사체 등) 관리 |
+| **TimeManager** | DeltaTime 및 FPS 계산 |
+| **InputManager** | 키보드 입력 처리 |
+| **ResourceManager** | 이미지/리소스 로딩 관리 |
 
-StageManager → 몬스터 파동, 보스 전투 및 스테이지 흐름 제어
+---
 
-SpawnManager → 몬스터 생성 및 스폰 제한 수 제어
+## 🧩 구성 모듈 요약
 
-ObjectPool → 오브젝트 재사용 관리
+- **Component System**: Transform, SpriteRenderer, Animator, Collider 등
+- **Manager System**: Input, Time, Object, Scene, Resource, Collision, Camera
+- **Scene System**: 타이틀 화면, 인게임, 종료 화면 등
+- **Object Pool**: 투사체 및 반복 생성 객체 재사용
+- **Rendering**: BitBlt 및 GDI 기반 2D 렌더링
 
-ObjectManager → 게임 내 활성 객체 업데이트 및 제거
+---
 
-🧪 향후 계획
+## 🔁 게임 루프
 
- 보스 몬스터 및 전투 패턴 추가
+Main.cpp
+↓
+GameManager::Init()
+↓
+GameManager::Update()
+↓
+GameManager::Render()
 
- 경험치, 체력 드랍 등 필드 아이템 시스템
+---
 
- 인벤토리 및 장비 장착 UI
+## 💣 오브젝트 풀 사용 예시 (폭탄 객체)
 
- 플레이어 강화 시스템
+```cpp
+// 폭탄 객체를 풀에서 꺼내어 위치 설정 후 게임에 추가
+BombObj* bomb = ObjectPool::Get()->GetBomb();
+bomb->SetPosition(player->GetPosition());
+ObjectManager::Get()->AddObject(bomb);
 
- 씬 전환 및 스테이지 완료 조건 구현
+🧠 현재 집중 중인 개발 목표
+쫄몹 AI 구현 (기본 이동 및 추적 패턴)
+
+충돌 판정 및 피격 처리 시스템
+
+경험치 드롭 및 레벨업 시스템
 
 📄 참고 출처
 

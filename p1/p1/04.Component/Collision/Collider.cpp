@@ -63,8 +63,11 @@ bool Collider::MyIntersectRect(LPRECT lrRect, GameObject* r1, GameObject* r2)
     Vec2 size1 = r1->GetSize();
     Vec2 size2 = r2->GetSize();
 
-    float dx = abs(r1->GetPos().x - r2->GetPos().x);
-    float dy = abs(r1->GetPos().y - r2->GetPos().y);
+    Vec2 pos1 = r1->GetCollider()->GetWorldPos();
+    Vec2 pos2 = r2->GetCollider()->GetWorldPos();
+
+    float dx = abs(pos1.x - pos2.x);
+    float dy = abs(pos1.y - pos2.y);
 
     float half1X = size1.x / 2;
     float half1Y = size1.y / 2;
@@ -84,4 +87,14 @@ bool Collider::MyIntersectRect(LPRECT lrRect, GameObject* r1, GameObject* r2)
     }
 
     return false;
+}
+
+void Collider::ClearCollisionMap()
+{
+    _collsionMap.clear();
+}
+
+Vec2 Collider::GetWorldPos() const
+{
+    return _owner->GetPos() + _offset;
 }

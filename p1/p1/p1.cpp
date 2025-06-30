@@ -119,7 +119,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
    RECT windowRect = { 0, 0, GWinSizeX, GWinSizeY };
    ::AdjustWindowRect(&windowRect, WS_OVERLAPPEDWINDOW, false);
 
-   HWND hWnd = CreateWindowW(L"p1", L"Client", WS_OVERLAPPEDWINDOW,
+   HWND hWnd = CreateWindowW(L"p1", L"HoloCureCloneCoding", WS_OVERLAPPEDWINDOW,
        CW_USEDEFAULT, 0, windowRect.right - windowRect.left, windowRect.bottom - windowRect.top, nullptr, nullptr, hInstance, nullptr);
 
    g_hWnd = hWnd;
@@ -156,8 +156,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             switch (wmId)
             {
             //case IDM_ABOUT:
-            //    DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-            //    break;
+                //DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+                //break;
             case IDM_EXIT:
                 DestroyWindow(hWnd);
                 break;

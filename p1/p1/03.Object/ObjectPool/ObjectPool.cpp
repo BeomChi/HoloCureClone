@@ -11,6 +11,9 @@
 #include "../Projectile/Lava.h"
 #include "../Projectile/BLBookObj.h"
 #include "../Projectile/EnCurseObj.h"
+#include "../Projectile/FanBeamObj.h"
+#include "../Projectile/BombExplode.h"
+#include "../Projectile/BombObj.h"
 #include "../Item/Experinence/ExperinenceObject.h"
 #include "../Item/Heal/Heal.h"
 
@@ -32,6 +35,10 @@ void ObjectPool::Init()
 
 	ReigsterCreator<BLBookObj>(L"BLBook");
 	ReigsterCreator<EnCurseObj>(L"EnCurseObj");
+	ReigsterCreator<FanBeamObj>(L"FanBeamObj");
+	ReigsterCreator<BombExplode>(L"BombExplode");
+	ReigsterCreator<BombObj>(L"BombObj");
+
 
 	ReigsterCreator<ExperinenceObject>(L"Exp");
 	ReigsterCreator<Heal>(L"Heal");

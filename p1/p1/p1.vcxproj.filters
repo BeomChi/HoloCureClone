@@ -315,6 +315,21 @@
     <ClInclude Include="03.Object\Item\Equipment\Weapon\SpiderCooking.h">
       <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="03.Object\Projectile\FanBeamObj.h">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Item\Equipment\Weapon\FanBeam.h">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Projectile\BombExplode.h">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Projectile\BombObj.h">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Item\Equipment\Weapon\Bomb.h">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
@@ -489,6 +504,21 @@
       <Filter>소스 파일\03.Object\Game\Projectile</Filter>
     </ClCompile>
     <ClCompile Include="03.Object\Item\Equipment\Weapon\SpiderCooking.cpp">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Projectile\FanBeamObj.cpp">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Item\Equipment\Weapon\FanBeam.cpp">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Projectile\BombExplode.cpp">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Projectile\BombObj.cpp">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Item\Equipment\Weapon\Bomb.cpp">
       <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
     </ClCompile>
   </ItemGroup>

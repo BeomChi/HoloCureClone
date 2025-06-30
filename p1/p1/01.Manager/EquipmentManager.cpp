@@ -20,17 +20,22 @@ void EquipmentManager::UpdateAll()
 }
 
 
-
+// 착용중이던 장비 해제 및 메모리 정리
 void EquipmentManager::Clear()
 {
 	for (auto equip : _equipments)
 	{
 		if (equip)
+		{
 			equip->OnUnequipEffect(*GET_SINGLE(GameManager)->GetPlayer());
+			SAFE_DELETE(equip);
+		}
+
 	}
 	_equipments.clear();
 }
 
+// 착용중인 장비 제거
 void EquipmentManager::RemoveObject(Equipment* equip)
 {
 	auto it = find(_equipments.begin(), _equipments.end(), equip);
@@ -39,9 +44,11 @@ void EquipmentManager::RemoveObject(Equipment* equip)
 		return;
 
 	(*it)->OnUnequipEffect(*GET_SINGLE(GameManager)->GetPlayer());
+	SAFE_DELETE(equip);
 	_equipments.erase(it);
 }
 
+// 장비 착용 및 이미 가지고 있는 장비일 경우 업그레이드
 void EquipmentManager::AddEquiment(Equipment* equip)
 {
 	// 이미 가지고 있으면 장비 업글
@@ -55,6 +62,7 @@ void EquipmentManager::AddEquiment(Equipment* equip)
 	equip->OnEquipEffect(*GET_SINGLE(GameManager)->GetPlayer());
 }
 
+// 해당 장비를 가지고 있는지 확인하는 용도
 bool EquipmentManager::HasEquipment(wstring name)
 {
 	for (auto equip : _equipments)

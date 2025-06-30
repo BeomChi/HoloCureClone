@@ -54,6 +54,7 @@ public:
 	virtual void OnTriggerExit(Collider* collider, Collider* other);
 
 	void SetCollider(Collider* collider) { _collider = collider; }
+	Collider* GetCollider() { return _collider; }
 
 	void SetLayer(LAYER_TYPE layer) { _layer = layer; }
 	LAYER_TYPE GetLayer() { return _layer; }
