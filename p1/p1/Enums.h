@@ -27,7 +27,7 @@ enum class ColliderType
 	Sphere,
 };
 
-enum class Equip
+enum Equip
 {
 	Weapon,
 	Armor,
@@ -63,4 +63,12 @@ enum class DirState
 	Right,
 
 	LaserStatEnd
+};
+
+enum class WeaponType
+{
+	Melee,
+	Ranged,
+	Multishot,
+	None
 };

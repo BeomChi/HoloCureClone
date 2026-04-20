@@ -4,6 +4,7 @@
 
 Image::Image()
 {
+	SetLayer(LAYER_UI);
 }
 
 Image::~Image()

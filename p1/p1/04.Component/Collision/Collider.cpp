@@ -60,6 +60,9 @@ bool Collider::CheckCollisionBoxToSphere(BoxCollider* b1, SphereCollider* s2)
 
 bool Collider::MyIntersectRect(LPRECT lrRect, GameObject* r1, GameObject* r2)
 {
+#pragma region 중략 : 크기랑 좌표 구하는 부분
+
+
     Vec2 size1 = r1->GetSize();
     Vec2 size2 = r2->GetSize();
 
@@ -73,6 +76,7 @@ bool Collider::MyIntersectRect(LPRECT lrRect, GameObject* r1, GameObject* r2)
     float half1Y = size1.y / 2;
     float half2X = size2.x / 2;
     float half2Y = size2.y / 2;
+#pragma endregion
 
     if (dx < half1X + half2X && dy < half1Y + half2Y)
     {

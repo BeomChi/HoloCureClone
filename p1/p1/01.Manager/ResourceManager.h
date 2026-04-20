@@ -4,7 +4,7 @@
 class Texture;
 class Sprite;
 class Animator;
-
+class Sound;
 
 class ResourceManager : public Singleton<ResourceManager>
 {
@@ -25,6 +25,8 @@ public:
 
 	Animator* GetAnimator(const wstring& key) { return _animators[key]; }
 	Animator* CreateAnimator(const wstring& key);
+	Sound* GetSound(const wstring& key) { return _sound[key]; }
+	Sound* LoadSound(const wstring& key, const wstring& path);
 
 private:
 	HWND _hwnd = {};
@@ -33,5 +35,6 @@ private:
 	unordered_map<wstring, Texture*> _textures;
 	unordered_map<wstring, Sprite*> _sprites;
 	unordered_map<wstring, Animator*> _animators;
+	unordered_map<wstring, Sound*>_sound;
 };
 

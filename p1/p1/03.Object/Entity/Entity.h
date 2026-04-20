@@ -6,17 +6,23 @@ class AnimationComponent;
 
 struct Info
 {
+	int32 _level = 1;
 	int32 _currentHp = 0;
 	int32 _maxHp = 0;
 	int32 _atk = 0;
-	float _speed = 0;
 	int32 _exp = 0;
 	int32 _maxExp = 0;
-	int32 _level = 1;
+
+	float _speed = 0;
 	float _dmgMultiplier = 1;
+	float _staggerTime = 0;
+	float _crtRate = 0;
+	float _crtMultplier = 1.5f;
 
 	bool _isDead = false;
 };
+
+
 
 enum class State
 {
@@ -24,6 +30,7 @@ enum class State
 	Move,
 	Attack,
 	Spawn,
+	Stagger,
 	Die,
 };
 
@@ -39,7 +46,7 @@ public:
 	virtual void Render(HDC hdc) override;
 
 	Info GetInfo() const { return _info; }
-	void TakeDamage(float dmg) { _info._currentHp -= dmg; }
+	virtual void TakeDamage(const DamageInfo& dmg);
 
 	void SetState(State state);
 	void SetDir(Dir dir);

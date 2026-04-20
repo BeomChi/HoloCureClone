@@ -57,7 +57,7 @@ bool Item::PlayerDistance()
 		ApplyEffect();
 		SetIsActivity(false); 
 	}
-	else
+	else if(distance < _player->GetItemAbsorbDistance())
 	{
 		dir.Normalize();
 		SetPos(GetPos() + dir * _moveSpeed * deltatime);

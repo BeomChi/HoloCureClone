@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "StartScene.h"
 #include "../../01.Manager/ResourceManager.h"
-#include "../../01.Manager/ObjectManager.h"
 #include "../../01.Manager/SceneManager.h"
 #include "../../04.Component/2D/SpriteRenderer.h"
 #include "../../05.Resource/2D/Sprite.h"
@@ -19,10 +18,13 @@ StartScene::~StartScene()
 	{
 		ui->SetIsActivity(false);
 	}
+	Clear();
 }
 
 void StartScene::Init()
 {
+	GET_SINGLE(ResourceManager)->LoadSound(L"Stage01BGM", L"Sound\\Stage01\\Stage01BGM.wav");
+
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Start", L"Sprite\\Ui\\Start.bmp");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Title", L"Sprite\\Ui\\Title.bmp");
 	GET_SINGLE(ResourceManager)->LoadTexture(L"MenuBackground", L"Sprite\\Ui\\menuBackground.bmp");
@@ -43,7 +45,7 @@ void StartScene::Init()
 	_ui->SetKey(L"StartButton");
 	_ui->AddOnClickDelegate(this, &StartScene::GameStart);
 	_uis.push_back(_ui);
-	GET_SINGLE(ObjectManager)->AddObject(_ui);
+	AddObject(_ui);
 
 	{
 		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"Title");
@@ -54,11 +56,8 @@ void StartScene::Init()
 		Title->SetSize({ (float)sprite->GetSize().x, (float)sprite->GetSize().y });
 
 		Title->SetPos({400,200});
-		cout << " Pos x : " << Title->GetPos().x << ", y : " << Title->GetPos().y << endl;
-		cout << " RenderSize x : " << Title->GetRenderSize().x << " y : " << Title->GetRenderSize().y << endl;
-		cout << "Size x : " << sprite->GetSize().x << ", y : " << sprite->GetSize().y << endl;
 
-		GET_SINGLE(ObjectManager)->AddObject(Title);
+		AddObject(Title);
 		_uis.push_back(Title);
 	}
 	{
@@ -73,7 +72,7 @@ void StartScene::Init()
 			background->SetScale({ 2,2 });
 			background->SetPos({ 0,50 });
 
-			GET_SINGLE(ObjectManager)->AddObject(background);
+			AddObject(background);
 			_uis.push_back(background);
 		}
 	}

@@ -1,13 +1,6 @@
 #pragma once
-#include "../GameObject.h"
+#include "AOE.h"
 
-struct FanBeamObjInfo
-{
-	float _dmg = 0;
-	float _attackDelay = 0.5f;
-
-	float _baseScale = 1.f;
-};
 
 
 
@@ -15,9 +8,9 @@ class Animator;
 class AnimationComponent;
 class Collider;
 
-class FanBeamObj :   public GameObject
+class FanBeamObj :   public AOE
 {
-	using Super = GameObject;
+	using Super = AOE;
 public:
 	FanBeamObj();
 	virtual ~FanBeamObj() override;
@@ -27,8 +20,6 @@ public:
 	virtual void Render(HDC hdc) override;
 
 	void SetDir(DirState dir) { _dir = dir; }
-	void SetDmg(float dmg) { _info._dmg = dmg; }
-	void SetAttackDelay(float delay) { _info._attackDelay = delay; }
 	
 
 	virtual void OnTriggerEnter(Collider* collider, Collider* other) override;
@@ -40,9 +31,8 @@ public:
 	void SetState(DirState dir);
 	void UpdateAnimation();
 private:
-	FanBeamObjInfo _info;
+
 	DirState _dir;
-	float _sumTime = .8f;
 
 	vector<Collider*> _collsion;
 

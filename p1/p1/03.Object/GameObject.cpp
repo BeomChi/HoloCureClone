@@ -86,16 +86,17 @@ void GameObject::Reset()
 
 void GameObject::OnTriggerEnter(Collider* collider, Collider* other)
 {
-
+	// 충돌할 때
 }
 
 void GameObject::OnTriggerStay(Collider* collider, Collider* other)
 {
+	// 충돌 중일 때
 }
 
 void GameObject::OnTriggerExit(Collider* collider, Collider* other)
 {
-
+	// 충돌이 끝났을 때
 }
 
 

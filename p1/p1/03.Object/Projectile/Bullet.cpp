@@ -1,13 +1,12 @@
 #include "pch.h"
 #include "Bullet.h"
 #include "../../01.Manager/TimeManager.h"
-#include "../../03.Object/Entity/Entity.h"
-#include "../../01.Manager/ObjectManager.h"
-#include "../../04.Component/Collision/BoxCollider.h"
-#include "../../04.Component/2D/SpriteRenderer.h"
+#include "../../01.Manager/SceneManager.h"
 #include "../../01.Manager/CollisionManager.h"
 #include "../../01.Manager/ResourceManager.h"
-#include "../../01.Manager/SceneManager.h"
+#include "../../03.Object/Entity/Entity.h"
+#include "../../04.Component/Collision/BoxCollider.h"
+#include "../../04.Component/2D/SpriteRenderer.h"
 #include "../../05.Resource/2D/Sprite.h"
 
 Bullet::Bullet()
@@ -38,7 +37,7 @@ void Bullet::Init()
 		{
 			BoxCollider* collider = new BoxCollider();
 			collider->SetSize(_renderSize);
-			collider->SetShowDebug(true);
+			collider->SetShowDebug(false);
 			AddComponent(collider);
 			SetCollider(collider);
 
@@ -76,24 +75,20 @@ void Bullet::Render(HDC hdc)
 
 void Bullet::OnTriggerEnter(Collider* collider, Collider* other)
 {
+	Super::OnTriggerEnter(collider, other);
 	if (other->GetOwner()->GetEntityType() == EntityType::Monster)
 	{
-		static_cast<Entity*>(other->GetOwner())->TakeDamage(_info._dmg);
+		static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
+		cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
 		_isActivity = false;
 	}
-	else if (other->GetOwner()->GetEntityType() == EntityType::Player)
-	{
-
-	}
+	
 }
 
-void Bullet::OnTriggerExit(Collider* collider, Collider* other)
-{
-}
+
 
 void Bullet::Reset()
 {
-	_info._dir = {};
-	_info._dmg = 0;
-	_info._time = 0;
+	_info._dir = {0,0};
+
 }

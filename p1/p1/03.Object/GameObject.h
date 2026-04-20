@@ -15,7 +15,7 @@ public:
 	virtual void Update();
 	virtual void Render(HDC hdc);
 
-	virtual void OnEnable();
+	virtual void Reset();
 
 	// Component
 	void AddComponent(Component* component);
@@ -39,7 +39,7 @@ public:
 	bool GetIsActivity() { return _isActivity; }
 	void SetIsActivity(bool isActivity) { _isActivity = isActivity; }
 
-	virtual void Reset();
+	virtual void OnEnable();
 
 	// Key
 	wstring GetKey() { return _key; }
@@ -59,15 +59,19 @@ public:
 	void SetLayer(LAYER_TYPE layer) { _layer = layer; }
 	LAYER_TYPE GetLayer() { return _layer; }
 
+	void  AddVelocity(const Vector& v) { _velocity += v; }
+
 
 	int RandomRange(int min, int max)
 	{
-		std::random_device rd;
-		std::mt19937 mt(rd());
-		std::uniform_int_distribution<int32_t> dist(min, max);
+		random_device rd;
+		mt19937 mt(rd());
+		uniform_int_distribution<int32_t> dist(min, max);
 
 		return dist(mt);
 	}
+
+
 private:
 	void Clear();
 
@@ -77,18 +81,18 @@ protected:
 	Vec2 _size = { 0, 0};
 	Vec2 _scale = { 1,1 };
 	Vec2 _renderSize = { 0,0 };
+	Vec2 _velocity = { 0,0 };
 	bool _isActivity = true;
 
 	vector<Component*> _components;
-	Collider* _collider = nullptr;
 
 	wstring _key;
 
-
 	// TYPE
 	LAYER_TYPE _layer = LAYER_OBJECT;
-	EntityType _entityType;
+	EntityType _entityType;				// »ç½Ç»ó tag ¤·¤µ¤·
 
 
+	Collider* _collider = nullptr;
 };
 

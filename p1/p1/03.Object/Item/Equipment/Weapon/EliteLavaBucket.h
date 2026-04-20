@@ -19,11 +19,13 @@ public:
 	// 장비 해제 시 효과 제거
 	virtual void OnUnequipEffect(Player& player) override;
 
-
+	void CreateLava();
 
 private:
-	bool _fire = false;
-	int32 _fireCount = 0;
+	// 용암 장판 오브젝트 정보
+	AOEEquipInfo _info;
+
+
 	float _sumTime = 0;
 
 	float _firePosLength = 30;
@@ -32,5 +34,9 @@ private:
 	// Equipment을(를) 통해 상속됨
 	void ApplyEffect() override;
 	void UseAbility(const Player& player) override;
+
+	// Equipment을(를) 통해 상속됨
+	void SetEquipInfo(const EquipmentBaseInfo& baseInfo, const AOEEquipInfo& info) override;
+	void ApplyEffectByLevel(int32 level) override;
 };
 

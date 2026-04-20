@@ -27,83 +27,56 @@ void Equipment::Render(HDC hdc)
 	//Super::Render(hdc);
 }
 
-
-void Equipment::SetEquipInfo(const EquipInfo& info)
+bool Equipment::IsMaxLevel()
 {
-	_info._name = info._name;
-	_info._count = info._count;
-	_info._level = 1;
-	_info._maxLevel = info._maxLevel;
-	_info._dmg = info._dmg;
+	if (_baseInfo._maxLevel == _baseInfo._level)
+		return true;
 
-	 _info._range = info._range;
-	 _info._attackDelay = info._attackDelay;
-	 _info._coolTime = info._coolTime;
-	 _info._dmgMultiplier = info._dmgMultiplier;
-	 _info._duration = info._duration;
+	return false;
 }
 
-void Equipment::ResetEquipInfo()
-{
-	_info._level = 1;
-	_info._maxLevel = 0;
-	_info._count = 1;
 
-	_info._range = 1;
-	_info._dmg = 0;
-	_info._attackDelay = 0;
-	_info._coolTime = 0;
-	_info._dmgMultiplier = 0;
+void Equipment::SetEquipInfo(const EquipmentBaseInfo& baseInfo, const ProjectileEquipInfo& info)
+{
+	// 자식에서 오버라이드해서 사용
 }
 
+void Equipment::SetEquipInfo(const EquipmentBaseInfo& baseInfo, const AOEEquipInfo& info)
+{
+	// 자식에서 오버라이드해서 사용
+}
+
+/// @brief 무기 레벨 업 및 장착 효과 적용
+/// @param player 현재 플레이어 객체 참조
+/// @details 레벨을 1 증가시키고, 레벨에 맞는 장착 효과를 적용
 void Equipment::UpgradeEquip(Player& player)
 {
-	_info._level++;
+	if (_baseInfo._level >= _baseInfo._maxLevel)
+		return; // 최대 레벨에 도달했으면 더 이상 업그레이드 불가
 
-	OnEquipEffect(player);
+
+	_baseInfo._level++;        // 레벨 증가
+	OnEquipEffect(player); // 장착 효과 갱신
 }
 
-void Equipment::ApplyEffectByLevel(int32 level)
+
+
+/// @brief 무기의 최종 데미지 계산
+/// @return 플레이어 공격력과 데미지 배율을 곱한 값
+/// @details 플레이어 공격력과 플레이어 데미지 배율, 그리고 무기 자체 데미지 배율을 모두 곱해서 최종 데미지를 산출
+DamageInfo  Equipment::CalculateDamge(float dmgMultiplier)
 {
-	if (_levelEffects.contains(level))
-	{
-		const EquipEffect& effect = _levelEffects[level];
+	Player* player = GET_SINGLE(GameManager)->GetPlayer();
+	Info playerInfo = player->GetInfo();
 
-		switch (effect._type)
-		{
-		case EffectType::DamageBoost:
-			_info._dmgMultiplier += effect._value;
-			break;
+	DamageInfo dmg;
+	dmg._attacker = player;
 
-		case EffectType::IncreaseProjectileCount:
-			_info._count += effect._intValue;
-			break;
+	int32 rand = RandomRange(0,100); // 0~1 사이 랜덤값
+	dmg._isCritical = rand < (int32)playerInfo._crtRate;
 
-		case EffectType::BounceOnMaxPierce:
-			// 도탄 플래그 설정
-			//_canBounce = true;
-			break;
-
-		case EffectType::AttackSpeedUp:
-			_info._coolTime *= (1.f - effect._value);
-			_info._range += effect._intValue; // 관통 수 증가라면
-			break;
-
-		case EffectType::DelayedDamage:
-			//_enableDelayedDamage = true;
-			//_delayedDamagePercent = effect._value;
-			//_delayTime = effect._intValue;
-			break;
-
-		default:
-			break;
-		}
-	}
-}
-
-int32 Equipment::CalculateDamge()
-{
-	auto player = GET_SINGLE(GameManager)->GetPlayer();
-
-	return player->GetInfo()._atk * player->GetInfo()._dmgMultiplier * _info._dmgMultiplier;
+	float base = playerInfo._atk * playerInfo._dmgMultiplier * dmgMultiplier;
+	dmg._finalDamage = static_cast<int32>(base * (dmg._isCritical ? playerInfo._crtMultplier : 1.0f));
+	cout << "최종 데미지 : " << dmg._finalDamage << endl;
+	return dmg;
 }

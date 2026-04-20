@@ -3,7 +3,6 @@
 #include "../../01.Manager/ResourceManager.h"
 #include "../../01.Manager/TimeManager.h"
 #include "../../01.Manager/CollisionManager.h"
-#include "../../01.Manager/SceneManager.h"
 #include "../../03.Object/Entity/Entity.h"
 #include "../../04.Component/2D/AnimationComponent.h"
 #include "../../04.Component/Collision/BoxCollider.h"
@@ -28,7 +27,7 @@ void Laser::Init()
 	_ani->SetAnimation(_laser[START]);
 
 	BoxCollider* boxCollider = new BoxCollider();
-	boxCollider->SetShowDebug(true);
+	boxCollider->SetShowDebug(false);
 	SetCollider(boxCollider);
 
 	GET_SINGLE(CollisionManager)->AddCollider(boxCollider);
@@ -47,7 +46,7 @@ void Laser::Update()
 	Super::Update();
 
 	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
-	_sumTime += deltaTime;
+	_info._sumTime += deltaTime;
 	_info._time += deltaTime;
 
 	if (_info._time >= _info._duration)
@@ -75,11 +74,6 @@ void Laser::Activate(Vec2 pos, float duration)
 	SetIsActivity(true);
 }
 
-void Laser::OnTriggerEnter(Collider* collider, Collider* other)
-{
-	
-	
-}
 
 void Laser::OnTriggerStay(Collider* collider, Collider* other)
 {
@@ -90,17 +84,16 @@ void Laser::OnTriggerStay(Collider* collider, Collider* other)
 	{
 		//_sumTime += GET_SINGLE(TimeManager)->GetDeltaTime();
 
-		if (_sumTime >= 1.f)
+		if (_info._sumTime >= 1.f)
 		{
-			static_cast<Entity*>(other->GetOwner())->TakeDamage(_info._dmg);
-			_sumTime = 0;
+			static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
+			cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
+			_info._sumTime = 0;
 		}
 	}
 }
 
-void Laser::OnTriggerExit(Collider* collider, Collider* other)
-{
-}
+
 
 void Laser::Reset()
 {

@@ -31,6 +31,7 @@ public:
 	void SetSprite(Sprite* sprite, ButtonState state) { _sprites[state] = sprite; }
 	void SetButtonState(ButtonState state);
 
+	void SetOnClick(function<void()> func) { _onClick = func; }
 protected:
 	Sprite* _currentSprite = nullptr;
 	Sprite* _sprites[BS_MaxCount] = {};
@@ -47,7 +48,14 @@ public:
 				(owner->*func)();
 			};
 	}
-
+	template<typename T>
+	void AddOnClickDelegate(T* owner, void(T::* func)(Ui*))
+	{
+		_onClick = [owner, func,this]()
+			{
+				(owner->*func)(this);
+			};
+	}
 	function<void(void)> _onClick = nullptr;
 };
 

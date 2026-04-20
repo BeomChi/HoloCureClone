@@ -118,6 +118,9 @@
     <Filter Include="소스 파일\03.Object\Game\Camera">
       <UniqueIdentifier>{ffa1a873-aaed-423b-8130-449a5dba4a40}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\05.Resource\Sound">
+      <UniqueIdentifier>{c05335f1-c5d8-486d-8279-31328ebe943c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -159,9 +162,6 @@
     <ClInclude Include="01.Manager\InputManager.h">
       <Filter>소스 파일\01.Manager</Filter>
     </ClInclude>
-    <ClInclude Include="01.Manager\ObjectManager.h">
-      <Filter>소스 파일\01.Manager</Filter>
-    </ClInclude>
     <ClInclude Include="01.Manager\ResourceManager.h">
       <Filter>소스 파일\01.Manager</Filter>
     </ClInclude>
@@ -169,9 +169,6 @@
       <Filter>소스 파일\01.Manager</Filter>
     </ClInclude>
     <ClInclude Include="01.Manager\Singleton.h">
-      <Filter>소스 파일\01.Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="01.Manager\TimeManager.h">
       <Filter>소스 파일\01.Manager</Filter>
     </ClInclude>
     <ClInclude Include="02.Scene\Scene.h">
@@ -330,6 +327,81 @@
     <ClInclude Include="03.Object\Item\Equipment\Weapon\Bomb.h">
       <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
     </ClInclude>
+    <ClInclude Include="03.Object\Projectile\Axe.h">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Item\Equipment\Weapon\PsychoAxe.h">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Item\Equipment\Weapon\Sausage.h">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Projectile\SausageObj.h">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Item\Equipment\Weapon\WamyWater.h">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Projectile\Splash.h">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Projectile\StickExplode.h">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Projectile\Stick.h">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Item\Equipment\Weapon\GlowStick.h">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="06.Ui\Game\HpBar.h">
+      <Filter>소스 파일\06.Ui\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="06.Ui\Bar.h">
+      <Filter>소스 파일\06.Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Projectile\TridentObj.h">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Item\Equipment\Weapon\Trident.h">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Projectile\Projectile.h">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="03.Object\Projectile\AOE.h">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClInclude>
+    <ClInclude Include="06.Ui\Panel.h">
+      <Filter>소스 파일\06.Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="06.Ui\Game\PlayerHudPanel.h">
+      <Filter>소스 파일\06.Ui\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="06.Ui\Game\EquipmentHud.h">
+      <Filter>소스 파일\06.Ui\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="06.Ui\Game\EquipmentSlotUi.h">
+      <Filter>소스 파일\06.Ui\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Signal.hpp">
+      <Filter>소스 파일\99.Header</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\TimeManager.h">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="06.Ui\Game\EquipmentSelectSlotUi.h">
+      <Filter>소스 파일\06.Ui\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="06.Ui\Game\EquipmentSelectHud.h">
+      <Filter>소스 파일\06.Ui\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="05.Resource\Sound\Sound.h">
+      <Filter>소스 파일\05.Resource\Sound</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\SoundManager.h">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
@@ -348,9 +420,6 @@
       <Filter>소스 파일\01.Manager</Filter>
     </ClCompile>
     <ClCompile Include="01.Manager\InputManager.cpp">
-      <Filter>소스 파일\01.Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="01.Manager\ObjectManager.cpp">
       <Filter>소스 파일\01.Manager</Filter>
     </ClCompile>
     <ClCompile Include="01.Manager\ResourceManager.cpp">
@@ -520,6 +589,75 @@
     </ClCompile>
     <ClCompile Include="03.Object\Item\Equipment\Weapon\Bomb.cpp">
       <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Projectile\Axe.cpp">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Item\Equipment\Weapon\PsychoAxe.cpp">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Item\Equipment\Weapon\Sausage.cpp">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Projectile\SausageObj.cpp">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Item\Equipment\Weapon\WamyWater.cpp">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Projectile\Splash.cpp">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Projectile\StickExplode.cpp">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Projectile\Stick.cpp">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Item\Equipment\Weapon\GlowStick.cpp">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="06.Ui\Game\HpBar.cpp">
+      <Filter>소스 파일\06.Ui\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="06.Ui\Bar.cpp">
+      <Filter>소스 파일\06.Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Projectile\TridentObj.cpp">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Item\Equipment\Weapon\Trident.cpp">
+      <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Projectile\Projectile.cpp">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\Projectile\AOE.cpp">
+      <Filter>소스 파일\03.Object\Game\Projectile</Filter>
+    </ClCompile>
+    <ClCompile Include="06.Ui\Panel.cpp">
+      <Filter>소스 파일\06.Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="06.Ui\Game\PlayerHudPanel.cpp">
+      <Filter>소스 파일\06.Ui\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="06.Ui\Game\EquipmentHud.cpp">
+      <Filter>소스 파일\06.Ui\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="06.Ui\Game\EquipmentSlotUi.cpp">
+      <Filter>소스 파일\06.Ui\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="06.Ui\Game\EquipmentSelectSlotUi.cpp">
+      <Filter>소스 파일\06.Ui\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="06.Ui\Game\EquipmentSelectHud.cpp">
+      <Filter>소스 파일\06.Ui\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="05.Resource\Sound\Sound.cpp">
+      <Filter>소스 파일\05.Resource\Sound</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\SoundManager.cpp">
+      <Filter>소스 파일\01.Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

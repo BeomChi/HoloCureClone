@@ -17,5 +17,12 @@ public:
 
 	static void DrawLineColored(HDC hdc, Pos from, Pos to, COLORREF color);
 
+	static void DrawTextFont(HDC hdc, Pos pos, const wstring& str,
+		int fontSize = 16,
+		COLORREF color = RGB(255, 255, 255),
+		const wstring& fontName = L"¸¼Àº °íµñ",
+		int width = 300,
+		int height = 100);
+
 };
 

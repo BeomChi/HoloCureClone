@@ -1,6 +1,8 @@
 #pragma once
 #include "../Scene.h"
 
+class Sound;
+
 class DevScene : public Scene
 {
 	using Super = Scene;
@@ -12,5 +14,7 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
+private:
+	Sound* sound = nullptr;
 };
 

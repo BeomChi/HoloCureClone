@@ -59,7 +59,4 @@ void SpriteRenderer::Render(HDC hdc)
 		_sprite->GetSize().x,         // 원본 이미지에서의 너비
 		_sprite->GetSize().y,         // 원본 이미지에서의 높이
 		_sprite->GetTransparent());   // 투명색 (보통 RGB 값)
-
-	// 디버깅용: 화면상에 그려지는 시작점에 원을 그림 (중심 확인용)
-	Utils::DrawCircle(hdc, { screenPos.x, screenPos.y }, 5);
 }

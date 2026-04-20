@@ -4,6 +4,7 @@
 #include "../../../01.Manager/ResourceManager.h"
 #include "../../../01.Manager/ObjectManager.h"
 #include "../../../01.Manager/SceneManager.h"
+#include "../../../01.Manager/StageManager.h"
 #include "../../../03.Object/Projectile/Laser.h"
 #include "../../../03.Object/ObjectPool/ObjectPool.h"
 #include "../../../04.Component/2D/AnimationComponent.h"
@@ -66,6 +67,8 @@ void Shubangelion::Update()
 		{
 			SetState(State::Move);
 		}
+	case State::Stagger:
+		SetState(State::Move);
 		break;
 	}
 	
@@ -93,6 +96,29 @@ void Shubangelion::Reset()
 	InitStat();
 }
 
+void Shubangelion::TakeDamage(const DamageInfo& dmg)
+{
+	if (_info._currentHp <= 0)
+		return;
+
+
+	// 디버깅용 로그
+	if (dmg._isCritical)
+		cout << "★ 크리티컬 데미지! (" << dmg._finalDamage << ")" << endl;
+	else
+		cout << "일반 데미지 (" << dmg._finalDamage << ")" << endl;
+
+
+	_info._currentHp -= dmg._finalDamage;
+
+	if (_info._currentHp <= 0)
+	{
+		_info._isDead = true;
+		GET_SINGLE(StageManager)->SetClear(true);
+		SetState(State::Die);
+	}
+}
+
 void Shubangelion::Move(float deltaTime)
 {
 	Vector dir = _target->GetPos() - GetPos();
@@ -114,7 +140,7 @@ void Shubangelion::Move(float deltaTime)
 	if (dist <= 100)
 	{
 		_info._speed = 0;
-		if (_sumTime >= 10.f)
+		if (_sumTime >= 0.5f)
 		{
 			SetState(State::Attack);
 		}
@@ -130,7 +156,10 @@ void Shubangelion::Attack(float deltaTime)
 {
 	_pattenrTime += deltaTime;
 
-	//SetenumAttack(CHARGE);
+	SetenumAttack(START);
+
+	if (!_ani->CheckCurrentAnimationEnd())
+		return;
 
 	if (_pattenrTime == deltaTime)
 	{
@@ -147,14 +176,14 @@ void Shubangelion::Attack(float deltaTime)
 
 void Shubangelion::ChangeAttack()
 {
-	//SetenumAttack(ATTACK);
+	SetenumAttack(ATTACK);
 	Vector distance = _target->GetPos() - GetPos();
 	float dist = sqrt(distance.x * distance.x + distance.y * distance.y);
 
 
 	if (dist <= _attackRange )
 	{
-		static_cast<Entity*>(_target)->TakeDamage(_info._atk);
+		static_cast<Entity*>(_target)->TakeDamage({ this,_info._atk,false });
 	}
 
 }

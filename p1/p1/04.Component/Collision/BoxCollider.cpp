@@ -52,6 +52,5 @@ bool BoxCollider::CheckCollision(Collider* other)
         break;
     }
 
-
     return false;
 }

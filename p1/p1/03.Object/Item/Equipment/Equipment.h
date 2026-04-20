@@ -3,51 +3,41 @@
 
 class Player;
 
-// 기본 이속도 정해야하고
-// 이속 배율에 맞춰서 속도르 맞추고
-// 치명타 확률도 만들어야 되네
-// 그리고 치뎀도 추가하고
-// 기본 공격력 10 
-// 배율 1.10 이라고 가정
-// 그럼 데미지는 11
-// 무기 강화해서 2렙이 되서 20%추가
-// 그럼 배율이 1.3이 되서 13
 
-struct EquipInfo
-{
-	wstring _name;
-	int32 _level = 1;		// 레벨
-	int32 _maxLevel = 0;	// 최대 레벨
-	int32 _count = 1;		// 생성 갯수
-	int32 _dmg = 0;			// 데미지
-
-	float _range = 1;			// 공격 범위		
-	float _attackDelay = 0;		// 공격 주기
-	float _coolTime = 0;		// 공격 쿨타임
-	float _dmgMultiplier = 1;	// 데미지 배율
-	float _duration = 0;		// 지속 시간
-};
-
+// 무기 강화시 적용되는 효과들
 enum class EffectType
 {
-	DamageBoost,
-	IncreaseProjectileCount,
-	PierceCountUp,
-	BounceOnMaxPierce,
-	AttackSpeedUp,
-	DelayedDamage,
-	None
+	DamageBoost,				// 공격력 배율 증가 (데미지 x%)
+	IncreaseProjectileCount,	// 투사체 수 증가
+	PierceCountUp,				// 최대 관통 수 증가
+	BounceOnMaxPierce,			// 투사체가 최대 관통 후 도탄
+	AttackSpeedUp,				// 공격 쿨타임 감소 (공격 속도 증가)
+	DelayedDamage,				// 데미지를 지연시켜 주기적으로 적용 (DoT 느낌)
+	RangeIncrease,				// 공격 범위 증가
+	Stop,						// 적을 잠시 멈추게 함 (넉백 후 정지 효과 등)
+	DurationIncrease,			// 지속 시간 증가 (예: DoT 효과의 지속 시간 연장)
+	Probability,				// 확률 기반 효과 (예: 20% 확률로 추가 효과 발동)
+	SpecialAbility,				// 특수 능력 활성화 (예: 특정 기술 사용 가능)
+	None,						// 효과 없음 (레벨업에 특별한 변화가 없을 때 사용)
 };
 
 struct EquipEffect {
 	EffectType _type = EffectType::None;
 
+	// 이 부분 그만 까먹자 자꾸 1.2 , 1.5 이렇게 값넣지 말자
 	float _value = 0.f;		// 예: 대미지 20% → 0.2, 공격속도 25% → 0.25
 	int _intValue = 0;		// 예: 탄환 수 증가, 관통 수 증가
 
-	std::string _desc;		// UI 툴팁에 쓸 설명
+	wstring _desc;		// UI 툴팁에 쓸 설명
 };
 
+struct EquipmentBaseInfo
+{
+	wstring _name;								// 이름
+	WeaponType _weaponType = WeaponType::None;  // 무기 타입
+	int32 _level = 1;							// 레벨
+	int32 _maxLevel = 7;						// 최대 레벨
+};
 
 class Equipment
 {
@@ -59,6 +49,10 @@ public:
 	virtual void Update() ;
 	virtual void Render(HDC hdc) ;
 
+	Equip GetType() { return _equipType; }
+
+	bool IsMaxLevel();
+
 	// 장비 착용 시 패시브 효과 적용
 	virtual void OnEquipEffect(Player& player) abstract;
 
@@ -69,21 +63,29 @@ public:
 	virtual void UseAbility(const Player& player) abstract;
 
 	// 장비 정보 설정
-	void SetEquipInfo(const EquipInfo& info);
+	virtual void SetEquipInfo(const EquipmentBaseInfo& baseInfo,const ProjectileEquipInfo& info);
+	virtual void SetEquipInfo(const EquipmentBaseInfo& baseInfo,const AOEEquipInfo& info);
 
 	// 장비 정보 초기화
-	void ResetEquipInfo();
+	//void ResetEquipInfo();
 
 	// 장비 업그레이드
 	virtual void UpgradeEquip(Player& player);
 
-	void ApplyEffectByLevel(int32 level);
+	// 레벨에 따른 효과 적용
+	virtual void ApplyEffectByLevel(int32 level) abstract;
 
+	// 레벨에 따른 효과 적용
 	virtual void ApplyEffect() abstract;
 
-	int32 CalculateDamge();
+	// 무기의 최종 데미지 계산
+	DamageInfo  CalculateDamge(float dmgMultiplier);
 
-	const wstring& GetName() { return _info._name; }
+	const int32 GetLevel() { return _baseInfo._level; }
+	const int32 GetMaxLevel() { return _baseInfo._maxLevel; }
+
+	const wstring& GetName() { return _baseInfo._name; }
+	const unordered_map<int32, vector<EquipEffect>>& GetLevelEffects() { return _levelEffects; }
 
 	int RandomRange(int min, int max)
 	{
@@ -95,9 +97,10 @@ public:
 	}
 
 protected:
-	EquipInfo _info;								// 장비 정보
+	EquipmentBaseInfo _baseInfo;					// 장비 기본 정보
 	Equip _equipType = Equip::None;					// 장비 타입
+	bool _isSpecialAbility = false;					// 특수 능력 활성화 여부
 
-	unordered_map<int32, EquipEffect> _levelEffects;	// 레벨에 따른 효과
+	unordered_map<int32, vector<EquipEffect>> _levelEffects;	// 레벨에 따른 효과
 };
 

@@ -1,18 +1,11 @@
 #pragma once
-#include "../GameObject.h"
+#include "Projectile.h"
 
-struct BulletInfo
+
+
+class Bullet :   public Projectile
 {
-	Vector _dir = {};
-	float _dmg = 0;
-	float _time = 0;
-	float _speed = 0;
-};
-
-
-class Bullet :   public GameObject
-{
-	using Super = GameObject;
+	using Super = Projectile;
 public:
 	Bullet();
 	virtual ~Bullet() override;
@@ -21,14 +14,11 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
-	void SetDir(Vector dir) { _info._dir = dir; }
-	void SetDmg(float dmg) { _info._dmg = dmg; }
 
 	virtual void OnTriggerEnter(Collider* collider, Collider* other) override;
-	virtual void OnTriggerExit(Collider* collider, Collider* other) override;
 
 	virtual void Reset() override;
 private:
-	BulletInfo _info;
+
 };
 

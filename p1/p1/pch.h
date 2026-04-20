@@ -1,10 +1,10 @@
 #pragma once
 
 
+#include "Enums.h"
 #include "Types.h"
 #include "Values.h"
 #include "Defines.h"
-#include "Enums.h"
 #include "Utils.h"
 
 #include <windows.h>
@@ -20,13 +20,13 @@
 #include <assert.h>
 #include <random>
 #include <iostream>
+#include <format>
+#include <filesystem>
 
 
 
 using namespace std;
 
-#include <format>
-#include <filesystem>
 namespace fs = std::filesystem;
 
 #pragma comment(lib, "Msimg32.lib")
@@ -39,3 +39,9 @@ namespace fs = std::filesystem;
 #ifdef _DEBUG
 #define new new(_NORMAL_BLOCK, __FILE__, __LINE__)
 #endif
+
+// »ç¿îµå
+#include <mmsystem.h>
+#include <dsound.h>
+#pragma comment(lib,"winmm.lib")
+#pragma comment(lib,"dsound.lib")

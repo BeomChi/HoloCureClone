@@ -23,8 +23,8 @@ public:
 	
 
 private:
-	bool _fire = false;
-	int32 _fireCount = 0;
+	AOEEquipInfo _info;
+
 	float _sumTime = 0;
 
 	float _firePosLength = 30;
@@ -35,5 +35,9 @@ private:
 	// Equipment을(를) 통해 상속됨
 	virtual void ApplyEffect() override;
 	virtual void UseAbility(const Player& player) override;
+
+	// Equipment을(를) 통해 상속됨
+	virtual void SetEquipInfo(const EquipmentBaseInfo& baseInfo, const AOEEquipInfo& info) override;
+	virtual void ApplyEffectByLevel(int32 level) override;
 };
 

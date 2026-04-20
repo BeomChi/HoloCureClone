@@ -1,16 +1,20 @@
 #include "pch.h"
 #include "00.MainGame/Game.h"
-#include "01.Manager/TimeManager.h"
-#include "01.Manager/InputManager.h"
-#include "01.Manager/SceneManager.h"
-#include "01.Manager/ObjectManager.h"
-#include "01.Manager/ResourceManager.h"
+#include "01.Manager/CollisionManager.h"
+#include "01.Manager/EquipmentManager.h"
 #include "01.Manager/GameManager.h"
+#include "01.Manager/InputManager.h"
+#include "01.Manager/TimeManager.h"
+#include "01.Manager/SceneManager.h"
+#include "01.Manager/ResourceManager.h"
+#include "01.Manager/SpawnManager.h"
+#include "01.Manager/StageManager.h"
+#include "01.Manager/SoundManager.h"
 #include "03.Object/ObjectPool/ObjectPool.h"
 
 
 //TODO 
-//게임 매니저
+//게임 매니저	
 //역할 : 씬 전환, UI 갱신, 저장 / 로드 연동 포인트 등.
 // 일단 플레이어는 저장할 필요가 없음
 // 굳이 저장을 한다면 도감이나 캐릭터 해방 정도를 저장해야할듯
@@ -25,13 +29,9 @@
 // UI 작업하기
 // 플레이어 관련, 게임 시작화면 관련, 장비, 피격시 데미지 표시
 // 
-// 발사체들 info 하나로 정리해서 관리하기
-// Init 함수들도 통일성주기
-// 위에 발사체 클래스 하나에 콜리젼 set 함수 다 올리기
-// 오브젝트 매니저 제거하고 씬이 오브젝트 들고 있게 하기
 // UI 작업하기 전에 하자
 // 
-//장비 시스템 추가
+// 
 //인벤토리가 어느 정도 작동한 뒤 연동해서 마무리.
 // 장판기 같은 지속적으로 딜을 하는 설치기들 데미지 주기 건들여야함
 // 일반 장비 끝나면 레벨업시 장비 강화하는 시스템 추가하기
@@ -46,9 +46,20 @@ Game::Game()
 Game::~Game()
 {
 	GET_SINGLE(SceneManager)->Clear();
-	GET_SINGLE(ObjectManager)->Clear();
 	GET_SINGLE(ObjectPool)->Clear();
 	GET_SINGLE(ResourceManager)->Clear();
+
+	TimeManager::DestroyInstance();
+	InputManager::DestroyInstance();
+	GameManager::DestroyInstance();
+	SceneManager::DestroyInstance();
+	ObjectPool::DestroyInstance();
+	ResourceManager::DestroyInstance();
+	SpawnManager::DestroyInstance();
+	StageManager::DestroyInstance();
+	EquipmentManager::DestroyInstance();
+	CollisionManager::DestroyInstance();
+	SoundManager::DestroyInstance();
 
 	_CrtDumpMemoryLeaks();
 }
@@ -77,6 +88,7 @@ void Game::Init(HWND hwnd)
 
 	GET_SINGLE(TimeManager)->Init();
 	GET_SINGLE(InputManager)->Init(hwnd);
+	GET_SINGLE(SoundManager)->Init(hwnd);
 	GET_SINGLE(ResourceManager)->Init(hwnd, fs::path(L"D:\\gitHub\\C++_WinApi\\HoloCureClone\\p1\\Resource"));
 	GET_SINGLE(SceneManager)->Init();
 
@@ -102,17 +114,19 @@ void Game::Render()
 
 	uint32 fps = GET_SINGLE(TimeManager)->GetFps();
 	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
-	
-	{
+
+
+	//TODO define
+	/*{
 		POINT mousePos = GET_SINGLE(InputManager)->GetMousePos();
 		wstring str = std::format(L"Mouse({0}, {1})", mousePos.x, mousePos.y);
-		::TextOut(hdcBack, 20, 10, str.c_str(), static_cast<int32>(str.size()));
+		::TextOut(hdcBack, 20, 480, str.c_str(), static_cast<int32>(str.size()));
 	}
 	
 	{
 		wstring str = std::format(L"FPS({0}), DT({1})", fps, deltaTime);
 		::TextOut(hdc, GWinSizeX - 180, 10, str.c_str(), static_cast<int32>(str.size()));
-	}
+	}*/
 
 	// Double Buffering
 	::BitBlt(hdc, 0, 0, _rect.right, _rect.bottom, hdcBack, 0, 0, SRCCOPY); // 비트 블릿 : 고속 복사

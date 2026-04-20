@@ -20,19 +20,29 @@ class GameManager : public Singleton<GameManager>
 public:
 	void Update();
 
-	void SetPlayer(Player* player) { _player = player; }
-	Player* GetPlayer() { return _player; }
+	void SetPlayer(Player* player) 
+	{ 
+		_player = player; 
+		//cout << "[DEBUG] GameManager::SetPlayer - 林家: " << _player << endl;
+	}
+	Player* GetPlayer() 
+	{ 
+		//cout << "[DEBUG] GameManager::GetPlayer - 馆券 林家: " << _player << endl;
+		return _player; 
+	}
 
 	float GetPlayeTime() { return _playTime; }
 
 	int32 GetCurrentStage() { return _stage; }
 
+
+
 private:
 	Player* _player = nullptr;
 	float _playTime = 0.f;
+	
 
 	int32 _stage = 0;
-
 	GameState _state = GameState::None;
 };
 

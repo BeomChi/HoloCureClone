@@ -21,16 +21,33 @@ void Entity::Update()
 {
 	Super::Update();
 
-	if (_info._currentHp <= 0)
-	{
-		_info._isDead = true;
-		SetState(State::Die);
-	}
 }
 
 void Entity::Render(HDC hdc)
 {
 	Super::Render(hdc);
+}
+
+void Entity::TakeDamage(const DamageInfo& dmg)
+{
+	if (_info._currentHp <= 0)
+		return;
+
+
+	// 디버깅용 로그
+	if (dmg._isCritical)
+		cout << "★ 크리티컬 데미지! (" << dmg._finalDamage << ")" << endl;
+	else
+		cout << "일반 데미지 (" << dmg._finalDamage << ")" << endl;
+
+
+	_info._currentHp -= dmg._finalDamage;
+
+	if (_info._currentHp <= 0)
+	{
+		_info._isDead = true;
+		SetState(State::Die);
+	}
 }
 
 void Entity::SetState(State state)
@@ -48,6 +65,7 @@ void Entity::SetDir(Dir dir)
 		return;
 
 	_dir = dir;
+	cout << "[DEBUG] 방향 변경됨: " << (_dir == DIR_LEFT ? "LEFT" : "RIGHT") << endl;
 	UpdateAnimation();
 }
 
@@ -74,6 +92,9 @@ void Entity::UpdateAnimation()
 		_ani->SetAnimation(_aniAttack[_attack]);
 	case State::Spawn:
 		_ani->SetAnimation(_aniSpawn);
+		break;
+	case State::Die:
+		_ani->SetAnimation(_aniDie);
 		break;
 	}
 }

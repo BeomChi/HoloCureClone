@@ -34,3 +34,38 @@ void Utils::DrawLineColored(HDC hdc, Pos from, Pos to, COLORREF color)
 	::DeleteObject(pen);
 }
 
+void Utils::DrawTextFont(HDC hdc, Pos pos, const wstring& str, int fontSize, COLORREF color, const wstring& fontName, int width, int height)
+{
+	// 폰트 생성
+	HFONT hFont = CreateFont(
+		fontSize, 0, 0, 0, FW_NORMAL,
+		FALSE, FALSE, FALSE,
+		HANGEUL_CHARSET,
+		OUT_DEFAULT_PRECIS,
+		CLIP_DEFAULT_PRECIS,
+		DEFAULT_QUALITY,
+		DEFAULT_PITCH | FF_DONTCARE,
+		fontName.c_str()
+	);
+
+	// 기존 폰트 백업, 적용
+	HFONT oldFont = (HFONT)SelectObject(hdc, hFont);
+
+	// 배경 투명 설명, 글자 색상 설정
+	SetBkMode(hdc, TRANSPARENT);
+	SetTextColor(hdc, color);
+
+	// 출력범위
+	RECT rect;
+	rect.left = static_cast<LONG>(pos.x);
+	rect.top = static_cast<LONG>(pos.y);
+	rect.right = rect.left + width;
+	rect.bottom = rect.top + height;
+
+	::DrawText(hdc, str.c_str(), -1, &rect, DT_LEFT | DT_TOP | DT_WORDBREAK);
+
+	// 리소스 정리
+	SelectObject(hdc, oldFont);
+	DeleteObject(hFont);
+}
+

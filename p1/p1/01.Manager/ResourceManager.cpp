@@ -3,6 +3,8 @@
 #include "../05.Resource/2D/Sprite.h"
 #include "../05.Resource/2D/Texture.h"
 #include "../05.Resource/2D/Animator.h"
+#include "../05.Resource/Sound/Sound.h"
+
 
 ResourceManager::~ResourceManager()
 {
@@ -48,7 +50,8 @@ Texture* ResourceManager::LoadTexture(const wstring& key, const wstring& path, u
 	return texture;
 }
 
-Sprite* ResourceManager::CreateSprite(const wstring& key, Texture* texture, int32 x, int32 y, int32 cx, int32 cy)
+Sprite* ResourceManager::CreateSprite(const wstring& key, Texture* texture, int32 x, int32 y, 
+	int32 cx, int32 cy)
 {
 	if (_sprites.find(key) != _sprites.end())
 		return _sprites[key];
@@ -75,4 +78,18 @@ Animator* ResourceManager::CreateAnimator(const wstring& key)
 	_animators[key] = ani;
 
 	return ani;
+}
+
+Sound* ResourceManager::LoadSound(const wstring& key, const wstring& path)
+{
+	if (_sound.find(key) != _sound.end())
+		return _sound[key];
+
+	fs::path fullPath = _resourcePath / path;
+
+	Sound* sound = new Sound();
+	sound->LoadWave(fullPath);
+	_sound[key] = sound;
+
+	return sound;
 }

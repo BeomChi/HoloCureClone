@@ -1,20 +1,12 @@
 #pragma once
-#include "../GameObject.h"
+#include "AOE.h"
 
-struct MiasmaInfo
+
+
+
+class Miasma :   public AOE
 {
-	float _duration = 0;
-	float _time = 0;
-	float _dmg = 0;
-	float _attackDelay = 1;
-
-	float _baseScale = 1.f;
-};
-
-
-class Miasma :   public GameObject
-{
-	using Super = GameObject;
+	using Super = AOE;
 public:
 	Miasma();
 	virtual ~Miasma() override;
@@ -25,18 +17,13 @@ public:
 
 	//void Activate()
 
-	void SetDmg(float dmg) { _info._dmg = dmg; }
-	void SetAttackDelay(float delay) { _info._attackDelay = delay; }
-	void SetScaleMultple(float scale);
 
-
-	virtual void OnTriggerEnter(Collider* collider, Collider* other) override;
 	virtual void OnTriggerStay(Collider* collider, Collider* other) override;
-	virtual void OnTriggerExit(Collider* collider, Collider* other) override;
+
 
 	virtual void Reset() override;
 private:
-	MiasmaInfo _info;
+
 	float _sumTime = .8f;
 };
 

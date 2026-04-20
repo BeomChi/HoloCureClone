@@ -23,7 +23,7 @@ public:
 	void CreateNewObject(wstring key);
 
 	void Clear();
-
+	void Debug();
 private:
 	ObjectFactory _factory;
 	unordered_map<wstring,vector<GameObject*>> _objectPool;
@@ -39,10 +39,11 @@ inline T* ObjectPool::Get(wstring key)
 	{
 		CreateNewObject(key);
 	}
-	static_assert(std::is_base_of_v<GameObject, T>, "T X GameObject");
-
+	static_assert(is_base_of_v<GameObject, T>, "T X GameObject");
 	T* obj = static_cast<T*>(pool.back());
 	pool.pop_back();
+
+	//wcout << L"[GET] key = " << key << L" size after pop = " << pool.size() << endl;
 	
 	obj->SetIsActivity(true);
 
@@ -55,6 +56,7 @@ inline void ObjectPool::ReturnObject(wstring key,T* obj)
 	if (obj == nullptr)
 		return;
 
+	//wcout << L"[RET] key = " << key << endl;
 	obj->Reset();
 	_objectPool[key].push_back(obj);
 }

@@ -17,6 +17,7 @@ void StageManager::Update()
 
 	// 스테이니 내에 플레이 타임
 	_time += deltaTime;
+	OnTimeChanged(_time);
 
 	switch(_state)
 	{
@@ -30,7 +31,7 @@ void StageManager::Update()
 		// 일정 시간 후 중간 보스 하나 소환 카운트 +1 다시 일반 몬스터 소환
 		GET_SINGLE(SpawnManager)->Update();
 
-		if (_time - _lastMidleBossSpawnTime >= 30 && _spawnMidleBossCount < 4)
+		if (_time - _lastMidleBossSpawnTime >= 300 && _spawnMidleBossCount < 4)
 		{
 			//중간 보스 소환
 			// 게임 매니저를 통해서 현재 스테이지 값 넘겨주기
@@ -39,7 +40,7 @@ void StageManager::Update()
 			_lastMidleBossSpawnTime = _time;
 		}
 
-		if (_spawnMidleBossCount == 4)
+		if (_spawnMidleBossCount == 5)
 		{
 			SetStageState(StageState::BossInComing);
 		}

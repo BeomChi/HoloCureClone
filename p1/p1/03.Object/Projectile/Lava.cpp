@@ -3,7 +3,6 @@
 #include "../../01.Manager/ResourceManager.h"
 #include "../../01.Manager/TimeManager.h"
 #include "../../01.Manager/CollisionManager.h"
-#include "../../01.Manager/SceneManager.h"
 #include "../../03.Object/Entity/Entity.h"
 #include "../../04.Component/2D/AnimationComponent.h"
 #include "../../04.Component/Collision/BoxCollider.h"
@@ -27,7 +26,7 @@ void Lava::Init()
 	_ani->SetAnimation(_lava[START]);
 
 	BoxCollider* boxCollider = new BoxCollider();
-	boxCollider->SetShowDebug(true);
+	boxCollider->SetShowDebug(false);
 	SetCollider(boxCollider);
 
 	GET_SINGLE(CollisionManager)->AddCollider(boxCollider);
@@ -93,9 +92,7 @@ void Lava::Activate(Vec2 pos, float duration)
 	SetIsActivity(true);
 }
 
-void Lava::OnTriggerEnter(Collider* collider, Collider* other)
-{
-}
+
 
 void Lava::OnTriggerStay(Collider* collider, Collider* other)
 {
@@ -104,19 +101,16 @@ void Lava::OnTriggerStay(Collider* collider, Collider* other)
 
 	if (other->GetOwner()->GetEntityType() == EntityType::Monster)
 	{
-		//_sumTime += GET_SINGLE(TimeManager)->GetDeltaTime();
-
 		if (_sumTime >= _info._attackDelay)
 		{
-			static_cast<Entity*>(other->GetOwner())->TakeDamage(_info._dmg);
+			static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
+			cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
 			_sumTime = 0;
 		}
 	}
 }
 
-void Lava::OnTriggerExit(Collider* collider, Collider* other)
-{
-}
+
 
 void Lava::Reset()
 {

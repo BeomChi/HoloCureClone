@@ -1,15 +1,12 @@
 #pragma once
-#include "../GameObject.h"
+#include "AOE.h"
 
-struct BLBookSt
+
+
+
+class BLBookObj :   public AOE
 {
-	float _dmg = 0;
-};
-
-
-class BLBookObj :   public GameObject
-{
-	using Super = GameObject;
+	using Super = AOE;
 public:
 	BLBookObj();
 	virtual ~BLBookObj() override;
@@ -20,13 +17,13 @@ public:
 
 	//void Activate()
 
-	void SetDmg(float dmg) { _info._dmg = dmg; }
 
 	virtual void OnTriggerEnter(Collider* collider, Collider* other) override;
 	virtual void OnTriggerExit(Collider* collider, Collider* other) override;
 
 	virtual void Reset() override;
 private:
-	BLBookSt _info;
+
+
 };
 

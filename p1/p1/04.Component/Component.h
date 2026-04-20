@@ -18,4 +18,3 @@ public:
 protected:
 	GameObject* _owner;
 };
-

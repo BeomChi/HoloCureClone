@@ -22,15 +22,19 @@ public:
 
 
 private:
-	bool _fire = false;
-	int32 _fireCount = 0;
-	float _sumTime = 0;
+	// 폭탄 오브젝트 정보
+	AOEEquipInfo _info;
 
-	float _firePosLength = 30;
+	// 폭탄 생성 관련 변수
+	float _sumTime = 0;
 	float _lastAttackTime = 0;
 
 	// Equipment을(를) 통해 상속됨
-	void ApplyEffect() override;
-	void UseAbility(const Player& player) override;
+	virtual void ApplyEffect() override;
+	virtual void UseAbility(const Player& player) override;
+
+	// Equipment을(를) 통해 상속됨
+	virtual void SetEquipInfo(const EquipmentBaseInfo& baseInfo, const AOEEquipInfo& info) override;
+	virtual void ApplyEffectByLevel(int32 level) override;
 };
 

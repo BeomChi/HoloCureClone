@@ -2,7 +2,8 @@
 #include "BombObj.h"
 #include "../../01.Manager/ResourceManager.h"
 #include "../../01.Manager/TimeManager.h"
-#include "../../01.Manager/ObjectManager.h"
+#include "../../01.Manager/SceneManager.h"
+#include "../../02.Scene/Scene.h"
 #include "../../03.Object/ObjectPool/ObjectPool.h"
 #include "../../03.Object/Projectile/BombExplode.h"
 #include "../../04.Component/2D/SpriteRenderer.h"
@@ -20,7 +21,7 @@ void BombObj::Init()
 {// component
 	{
 		{
-			Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"Bomb");
+			Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"BombObj");
 			SpriteRenderer* renderer = new SpriteRenderer();
 			renderer->SetSprite(sprite);
 			SetSize({ (float)sprite->GetSize().x, (float)sprite->GetSize().y });
@@ -47,9 +48,9 @@ void BombObj::Update()
 	{
 		BombExplode* bombExplode = GET_SINGLE(ObjectPool)->Get<BombExplode>(L"BombExplode");
 		bombExplode->SetPos(GetPos());
-		bombExplode->SetDemage(_info._dmg);
+		bombExplode->SetDamageInfo(_damageInfo);
 
-		GET_SINGLE(ObjectManager)->AddObject(bombExplode);
+		GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(bombExplode);
 
 		SetIsActivity(false);
 	}

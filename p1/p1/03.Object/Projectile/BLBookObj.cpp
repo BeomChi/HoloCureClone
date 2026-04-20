@@ -1,13 +1,12 @@
 #include "pch.h"
 #include "BLBookObj.h"
 #include "../../01.Manager/TimeManager.h"
-#include "../../03.Object/Entity/Entity.h"
-#include "../../01.Manager/ObjectManager.h"
-#include "../../04.Component/Collision/BoxCollider.h"
-#include "../../04.Component/2D/SpriteRenderer.h"
+#include "../../01.Manager/SceneManager.h"
 #include "../../01.Manager/CollisionManager.h"
 #include "../../01.Manager/ResourceManager.h"
-#include "../../01.Manager/SceneManager.h"
+#include "../../03.Object/Entity/Entity.h"
+#include "../../04.Component/Collision/BoxCollider.h"
+#include "../../04.Component/2D/SpriteRenderer.h"
 #include "../../05.Resource/2D/Sprite.h"
 
 BLBookObj::BLBookObj()
@@ -35,7 +34,7 @@ void BLBookObj::Init()
 		{
 			BoxCollider* collider = new BoxCollider();
 			collider->SetSize(_renderSize);
-			collider->SetShowDebug(true);
+			collider->SetShowDebug(false);
 
 			AddComponent(collider);
 			SetCollider(collider);
@@ -51,7 +50,14 @@ void BLBookObj::Update()
 {
 	Super::Update();
 
-	
+	//float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	 
+	//_sumTime += deltaTime;
+
+	//if (_sumTime >= _info._duration)
+	{
+		//SetIsActivity(false);
+	}
 }
 
 void BLBookObj::Render(HDC hdc)
@@ -63,7 +69,8 @@ void BLBookObj::OnTriggerEnter(Collider* collider, Collider* other)
 {
 	if (other->GetOwner()->GetEntityType() == EntityType::Monster)
 	{
-		static_cast<Entity*>(other->GetOwner())->TakeDamage(_info._dmg);
+		static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
+		cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
 
 	}
 }
@@ -74,6 +81,5 @@ void BLBookObj::OnTriggerExit(Collider* collider, Collider* other)
 
 void BLBookObj::Reset()
 {
-	//_info._dmg = 0;
-	//_info._time = 0;
+	_info._sumTime = 0.f;
 }

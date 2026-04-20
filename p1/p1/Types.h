@@ -2,6 +2,7 @@
 #include <cmath>
 #include <windows.h>
 
+class Entity;
 
 using int8 = __int8;
 using int16 = __int16;
@@ -12,13 +13,38 @@ using uint16 = unsigned __int16;
 using uint32 = unsigned __int32;
 using uint64 = unsigned __int64;
 
-struct Stat
+struct DamageInfo
 {
-	int32 hp = 0;
-	int32 maxHp = 0;
-	float speed = 0;
+	Entity* _attacker = nullptr;
+
+	int _finalDamage = 0;
+
+	bool _isCritical = false;
 };
 
+// 투사체 공격 장비 정보 구조체
+struct ProjectileEquipInfo
+{
+	int32 _count = 1;							// 생성 갯수
+	int32 _pierceCount = 0;						// 최대 관통 수(투사체가 관통할 수 있는 적의 수)
+
+	float _range = 1;							// 공격 크기
+	float _coolTime = 0;						// 공격 쿨타임
+	float _dmgMultiplier = 1;					// 데미지 배율
+};
+
+// 범위 공격 장비 정보 구조체
+struct AOEEquipInfo
+{
+	int32 _count = 1;							// 생성 갯수
+
+	float _range = 1;							// 공격 범위
+	float _coolTime = 0;						// 공격 쿨타임
+	float _duration = 0;						// 지속 시간
+	float _attackDelay = 0;						// 공격 주기
+	float _dmgMultiplier = 1;					// 데미지 배율
+
+};
 
 
 struct Vector

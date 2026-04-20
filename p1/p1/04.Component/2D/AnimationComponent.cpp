@@ -26,7 +26,7 @@ void AnimationComponent::Update()
 
 	const AnimationInfo& info = _animator->GetInfo();
 
-	if (info.loop == false && _idx == info.end)
+	if (info.loop == false && _idx >= info.end)
 		return;
 
 	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
@@ -34,7 +34,6 @@ void AnimationComponent::Update()
 	_sumTime += deltaTime;
 
 	int32 frameCount = (info.end - info.start + 1);
-
 	float delta = info.duration / frameCount;
 
 	if (_sumTime >= delta)
@@ -52,8 +51,6 @@ void AnimationComponent::Render(HDC hdc)
 		return;
 	}
 
-	
-
 	const AnimationInfo& info = _animator->GetInfo();
 	Vec2 pos = _owner->GetPos();
 	Vec2 size = _owner->GetSize();
@@ -64,9 +61,6 @@ void AnimationComponent::Render(HDC hdc)
 
 	screenPos.x -= _animator->GetPivot().x * renderSize.x;
 	screenPos.y -= _animator->GetPivot().y * renderSize.y;
-
-	//screenPos.x -= size.x / 2;
-	//screenPos.y -= size.y / 2;
 
 	int frameIdx = _idx - info.start;
 	int srcX = frameIdx * info.size.x;
@@ -85,7 +79,6 @@ void AnimationComponent::Render(HDC hdc)
 		info.size.y,
 		info.texture->GetTransparent()
 	);
-	
 }
 
 void AnimationComponent::SetAnimation(Animator* ani)

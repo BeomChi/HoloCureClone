@@ -1,12 +1,15 @@
 #include "pch.h"
 #include "SpawnManager.h"
 #include "TimeManager.h"
-#include "ObjectManager.h"
+#include "SceneManager.h"
+#include "../02.Scene/Scene.h"
 #include "../03.Object/Spawner/Spawner.h"
 
 void SpawnManager::Init()
 {
-	AddSpawner();
+	for (int32 i = 0; i < 4; i++)
+		AddSpawner();
+
 	_maxSpawnCount = 40;
 }
 
@@ -31,10 +34,10 @@ void SpawnManager::Update()
 
 void SpawnManager::Render(HDC hdc)
 {
-	{
+	/*{
 		wstring str = std::format(L"현재 스폰된 몬스터({0})", _currentSpawnCount);
 		::TextOut(hdc, GWinSizeX / 2, 30, str.c_str(), static_cast<int32>(str.size()));
-	}
+	}*/
 }
 
 void SpawnManager::SpawnMidleBoss(int32 Stage)
@@ -64,5 +67,5 @@ void SpawnManager::AddSpawner()
 	Spawner* spawner = new Spawner();
 	_spawners.push_back(spawner);
 
-	GET_SINGLE(ObjectManager)->AddObject(spawner);
+	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(spawner);
 }

@@ -3,10 +3,10 @@
 #include "../GameObject.h"
 #include "../ObjectFactory.h"
 #include "../Entity/Player/Player.h"
-#include "../Projectile/Bullet.h"
 #include "../Entity/Monster/Fubura.h"
 #include "../Entity/Monster/Shubangelion.h"
 #include "../Entity/Monster/NormalMonster.h"
+#include "../Projectile/Bullet.h"
 #include "../Projectile/Laser.h"
 #include "../Projectile/Lava.h"
 #include "../Projectile/BLBookObj.h"
@@ -14,14 +14,20 @@
 #include "../Projectile/FanBeamObj.h"
 #include "../Projectile/BombExplode.h"
 #include "../Projectile/BombObj.h"
+#include "../Projectile/Axe.h"
+#include "../Projectile/SausageObj.h"
+#include "../Projectile/Splash.h"
+#include "../Projectile/Stick.h"
+#include "../Projectile/StickExplode.h"
+#include "../Projectile/TridentObj.h"
 #include "../Item/Experinence/ExperinenceObject.h"
 #include "../Item/Heal/Heal.h"
+#include "../../06.Ui/Game/EquipmentSelectHud.h"
 
 
 void ObjectPool::Init()
 {
 	ReigsterCreator<Player>(L"Player");
-	CreateNewObject(L"Player");
 
 	ReigsterCreator<Bullet>(L"Bullet");
 
@@ -38,10 +44,17 @@ void ObjectPool::Init()
 	ReigsterCreator<FanBeamObj>(L"FanBeamObj");
 	ReigsterCreator<BombExplode>(L"BombExplode");
 	ReigsterCreator<BombObj>(L"BombObj");
+	ReigsterCreator<Axe>(L"Axe");
+	ReigsterCreator<SausageObj>(L"SausageObj");
+	ReigsterCreator<Splash>(L"Splash");
+	ReigsterCreator<Stick>(L"Stick");
+	ReigsterCreator<StickExplode>(L"StickExplode");
+	ReigsterCreator<TridentObj>(L"TridentObj");
 
 
 	ReigsterCreator<ExperinenceObject>(L"Exp");
 	ReigsterCreator<Heal>(L"Heal");
+	ReigsterCreator<EquipmentSelectHud>(L"EquipmentSelectHud");
 
 	
 
@@ -66,11 +79,21 @@ void ObjectPool::Clear()
 	{
 		for (GameObject* obj : vec)
 		{
-			SAFE_DELETE(obj);
+			if(obj != NULL)
+				SAFE_DELETE(obj);
 		}
 		vec.clear();
 	}
 
 	_objectPool.clear();
 	_creators.clear();
+}
+
+void ObjectPool::Debug()
+{
+	cout << "---------------------------" << endl;
+	for (const auto& [key, vec] : _objectPool)
+	{
+		wcout << L"Key: " << key << L", Count: " << vec.size() << endl;
+	}
 }

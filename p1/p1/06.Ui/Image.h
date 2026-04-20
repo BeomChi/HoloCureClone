@@ -3,9 +3,6 @@
 
 class Sprite;
 
-
-
-
 class Image : public Ui
 {
 	using Super = Ui;

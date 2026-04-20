@@ -17,7 +17,7 @@ public:
 
 	virtual void Reset() override;
 
-
+	virtual void TakeDamage(const DamageInfo& dmg) override;
 	void Move(float deltaTime);
 	void Attack(float deltaTime);
 	void ChangeAttack();

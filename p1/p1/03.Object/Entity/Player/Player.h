@@ -1,32 +1,37 @@
-#pragma once
-#include "../Entity.h"
+#pragma once  
+#include "../Entity.h"  
+#include "Signal.hpp" // Ensure Signal is included  
 
-class Equipment;
-
-
+class Equipment;  
+class HpBar;
+class EquipmentSelectHud;
 
 class Player : public Entity
 {
 	using Super = Entity;
 public:
+	Signal<float, float> OnHpChanged;
+	Signal<float, float> OnExpChanged;
+	Signal<int32> OnLevelChanged;
+
 	Player();
+	Player(const Player&) = delete;
+	Player& operator=(const Player&) = delete;
 	virtual ~Player() override;
 
 	virtual void Init() override;
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
-
-
-	void SetFirePosLength(float length) { _firePosLength = length; }
-	Vec2 GetFirePos();
-	Vec2 GetMousePosToPlayerDir();
+	virtual void TakeDamage(const DamageInfo& dmg) override;
 
 	virtual void OnTriggerEnter(Collider* collider, Collider* other) override;
 	virtual void OnTriggerExit(Collider* collider, Collider* other) override;
 
-	void AddExp(float exp) { _info._exp += exp; }
-	void SetMaxExp(float maxExp) { _info._maxExp = maxExp; }
+	void AddExp(int32 exp) { _info._exp += exp; }
+	void AddCrtMulty(float crtMulty) { _info._crtMultplier += crtMulty; }
+	void RemoveCrtMulty(float crtMulty) { _info._crtMultplier -= crtMulty; }
+	void SetMaxExp(int32 maxExp) { _info._maxExp = maxExp; }
 
 	void CheckLevelUpExp();
 	void LevelUp();
@@ -35,22 +40,26 @@ public:
 
 	virtual void Reset() override;
 
-	// 장비 테스트
-	//void AddEquiment(Equipment* equip);
-	//void UpdateEquipments();
-	
+	void SetEquipmentSelectHud(EquipmentSelectHud* hud) { _equipmentSelectUi = hud; }
+
+
+	bool IsChoosingEquipment() const { return _isChoosingEquipment; }
+	void SetChoosingEquipment(bool choosing) { _isChoosingEquipment = choosing; }
+
+	int32 GetCurrentLevel() { return _info._level; }
+
+	float GetItemAbsorbDistance() const { return _absorbDistance; }
+	void SetItemAbsorbDistance(float distance) { _absorbDistance = distance; }
 private:
 	void InputMove(float deltaTime);
 	void Idle(float deltaTime);
-	void Attack(float deltaTime);
-
 
 private:
-	float _firePosLength = 0;
-	float _attackDelayTime = 2;
-	float _lastAttackTime = 0;
 	float _sumTime = 0;
+	float _absorbDistance = 50.f;
 
-	//vector<Equipment*> _equipments;
+	bool _isChoosingEquipment = false;
+
+	EquipmentSelectHud* _equipmentSelectUi = nullptr;
+
 };
-

@@ -39,7 +39,7 @@ void BombExplode::Init()
 		{
 			BoxCollider* collider = new BoxCollider();
 			collider->SetSize(_renderSize);
-			collider->SetShowDebug(true);
+			collider->SetShowDebug(false);
 			AddComponent(collider);
 			SetCollider(collider);
 
@@ -73,23 +73,15 @@ void BombExplode::OnTriggerEnter(Collider* collider, Collider* other)
 {
 	if (other->GetOwner()->GetEntityType() == EntityType::Monster)
 	{
-		static_cast<Entity*>(other->GetOwner())->TakeDamage(_info._dmg);
-		cout << "데미지 들어감 : " << _info._dmg << endl;
+		static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
+		cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
 	}
 }
 
-void BombExplode::OnTriggerStay(Collider* collider, Collider* other)
-{
-	
-}
-
-void BombExplode::OnTriggerExit(Collider* collider, Collider* other)
-{
-}
 
 void BombExplode::Reset()
 {
-	_info._dmg = 0;
+
 	_ani->Reset();
 
 	_collider->ClearCollisionMap();

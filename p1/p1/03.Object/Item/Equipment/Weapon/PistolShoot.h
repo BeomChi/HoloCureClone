@@ -23,6 +23,8 @@ public:
 	Vec2 GetMousePosToPlayerDir();
 
 private:
+	ProjectileEquipInfo _info;
+
 	bool _fire = false;
 	int32 _fireCount = 0;
 	float _sumTime = 0;
@@ -35,5 +37,9 @@ private:
 	// Equipment을(를) 통해 상속됨
 	virtual void ApplyEffect() override;
 	virtual void UseAbility(const Player& player) override;
+
+	// Equipment을(를) 통해 상속됨
+	virtual void SetEquipInfo(const EquipmentBaseInfo& baseInfo, const ProjectileEquipInfo& info) override;
+	virtual void ApplyEffectByLevel(int32 level) override;
 };
 

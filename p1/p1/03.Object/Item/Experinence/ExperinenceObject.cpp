@@ -54,11 +54,6 @@ void ExperinenceObject::Render(HDC hdc)
 {
 	Super::Render(hdc);
 
-	{
-		Vec2 pos = GET_SINGLE(SceneManager)->WorldToScreen(_pos);
-		wstring str = std::format(L"Exp :({0})", _exp);
-		::TextOut(hdc, pos.x, pos.y - _size.y, str.c_str(), static_cast<int32>(str.size()));
-	}
 }
 
 void ExperinenceObject::AddToExp(Player* obj)
