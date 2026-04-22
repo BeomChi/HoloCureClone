@@ -224,9 +224,9 @@ void EquipmentManager::AddEquiment(Equipment* equip)
 				{
 					eq->UpgradeEquip(*GET_SINGLE(GameManager)->GetPlayer()); // 장비 업그레이드
 
+					_equipmentHud->RefreshSlots(); // UI 갱신
 					// 새로만든 장비 제거
 					SAFE_DELETE(equip);
-					_equipmentHud->RefreshSlots(); // UI 갱신
 					return; // 중복 착용 방지
 				}
 			}

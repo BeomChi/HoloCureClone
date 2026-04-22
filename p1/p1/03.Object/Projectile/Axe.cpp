@@ -37,7 +37,7 @@ void Axe::Init()
 		{
 			BoxCollider* collider = new BoxCollider();
 			collider->SetSize(_renderSize);
-			collider->SetShowDebug(true);
+			//collider->SetShowDebug(true);
 			AddComponent(collider);
 			SetCollider(collider);
 

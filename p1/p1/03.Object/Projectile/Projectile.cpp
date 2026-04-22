@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Projectile.h"
 #include "../../01.Manager/SceneManager.h"
+#include "../../01.Manager/GameManager.h"
 
 
 Projectile::Projectile()

@@ -20,12 +20,14 @@ EquipmentHud::~EquipmentHud()
 {
 	for (size_t j = 0; j < 2; j++)
 	{
-		for (EquipmentSlotUi* slot : _slot[j])
+		// 메모리 소유권은 _panel에 있어서,_slot에 있는 건 삭제하지 않고 그냥 clear만 호출
+		//for (EquipmentSlotUi* slot : _slot[j])
 		{
-			SAFE_DELETE(slot);
+			//SAFE_DELETE(slot);
 		}
 		_slot[j].clear();
 	}
+	cout << "[DEBUG] EquipmentHud 소멸자 호출. 슬롯 메모리 해제 완료." << endl;
 }
 
 void EquipmentHud::Init()

@@ -2,6 +2,7 @@
 #include "StartScene.h"
 #include "../../01.Manager/ResourceManager.h"
 #include "../../01.Manager/SceneManager.h"
+#include "../../01.Manager/GameManager.h"
 #include "../../04.Component/2D/SpriteRenderer.h"
 #include "../../05.Resource/2D/Sprite.h"
 #include "../../06.Ui/Button.h"
@@ -23,6 +24,7 @@ StartScene::~StartScene()
 
 void StartScene::Init()
 {
+	cout << "Scene Start State: " << (int)GET_SINGLE(GameManager)->GetState() << endl;
 	GET_SINGLE(ResourceManager)->LoadSound(L"Stage01BGM", L"Sound\\Stage01\\Stage01BGM.wav");
 
 	GET_SINGLE(ResourceManager)->LoadTexture(L"Start", L"Sprite\\Ui\\Start.bmp");
@@ -93,5 +95,6 @@ void StartScene::Render(HDC hdc)
 
 void StartScene::GameStart()
 {
+	GET_SINGLE(GameManager)->SetState(GameState::Playing);
 	GET_SINGLE(SceneManager)->ChangeScnee(SceneType::DevScene);
 }

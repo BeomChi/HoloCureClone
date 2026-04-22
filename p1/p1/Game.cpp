@@ -94,7 +94,7 @@ void Game::Init(HWND hwnd)
 
 
 
-
+	GET_SINGLE(GameManager)->SetState(GameState::Playing);
 	GET_SINGLE(SceneManager)->ChangeScnee(SceneType::StartScene);
 }
 

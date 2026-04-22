@@ -24,6 +24,11 @@ EquipmentSlotUi::~EquipmentSlotUi()
 	{
 		SAFE_DELETE(_numberImage);
 	}
+
+	if (_eq != nullptr)
+	{
+		_eq = nullptr; // Equipment 객체는 소유권이 없으므로 삭제하지 않고 nullptr로 설정
+	}
 }
 
 void EquipmentSlotUi::Init()
@@ -55,19 +60,23 @@ void EquipmentSlotUi::SetEquipmentSprite(Equipment* eq)
 {
 	if (eq == nullptr)
 		return;
-	
+	_eq = eq;
 
-	SetSprite(GET_SINGLE(ResourceManager)->GetSprite(eq->GetName()));
+	SetSprite(GET_SINGLE(ResourceManager)->GetSprite(_eq->GetName()));
 	SetSize({ (float)GetSprite()->GetSize().x, (float)GetSprite()->GetSize().y });
 	SetLayer(LAYER_UI);
 
-	_levelImage = new Image();
+	if(_levelImage == nullptr)
+		_levelImage = new Image();
+
 	_levelImage->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"LevelTypeNormal"));
 	_levelImage->SetPos({ GetPos().x - (float)GetSprite()->GetSize().x / 2,
 		GetPos().y + ((float)GetSprite()->GetSize().y /2) });
 
-	_numberImage = new Image();
-	_numberImage->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"NumberTypeNormal" + to_wstring(eq->GetLevel())));
+	if(_numberImage == nullptr)
+		_numberImage = new Image();
+	cout << "[DEBUG] EquipmentSlotUi::SetEquipmentSprite - Level: " << _eq->GetLevel() << endl;
+	_numberImage->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"NumberTypeNormal" + to_wstring(_eq->GetLevel())));
 	_numberImage->SetPos({ _levelImage->GetPos().x + 10.f,	_levelImage->GetPos().y + 2 });
 }
 

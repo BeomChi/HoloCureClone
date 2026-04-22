@@ -23,6 +23,12 @@ EquipmentSelectSlotUi::EquipmentSelectSlotUi(Equipment* eq)
 	_eq = eq;
 
 	_icon = new Image();
+
+	Button::SetOnClick([this]()
+		{
+			OnClicked();
+		});
+
 	//_icon->SetPos({ _pos.x - 200.f,_pos.y - 5 });
 	//_icon->SetLayer(LAYER_UI);
 	//GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(_icon);
@@ -91,7 +97,7 @@ void EquipmentSelectSlotUi::Render(HDC hdc)
 
 	_icon->Render(hdc);
 }
-
+/*
 void EquipmentSelectSlotUi::ButtonEvent(Ui* ui)
 {
 	if (_eq == nullptr)
@@ -116,7 +122,7 @@ void EquipmentSelectSlotUi::ButtonEvent(Ui* ui)
 	_icon->SetIsActivity(false);
 	player->CheckLevelUpExp();
 }
-
+*/
 void EquipmentSelectSlotUi::SetEquipment(Equipment* eq)
 {
 	if (eq == nullptr)
@@ -140,6 +146,12 @@ void EquipmentSelectSlotUi::SetSlot()
 void EquipmentSelectSlotUi::Activity()
 {
 	_icon->SetIsActivity(true);
+}
+
+void EquipmentSelectSlotUi::OnClicked()
+{
+	if (_eq && _onClick)
+		_onClick(_eq);
 }
 
 void EquipmentSelectSlotUi::Clear()

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Scene.h"
 #include "../01.Manager/CollisionManager.h"
+#include "../01.Manager/GameManager.h"
 #include "../03.Object/GameObject.h"
 #include "../03.Object/ObjectPool/ObjectPool.h"
 
@@ -22,6 +23,9 @@ void Scene::Update()
 {
 	for (int i = 0; i < LAYER_MAXCOUNT; ++i)
 	{
+		if (!CheckGameStateInLayer(i))
+			continue;
+
 		for (GameObject* obj : _objects[i])
 		{
 			if (!obj->GetIsActivity())
@@ -120,4 +124,12 @@ void Scene::Clear()
 	for (int i = 0; i < LAYER_MAXCOUNT; ++i)
 		_objects[i].clear();
 
+}
+
+bool Scene::CheckGameStateInLayer(int layer)
+{
+	if (GET_SINGLE(GameManager)->GetState() == GameState::Playing)
+		return true;
+
+	return layer == LAYER_UI;
 }

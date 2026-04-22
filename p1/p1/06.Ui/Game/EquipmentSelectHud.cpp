@@ -16,18 +16,20 @@ EquipmentSelectHud::EquipmentSelectHud()
 {
 	auto equips = GET_SINGLE(EquipmentManager)->GetRandomEquipments();
 
+	// _slot은 로직 처리용
+	// _panel은 실제로 화면에 보이는 용
 	for (int i = 0; i < equips.size(); i++)
 	{
 		EquipmentSelectSlotUi* slot = new EquipmentSelectSlotUi(equips[i]);
 		slot->SetPos({ 400.f, 200.f + (i * 65) });
 		slot->GetIcon()->SetPos({ slot->GetPos().x - 160, slot->GetPos().y + 5 });
-		_slot.push_back(slot);
-		AddPanel(slot);
+		_slot.push_back(slot);	
+		AddPanel(slot);	
 
 		slot->SetOnClick(
-			[this, slot]() 
+			[this](Equipment* eq)
 			{
-				slot->ButtonEvent(this);
+				OnEquipmentSelected(eq);
 			});
 	}
 
@@ -37,6 +39,7 @@ EquipmentSelectHud::EquipmentSelectHud()
 EquipmentSelectHud::~EquipmentSelectHud()
 {
 	Clear();
+	cout << "[DeBUG] EquipmentSelectHud 소멸자 호출. 슬롯 메모리 해제 완료." << endl;
 }
 
 void EquipmentSelectHud::Init()
@@ -68,11 +71,31 @@ void EquipmentSelectHud::Reset()
 	{
 		_slot[i]->SetIsActivity(true);
 		_slot[i]->SetEquipment(equips[i]);
-		_slot[i]->Activity();
+		//_slot[i]->Activity();
 	}
 }
 
 void EquipmentSelectHud::Clear()
 {
 	_slot.clear();
+}
+
+void EquipmentSelectHud::OnEquipmentSelected(Equipment* eq)
+{
+	if (eq == nullptr)
+		return;
+
+	Player* player = GET_SINGLE(GameManager)->GetPlayer();
+
+	GET_SINGLE(EquipmentManager)->AddEquiment(eq);
+
+
+	player->SetChoosingEquipment(false);
+
+	this->SetIsActivity(false);
+	
+	// 선택이 끝나면 게임 상태를 Playing으로 변경
+	GET_SINGLE(GameManager)->SetState(GameState::Playing);
+
+	player->CheckLevelUpExp();
 }

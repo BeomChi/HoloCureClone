@@ -72,3 +72,12 @@ enum class WeaponType
 	Multishot,
 	None
 };
+
+enum class GameState
+{
+	None,
+	Title,
+	Playing,
+	Paused,
+	GameOver,
+};

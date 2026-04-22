@@ -2,6 +2,7 @@
 #include "../Panel.h"
 
 class EquipmentSelectSlotUi;
+class Equipment;
 
 class EquipmentSelectHud : public Panel
 {
@@ -16,6 +17,9 @@ public:
 
 	virtual void Reset() override;
 	void Clear();
+
+private:
+	void OnEquipmentSelected(Equipment* eq);
 
 private:
 	vector<EquipmentSelectSlotUi*> _slot; // 패널 리스트

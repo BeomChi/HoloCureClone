@@ -5,6 +5,7 @@
 #include "../../../01.Manager/ResourceManager.h"
 #include "../../../01.Manager/SceneManager.h"
 #include "../../../01.Manager/CollisionManager.h"
+#include "../../../01.Manager/GameManager.h"
 #include "../../../02.Scene/Scene.h"
 #include "../../Projectile/Bullet.h"
 #include "../../ObjectPool/ObjectPool.h"
@@ -82,6 +83,12 @@ void Player::Init()
 void Player::Update()
 {
 	Super::Update();
+
+	if (_state == State::Die)
+	{
+		_info._isDead = true;
+		GET_SINGLE(GameManager)->GameOver();
+	}
 
 	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
 	_sumTime += deltaTime;
@@ -169,6 +176,8 @@ void Player::LevelUp()
 {
 	if (_isChoosingEquipment)
 		return;
+
+	GET_SINGLE(GameManager)->SetState(GameState::Paused);
 
 	_info._level++;
 	_info._exp -= _info._maxExp;

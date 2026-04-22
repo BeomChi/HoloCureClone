@@ -23,6 +23,9 @@ public:
 	const vector<GameObject*>& GetGameObjects(int layer) const { return _objects[layer]; }
 
 private:
+	bool CheckGameStateInLayer(int layer);
+
+private:
 	vector<GameObject*> _objects[LAYER_MAXCOUNT];
 	vector<GameObject*> _pendingObjects[LAYER_MAXCOUNT];
 	ObjectFactory _factory;

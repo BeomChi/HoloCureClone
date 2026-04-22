@@ -3,15 +3,6 @@
 
 class Player;
 
-enum class GameState
-{
-	None,
-	Title,
-	InGame,
-	Paused,
-	GameOver,
-	Clear
-};
 
 class GameManager : public Singleton<GameManager>
 {
@@ -35,6 +26,10 @@ public:
 
 	int32 GetCurrentStage() { return _stage; }
 
+	void SetState(GameState state) { _state = state; }
+	GameState GetState() const { return _state; }
+
+	void GameOver();
 
 
 private:
@@ -44,5 +39,7 @@ private:
 
 	int32 _stage = 0;
 	GameState _state = GameState::None;
+
+	int32 _toTalKillCount = 0;
 };
 

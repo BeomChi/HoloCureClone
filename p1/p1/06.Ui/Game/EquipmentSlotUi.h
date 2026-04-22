@@ -24,5 +24,6 @@ public:
 private:
 	Image* _levelImage = nullptr; // 레벨 이미지
 	Image* _numberImage = nullptr; // 레벨 이미지
+	Equipment* _eq;
 };
 

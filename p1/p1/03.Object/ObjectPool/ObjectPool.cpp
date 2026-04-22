@@ -72,14 +72,15 @@ void ObjectPool::CreateNewObject(wstring key)
 
 	_objectPool[key].push_back(obj);
 }
-
+// TODO : 여기 겜 종료시 가끔씩 이미 삭제된 걸 건들여서 터짐 이거 해결해야함
+// 그리고 장비 ui저거 id나 이름을 통해 데이터 받아와서 하는 방식으로 해야할거 같음
 void ObjectPool::Clear()
 {
 	for (auto& [key, vec] : _objectPool)
 	{
 		for (GameObject* obj : vec)
 		{
-			if(obj != NULL)
+			if(obj != nullptr)
 				SAFE_DELETE(obj);
 		}
 		vec.clear();

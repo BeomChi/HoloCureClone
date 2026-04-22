@@ -46,7 +46,7 @@ DevScene::DevScene()
 
 DevScene::~DevScene()
 {
-	GET_SINGLE(ObjectPool)->Clear();
+	//GET_SINGLE(ObjectPool)->Clear();
 	GET_SINGLE(EquipmentManager)->Clear();
 
 	if (sound)

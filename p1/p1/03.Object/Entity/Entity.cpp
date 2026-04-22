@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Entity.h"
 #include "../../01.Manager/ResourceManager.h"
+#include "../../01.Manager/GameManager.h"
 #include "../../04.Component/2D/AnimationComponent.h"
 
 Entity::Entity() 
@@ -19,8 +20,8 @@ void Entity::Init()
 
 void Entity::Update()
 {
-	Super::Update();
 
+	Super::Update();
 }
 
 void Entity::Render(HDC hdc)
