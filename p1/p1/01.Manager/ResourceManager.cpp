@@ -33,6 +33,11 @@ void ResourceManager::Clear()
 		SAFE_DELETE(item.second);
 
 	_animators.clear();
+
+	for (auto& item : _sound)
+		SAFE_DELETE(item.second);
+
+	_sound.clear();
 }
 
 Texture* ResourceManager::LoadTexture(const wstring& key, const wstring& path, uint32 transparent)

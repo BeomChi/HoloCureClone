@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include "../01.Manager/CollisionManager.h"
 #include "../01.Manager/GameManager.h"
+#include "../01.Manager/SceneManager.h"
 #include "../03.Object/GameObject.h"
 #include "../03.Object/ObjectPool/ObjectPool.h"
 
@@ -21,40 +22,89 @@ void Scene::Init()
 
 void Scene::Update()
 {
+	// 풀링을 한 이유
+	// 이미 죽은 오브젝트가 점점 쌓이면 쓸데없는 순회가 발생하기 때문에
+	// 비활성화 된건 풀로 반환, ui는 예외적으로 업데이트와 렌더만 않하고 유지하도록 함
+	// 왜냐하면 게임 상태와 상관없이 UI는 항상 업데이트되어야 하기 때문
 	for (int i = 0; i < LAYER_MAXCOUNT; ++i)
 	{
-		if (!CheckGameStateInLayer(i))
-			continue;
-
-		for (GameObject* obj : _objects[i])
-		{
-			if (!obj->GetIsActivity())
-			{
-				GET_SINGLE(ObjectPool)->ReturnObject(obj->GetKey(), obj);
-				RemoveObject(obj);
-			}
-		}
-
-
 		// 임시 보관소에 있던 오브젝트들을 추가
 		_objects[i].insert(_objects[i].end(),
 			_pendingObjects[i].begin(), _pendingObjects[i].end());
 
 		_pendingObjects[i].clear();
 
-		for (GameObject* obj : _objects[i])
+	}
+		//for (GameObject* obj : _objects[i])
+		//{
+		//	if (obj == nullptr)
+		//		continue;
+
+		//	//wcout << "[DEBUG] Update 호출. this: " << obj->GetKey() << endl;
+		//	if (!obj->GetIsActivity())
+		//	{
+		//		continue;
+		//	}
+
+		//	obj->Update();
+		//}
+		//cout << "_objects[i].size(): " << _objects[i].size() << endl;
+		//for (GameObject* obj : _objects[i])
+		//{
+		//	if (obj == nullptr)
+		//		continue;
+
+		//	if (!obj->GetIsActivity())
+		//	{
+		//		RemoveObject(obj);
+		//	}
+		//}
+	for (int i = 0; i < LAYER_MAXCOUNT; ++i)
+	{
+		if (!CheckGameStateInLayer(i))
+			continue;
+
+		for (int j = 0; j < _objects[i].size(); ++j)
 		{
+			GameObject* obj = _objects[i][j];
+
 			if (obj == nullptr)
 				continue;
 
-			//wcout << "[DEBUG] Update 호출. this: " << obj->GetKey() << endl;
 			if (!obj->GetIsActivity())
+			{
+				// UI는 게임 상태와 상관없이 항상 업데이트되어야 하므로 예외 처리
+				if (obj->GetLayer() != LAYER_UI)
+					RemoveObject(obj); // pending에만 넣음
+
 				continue;
+			}
 
 			obj->Update();
 		}
+
 	}
+
+	for (int i = 0; i < LAYER_MAXCOUNT; ++i)
+	{
+		// 임시 제거 보관소에 있는 오브젝트들을 제거
+		auto& v = _objects[i];
+		for (GameObject* obj : _pendingRemoveObjects[i])
+		{
+			auto it = find(v.begin(), v.end(), obj);
+
+			if (it != v.end())
+			{
+				GET_SINGLE(ObjectPool)->ReturnObject(obj->GetKey(), obj);
+				v.erase(it);
+			}
+		}
+
+		_pendingRemoveObjects[i].clear();
+	}
+
 	GET_SINGLE(CollisionManager)->Update();
+
 }
 
 void Scene::Render(HDC hdc)
@@ -74,14 +124,18 @@ void Scene::Render(HDC hdc)
 
 void Scene::RemoveObject(GameObject* object)
 {
-	auto& v = _objects[object->GetLayer()];
-
-	auto it = find(v.begin(), v.end(), object);
-
-	if (it == v.end())
+	if (object == nullptr)
 		return;
 
-	v.erase(it);
+	int layer = object->GetLayer();
+
+	auto& pending = _pendingRemoveObjects[layer];
+
+	// 중복제거 방지
+	if (find(pending.begin(), pending.end(), object) != pending.end())
+		return;
+
+	pending.push_back(object);
 }
 
 void Scene::AddObject(GameObject* object)
@@ -128,7 +182,8 @@ void Scene::Clear()
 
 bool Scene::CheckGameStateInLayer(int layer)
 {
-	if (GET_SINGLE(GameManager)->GetState() == GameState::Playing)
+	if (GET_SINGLE(GameManager)->GetState() == GameState::Playing || 
+		GET_SINGLE(GameManager)->GetState() == GameState::Title)
 		return true;
 
 	return layer == LAYER_UI;

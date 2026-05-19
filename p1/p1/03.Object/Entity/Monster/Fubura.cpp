@@ -167,7 +167,7 @@ void Fubura::LaserPattern()
 		Laser* laser = GET_SINGLE(ObjectPool)->Get<Laser>(L"Laser");
 		laser->Activate({ _target->GetPos().x - 5,(_target->GetPos().y - 400) + 100.f * (i + 1) }, 5);
 		laser->SetScale({ 1.75,2 });
-		laser->SetDamageInfo({ this,5,false });
+		laser->SetDamageInfo({ this,25,false });
 		GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(laser);
 	}
 }

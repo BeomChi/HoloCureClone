@@ -1,5 +1,6 @@
 #pragma once
 #include "Singleton.h"
+#include "Signal.hpp"
 
 class Player;
 
@@ -9,6 +10,8 @@ class GameManager : public Singleton<GameManager>
 	friend class Singleton<GameManager>;
 
 public:
+	Signal<bool> OnGameOverHudActivity;
+	Signal<bool> OnDebugShow;
 	void Update();
 
 	void SetPlayer(Player* player) 

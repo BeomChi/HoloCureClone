@@ -40,6 +40,7 @@ void EquipmentHud::Init()
 		{
 			auto* slot = new EquipmentSlotUi();
 			slot->SetPos({ 68.f + (23.f * i), 47.f + (28.f *j)});
+			slot->SetKey(format(L"slot{0}{1}", j, i));
 			AddPanel(slot);
 			_slot[j].push_back(slot);
 		}

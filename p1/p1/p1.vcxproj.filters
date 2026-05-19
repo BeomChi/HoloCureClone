@@ -402,6 +402,24 @@
     <ClInclude Include="01.Manager\SoundManager.h">
       <Filter>소스 파일\01.Manager</Filter>
     </ClInclude>
+    <ClInclude Include="06.Ui\Game\GameOverHud.h">
+      <Filter>소스 파일\06.Ui\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="02.Scene\Game\EditScene.h">
+      <Filter>소스 파일\02.Scene\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="json.hpp">
+      <Filter>소스 파일\99.Header</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\UiLayoutManager.h">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="06.Ui\Text.h">
+      <Filter>소스 파일\06.Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="06.Ui\Game\DamageText.h">
+      <Filter>소스 파일\06.Ui\Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
@@ -448,9 +466,6 @@
     </ClCompile>
     <ClCompile Include="03.Object\Projectile\Bullet.cpp">
       <Filter>소스 파일\03.Object\Game\Projectile</Filter>
-    </ClCompile>
-    <ClCompile Include="03.Object\ObjectPool\ObjectPool.cpp">
-      <Filter>소스 파일\03.Object\Game\ObjectPool</Filter>
     </ClCompile>
     <ClCompile Include="03.Object\Entity\Entity.cpp">
       <Filter>소스 파일\03.Object\Game\Entity</Filter>
@@ -658,6 +673,24 @@
     </ClCompile>
     <ClCompile Include="01.Manager\SoundManager.cpp">
       <Filter>소스 파일\01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="06.Ui\Game\GameOverHud.cpp">
+      <Filter>소스 파일\06.Ui\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="02.Scene\Game\EditScene.cpp">
+      <Filter>소스 파일\02.Scene\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\UiLayoutManager.cpp">
+      <Filter>소스 파일\01.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="06.Ui\Text.cpp">
+      <Filter>소스 파일\06.Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="06.Ui\Game\DamageText.cpp">
+      <Filter>소스 파일\06.Ui\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\ObjectPool\ObjectPool.cpp">
+      <Filter>소스 파일\03.Object\Game\ObjectPool</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

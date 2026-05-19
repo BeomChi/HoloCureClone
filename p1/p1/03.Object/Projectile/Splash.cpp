@@ -89,7 +89,7 @@ void Splash::OnTriggerEnter(Collider* collider, Collider* other)
 		//static_cast<Entity*>(other->GetOwner())->SetState(State::Stagger);
 		//other->GetOwner()->AddVelocity(dir * knockPower);
 
-		cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
+		//cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
 	}
 }
 

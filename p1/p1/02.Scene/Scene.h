@@ -28,6 +28,7 @@ private:
 private:
 	vector<GameObject*> _objects[LAYER_MAXCOUNT];
 	vector<GameObject*> _pendingObjects[LAYER_MAXCOUNT];
+	vector<GameObject*> _pendingRemoveObjects[LAYER_MAXCOUNT];
 	ObjectFactory _factory;
 };
 

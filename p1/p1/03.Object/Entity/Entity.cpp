@@ -2,7 +2,11 @@
 #include "Entity.h"
 #include "../../01.Manager/ResourceManager.h"
 #include "../../01.Manager/GameManager.h"
+#include "../../01.Manager/SceneManager.h"
+#include "../../02.Scene/Scene.h"
+#include "../../03.Object/ObjectPool/ObjectPool.h"
 #include "../../04.Component/2D/AnimationComponent.h"
+#include "../../06.Ui/Game/DamageText.h"
 
 Entity::Entity() 
 {
@@ -31,6 +35,9 @@ void Entity::Render(HDC hdc)
 
 void Entity::TakeDamage(const DamageInfo& dmg)
 {
+	if (GET_SINGLE(GameManager)->GetState() == GameState::GameOver)
+		return;
+
 	if (_info._currentHp <= 0)
 		return;
 
@@ -41,8 +48,13 @@ void Entity::TakeDamage(const DamageInfo& dmg)
 	else
 		cout << "일반 데미지 (" << dmg._finalDamage << ")" << endl;
 
-
 	_info._currentHp -= dmg._finalDamage;
+
+	auto damageText = GET_SINGLE(ObjectPool)->Get<DamageText>(L"DamageText");
+	damageText->ShowDamage(dmg._finalDamage, this->GetPos(),dmg._isCritical);
+	damageText->SetFontSize(24);
+
+	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(damageText);
 
 	if (_info._currentHp <= 0)
 	{
@@ -66,7 +78,7 @@ void Entity::SetDir(Dir dir)
 		return;
 
 	_dir = dir;
-	cout << "[DEBUG] 방향 변경됨: " << (_dir == DIR_LEFT ? "LEFT" : "RIGHT") << endl;
+	//cout << "[DEBUG] 방향 변경됨: " << (_dir == DIR_LEFT ? "LEFT" : "RIGHT") << endl;
 	UpdateAnimation();
 }
 

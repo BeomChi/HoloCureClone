@@ -59,4 +59,6 @@ void SpriteRenderer::Render(HDC hdc)
 		_sprite->GetSize().x,         // 원본 이미지에서의 너비
 		_sprite->GetSize().y,         // 원본 이미지에서의 높이
 		_sprite->GetTransparent());   // 투명색 (보통 RGB 값)
+
+	//Utils::DrawCircle(hdc, screenPos, 50);
 }

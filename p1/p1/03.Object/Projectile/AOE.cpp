@@ -15,6 +15,7 @@ AOE::~AOE()
 void AOE::Init()
 {
 	SetLayer(LAYER_AREAATTACK);
+	_entityType = EntityType::Mineral;
 	Super::Init();
 }
 

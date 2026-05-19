@@ -9,6 +9,7 @@
 #include "../../03.Object/Entity/Player/Player.h"
 #include "../../05.Resource/2D/Sprite.h"
 #include "../../06.Ui/Image.h"
+#include "../../06.Ui/Text.h"
 
 
 // 무조건 플레이어 생성된 이후 만들기
@@ -67,9 +68,12 @@ void EquipmentSelectSlotUi::Render(HDC hdc)
 	
 	if (_eq)
 	{
-		int level = _eq->GetLevel();
+		int32 level = _eq->GetLevel();
+		if (GET_SINGLE(EquipmentManager)->HasEquipment(_eq->GetName()))
+			level += 1;
+
 		const auto& effects = _eq->GetLevelEffects();
-		auto it = effects.find(_eq->GetLevel());
+		auto it = effects.find(level);
 
 		if (it != effects.end())
 		{

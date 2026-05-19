@@ -10,6 +10,7 @@
 #include "01.Manager/SpawnManager.h"
 #include "01.Manager/StageManager.h"
 #include "01.Manager/SoundManager.h"
+#include "01.Manager/UiLayoutManager.h"
 #include "03.Object/ObjectPool/ObjectPool.h"
 
 
@@ -60,6 +61,7 @@ Game::~Game()
 	EquipmentManager::DestroyInstance();
 	CollisionManager::DestroyInstance();
 	SoundManager::DestroyInstance();
+	UiLayoutManager::DestroyInstance();
 
 	_CrtDumpMemoryLeaks();
 }
@@ -95,7 +97,7 @@ void Game::Init(HWND hwnd)
 
 
 	GET_SINGLE(GameManager)->SetState(GameState::Playing);
-	GET_SINGLE(SceneManager)->ChangeScnee(SceneType::StartScene);
+	GET_SINGLE(SceneManager)->ChangeScene(SceneType::StartScene);
 }
 
 void Game::Update()
@@ -121,12 +123,12 @@ void Game::Render()
 		POINT mousePos = GET_SINGLE(InputManager)->GetMousePos();
 		wstring str = std::format(L"Mouse({0}, {1})", mousePos.x, mousePos.y);
 		::TextOut(hdcBack, 20, 480, str.c_str(), static_cast<int32>(str.size()));
-	}
+	}*/
 	
 	{
 		wstring str = std::format(L"FPS({0}), DT({1})", fps, deltaTime);
 		::TextOut(hdc, GWinSizeX - 180, 10, str.c_str(), static_cast<int32>(str.size()));
-	}*/
+	}
 
 	// Double Buffering
 	::BitBlt(hdc, 0, 0, _rect.right, _rect.bottom, hdcBack, 0, 0, SRCCOPY); // 비트 블릿 : 고속 복사

@@ -16,6 +16,7 @@ public:
 	virtual void Render(HDC hdc) override;
 
 	void GameStart();
+	void StartEditMode();
 
 private:
 	Button* _ui = nullptr;

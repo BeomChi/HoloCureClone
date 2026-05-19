@@ -6,6 +6,7 @@ enum class SceneType
 	DevScene,
 	GameScene,
 	StartScene,
+	EditScene,
 
 	MenuScene,
 	SceneEnd
@@ -16,7 +17,7 @@ enum class EntityType
 {
 	Player,
 	Monster,
-
+	Mineral,
 
 	EntityTypeEnd
 };

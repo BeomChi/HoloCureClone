@@ -23,6 +23,7 @@ EquipmentSelectHud::EquipmentSelectHud()
 		EquipmentSelectSlotUi* slot = new EquipmentSelectSlotUi(equips[i]);
 		slot->SetPos({ 400.f, 200.f + (i * 65) });
 		slot->GetIcon()->SetPos({ slot->GetPos().x - 160, slot->GetPos().y + 5 });
+		slot->SetKey(format(L"slot{0}", i));
 		_slot.push_back(slot);	
 		AddPanel(slot);	
 
@@ -71,7 +72,6 @@ void EquipmentSelectHud::Reset()
 	{
 		_slot[i]->SetIsActivity(true);
 		_slot[i]->SetEquipment(equips[i]);
-		//_slot[i]->Activity();
 	}
 }
 

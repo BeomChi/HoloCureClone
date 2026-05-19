@@ -1,0 +1,77 @@
+[
+    {
+        "name": "hpBarBG",
+        "x": 70.0,
+        "y": 24.0
+    },
+    {
+        "name": "hpText",
+        "x": 210.0,
+        "y": 18.0
+    },
+    {
+        "name": "hpBar",
+        "x": 70.0,
+        "y": 24.0
+    },
+    {
+        "name": "PlayerHudBG",
+        "x": 99.5,
+        "y": 50.0
+    },
+    {
+        "name": "PlayerIcon",
+        "x": 24.5,
+        "y": 39.0
+    },
+    {
+        "name": "expBarBG",
+        "x": 325.0,
+        "y": 13.0
+    },
+    {
+        "name": "expBar",
+        "x": 0.0,
+        "y": 13.0
+    },
+    {
+        "name": "expBarFrame",
+        "x": 325.0,
+        "y": 13.0
+    },
+    {
+        "name": "levelText",
+        "x": 745.0,
+        "y": -5.0
+    },
+    {
+        "name": "coin",
+        "x": 675.0,
+        "y": 50.0
+    },
+    {
+        "name": "killCount",
+        "x": 675.0,
+        "y": 90.0
+    },
+    {
+        "name": "killCountText",
+        "x": 700.0,
+        "y": 35.0
+    },
+    {
+        "name": "coinCountText",
+        "x": 700.0,
+        "y": 75.0
+    },
+    {
+        "name": "stageText",
+        "x": 400.0,
+        "y": 20.0
+    },
+    {
+        "name": "timeText",
+        "x": 400.0,
+        "y": 32.0
+    }
+]

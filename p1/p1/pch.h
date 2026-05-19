@@ -7,6 +7,7 @@
 #include "Defines.h"
 #include "Utils.h"
 
+#define NOMINMAX
 #include <windows.h>
 #include <vector>
 #include <list>
@@ -22,6 +23,7 @@
 #include <iostream>
 #include <format>
 #include <filesystem>
+
 
 
 

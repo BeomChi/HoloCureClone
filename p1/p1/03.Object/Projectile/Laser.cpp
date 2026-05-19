@@ -69,6 +69,7 @@ void Laser::Activate(Vec2 pos, float duration)
 	SetPos(pos);
 	_info._duration = duration;
 	_info._time = 0;
+	_info._sumTime = 0;
 	SetState(LaserState::Start);
 
 	SetIsActivity(true);
@@ -86,9 +87,9 @@ void Laser::OnTriggerStay(Collider* collider, Collider* other)
 
 		if (_info._sumTime >= 1.f)
 		{
-			static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
-			cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
 			_info._sumTime = 0;
+			static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
+			//cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
 		}
 	}
 }

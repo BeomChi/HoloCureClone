@@ -3,6 +3,7 @@
 #include "Signal.hpp"
 
 class HpBar;
+class Text;
 
 class PlayerHudPanel : public Panel
 {
@@ -27,10 +28,12 @@ private:
 	HpBar* _hpBar = nullptr; // 체력 바
 	HpBar* _expBar = nullptr; // 체력 바
 
-	wstring _levelText;
-	wstring _hpText;
-	wstring _killText;
-	wstring _coinText;
-	wstring _timeText;
+	Text* _hpText;
+	Text* _levelText;
+	Text* _killText;
+	Text* _coinText;
+	Text* _timeText;
+	Text* _stageText;
+	
 };
 

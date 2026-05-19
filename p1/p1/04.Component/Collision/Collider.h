@@ -1,5 +1,6 @@
 #pragma once
 #include "../Component.h"
+#include "Signal.hpp"
 
 class BoxCollider;
 class SphereCollider;
@@ -41,5 +42,6 @@ protected:
 
 private:
 	unordered_set<Collider*> _collsionMap;
+	Connection _debugShow;
 };
 

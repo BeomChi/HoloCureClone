@@ -7,6 +7,7 @@
 #include "../../05.Resource/2D/Sprite.h"
 #include "../../06.Ui/Image.h"
 #include "../../06.Ui/Game/HpBar.h"
+#include "../../06.Ui/Text.h"
 
 
 
@@ -26,8 +27,8 @@ PlayerHudPanel::PlayerHudPanel()
 		hpBar->SetSize({ (float)hpBar->GetSprite()->GetSize().x, (float)hpBar->GetSprite()->GetSize().y });
 		hpBar->SetPos({ 70, 24 });
 		hpBar->SetBarLength((float)hpBar->GetSprite()->GetSize().x);
-		hpBar->SetValue((float)_info._currentHp, (float)_info._maxHp);
-
+		//hpBar->SetValue((float)_info._currentHp, (float)_info._maxHp);
+		hpBar->SetKey(L"hpBarBG");
 		hpBar->SetLayer(LAYER_UI);
 
 		AddPanel(hpBar);
@@ -41,11 +42,12 @@ PlayerHudPanel::PlayerHudPanel()
 		_hpBar->SetSize({ (float)_hpBar->GetSprite()->GetSize().x, (float)_hpBar->GetSprite()->GetSize().y });
 		_hpBar->SetPos({ 70, 24 });
 		_hpBar->SetBarLength((float)_hpBar->GetSprite()->GetSize().x);
+		_hpBar->SetKey(L"hpBar");
 		_hpBar->SetValue((float)_info._currentHp, (float)_info._maxHp);
 		_hpBar->SetLayer(LAYER_UI);
 
-		auto* player = GET_SINGLE(GameManager)->GetPlayer();
-		cout << "[DEBUG] PlayerHudPanel - Player ÁÖ¼Ò: " << player << endl;
+		//auto* player = GET_SINGLE(GameManager)->GetPlayer();
+		/*cout << "[DEBUG] PlayerHudPanel - Player ÁÖ¼Ò: " << player << endl;
 		cout << "[DEBUG] PlayerHudPanel - OnHpChanged ÁÖ¼Ò: " << &(player->OnHpChanged) << endl;
 		_hpConn = GET_SINGLE(GameManager)->GetPlayer()->OnHpChanged +=
 			[this](float current, float max)
@@ -55,17 +57,24 @@ PlayerHudPanel::PlayerHudPanel()
 					_hpBar->SetValue(current, max);
 				_hpText = format(L"{0}/{1}", current, max);
 
-			};
+			};*/
+		Player* player = GET_SINGLE(GameManager)->GetPlayer();
 
-		_hpText = format(L"{0}/{1}", player->GetInfo()._currentHp, player->GetInfo()._maxHp);
-		/*Player* player = GET_SINGLE(GameManager)->GetPlayer();
 		if (player == nullptr)
 			cout << "ÇÃ·¹ÀÌ¾î ¾øÀ½" << endl;
 
-		_hpConn = move(GET_SINGLE(GameManager)->GetPlayer()->OnHpChanged += [this](float current, float max)
+		_hpText = new Text();
+		_hpText->SetPos({ 210.f,18.f });
+		_hpText->SetFontSize(16);
+		_hpText->SetKey(L"hpText");
+
+		AddPanel(_hpText);
+
+		_hpConn = (GET_SINGLE(GameManager)->GetPlayer()->OnHpChanged += [this](float current, float max)
 			{
 				_hpBar->SetValue(current, max);
-			});*/
+				_hpText->SetText(format(L"{0}/{1}", current, max));
+			});
 
 		AddPanel(_hpBar);
         
@@ -77,7 +86,7 @@ PlayerHudPanel::PlayerHudPanel()
 
 		hud->SetSize({ (float)hud->GetSprite()->GetSize().x, (float)hud->GetSprite()->GetSize().y });
 		hud->SetPos({ (float)hud->GetSprite()->GetSize().x * 0.5f,50 });
-
+		hud->SetKey(L"PlayerHudBG");
 		hud->SetLayer(LAYER_UI);
 
 		AddPanel(hud);
@@ -89,7 +98,7 @@ PlayerHudPanel::PlayerHudPanel()
 
 		Icon->SetSize({ (float)Icon->GetSprite()->GetSize().x, (float)Icon->GetSprite()->GetSize().y });
 		Icon->SetPos({ (float)Icon->GetSprite()->GetSize().x * 0.5f,39 });
-
+		Icon->SetKey(L"PlayerIcon");
 		Icon->SetLayer(LAYER_UI);
 
 		AddPanel(Icon);
@@ -103,7 +112,7 @@ PlayerHudPanel::PlayerHudPanel()
 		ExpBarBg->SetSize({ (float)ExpBarBg->GetSprite()->GetSize().x, (float)ExpBarBg->GetSprite()->GetSize().y });
 		ExpBarBg->SetScale({ 1.248f,1 });
 		ExpBarBg->SetPos({ (float)ExpBarBg->GetSprite()->GetSize().x * 0.5f,(float)ExpBarBg->GetSprite()->GetSize().y * 0.5f });
-
+		ExpBarBg->SetKey(L"expBarBG");
 		ExpBarBg->SetLayer(LAYER_UI);
 		AddPanel(ExpBarBg);
 	}
@@ -123,6 +132,7 @@ PlayerHudPanel::PlayerHudPanel()
 			{
 				_expBar->SetValue(current, max);
 			});
+		_expBar->SetKey(L"expBar");
 		_expBar->SetLayer(LAYER_UI);
 
 		AddPanel(_expBar);
@@ -136,16 +146,22 @@ PlayerHudPanel::PlayerHudPanel()
 		ExpBarFrame->SetSize({ (float)ExpBarFrame->GetSprite()->GetSize().x, (float)ExpBarFrame->GetSprite()->GetSize().y });
 		ExpBarFrame->SetScale({ 1.248f,1 });
 		ExpBarFrame->SetPos({ (float)ExpBarFrame->GetSprite()->GetSize().x * 0.5f,(float)ExpBarFrame->GetSprite()->GetSize().y * 0.5f });
-
+		ExpBarFrame->SetKey(L"expBarFrame");
 		ExpBarFrame->SetLayer(LAYER_UI);
 		AddPanel(ExpBarFrame);
 	}
 	{
-		_levelText = format(L"Lv.{0}", 1);
+		_levelText = new Text();
+		_levelText->SetText(format(L"Lv.{0}", 1));
+		_levelText->SetPos({ 745.f,-5.f });
+		_levelText->SetFontSize(30);
 		_levelConn = move(GET_SINGLE(GameManager)->GetPlayer()->OnLevelChanged += [this](int32 arg)
 			{
-				_levelText = format(L"Lv.{0}", arg);
+				_levelText->SetText(format(L"Lv.{0}", arg));
 			});
+		_levelText->SetKey(L"levelText");
+		_levelText->SetLayer(LAYER_UI);
+		AddPanel(_levelText);
 	}
 	{
 		Image* Coin = new Image();
@@ -155,6 +171,7 @@ PlayerHudPanel::PlayerHudPanel()
 		Coin->SetSize({ (float)Coin->GetSprite()->GetSize().x, (float)Coin->GetSprite()->GetSize().y });
 		Coin->SetScale({ 1.5f,1.5f });
 		Coin->SetPos({ 675.f, 50.f });
+		Coin->SetKey(L"coin");
 		Coin->SetLayer(LAYER_UI);
 		AddPanel(Coin);
 	}
@@ -166,29 +183,58 @@ PlayerHudPanel::PlayerHudPanel()
 		KillCountUi->SetSize({ (float)KillCountUi->GetSprite()->GetSize().x, (float)KillCountUi->GetSprite()->GetSize().y });
 		KillCountUi->SetScale({ 1.5f,1.5f });
 		KillCountUi->SetPos({ 675.f, 90.f });
+		KillCountUi->SetKey(L"killCount");
 		KillCountUi->SetLayer(LAYER_UI);
 		AddPanel(KillCountUi);
 	}
 	{
-		_killText = format(L"{0}", 0);
-		_killConn = move(GET_SINGLE(StageManager)->OnKillCountChanged += [this](int32 arg)
+		_killText = new Text();
+		_killText->SetText(format(L"{0}", 0));
+		_killText->SetPos({ 700.f,35.f });
+		_killText->SetFontSize(32);
+		_killConn = GET_SINGLE(StageManager)->OnKillCountChanged += [this](int32 arg)
 			{
-				_killText = format(L"Lv.{0}", arg);
-			});
+				_killText->SetText(format(L"Lv.{0}", arg));
+			};
+		_killText->SetKey(L"killCountText");
+		_killText->SetLayer(LAYER_UI);
+		AddPanel(_killText);
+
 	}
 	{
-		_coinText = format(L"{0}", 0);
-		_coinConn = move(GET_SINGLE(StageManager)->OnCoinCountChanged += [this](int32 arg)
+		_coinText = new Text();
+		_coinText->SetText(format(L"{0}", 0));
+		_coinText->SetPos({ 700.f,75.f });
+		_coinText->SetFontSize(32);
+		_coinConn = (GET_SINGLE(StageManager)->OnCoinCountChanged += [this](int32 arg)
 			{
-				_coinText = format(L"{0}", arg);
+				_coinText->SetText(format(L"{0}", arg));
 			});
+		_coinText->SetKey(L"coinCountText");
+		_coinText->SetLayer(LAYER_UI);
+		AddPanel(_coinText);
 	}
 	{
-		_timeText = format(L"{0}:{1}", 0, 0);
-		_timeConn = move(GET_SINGLE(StageManager)->OnTimeChanged += [this](int32 arg)
+		_stageText = new Text();
+		_stageText->SetText(L"Stage 1");
+		_stageText->SetPos({ 400.f,20.f });
+		_stageText->SetFontSize(18);
+		_stageText->SetKey(L"stageText");
+		_stageText->SetLayer(LAYER_UI);
+		AddPanel(_stageText);
+	}
+	{
+		_timeText = new Text();
+		_timeText->SetText(format(L"{0}:{1}", 0, 0));
+		_timeText->SetPos({ 400.f,32.f });
+		_timeText->SetFontSize(32);
+		_timeConn = (GET_SINGLE(StageManager)->OnTimeChanged += [this](int32 arg)
 			{
-				_timeText = FormatTimeMMSS(arg);
+				_timeText->SetText(FormatTimeMMSS(arg));
 			});
+		_timeText->SetKey(L"timeText");
+		_timeText->SetLayer(LAYER_UI);
+		AddPanel(_timeText);
 	}
 }
 
@@ -222,7 +268,7 @@ void PlayerHudPanel::Render(HDC hdc)
 	
 
 
-	Utils::DrawTextFont(
+	/*Utils::DrawTextFont(
 		hdc,
 		{745.f,-5.f},
 		_levelText,
@@ -240,9 +286,9 @@ void PlayerHudPanel::Render(HDC hdc)
 		RGB(255, 255, 255),
 		L"¸¼Àº °íµñ",
 		100, 50
-	);
+	);*/
 
-	Utils::DrawTextFont(
+	/*Utils::DrawTextFont(
 		hdc,
 		{ 700.f,35.f },
 		_killText,
@@ -279,7 +325,7 @@ void PlayerHudPanel::Render(HDC hdc)
 		RGB(255, 255, 255),
 		L"¸¼Àº °íµñ",
 		100, 50
-	);
+	);*/
 	
 }
 

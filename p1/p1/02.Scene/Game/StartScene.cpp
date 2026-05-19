@@ -19,6 +19,7 @@ StartScene::~StartScene()
 	{
 		ui->SetIsActivity(false);
 	}
+
 	Clear();
 }
 
@@ -93,8 +94,21 @@ void StartScene::Render(HDC hdc)
 	Super::Render(hdc);
 }
 
+// 씬전환 도중 전에 씬은 계속 업데이트 중이라
+// 이미 지워진 포인터에 접근하는 문제를 막고자
+// 씬 전환을 지연 시키는 방향으로 수정
+// 단점이 생긴다면 매프레임마다 검사를 한다는 건데 뭐 그 정도는 괜찮겠지
 void StartScene::GameStart()
 {
 	GET_SINGLE(GameManager)->SetState(GameState::Playing);
-	GET_SINGLE(SceneManager)->ChangeScnee(SceneType::DevScene);
+	GET_SINGLE(SceneManager)->SetNextSceneType(SceneType::DevScene);
+	//GET_SINGLE(SceneManager)->ChangeScnee(SceneType::DevScene);
 }
+
+void StartScene::StartEditMode()
+{
+	GET_SINGLE(GameManager)->SetState(GameState::Playing);
+	GET_SINGLE(SceneManager)->SetNextSceneType(SceneType::EditScene);
+}
+
+

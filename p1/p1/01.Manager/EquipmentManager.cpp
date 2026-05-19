@@ -207,7 +207,7 @@ void EquipmentManager::RemoveObject(Equipment* equip)
 // 장비 착용 및 이미 가지고 있는 장비일 경우 업그레이드
 void EquipmentManager::AddEquiment(Equipment* equip)
 {
-	if (_equipments[equip->GetType()].size() >= 6) // 장비는 최대 12개까지만 착용 가능
+	if (_equipments[equip->GetType()].size() > 6) // 장비는 최대 12개까지만 착용 가능
 	{
 		cout << "무기 및 방어구는 각각 최대 6개까지만 착용할 수 있습니다." << endl;
 		return;
@@ -225,8 +225,6 @@ void EquipmentManager::AddEquiment(Equipment* equip)
 					eq->UpgradeEquip(*GET_SINGLE(GameManager)->GetPlayer()); // 장비 업그레이드
 
 					_equipmentHud->RefreshSlots(); // UI 갱신
-					// 새로만든 장비 제거
-					SAFE_DELETE(equip);
 					return; // 중복 착용 방지
 				}
 			}

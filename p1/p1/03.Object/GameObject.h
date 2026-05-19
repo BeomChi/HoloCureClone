@@ -26,10 +26,12 @@ public:
 	Vec2 GetPos() { return _pos; }
 
 	// Size
+	// 고유 사이즈
 	void SetSize(Vec2 size);
 	Vec2 GetSize() { return _size; }
 
 	// Scale
+	// 렌더 사이즈
 	void SetScale(Vec2 scale);
 	Vec2 GetScale() { return _scale; }
 

@@ -23,11 +23,12 @@
 #include "../Item/Experinence/ExperinenceObject.h"
 #include "../Item/Heal/Heal.h"
 #include "../../06.Ui/Game/EquipmentSelectHud.h"
+#include "../../06.Ui/Game/DamageText.h"
 
 
 void ObjectPool::Init()
 {
-	ReigsterCreator<Player>(L"Player");
+	//ReigsterCreator<Player>(L"Player");
 
 	ReigsterCreator<Bullet>(L"Bullet");
 
@@ -55,6 +56,7 @@ void ObjectPool::Init()
 	ReigsterCreator<ExperinenceObject>(L"Exp");
 	ReigsterCreator<Heal>(L"Heal");
 	ReigsterCreator<EquipmentSelectHud>(L"EquipmentSelectHud");
+	ReigsterCreator<DamageText>(L"DamageText");
 
 	
 

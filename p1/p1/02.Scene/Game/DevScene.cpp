@@ -7,6 +7,7 @@
 #include "../../01.Manager/StageManager.h"
 #include "../../01.Manager/GameManager.h"
 #include "../../01.Manager/EquipmentManager.h"
+#include "../../01.Manager/UiLayoutManager.h"
 #include "../../03.Object/Item/Experinence/ExperinenceObject.h"
 #include "../../03.Object/Entity/Player/Player.h"
 #include "../../03.Object/ObjectPool/ObjectPool.h"
@@ -37,6 +38,7 @@
 #include "../../06.Ui/Game/PlayerHudPanel.h"
 #include "../../06.Ui/Game/EquipmentHud.h"
 #include "../../06.Ui/Game/EquipmentSelectHud.h"
+#include "../../06.Ui/Game/GameOverHud.h"
 
 
 DevScene::DevScene()
@@ -48,9 +50,10 @@ DevScene::~DevScene()
 {
 	//GET_SINGLE(ObjectPool)->Clear();
 	GET_SINGLE(EquipmentManager)->Clear();
-
-	if (sound)
-		SAFE_DELETE(sound);
+	GET_SINGLE(GameManager)->SetPlayer(nullptr);
+	//if (sound)
+		//SAFE_DELETE(sound);
+	sound->Stop();
 	Clear();
 }
 
@@ -121,8 +124,11 @@ void DevScene::Init()
 		GET_SINGLE(ResourceManager)->LoadTexture(L"KillCount_Coin", L"Sprite\\Ui\\KillCount_Coin.bmp");
 		GET_SINGLE(ResourceManager)->LoadTexture(L"Numbers", L"Sprite\\Ui\\Numbers.bmp");
 		GET_SINGLE(ResourceManager)->LoadTexture(L"Level", L"Sprite\\Ui\\Level.bmp");
+		GET_SINGLE(ResourceManager)->LoadTexture(L"SettingMenuBG", L"Sprite\\Ui\\SettingMenue.bmp");
+		GET_SINGLE(ResourceManager)->LoadTexture(L"DefaultButtonImage", L"Sprite\\Ui\\SettingButton.bmp");
 
 		GET_SINGLE(ResourceManager)->CreateSprite(L"Stage01", GET_SINGLE(ResourceManager)->GetTexture(L"Stage01"));
+		GET_SINGLE(ResourceManager)->CreateSprite(L"SettingMenuBG", GET_SINGLE(ResourceManager)->GetTexture(L"SettingMenuBG"));
 
 		GET_SINGLE(ResourceManager)->CreateSprite(L"Exp01", GET_SINGLE(ResourceManager)->GetTexture(L"Exp"), 0, 0, 16, 18);
 		GET_SINGLE(ResourceManager)->CreateSprite(L"Exp02", GET_SINGLE(ResourceManager)->GetTexture(L"Exp"), 16, 0, 16, 18);
@@ -177,6 +183,8 @@ void DevScene::Init()
 		GET_SINGLE(ResourceManager)->CreateSprite(L"PistolShoot", GET_SINGLE(ResourceManager)->GetTexture(L"Trident"));
 		GET_SINGLE(ResourceManager)->CreateSprite(L"KillCount", GET_SINGLE(ResourceManager)->GetTexture(L"KillCount_Coin"),0,0,15,15);
 		GET_SINGLE(ResourceManager)->CreateSprite(L"Coin", GET_SINGLE(ResourceManager)->GetTexture(L"KillCount_Coin"),15,0,15,15);
+		GET_SINGLE(ResourceManager)->CreateSprite(L"DefaultButton", GET_SINGLE(ResourceManager)->GetTexture(L"DefaultButtonImage"),0,0,180,29);
+		GET_SINGLE(ResourceManager)->CreateSprite(L"DefaultButtonPress", GET_SINGLE(ResourceManager)->GetTexture(L"DefaultButtonImage"),0,29,180,29);
 
 		GET_SINGLE(ResourceManager)->CreateSprite(L"LevelTypeNormal", GET_SINGLE(ResourceManager)->GetTexture(L"Level"),0,0,20,9);
 		GET_SINGLE(ResourceManager)->CreateSprite(L"LevelTypeCollabo", GET_SINGLE(ResourceManager)->GetTexture(L"Level"),20,0,20,9);
@@ -519,6 +527,8 @@ void DevScene::Init()
 	{
 		PlayerHudPanel* hudPanel = new PlayerHudPanel();
 		hudPanel->SetLayer(LAYER_UI);
+
+		GET_SINGLE(UiLayoutManager)->Load("ui_Playerlay.json", hudPanel->GetPanels());
 		AddObject(hudPanel);
 	}
 	{
@@ -526,14 +536,24 @@ void DevScene::Init()
 		equipmentHud->Init();
 		equipmentHud->SetLayer(LAYER_UI);
 		AddObject(equipmentHud);
-
+		GET_SINGLE(UiLayoutManager)->Load("ui_Equipmentlay.json", equipmentHud->GetPanels());
 		GET_SINGLE(EquipmentManager)->SetEquipmentHud(equipmentHud);
 	}
 	{
 		EquipmentSelectHud* equipmentSelectHud = new EquipmentSelectHud();
 		equipmentSelectHud->SetLayer(LAYER_UI);
 		equipmentSelectHud->SetIsActivity(false);
+
+		GET_SINGLE(UiLayoutManager)->Load("ui_EquipmentSelectlay.json", equipmentSelectHud->GetPanels());
 		AddObject(equipmentSelectHud);
+	}
+	{
+		GameOverHud* hudPanel = new GameOverHud();
+		hudPanel->SetLayer(LAYER_UI);
+		hudPanel->SetIsActivity(false);
+
+		GET_SINGLE(UiLayoutManager)->Load("ui_layoutGameOverlay.json", hudPanel->GetPanels());
+		AddObject(hudPanel);
 	}
 
 #pragma region Sound 
@@ -559,6 +579,12 @@ void DevScene::Update()
 	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::Q))
 	{
 		GET_SINGLE(ObjectPool)->Debug();
+	}
+
+	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::E))
+	{
+		debug = !debug;
+		GET_SINGLE(GameManager)->OnDebugShow(debug);
 	}
 }
 

@@ -76,6 +76,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -90,6 +91,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -148,7 +150,9 @@
     <ClInclude Include="01.Manager\SpawnManager.h" />
     <ClInclude Include="01.Manager\StageManager.h" />
     <ClInclude Include="01.Manager\TimeManager.h" />
+    <ClInclude Include="01.Manager\UiLayoutManager.h" />
     <ClInclude Include="02.Scene\Game\DevScene.h" />
+    <ClInclude Include="02.Scene\Game\EditScene.h" />
     <ClInclude Include="02.Scene\Game\StartScene.h" />
     <ClInclude Include="02.Scene\Scene.h" />
     <ClInclude Include="03.Object\Camera\Camera.h" />
@@ -209,18 +213,22 @@
     <ClInclude Include="05.Resource\Sound\Sound.h" />
     <ClInclude Include="06.Ui\Bar.h" />
     <ClInclude Include="06.Ui\Button.h" />
+    <ClInclude Include="06.Ui\Game\DamageText.h" />
     <ClInclude Include="06.Ui\Game\EquipmentHud.h" />
     <ClInclude Include="06.Ui\Game\EquipmentSelectHud.h" />
     <ClInclude Include="06.Ui\Game\EquipmentSelectSlotUi.h" />
     <ClInclude Include="06.Ui\Game\EquipmentSlotUi.h" />
+    <ClInclude Include="06.Ui\Game\GameOverHud.h" />
     <ClInclude Include="06.Ui\Game\HpBar.h" />
     <ClInclude Include="06.Ui\Game\PlayerHudPanel.h" />
     <ClInclude Include="06.Ui\Image.h" />
     <ClInclude Include="06.Ui\Panel.h" />
+    <ClInclude Include="06.Ui\Text.h" />
     <ClInclude Include="06.Ui\Ui.h" />
     <ClInclude Include="Defines.h" />
     <ClInclude Include="Enums.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="json.hpp" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Signal.hpp" />
@@ -241,7 +249,9 @@
     <ClCompile Include="01.Manager\SpawnManager.cpp" />
     <ClCompile Include="01.Manager\StageManager.cpp" />
     <ClCompile Include="01.Manager\TimeManager.cpp" />
+    <ClCompile Include="01.Manager\UiLayoutManager.cpp" />
     <ClCompile Include="02.Scene\Game\DevScene.cpp" />
+    <ClCompile Include="02.Scene\Game\EditScene.cpp" />
     <ClCompile Include="02.Scene\Game\StartScene.cpp" />
     <ClCompile Include="02.Scene\Scene.cpp" />
     <ClCompile Include="03.Object\Camera\Camera.cpp" />
@@ -302,14 +312,17 @@
     <ClCompile Include="05.Resource\Sound\Sound.cpp" />
     <ClCompile Include="06.Ui\Bar.cpp" />
     <ClCompile Include="06.Ui\Button.cpp" />
+    <ClCompile Include="06.Ui\Game\DamageText.cpp" />
     <ClCompile Include="06.Ui\Game\EquipmentHud.cpp" />
     <ClCompile Include="06.Ui\Game\EquipmentSelectHud.cpp" />
     <ClCompile Include="06.Ui\Game\EquipmentSelectSlotUi.cpp" />
     <ClCompile Include="06.Ui\Game\EquipmentSlotUi.cpp" />
+    <ClCompile Include="06.Ui\Game\GameOverHud.cpp" />
     <ClCompile Include="06.Ui\Game\HpBar.cpp" />
     <ClCompile Include="06.Ui\Game\PlayerHudPanel.cpp" />
     <ClCompile Include="06.Ui\Image.cpp" />
     <ClCompile Include="06.Ui\Panel.cpp" />
+    <ClCompile Include="06.Ui\Text.cpp" />
     <ClCompile Include="06.Ui\Ui.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="p1.cpp" />

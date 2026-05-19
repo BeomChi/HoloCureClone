@@ -14,7 +14,10 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
+	
+
 private:
 	Sound* sound = nullptr;
+	bool debug = false;
 };
 

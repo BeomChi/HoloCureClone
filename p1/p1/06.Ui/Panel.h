@@ -18,6 +18,7 @@ public:
 	
 	void Clear();
 
+	vector<Ui*>& GetPanels()  { return _panels; } 
 
 private:
 	vector<Ui*> _panels; // 패널 리스트

@@ -70,7 +70,7 @@ void BLBookObj::OnTriggerEnter(Collider* collider, Collider* other)
 	if (other->GetOwner()->GetEntityType() == EntityType::Monster)
 	{
 		static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
-		cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
+		//cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
 
 	}
 }

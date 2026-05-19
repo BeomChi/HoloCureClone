@@ -28,6 +28,7 @@ void Monster::Init()
 	InitCommon();
 	_aniSpawn = GET_SINGLE(ResourceManager)->GetAnimator(L"FanSpawn");
 	_aniDie = GET_SINGLE(ResourceManager)->GetAnimator(L"FanDie");
+
 }
 
 void Monster::Update()

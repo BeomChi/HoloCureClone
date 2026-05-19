@@ -118,6 +118,9 @@ void WamyWater::Init()
 /// @brief 매 프레임마다 호출되어, 쿨타임이 지난 경우 스플레쉬 투사체를 발사함
 void WamyWater::Update()
 {
+	if (GET_SINGLE(GameManager)->GetPlayer() == nullptr)
+		return;
+
 	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
 	_sumTime += deltaTime;
 

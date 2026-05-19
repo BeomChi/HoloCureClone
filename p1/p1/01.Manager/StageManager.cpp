@@ -3,6 +3,7 @@
 #include "TimeManager.h"
 #include "SpawnManager.h"
 #include "ObjectManager.h"
+#include "GameManager.h"
 
 
 
@@ -13,6 +14,9 @@ void StageManager::Init()
 
 void StageManager::Update()
 {
+	if (GET_SINGLE(GameManager)->GetState() != GameState::Playing)
+		return;
+
 	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
 
 	// 스테이니 내에 플레이 타임
@@ -31,7 +35,7 @@ void StageManager::Update()
 		// 일정 시간 후 중간 보스 하나 소환 카운트 +1 다시 일반 몬스터 소환
 		GET_SINGLE(SpawnManager)->Update();
 
-		if (_time - _lastMidleBossSpawnTime >= 300 && _spawnMidleBossCount < 4)
+		if (_time - _lastMidleBossSpawnTime >= 180 && _spawnMidleBossCount < 4)
 		{
 			//중간 보스 소환
 			// 게임 매니저를 통해서 현재 스테이지 값 넘겨주기

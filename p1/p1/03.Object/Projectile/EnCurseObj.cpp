@@ -110,7 +110,7 @@ void EnCurseObj::OnTriggerEnter(Collider* collider, Collider* other)
 		{
 			// 체인 데미지 증가
 			_damageInfo._finalDamage += _damageInfo._finalDamage * _transition_Damage_Increase_Rate;
-			cout << "체인 데미지 증가 : " << _damageInfo._finalDamage << endl;
+			//cout << "체인 데미지 증가 : " << _damageInfo._finalDamage << endl;
 		}
 
 		// 추적중이고 타겟이 충돌체랑 같을 경우
@@ -119,12 +119,12 @@ void EnCurseObj::OnTriggerEnter(Collider* collider, Collider* other)
 			static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
 			_target = nullptr; // 타겟 초기화
 			_isTracking = false;
-			cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
+			//cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
 		}
 		else if (!_isTracking) // 추적중이 아니면
 		{
 			static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
-			cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
+			//cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
 		}
 
 

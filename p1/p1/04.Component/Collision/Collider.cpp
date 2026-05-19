@@ -1,23 +1,31 @@
 #include "pch.h"
 #include "Collider.h"
+#include "../../01.Manager/GameManager.h"
 #include "../../03.Object/GameObject.h"
 #include "BoxCollider.h"
 #include "SphereCollider.h"
 
 Collider::Collider(ColliderType colliderType) :_colliderType(colliderType)
 {
+    Init();
 }
 
 Collider::~Collider()
 {
+    _debugShow.Disconnect();
 }
 
 void Collider::Init()
 {
+    _debugShow =GET_SINGLE(GameManager)->OnDebugShow += [this](bool isActivity)
+        {
+            _showDebug = isActivity;
+        };
 }
 
 void Collider::Update()
 {
+    
 }
 
 void Collider::Render(HDC hdc)
