@@ -109,9 +109,13 @@ Scene이 객체의 생성 / 삭제 / 생명주기를 관리하며
 플레이어 레벨업 시 장비 리스트를 무작위 생성하여 UI에 연결을 하여 화면에 보이도록하고 그걸 선택할 수
 있겠끔 설계하였다.
 
+![장비선택](./p1/이미지%20작업파일/ReadMe_Image/SelectEquipment.gif)
+
 UI는 기능 단위 별로 Panel로 묶어서 구성을 하였다.
 
-[구조도 이미지(UI Panel)] 0
+![구조도 이미지(UI Panel)](./p1/이미지%20작업파일/ReadMe_Image/HoloCureCloneMain1-UI%20Panel_1.drawio.png)
+![구조도 이미지(UI Panel)](./p1/이미지%20작업파일/ReadMe_Image/HoloCureCloneMain1-UI%20Panel_2.drawio.png)
+
 
 #### 동작 방식
 
@@ -128,7 +132,7 @@ UI는 기능 단위 별로 Panel로 묶어서 구성을 하였다.
 착용 또는 업그레이드가 진행이 되도록 하였다.
 
 ### FSM
-
+![구조도 이미지(UI Panel)](./p1/이미지%20작업파일/ReadMe_Image/HoloCureCloneMain1-FSM_1.drawio.png)
 #### 문제
 
 상태 전환 시 애니메이션 변경 코드가 여러 곳에 흩어져 있었고
@@ -145,6 +149,7 @@ SetState(State state);
 상태 변경시 상태가 갱신이 되고 애니메이션 교체를 수행하도록 한다.
 
 SetState 호출시
+![구조도 이미지(UI Panel)](./p1/이미지%20작업파일/ReadMe_Image/HoloCureCloneMain1-FSM_2.drawio.png)
 1. 현재 상태와 새로운 상태가 같은지 판별
 2. 상태가 다를 경우 상태 변경
 3. 애니메이션 변경
@@ -162,10 +167,10 @@ SetState 호출시
 
 #### 의도
 게임 로직과 충돌 처리를 분리하기 위해 Collider 시스템 제작
-[구조도 이미지(SceneUpdate)] 0
+![구조도 이미지(SceneUpdate)](./p1/이미지%20작업파일/ReadMe_Image/HoloCureCloneMain1-Scene%20개선_2.drawio.png)
 
 #### 구현
-[포트폴리오 임시(AABB)] 0
+![포트폴리오 임시(AABB)](./p1/이미지%20작업파일/ReadMe_Image/AABB.png)
 AABB 충돌 판정을 사용하였다.
 Box To Box 로 충돌 여부를 확인 하였다.
 
@@ -211,7 +216,7 @@ Vec2 SceneManager::ScreenToWorld(Vec2 pos)
 SceneManager가 현재 Scene 카메라 위치를 들고 있는다.
 렌더 시
 
-[WorldPosition -> Camera Offset -> Screen Position] 0
+![Camera](./p1/이미지%20작업파일/ReadMe_Image/HoloCureCloneMain1-Camera.drawio.png)
 
 변환 을 수행한다.
 
@@ -234,6 +239,7 @@ SceneManager가 현재 Scene 카메라 위치를 들고 있는다.
 
 ObjectPool을 만들어서 비활성화 된 객체를 씬에서 제거하고
 풀로 옮겨주고 씬의 순회 비용을 감소 시켜주었고
+![Pool](./p1/이미지%20작업파일/ReadMe_Image/HoloCureCloneMain1-Pool.drawio.png)
 반대로 풀에 있던 객체를 꺼내서 씬에 다시 넣어줌으로써 객체를 새로 만드는 것이 아닌
 기존에 있던 객체를 Reset 함수를 호출하여 초기화를 시켜주고 재사용하였다.
 
@@ -257,7 +263,7 @@ ObjectPool을 만들어서 비활성화 된 객체를 씬에서 제거하고
 의존성 해결을 위해 마인크래프트의 레드 스톤처럼 신호만 주면
 그에 연결된 애들한테 신호를 주는 방식으로 변경 하는 것이 의존성 해결에 좋다고 생각하였다.
 
-[Player -> Panel] 0
+![Signal](./p1/이미지%20작업파일/ReadMe_Image/HoloCureCloneMain1-Signal.drawio.png)
 
 ##### 사용 사례
 - HP 갱신
@@ -284,7 +290,10 @@ UI 배치 수정 시 좌표 수정 후 실행 후 확인
 #### 해결
 
 EditScene을 만들어 Scene 내에서 UI를 선택하여 이동이 가능하게 하고
+![uiSelect](./p1/이미지%20작업파일/ReadMe_Image/uiSelect.gif)
+
 해당 UI의 좌표와 키 값을 저장을 하여 UI 초기화를 할 때 해당 키 값들을 로드하도록 구현하였다.
+![uiLoad](./p1/이미지%20작업파일/ReadMe_Image/uiLoad.gif)
 
 #### 결과
 
@@ -302,10 +311,10 @@ EditScene을 만들어 Scene 내에서 UI를 선택하여 이동이 가능하게
 
 #### 문제
 
-업데이트 중 객체 추가 / 삭제가 발생하면
-[이전 로직 구조도]
+업데이트 중 객체 추가 / 삭제가 발생하면 문제가 발생하였다.
 
-문제가 발생하였다.
+![이전 로직 구조도](./p1/이미지%20작업파일/ReadMe_Image/HoloCureCloneMain1-Scene%20개선_1.drawio.png)
+
 
 객체 제거 이후 이미 제거된 객체 접근이나 잘못된 포인터로 접근하여 크래시가 발생하였다.
 
@@ -313,7 +322,7 @@ EditScene을 만들어 Scene 내에서 UI를 선택하여 이동이 가능하게
 
 예약 시스템 도입
 
-[현재 SceneUpdate 로직 구조도] 0
+![현재 SceneUpdate 로직 구조도](./p1/이미지%20작업파일/ReadMe_Image/HoloCureCloneMain1-Scene%20개선_2.drawio.png)
 
 즉시 추가 / 삭제를 수행하지 않고 로직 수행 후로 미루는 방식으로 처리하였다.
 
@@ -389,7 +398,7 @@ DamageText가 화면에서 비정상적으로 이동하였다.
 GDI의 TextOut이 무거워서 프레임 방어가 어렵다.
 그래서 숫자 비트맵을 통해서 데미지를 출력하는 방식으로 변경하였다.
 
-[프레임 방어 이미지]
+[프레임 방어 이미지](이거 넣고 싶었는데 영상 촬영했을 당시 조건이 달라 안넣는게 더 좋을거 같음)
 
 그랬더니 유의미한 프레임의 차이를 보여주었다.
 
@@ -398,7 +407,7 @@ GDI의 TextOut이 무거워서 프레임 방어가 어렵다.
 #### 문제
 
 ObjectPool이 객체 부족시 Factory를 통해 객체 생성
-[Pool Empty -> Factory Create -> Init() -> 객체 return] 0
+![Pool Empty -> Factory Create -> Init() -> 객체 return](./p1/이미지%20작업파일/ReadMe_Image/HoloCureCloneMain1-Pool_1.drawio.png)
 
 이미 초기화 완료 상태였으나 재사용시 추가 Init() 호출이 발생하였다.
 	
@@ -415,7 +424,7 @@ Animation 중복
 #### 원인
 
 생성 책임 위치 혼동
-[Factory : Create -> Init -> return] 0
+![Factory : Create -> Init -> return](./p1/이미지%20작업파일/ReadMe_Image/HoloCureCloneMain1-Pool_2.drawio.png)
 이미 초기화가 완료된 상태
 Pool 재사용시 추가 초기화를 불필요함
 
