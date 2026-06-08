@@ -29,13 +29,17 @@ void StageManager::Update()
 		// 일정 시간 후 일반 몬스터 소환 상태로 전환
 		// 스테이지 시작후 5초 스폰 시작
 		if (_time >= 5.f)
+		{
 			SetStageState(StageState::Spawning);
+			break;
+		}
 		break;
 	case StageState::Spawning:
 		// 일정 시간 후 중간 보스 하나 소환 카운트 +1 다시 일반 몬스터 소환
+		cout << "Spawning" << endl;
 		GET_SINGLE(SpawnManager)->Update();
 
-		if (_time - _lastMidleBossSpawnTime >= 180 && _spawnMidleBossCount < 4)
+		if (_time - _lastMidleBossSpawnTime >= 30 && _spawnMidleBossCount < 4)
 		{
 			//중간 보스 소환
 			// 게임 매니저를 통해서 현재 스테이지 값 넘겨주기
@@ -44,9 +48,10 @@ void StageManager::Update()
 			_lastMidleBossSpawnTime = _time;
 		}
 
-		if (_spawnMidleBossCount == 5)
+		if (_spawnMidleBossCount == 4 && _isSpawnBoss == false)
 		{
 			SetStageState(StageState::BossInComing);
+			break;
 		}
 		break;
 	case StageState::BossInComing:
@@ -58,6 +63,7 @@ void StageManager::Update()
 			GET_SINGLE(SpawnManager)->SpawnBoss(_currentStage);
 			_isSpawnBoss = true;
 			SetStageState(StageState::Boss);
+			break;
 		}
 		break;
 	case StageState::Boss:
@@ -66,13 +72,14 @@ void StageManager::Update()
 
 		_normalMonsterDelayToBossSpawnTime += deltaTime;
 
-		if(_normalMonsterDelayToBossSpawnTime >= 30)
+		if (_normalMonsterDelayToBossSpawnTime >= 10.f)
+		{
 			SetStageState(StageState::Spawning);
-
+			break;
+		}
 		break;
 	case StageState::Clear:
-		// 다음 씬으로 넘어갈 수 있게 하기
-
+		GET_SINGLE(GameManager)->GameOver();
 		break;
 	default:
 		break;

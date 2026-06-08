@@ -22,12 +22,17 @@ public:
 	Vec2 GetFirePos();
 	Vec2 GetMousePosToPlayerDir();
 
+	void CreateBullet();
+
 private:
 	ProjectileEquipInfo _info;
 
 	bool _fire = false;
-	int32 _fireCount = 0;
+	int32 _currentFireCount = 0;
+
 	float _sumTime = 0;
+	float _burstInterval = 0.2f;
+	float _curBurstTime = 0.f;
 
 	float _firePosLength = 30;
 	float _lastAttackTime = 0;

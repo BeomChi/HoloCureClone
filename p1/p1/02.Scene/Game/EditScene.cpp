@@ -259,13 +259,12 @@ void EditScene::Init()
 	}
 
 	
-	//{
-	//	GameOverHud* hudPanel = new GameOverHud();
-	//	hudPanel->SetLayer(LAYER_UI);
-	//	//hudPanel->SetIsActivity(false);
-	//	_panel = hudPanel;
-	//	AddObject(hudPanel);
-	//}
+	{
+		GameOverHud* hudPanel = new GameOverHud();
+		hudPanel->SetLayer(LAYER_UI);
+		_panel = hudPanel;
+		AddObject(hudPanel);
+	}
 	/*{
 		PlayerHudPanel* hudPanel = new PlayerHudPanel();
 		hudPanel->SetLayer(LAYER_UI);
@@ -279,14 +278,14 @@ void EditScene::Init()
 		_panel = equipmentHud;
 		AddObject(equipmentHud);
 	}*/
-	 {
+	 /*{
 		EquipmentSelectHud* equipmentSelectHud = new EquipmentSelectHud();
 		equipmentSelectHud->SetLayer(LAYER_UI);
 		equipmentSelectHud->SetIsActivity(true);
 		_panel = equipmentSelectHud;
 
 		AddObject(equipmentSelectHud);
-	}
+	}*/
 
 
 #pragma endregion
@@ -305,12 +304,12 @@ void EditScene::Update()
 		if (_panel)
 		{
 			vector<Ui*> objects = _panel->GetPanels();
-			GET_SINGLE(UiLayoutManager)->Save("ui_EquipmentSelectlay.json", objects);
+			GET_SINGLE(UiLayoutManager)->Save("a.json", objects);
 		}
 		else
 		{
 			vector<GameObject*> objects = GetGameObjects(LAYER_UI);
-			GET_SINGLE(UiLayoutManager)->Save("ui_EquipmentSelectlay.json", objects);
+			GET_SINGLE(UiLayoutManager)->Save("a.json", objects);
 		}
 	}
 
@@ -319,12 +318,12 @@ void EditScene::Update()
 		if (_panel)
 		{
 			vector<Ui*> objects = _panel->GetPanels();
-			GET_SINGLE(UiLayoutManager)->Load("ui_EquipmentSelectlay.json", objects);
+			GET_SINGLE(UiLayoutManager)->Load("a.json", objects);
 		}
 		else
 		{
 			vector<GameObject*> objects = GetGameObjects(LAYER_UI);
-			GET_SINGLE(UiLayoutManager)->Load("ui_EquipmentSelectlay.json", objects);
+			GET_SINGLE(UiLayoutManager)->Load("a.json", objects);
 		}
 	}
 }

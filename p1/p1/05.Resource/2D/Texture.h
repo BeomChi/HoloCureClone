@@ -16,8 +16,8 @@ public:
 	void SetTransparent(uint32 transparent) { _transparent = transparent; }
 	uint32 GetTransparent() { return _transparent; }
 
-	Vec2 GetPivot() { return _pivot; }
-	void SetPivot(Vec2 pivot) { _pivot = pivot; }
+	//Vec2 GetPivot() { return _pivot; }
+	//void SetPivot(Vec2 pivot) { _pivot = pivot; }
 
 private:
 	HDC _hdc = {};
@@ -25,6 +25,6 @@ private:
 	Vec2Int _size = {};
 	uint32 _transparent = RGB(255, 0, 255);
 
-	Vec2 _pivot = { 0.5f,0.5f };
+	//Vec2 _pivot = { 0.5f,0.5f };
 };
 

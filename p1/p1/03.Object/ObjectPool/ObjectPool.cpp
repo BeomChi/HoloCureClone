@@ -28,7 +28,6 @@
 
 void ObjectPool::Init()
 {
-	//ReigsterCreator<Player>(L"Player");
 
 	ReigsterCreator<Bullet>(L"Bullet");
 
@@ -55,10 +54,24 @@ void ObjectPool::Init()
 
 	ReigsterCreator<ExperinenceObject>(L"Exp");
 	ReigsterCreator<Heal>(L"Heal");
-	ReigsterCreator<EquipmentSelectHud>(L"EquipmentSelectHud");
 	ReigsterCreator<DamageText>(L"DamageText");
 
+	for (wstring key : {L"Bullet", L"Laser", L"Lava", L"BLBook", L"EnCurseObj", L"FanBeamObj",
+		L"BombExplode", L"BombObj", L"Axe", L"SausageObj", L"Splash", L"Stick", L"StickExplode", L"TridentObj"})
+	{
+		for (int i = 0; i < 3; i++)
+		{
+			CreateNewObject(key);
+		}
+	}
 	
+	for (wstring key : {L"NormalMonster", L"DamageText", L"Heal", L"Exp"})
+	{
+		for (int i = 0; i < 100; i++)
+		{
+			CreateNewObject(key);
+		}
+	}
 
 }
 

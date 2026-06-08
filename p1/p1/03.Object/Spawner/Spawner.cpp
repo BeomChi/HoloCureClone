@@ -5,7 +5,10 @@
 #include "../../01.Manager/SpawnManager.h"
 #include "../../02.Scene/Scene.h"
 #include "../../03.Object/ObjectPool/ObjectPool.h"
+#include "../../03.Object/Entity/Monster/Monster.h"
 #include "../../03.Object/Entity/Monster/NormalMonster.h"
+#include "../../03.Object/Entity/Monster/Fubura.h"
+#include "../../03.Object/Entity/Monster/Shubangelion.h"
 
 
 Spawner::Spawner()
@@ -38,7 +41,7 @@ void Spawner::NormalMonsterSpawn()
 
 	Vec2 pos = GET_SINGLE(SceneManager)->ScreenToWorld({ (float)x,(float)y });
 
-	NormalMonster* monster = GET_SINGLE(ObjectPool)->Get<NormalMonster>(L"NormalMonster");
+	Monster* monster = GET_SINGLE(ObjectPool)->Get<NormalMonster>(L"NormalMonster");
 	monster->SetPos({ pos.x,pos.y });
 	monster->SetState(State::Spawn);
 	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(monster);
@@ -55,7 +58,7 @@ void Spawner::SpawnMidleBoss(int32 Stage)
 
 	Vec2 pos = GET_SINGLE(SceneManager)->ScreenToWorld({ (float)x,(float)y });
 
-	NormalMonster* monster = GET_SINGLE(ObjectPool)->Get<NormalMonster>(L"Fubura");
+	Monster* monster = GET_SINGLE(ObjectPool)->Get<Fubura>(L"Fubura");
 	monster->SetPos({ pos.x,pos.y });
 	monster->SetState(State::Spawn);
 	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(monster);
@@ -72,9 +75,10 @@ void Spawner::SpawnBoss(int32 Stage)
 	Vec2 pos = GET_SINGLE(SceneManager)->ScreenToWorld({ (float)x,(float)y });
 
 	// 나중에 보스 만들면 바꿔야함
-	NormalMonster* monster = GET_SINGLE(ObjectPool)->Get<NormalMonster>(L"Shubangelion");
+	Monster* monster = GET_SINGLE(ObjectPool)->Get<Shubangelion>(L"Shubangelion");
 	monster->SetPos({ pos.x,pos.y });
+	monster->SetKey(L"Boss");
 	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(monster);
-
+	
 	GET_SINGLE(SpawnManager)->AddCurrentSpawnCount();
 }

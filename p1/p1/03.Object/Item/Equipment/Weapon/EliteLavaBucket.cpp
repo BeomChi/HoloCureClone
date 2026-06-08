@@ -82,7 +82,7 @@ void EliteLavaBucket::Init()
 			EffectType::DurationIncrease,
 			1.f,
 			0,
-			L"대미지 30% 상승, 용암의 지속 시간 1초 상승"
+			L""
 		}
 	};
 	_levelEffects[5] =
@@ -116,7 +116,7 @@ void EliteLavaBucket::Init()
 			EffectType::RangeIncrease,
 			0.2f,
 			0,
-			L"용암의 범위가 20% 상승"
+			L""
 		}
 	};
 }

@@ -64,7 +64,7 @@ void Trident::Init()
 			EffectType::IncreaseProjectileCount, 
 			0.f,
 			1, 
-			L"V 모양으로 두번 찌른다" 
+			L"두번 찌른다" 
 		}
 	};
 	_levelEffects[4] = 
@@ -114,27 +114,36 @@ void Trident::Update()
 	// 쿨타임이 경과하면 투사체를 발사
 	if (_sumTime - _lastAttackTime >= _info._coolTime)
 	{
-		// 오브젝트 풀에서 SausageObj를 꺼냄
-		TridentObj* tridentObj = GET_SINGLE(ObjectPool)->Get<TridentObj>(L"TridentObj");
+		float startOffsetY = -30 * (_info._count - 1) / 2.f;
 
-		// 플레이어 위치 기준으로 발사 위치 지정
-		tridentObj->SetPos(GetFirePos());
-		tridentObj->SetScale(Vec2{ _info._range, _info._range }); // 공격 범위에 맞게 스케일 설정
+		for (int i = 0; i < _info._count; i++)
+		{
+			// 오브젝트 풀에서 SausageObj를 꺼냄
+			TridentObj* tridentObj = GET_SINGLE(ObjectPool)->Get<TridentObj>(L"TridentObj");
 
-		// 플레이어의 방향에 따라 투사체 방향 설정
-		Dir dir = GET_SINGLE(GameManager)->GetPlayer()->GetDir();
-		if (dir == DIR_LEFT)
-			tridentObj->SetState(DirState::Left);
-		else
-			tridentObj->SetState(DirState::Right);
 
-		// 실시간 데미지 계산 후 설정
-		tridentObj->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));
+			// 플레이어의 방향에 따라 투사체 방향 설정
+			Dir dir = GET_SINGLE(GameManager)->GetPlayer()->GetDir();
+			if (dir == DIR_LEFT)
+				tridentObj->SetState(DirState::Left);
+			else
+				tridentObj->SetState(DirState::Right);
 
-		// ObjectManager에 추가하여 게임 내 등장시킴
-		// 나중에 ObjectManager 지우고 씬으로 관리 예정
-		GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(tridentObj);
+			// 플레이어 위치 기준으로 발사 위치 지정
+			float offsetY = startOffsetY + 30 * i;
+			Vec2 firePos = GetFirePos();
+			firePos.y += offsetY;
 
+			tridentObj->SetPos(firePos);
+			tridentObj->SetScale(Vec2{ _info._range, _info._range }); // 공격 범위에 맞게 스케일 설정
+
+			// 실시간 데미지 계산 후 설정
+			tridentObj->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));
+
+			// ObjectManager에 추가하여 게임 내 등장시킴
+			// 나중에 ObjectManager 지우고 씬으로 관리 예정
+			GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(tridentObj);
+		}
 		// 마지막 공격 시간 갱신
 		_lastAttackTime = _sumTime;
 	}

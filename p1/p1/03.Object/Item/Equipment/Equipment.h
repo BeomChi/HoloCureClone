@@ -18,6 +18,7 @@ enum class EffectType
 	DurationIncrease,			// 지속 시간 증가 (예: DoT 효과의 지속 시간 연장)
 	Probability,				// 확률 기반 효과 (예: 20% 확률로 추가 효과 발동)
 	SpecialAbility,				// 특수 능력 활성화 (예: 특정 기술 사용 가능)
+	KnockbackForce,				// 넉백 효과의 힘 증가 (적을 더 멀리 밀어냄)
 	None,						// 효과 없음 (레벨업에 특별한 변화가 없을 때 사용)
 };
 

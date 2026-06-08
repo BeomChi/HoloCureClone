@@ -7,10 +7,10 @@
 
 void SpawnManager::Init()
 {
-	for (int32 i = 0; i < 10; i++)
+	for (int32 i = 0; i < 20; i++)
 		AddSpawner();
 
-	_maxSpawnCount = 100;
+	_maxSpawnCount = 500;
 }
 
 void SpawnManager::Update()

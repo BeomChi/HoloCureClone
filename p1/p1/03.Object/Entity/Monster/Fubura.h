@@ -24,7 +24,7 @@ public:
 
 private:
 	float _sumTime = 0;
-	float _laserDurationTime = 0;
+	float _laserDurationTime = 5;
 	float _pattenrTime = 0;
 };
 

@@ -72,7 +72,7 @@ void BLBook::Init()
 			EffectType::DurationIncrease,
 			1.f,
 			0,
-			L"대미지 30% 상승, 지속시간이 1초 상승"
+			L""
 		}
 	};
 
@@ -118,6 +118,7 @@ void BLBook::Init()
 
 	// 플레이어와 책 사이의 거리
 	_playerToshield = 100;
+	_sumTime = 100;
 }
 
 /// @brief 책 오브젝트들을 순회하며 위치 업데이트 및 생성
@@ -126,7 +127,7 @@ void BLBook::Update()
 	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
 	_sumTime += deltaTime;
 
-	//if (_sumTime - _lastAttackTime >= _info._coolTime)
+	if (_sumTime - _lastAttackTime >= _info._coolTime)
 	{
 		for (int i = 0; i < _info._count; i++)
 		{
@@ -144,28 +145,35 @@ void BLBook::Update()
 				_blBook[i]->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));
 				_blBook[i]->SetDuration(_info._duration); // 지속시간 설정
 			}
-
-
-			// 플레이어 기준 위치 계산
-			Vector shieldPos = GET_SINGLE(GameManager)->GetPlayer()->GetPos();
-
-			// 회전각 업데이트 (프레임마다 증가, 초당 15도)
-			_shieldRoateAngle += (15 * deltaTime) * PI / 180;
-
-			// 현재 책의 각도 계산 (기준 각 + 개별 오프셋)
-			float shieldDinstance = (i * _shieldAngle) * PI / 180;
-
-			// 극좌표 → 직교좌표 변환 (원형 회전 위치 계산)
-			shieldPos.x += cos(_shieldRoateAngle + shieldDinstance) * _playerToshield;
-			shieldPos.y += sin(_shieldRoateAngle + shieldDinstance) * _playerToshield;
-
-			// 위치 적용
-			_blBook[i]->SetPos(shieldPos);
-
 		}
 		_lastAttackTime = _sumTime;		 // 마지막 공격 시간 갱신
 	}
+
+	for (int i = 0; i < _info._count; i++)
+	{
+		if (_blBook[i] == nullptr || !_blBook[i]->GetIsActivity())
+			continue;
+
+		// 플레이어 기준 위치 계산
+		Vector shieldPos = GET_SINGLE(GameManager)->GetPlayer()->GetPos();
+
+		// 회전각 업데이트 (프레임마다 증가, 초당 15도)
+		_shieldRoateAngle += (15 * deltaTime) * PI / 180;
+
+		// 현재 책의 각도 계산 (기준 각 + 개별 오프셋)
+		float shieldDinstance = (i * _shieldAngle) * PI / 180;
+
+		// 극좌표 → 직교좌표 변환 (원형 회전 위치 계산)
+		shieldPos.x += cos(_shieldRoateAngle + shieldDinstance) * _playerToshield;
+		shieldPos.y += sin(_shieldRoateAngle + shieldDinstance) * _playerToshield;
+
+		// 위치 적용
+		_blBook[i]->SetPos(shieldPos);
+
+	}
+	
 }
+
 
 /// @brief BLBook 자체는 렌더링 없음 (투사체가 처리함)
 void BLBook::Render(HDC hdc)
@@ -181,6 +189,15 @@ void BLBook::Render(HDC hdc)
 void BLBook::OnEquipEffect(Player& player)
 {
 	ApplyEffectByLevel(_baseInfo._level);
+
+	if (_blBook.size() < _info._count)
+	{
+		auto* obj = GET_SINGLE(ObjectPool)->Get<BLBookObj>(L"BLBook");
+		obj->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));
+		GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(obj);
+		_blBook.push_back(obj);
+	}
+
 	_shieldAngle = 360 / _info._count;
 	cout << "----------------------" << endl;
 	cout <<"레벨 :" <<_baseInfo._level << endl;

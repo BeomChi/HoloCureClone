@@ -14,10 +14,15 @@ public:
 
 	Vec2Int GetPos() const { return Vec2Int{ _x,_y }; }
 	Vec2Int GetSize() const { return Vec2Int{ _cx,_cy }; }
-	Vec2 GetPivot();
+	
+
+	Vec2 GetPivot() { return _pivot; }
+	void SetPivot(Vec2 pivot) { _pivot = pivot; }
 
 private:
 	Texture* _texture = nullptr;
+
+	Vec2 _pivot = { 0.5f,0.5f };
 
 	int32 _x = 0;
 	int32 _y = 0;

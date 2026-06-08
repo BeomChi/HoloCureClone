@@ -1,0 +1,52 @@
+[
+    {
+        "name": "SettingMenuBG",
+        "x": 393.0,
+        "y": 268.0
+    },
+    {
+        "name": "GuraIcon",
+        "x": 308.0,
+        "y": 189.0
+    },
+    {
+        "name": "Coin",
+        "x": 313.0,
+        "y": 310.0
+    },
+    {
+        "name": "KillCount",
+        "x": 314.0,
+        "y": 253.0
+    },
+    {
+        "name": "LevelText",
+        "x": 344.0,
+        "y": 182.0
+    },
+    {
+        "name": "KillCountText",
+        "x": 384.0,
+        "y": 288.0
+    },
+    {
+        "name": "CoinText",
+        "x": 382.0,
+        "y": 236.0
+    },
+    {
+        "name": "TimeText",
+        "x": 321.0,
+        "y": 129.0
+    },
+    {
+        "name": "TitleButton",
+        "x": 395.0,
+        "y": 366.0
+    },
+    {
+        "name": "TitleText",
+        "x": 400.0,
+        "y": 600.0
+    }
+]

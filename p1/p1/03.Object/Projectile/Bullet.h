@@ -18,7 +18,10 @@ public:
 	virtual void OnTriggerEnter(Collider* collider, Collider* other) override;
 
 	virtual void Reset() override;
+
+	void SetPierceCount(int32 count) { _info._pierceCount = count; }
 private:
 
+	int32 _currentPierceCount = 0;
 };
 

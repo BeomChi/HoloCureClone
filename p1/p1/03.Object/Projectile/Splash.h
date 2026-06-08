@@ -22,7 +22,7 @@ public:
 
 	void SetDir(DirState dir) { _dir = dir; }
 
-	
+	void SetKnockbackForce(float force) { _knockbackForce = force; }
 
 	virtual void OnTriggerEnter(Collider* collider, Collider* other) override;
 
@@ -34,6 +34,8 @@ private:
 	DirState _dir;
 
 	vector<Collider*> _collsion;
+
+	float _knockbackForce = 0.f;
 
 	Animator* _dirAni[2] = {};
 	AnimationComponent* _ani = nullptr;

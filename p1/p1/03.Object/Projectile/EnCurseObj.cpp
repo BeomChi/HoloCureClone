@@ -60,7 +60,6 @@ void EnCurseObj::Update()
 	if (_target == nullptr)
 	{
 
-
 		if (_dir == DirState::Right)
 		{
 			_pos.x += _info._speed * deltaTime;
@@ -69,7 +68,9 @@ void EnCurseObj::Update()
 		{
 			_pos.x -= _info._speed * deltaTime;
 		}
-
+		// 왜 자꾸 제자리에서 안사라지고 있는거지
+		// 추적중인 놈이 죽어서 사라지니 이놈 제자리 걸음하네
+		_trackingTime += deltaTime;
 	}
 	else
 	{
@@ -85,11 +86,16 @@ void EnCurseObj::Update()
 		}
 	}
 
-
+	/*if (!_target->GetIsActivity())
+	{
+		_target = nullptr;
+	}*/
+	
 
 	Vec2 pos = GET_SINGLE(SceneManager)->WorldToScreen(_pos);
 	if (pos.x <= 0 || pos.y <= 0 ||
-		pos.x >= GWinSizeX || pos.y >= GWinSizeY)
+		pos.x >= GWinSizeX || pos.y >= GWinSizeY ||
+		_trackingTime >= 10.f)
 	{
 		_isActivity = false;
 	}
@@ -154,11 +160,10 @@ void EnCurseObj::OnTriggerEnter(Collider* collider, Collider* other)
 					float distance = dir.Length();
 					if (distance <= _transition_Range)
 					{
-						//if (distance < (_target->GetPos() - _pos).Length())
-						{
-							_target = obj;
-							_isTracking = true;
-						}
+
+						_target = obj;
+						_isTracking = true;
+
 					}
 				}
 			}
@@ -174,6 +179,7 @@ void EnCurseObj::OnTriggerEnter(Collider* collider, Collider* other)
 void EnCurseObj::Reset()
 {
 	_damageInfo._finalDamage = 0;
+	_trackingTime = 0.f;
 	_target = nullptr;
 }
 

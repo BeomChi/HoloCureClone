@@ -71,12 +71,25 @@ void Miasma::OnTriggerStay(Collider* collider, Collider* other)
 {  
    if (other->GetOwner()->GetEntityType() == EntityType::Monster)  
    {  
-       if (_sumTime >= _info._attackDelay)  
-       {  
-           static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);  
-           //cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;  
-           _sumTime = 0;  
-       }  
+	   if (other->GetOwner()->GetEntityType() == EntityType::Monster)
+	   {
+		   auto it = _hitCooldownMap.find(other);
+
+		   if (it == _hitCooldownMap.end())
+		   {
+			   static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
+			   _hitCooldownMap[other] = _sumTime;
+		   }
+		   else
+		   {
+			   if (_sumTime - it->second >= _info._attackDelay)
+			   {
+				   static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
+				   it->second = _sumTime;
+			   }
+		   }
+
+	   }
    }  
 }
 

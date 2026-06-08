@@ -31,7 +31,7 @@ Player::Player()
 
 Player::~Player()
 {
-	_equipmentSelectUi = nullptr;
+	//_equipmentSelectUi = nullptr;
 	cout << "[DEBUG] 플레이어 소멸. this: " << this << endl;
 }
 
@@ -188,8 +188,9 @@ void Player::LevelUp()
 	// 구조 개편으로 인해 ui 풀에서 가져오지 않고 직접 활성화하는 방법으로
 	//_equipmentSelectUi = GET_SINGLE(ObjectPool)->Get<EquipmentSelectHud>(L"EquipmentSelectHud");
 	//GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(_equipmentSelectUi);
-	_equipmentSelectUi->SetIsActivity(true);
-	_equipmentSelectUi->Reset();
+	//_equipmentSelectUi->SetIsActivity(true);
+	//_equipmentSelectUi->Reset();
+	OnEquipmentSelectHud(true);
 	
 }
 

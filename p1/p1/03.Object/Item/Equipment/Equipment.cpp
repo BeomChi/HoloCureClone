@@ -73,7 +73,7 @@ DamageInfo  Equipment::CalculateDamge(float dmgMultiplier)
 	dmg._attacker = player;
 
 	int32 rand = RandomRange(0,100); // 0~1 사이 랜덤값
-	dmg._isCritical = rand < (int32)playerInfo._crtRate;
+	dmg._isCritical = rand <= (int32)playerInfo._crtRate;
 
 	float base = playerInfo._atk * playerInfo._dmgMultiplier * dmgMultiplier;
 	dmg._finalDamage = static_cast<int32>(base * (dmg._isCritical ? playerInfo._crtMultplier : 1.0f));

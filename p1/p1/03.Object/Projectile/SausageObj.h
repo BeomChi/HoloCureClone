@@ -20,7 +20,7 @@ public:
 	virtual void Render(HDC hdc) override;
 
 	void SetDir(DirState dir) { _dir = dir; }
-
+	void SetKnockbackForce(float force) { _knockbackForce = force; }
 	
 
 	virtual void OnTriggerEnter(Collider* collider, Collider* other) override;
@@ -34,6 +34,7 @@ private:
 
 	DirState _dir;
 	float _sumTime = .8f;
+	float _knockbackForce = 0.f;
 
 	vector<Collider*> _collsion;
 

@@ -43,10 +43,10 @@ void Entity::TakeDamage(const DamageInfo& dmg)
 
 
 	// 디버깅용 로그
-	if (dmg._isCritical)
+	/*if (dmg._isCritical)
 		cout << "★ 크리티컬 데미지! (" << dmg._finalDamage << ")" << endl;
 	else
-		cout << "일반 데미지 (" << dmg._finalDamage << ")" << endl;
+		cout << "일반 데미지 (" << dmg._finalDamage << ")" << endl;*/
 
 	_info._currentHp -= dmg._finalDamage;
 
@@ -103,6 +103,7 @@ void Entity::UpdateAnimation()
 		break;
 	case State::Attack:
 		_ani->SetAnimation(_aniAttack[_attack]);
+		break;
 	case State::Spawn:
 		_ani->SetAnimation(_aniSpawn);
 		break;

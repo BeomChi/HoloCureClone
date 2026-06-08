@@ -37,6 +37,9 @@ void NormalMonster::Init()
 	_aniMove[DIR_LEFT] = GET_SINGLE(ResourceManager)->GetAnimator(moveLeft);
 	_aniMove[DIR_RIGHT] = GET_SINGLE(ResourceManager)->GetAnimator(moveRight);
 
+	_aniAttack[START] = GET_SINGLE(ResourceManager)->GetAnimator(L"FanSpawn");
+	_aniAttack[ATTACK] = GET_SINGLE(ResourceManager)->GetAnimator(L"FanSpawn");
+
 	
 	_ani = new AnimationComponent();
 	_ani->SetAnimation(_aniIdle[_dir]);
@@ -77,6 +80,16 @@ void NormalMonster::Update()
 		}
 		break;
 	case State::Stagger:
+		// 일단 임시로 이렇게 하고 나중에 고치는 걸로
+		_info._staggerTime += deltaTime;
+
+		if (_info._staggerTime >= 1.f)
+		{
+			_info._staggerTime = 0.f;
+			SetState(State::Move);
+		}
+		break;
+	case State::Stun:
 		// 일단 임시로 이렇게 하고 나중에 고치는 걸로
 		_info._staggerTime += deltaTime;
 
@@ -155,7 +168,7 @@ void NormalMonster::Attack(float deltaTime)
 {
 	_pattenrTime += deltaTime;
 
-	if (_pattenrTime == deltaTime)
+	if (_pattenrTime == deltaTime && _target != nullptr)
 	{
 		Vector distance = _target->GetPos() - GetPos();
 		float dist = sqrt(distance.x * distance.x + distance.y * distance.y);

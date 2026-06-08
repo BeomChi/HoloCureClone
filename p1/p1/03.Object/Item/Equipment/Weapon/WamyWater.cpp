@@ -74,7 +74,7 @@ void WamyWater::Init()
 	_levelEffects[4] = 
 	{
 		{ 
-			EffectType::AttackSpeedUp,
+			EffectType::KnockbackForce,
 			0.2f,
 			0, 
 			L"넉백 효과가 상승한다"
@@ -104,13 +104,13 @@ void WamyWater::Init()
 			EffectType::RangeIncrease,
 			0.3f,
 			0,
-			L"공격 범위가 30% 상승하고, 넉백 후에 잠깐 상대방을 정지시킨다"
+			L"공격 범위가 30% 상승한다"
 		},
 		{
 			EffectType::SpecialAbility,
 			0.f,
 			0,
-			L"공격 범위가 30% 상승하고, 넉백 후에 잠깐 상대방을 정지시킨다"
+			L""
 		}
 	};
 }
@@ -144,6 +144,7 @@ void WamyWater::Update()
 		// 실시간 데미지 계산 후 설정
 		splash->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));
 		splash->SetScale(Vec2{ _info._range, _info._range }); // 투사체 크기 설정
+		splash->SetKnockbackForce(_knockbackForce );
 
 		// ObjectManager에 추가하여 게임 내 등장시킴
 		// 나중에 ObjectManager 지우고 씬으로 관리 예정
@@ -237,6 +238,9 @@ void WamyWater::ApplyEffectByLevel(int32 level)
 				break;
 			case EffectType::SpecialAbility:				// 특수 능력 활성화
 				_isSpecialAbility = true;
+				break;
+			case EffectType::KnockbackForce:				// 넉백 거리 증가
+				_knockbackForce = _knockbackForce + (_knockbackForce * effect._value);
 				break;
 			default:										// 없는 경우 경고 메시지
 				assert(false && "Unhandled EffectType in ApplyEffectByLevel()");

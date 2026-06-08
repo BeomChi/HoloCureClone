@@ -94,6 +94,7 @@ void AnimationComponent::Reset()
 {
 	_sumTime = 0.f;
 	_idx = 0;
+
 }
 
 int32 AnimationComponent::CheckAnimation(int32 frame)

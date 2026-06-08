@@ -33,13 +33,20 @@ EquipmentSelectHud::EquipmentSelectHud()
 				OnEquipmentSelected(eq);
 			});
 	}
+	{
+		_ActivityConn = (GET_SINGLE(GameManager)->GetPlayer()->OnEquipmentSelectHud += [this](bool isActive)
+			{
+				this->SetIsActivity(isActive);
+				this->Reset();
+			});
+	}
 
-	GET_SINGLE(GameManager)->GetPlayer()->SetEquipmentSelectHud(this);
 }
 
 EquipmentSelectHud::~EquipmentSelectHud()
 {
 	Clear();
+	_ActivityConn.Disconnect();
 	cout << "[DeBUG] EquipmentSelectHud 소멸자 호출. 슬롯 메모리 해제 완료." << endl;
 }
 

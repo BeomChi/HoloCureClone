@@ -10,7 +10,3 @@ Animator::~Animator()
 {
 }
 
-Vec2 Animator::GetPivot()
-{
-	return _info.texture->GetPivot();
-}

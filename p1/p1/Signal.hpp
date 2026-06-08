@@ -27,12 +27,10 @@
 //    Connection& operator=(const Connection&) = delete;
 //
 //    // move ctor / move assign 
-//    Connection(Connection&&) noexcept { cout << "[DEBUG] Connection 이동 생성" << endl; }
-//    Connection& operator=(Connection&&) noexcept {
-//        cout << "[DEBUG] Connection 이동 대입" << endl;
-//        return *this;
-//    }
+//    Connection(Connection&&)=default;
+//    Connection& operator=(Connection&&) = default;
 //
+// 
 //    explicit Connection(Node* n) : _node(n) {}
 //
 //    void Disconnect()

@@ -2,8 +2,8 @@
 #include "../Entity.h"  
 #include "Signal.hpp" // Ensure Signal is included  
 
-class Equipment;  
-class HpBar;
+
+
 class EquipmentSelectHud;
 
 class Player : public Entity
@@ -13,6 +13,7 @@ public:
 	Signal<float, float> OnHpChanged;
 	Signal<float, float> OnExpChanged;
 	Signal<int32> OnLevelChanged;
+	Signal<bool> OnEquipmentSelectHud;
 
 	Player();
 	Player(const Player&) = delete;
@@ -40,7 +41,7 @@ public:
 
 	virtual void Reset() override;
 
-	void SetEquipmentSelectHud(EquipmentSelectHud* hud) { _equipmentSelectUi = hud; }
+	//void SetEquipmentSelectHud(EquipmentSelectHud* hud) { _equipmentSelectUi = hud; }
 
 
 	bool IsChoosingEquipment() const { return _isChoosingEquipment; }
@@ -60,6 +61,6 @@ private:
 
 	bool _isChoosingEquipment = false;
 
-	EquipmentSelectHud* _equipmentSelectUi = nullptr;
+	//EquipmentSelectHud* _equipmentSelectUi = nullptr;
 
 };

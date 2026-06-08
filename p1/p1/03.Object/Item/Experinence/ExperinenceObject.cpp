@@ -30,13 +30,13 @@ void ExperinenceObject::Init()
 	_sprites[5] = GET_SINGLE(ResourceManager)->GetSprite(L"Exp06");
 
 	// 렌더러 넣어주고
-	SpriteRenderer* sprite = new SpriteRenderer();
-	sprite->SetSprite(_sprites[rand]);
+	_sprite = new SpriteRenderer();
+	_sprite->SetSprite(_sprites[rand]);
 
-	Vec2Int size = sprite->GetSprite()->GetSize();
+	Vec2Int size = _sprite->GetSprite()->GetSize();
 	SetSize({ (float)size.x,(float)size.y });
 
-	AddComponent(sprite);
+	AddComponent(_sprite);
 
 	_exp = _expArr[rand];
 
@@ -68,4 +68,12 @@ void ExperinenceObject::ApplyEffect()
 		return;
 
 	AddToExp(_player);
+}
+
+void ExperinenceObject::Reset()
+{
+	int rand = RandomRange(0, 5);
+
+	_sprite->SetSprite(_sprites[rand]);
+	_exp = _expArr[rand];
 }

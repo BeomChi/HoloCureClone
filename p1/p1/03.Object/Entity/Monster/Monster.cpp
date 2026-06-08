@@ -28,6 +28,7 @@ void Monster::Init()
 	InitCommon();
 	_aniSpawn = GET_SINGLE(ResourceManager)->GetAnimator(L"FanSpawn");
 	_aniDie = GET_SINGLE(ResourceManager)->GetAnimator(L"FanDie");
+	
 
 }
 
@@ -38,7 +39,12 @@ void Monster::Update()
 
 	if (_info._isDead)
 	{
-		
+		if (_key == L"Boss")
+		{
+			GET_SINGLE(StageManager)->BossOnDead();
+		}
+
+
 		if (_ani->CheckCurrentAnimationEnd())
 		{
 			GET_SINGLE(SpawnManager)->SubCurrentSpawnCount();

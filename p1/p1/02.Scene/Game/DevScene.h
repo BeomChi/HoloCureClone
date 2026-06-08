@@ -18,6 +18,6 @@ public:
 
 private:
 	Sound* sound = nullptr;
-	bool debug = false;
+	bool _debug = false;
 };
 

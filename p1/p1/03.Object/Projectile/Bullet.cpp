@@ -80,7 +80,10 @@ void Bullet::OnTriggerEnter(Collider* collider, Collider* other)
 	{
 		static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
 		//cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
-		_isActivity = false;
+		_currentPierceCount++;
+
+		if(_info._pierceCount <= _currentPierceCount)
+			_isActivity = false;
 	}
 	
 }
@@ -90,5 +93,5 @@ void Bullet::OnTriggerEnter(Collider* collider, Collider* other)
 void Bullet::Reset()
 {
 	_info._dir = {0,0};
-
+	_currentPierceCount = 0;
 }

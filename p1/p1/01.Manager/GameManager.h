@@ -33,12 +33,13 @@ public:
 	GameState GetState() const { return _state; }
 
 	void GameOver();
-
+	void SetDebugShow(bool isShow) { OnDebugShow(isShow); _isDebugShow = isShow; }
+	bool GetDebugShow() const { return _isDebugShow; }
 
 private:
 	Player* _player = nullptr;
 	float _playTime = 0.f;
-	
+	bool _isDebugShow = false;
 
 	int32 _stage = 0;
 	GameState _state = GameState::None;

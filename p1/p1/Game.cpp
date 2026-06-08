@@ -127,7 +127,8 @@ void Game::Render()
 	
 	{
 		wstring str = std::format(L"FPS({0}), DT({1})", fps, deltaTime);
-		::TextOut(hdc, GWinSizeX - 180, 10, str.c_str(), static_cast<int32>(str.size()));
+		Utils::DrawText(hdcBack, Vec2{ GWinSizeX - 180, 10 }, str);
+		//::TextOut(hdc, GWinSizeX - 180, 10, str.c_str(), static_cast<int32>(str.size()));
 	}
 
 	// Double Buffering

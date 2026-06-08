@@ -2,6 +2,7 @@
 #include "FanBeamObj.h"
 #include "../../01.Manager/GameManager.h"
 #include "../../01.Manager/ResourceManager.h"
+#include "../../01.Manager/SceneManager.h"
 #include "../../01.Manager/CollisionManager.h"
 #include "../../03.Object/Entity/Entity.h"
 #include "../../04.Component/Collision/BoxCollider.h"
@@ -29,7 +30,8 @@ void FanBeamObj::Init()
 			_dirAni[DIR_RIGHT] = GET_SINGLE(ResourceManager)->GetAnimator(L"FanBeamRight");
 
 			_ani = new AnimationComponent();
-			_ani->SetAnimation(_dirAni[DIR_RIGHT]);
+			_ani->Reset();
+			SetState(DirState::Right);  // 초기 상태 설정 (예: 오른쪽 방향)
 
 			// 크기를 애니메이션 크기에 맞춰서 설정 SetSize 함수 안에 RenderSize도 같이 설정해줌
 			Vec2Int size = _ani->GetAnimator()->GetInfo().size;
@@ -44,7 +46,6 @@ void FanBeamObj::Init()
 			// 콜라이터 크기를 렌더 사이즈 맞춰서 설정해줌
 			BoxCollider* collider = new BoxCollider();
 			collider->SetSize(_renderSize);
-			collider->SetShowDebug(false);
 			AddComponent(collider);
 			SetCollider(collider);
 
@@ -70,6 +71,13 @@ void FanBeamObj::Render(HDC hdc)
 {
 	Super::Render(hdc);
 
+	Utils::DrawRect(
+		hdc,
+		GET_SINGLE(SceneManager)->WorldToScreen(GetPos()),
+		10,
+		10
+	);
+
 	//Utils::DrawCircle(hdc, _pos, _size);
 }
 
@@ -94,7 +102,8 @@ void FanBeamObj::OnTriggerExit(Collider* collider, Collider* other)
 void FanBeamObj::Reset()
 {
 	_ani->Reset();
-	
+	_dir = DirState::LaserStatEnd;
+
 	_collider->ClearCollisionMap();
 	_collsion.clear();
 }
@@ -103,6 +112,7 @@ void FanBeamObj::Reset()
 // 상태 설정(여기서는 좌,우 방향)
 void FanBeamObj::SetState(DirState dir)
 {
+	cout << "SetState : " << (int)dir << endl;
 	if (_dir == dir)
 		return;
 
@@ -117,15 +127,35 @@ void FanBeamObj::UpdateAnimation()
 	switch (_dir)
 	{
 	case DirState::Left:
-		_ani->GetAnimator()->GetInfo().texture->SetPivot({ 1,0.5f });
+		cout
+			<< "_renderSize.x = "
+			<< _renderSize.x
+			<< endl;
+
+		cout
+			<< "_collider = "
+			<< (_collider != nullptr)
+			<< endl;
+		//cout << "UpdateAnimation Left" << endl;
 		_ani->SetAnimation(_dirAni[DIR_LEFT]);
+		_ani->GetAnimator()->SetPivot({ 1,0.5f });
 
 		if (_collider)
 			_collider->SetOffset({ -_renderSize.x * 0.5f, 0 });  // 왼쪽으로 이동
 		break;
 	case DirState::Right:
-		_ani->GetAnimator()->GetInfo().texture->SetPivot({ 0,0.5f });
+		cout
+			<< "_renderSize.x = "
+			<< _renderSize.x
+			<< endl;
+
+		cout
+			<< "_collider = "
+			<< (_collider != nullptr)
+			<< endl;
+		//cout << "UpdateAnimation Right" << endl;
 		_ani->SetAnimation(_dirAni[DIR_RIGHT]);
+		_ani->GetAnimator()->SetPivot({ 0,0.5f });
 
 		if (_collider)
 			_collider->SetOffset({ _renderSize.x * 0.5f, 0 });   // 오른쪽으로 이동

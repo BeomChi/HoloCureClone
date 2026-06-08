@@ -26,6 +26,9 @@ void Fubura::Init()
 	_aniMove[DIR_LEFT] = GET_SINGLE(ResourceManager)->GetAnimator(L"Fubura_MoveLeft");
 	_aniMove[DIR_RIGHT] = GET_SINGLE(ResourceManager)->GetAnimator(L"Fubura_MoveRight");
 
+	_aniAttack[START] = GET_SINGLE(ResourceManager)->GetAnimator(L"FanSpawn");
+	_aniAttack[ATTACK] = GET_SINGLE(ResourceManager)->GetAnimator(L"FanSpawn");
+
 	SetScale({ 1.5f, 1.5f });
 	_ani = new AnimationComponent();
 	_ani->SetAnimation(_aniIdle[_dir]);

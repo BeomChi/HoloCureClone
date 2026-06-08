@@ -109,6 +109,9 @@ void EquipmentManager::Init()
 
 void EquipmentManager::UpdateAll()
 {
+	if (GET_SINGLE(GameManager)->GetState() != GameState::Playing)
+		return;
+
 	for (const vector<Equipment*>& equipObj : _equipments)
 		for (Equipment* equip : equipObj)
 		{

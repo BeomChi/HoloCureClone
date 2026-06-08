@@ -90,7 +90,7 @@ void EnCurse::Init()
 			EffectType::Probability,
 			90.f,
 			0,
-			L"체인 확률이 90%로 상승"
+			L""
 		}
 	};
 	_levelEffects[6] =
@@ -115,7 +115,7 @@ void EnCurse::Init()
 			EffectType::SpecialAbility,
 			0.1f,
 			0,
-			L"저주를 3개 발사하고 체인될때마다 대미지가 10% 상승"
+			L""
 		}
 	};
 

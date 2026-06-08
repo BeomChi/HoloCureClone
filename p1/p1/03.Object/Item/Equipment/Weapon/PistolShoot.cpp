@@ -40,81 +40,81 @@ void PistolShoot::Init()
 		1.f						 // 데미지 배율
 		});
 
-	// 레벨별 강화 효과 세팅
-	// 현재 강화되는게 값이 2개 이상이면 2번쨰부터 누락됨 그래서 vector로 변경해서 해야함
-	_levelEffects[1] = 
-	{ 
-		EquipEffect{
-		EffectType::None,
-		0.f,
-		0,
-		L"아메의 기본 무기."
-		}
-	};
-	_levelEffects[2] = 
-	{
-		EquipEffect
+		// 레벨별 강화 효과 세팅
+		// 현재 강화되는게 값이 2개 이상이면 2번쨰부터 누락됨 그래서 vector로 변경해서 해야함
+		_levelEffects[1] =
 		{
-			EffectType::IncreaseProjectileCount,
-			0.f,
-			2,
-			L"발사 수가 2 증가하며, 각 탄환의 최대 관통 수가 1회 증가한다."
-		},
-		{
-			EffectType::PierceCountUp,
-			0.f,
-			1,
-			L"발사 수가 2 증가하며, 각 탄환의 최대 관통 수가 1회 증가한다."
-		}
-	};
-	_levelEffects[3] =
-	{
-		EquipEffect
-		{
-			EffectType::DamageBoost,
-			0.2f,
-			0,
-			L"대미지 20% 상승"
-		}
-	};
-	_levelEffects[4] = 
-	{
-		EquipEffect
-		{
-			EffectType::SpecialAbility,
+			EquipEffect{
+			EffectType::None,
 			0.f,
 			0,
-			L"탄환이 최대 관통 수에 도달하면 도탄된다."
-		}
-	};
-	_levelEffects[5] =
-	{
-		EquipEffect
+			L"아메의 기본 무기."
+			}
+		};
+		_levelEffects[2] =
 		{
-		EffectType::AttackSpeedUp,
-		0.25f,
-		0,
-		L"각 탄환의 최대 관통 수가 1회 증가하며, 공격 주기가 25% 감소한다."
-		}
-		,
-		EquipEffect
+			EquipEffect
+			{
+				EffectType::IncreaseProjectileCount,
+				0.f,
+				2,
+				L"발사 수가 2 증가하며, 각 탄환의 최대 관통 수가 1회 증가한다."
+			},
+			{
+				EffectType::PierceCountUp,
+				0.f,
+				1,
+				L""
+			}
+		};
+		_levelEffects[3] =
 		{
-			EffectType::PierceCountUp,
-			0.f,
-			1,
+			EquipEffect
+			{
+				EffectType::DamageBoost,
+				0.2f,
+				0,
+				L"대미지 20% 상승"
+			}
+		};
+		_levelEffects[4] =
+		{
+			EquipEffect
+			{
+				EffectType::SpecialAbility,
+				0.f,
+				0,
+				L"탄환이 최대 관통 수에 도달하면 도탄된다."
+			}
+		};
+		_levelEffects[5] =
+		{
+			EquipEffect
+			{
+			EffectType::AttackSpeedUp,
+			0.25f,
+			0,
 			L"각 탄환의 최대 관통 수가 1회 증가하며, 공격 주기가 25% 감소한다."
-		}
-	};
-	_levelEffects[6] =
-	{ 
-		EquipEffect
+			}
+			,
+			EquipEffect
+			{
+				EffectType::PierceCountUp,
+				0.f,
+				1,
+				L""
+			}
+		};
+		_levelEffects[6] =
 		{
-			EffectType::DamageBoost,
-			0.2f,
-			0,
-			L"대미지 20% 상승"
-		}
-	};
+			EquipEffect
+			{
+				EffectType::DamageBoost,
+				0.2f,
+				0,
+				L"대미지 20% 상승"
+			}
+		};
 }
 
 /// @brief 매 프레임 호출, 일정 쿨타임마다 탄환을 마우스 방향으로 연속 발사
@@ -123,24 +123,37 @@ void PistolShoot::Update()
 	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
 	_sumTime += deltaTime;
 
-	// 쿨타임 지났을 때 탄환 발사 처리
-	if (_sumTime - _lastAttackTime >= _info._coolTime)
+	if (!_fire)
 	{
-		// 오브젝트 풀에서 Bullet 오브젝트를 가져와서 설정
-		Bullet* bullet = GET_SINGLE(ObjectPool)->Get<Bullet>(L"Bullet");
+		_sumTime += deltaTime;
+		if (_sumTime - _lastAttackTime >= _info._coolTime)
+		{
+			_currentFireCount = 0;
+			_curBurstTime = 0.f;
+			_fire = true;
 
-		bullet->SetPos(GetFirePos());                  // 발사 위치 설정
-		bullet->SetDir(GetMousePosToPlayerDir());      // 마우스 위치 기준 발사 방향 설정
-		bullet->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));           // 데미지 설정
-
-		GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(bullet); // 게임에 등록
-
-		_fireCount++;                                  // 현재 발사된 총알 수 증가
-
-		// 설정된 발사 수(_info._count) 만큼 발사하면 쿨타임 갱신
-		if (_fireCount >= _info._count)
 			_lastAttackTime = _sumTime;
+		}
 	}
+	else
+	{
+		// 연사 중일 때
+		_curBurstTime += deltaTime;
+		if (_curBurstTime >= _burstInterval)
+		{
+			CreateBullet();
+
+			_curBurstTime = 0.f;
+			_currentFireCount++;
+
+			if (_currentFireCount >= _info._count)
+			{
+				_fire = false;
+			}
+		}
+
+	}
+
 }
 
 /// @brief 무기 자체 렌더링 없음 (탄환이 개별 렌더링 담당)
@@ -190,6 +203,19 @@ Vec2 PistolShoot::GetMousePosToPlayerDir()
 	dir.Normalize();
 
 	return dir;
+}
+
+void PistolShoot::CreateBullet()
+{
+	// 오브젝트 풀에서 Bullet 오브젝트를 가져와서 설정
+	Bullet* bullet = GET_SINGLE(ObjectPool)->Get<Bullet>(L"Bullet");
+
+	bullet->SetPos(GetFirePos());                  // 발사 위치 설정
+	bullet->SetDir(GetMousePosToPlayerDir());      // 마우스 위치 기준 발사 방향 설정
+	bullet->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));           // 데미지 설정
+	bullet->SetPierceCount(_info._pierceCount);		// 관통 수 설정
+
+	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(bullet); // 게임에 등록
 }
 
 void PistolShoot::ApplyEffect()

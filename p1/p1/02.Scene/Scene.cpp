@@ -35,30 +35,7 @@ void Scene::Update()
 		_pendingObjects[i].clear();
 
 	}
-		//for (GameObject* obj : _objects[i])
-		//{
-		//	if (obj == nullptr)
-		//		continue;
 
-		//	//wcout << "[DEBUG] Update È£Ãâ. this: " << obj->GetKey() << endl;
-		//	if (!obj->GetIsActivity())
-		//	{
-		//		continue;
-		//	}
-
-		//	obj->Update();
-		//}
-		//cout << "_objects[i].size(): " << _objects[i].size() << endl;
-		//for (GameObject* obj : _objects[i])
-		//{
-		//	if (obj == nullptr)
-		//		continue;
-
-		//	if (!obj->GetIsActivity())
-		//	{
-		//		RemoveObject(obj);
-		//	}
-		//}
 	for (int i = 0; i < LAYER_MAXCOUNT; ++i)
 	{
 		if (!CheckGameStateInLayer(i))
@@ -102,8 +79,8 @@ void Scene::Update()
 
 		_pendingRemoveObjects[i].clear();
 	}
-
-	GET_SINGLE(CollisionManager)->Update();
+	if (CheckGameStateInLayer(0))
+		GET_SINGLE(CollisionManager)->Update();
 
 }
 

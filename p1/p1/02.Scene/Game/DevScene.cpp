@@ -121,6 +121,7 @@ void DevScene::Init()
 		GET_SINGLE(ResourceManager)->LoadTexture(L"WeaponIcon_2", L"Sprite\\Ui\\WeaponIcon_2.bmp");
 		GET_SINGLE(ResourceManager)->LoadTexture(L"ItmeMenu_Menu", L"Sprite\\Ui\\ItmeMenu_Menu.bmp");
 		GET_SINGLE(ResourceManager)->LoadTexture(L"Trident", L"Sprite\\Ui\\Trident.bmp");
+		GET_SINGLE(ResourceManager)->LoadTexture(L"Pistol", L"Sprite\\Ui\\Pistol.bmp");
 		GET_SINGLE(ResourceManager)->LoadTexture(L"KillCount_Coin", L"Sprite\\Ui\\KillCount_Coin.bmp");
 		GET_SINGLE(ResourceManager)->LoadTexture(L"Numbers", L"Sprite\\Ui\\Numbers.bmp");
 		GET_SINGLE(ResourceManager)->LoadTexture(L"Level", L"Sprite\\Ui\\Level.bmp");
@@ -180,7 +181,7 @@ void DevScene::Init()
 		GET_SINGLE(ResourceManager)->CreateSprite(L"EnCurse", GET_SINGLE(ResourceManager)->GetTexture(L"WeaponIcon_2"), 25, 0, 25, 22);
 		GET_SINGLE(ResourceManager)->CreateSprite(L"WamyWater", GET_SINGLE(ResourceManager)->GetTexture(L"WeaponIcon_2"), 50, 0, 25, 22);
 		GET_SINGLE(ResourceManager)->CreateSprite(L"Trident", GET_SINGLE(ResourceManager)->GetTexture(L"Trident"));
-		GET_SINGLE(ResourceManager)->CreateSprite(L"PistolShoot", GET_SINGLE(ResourceManager)->GetTexture(L"Trident"));
+		GET_SINGLE(ResourceManager)->CreateSprite(L"PistolShoot", GET_SINGLE(ResourceManager)->GetTexture(L"Pistol"));
 		GET_SINGLE(ResourceManager)->CreateSprite(L"KillCount", GET_SINGLE(ResourceManager)->GetTexture(L"KillCount_Coin"),0,0,15,15);
 		GET_SINGLE(ResourceManager)->CreateSprite(L"Coin", GET_SINGLE(ResourceManager)->GetTexture(L"KillCount_Coin"),15,0,15,15);
 		GET_SINGLE(ResourceManager)->CreateSprite(L"DefaultButton", GET_SINGLE(ResourceManager)->GetTexture(L"DefaultButtonImage"),0,0,180,29);
@@ -499,14 +500,14 @@ void DevScene::Init()
 	}
 #pragma endregion
 
-	GET_SINGLE(SpawnManager)->SetMaxSpawnCount(40);
+	GET_SINGLE(ObjectPool)->Init();
+
 	GET_SINGLE(SpawnManager)->Init();
 	GET_SINGLE(StageManager)->StartStage();
 	GET_SINGLE(EquipmentManager)->Init();
 
 	
 
-	GET_SINGLE(ObjectPool)->Init();
 	{
 		Player* player = new Player();
 		assert(player != nullptr);
@@ -583,8 +584,8 @@ void DevScene::Update()
 
 	if (GET_SINGLE(InputManager)->GetButtonDown(KeyType::E))
 	{
-		debug = !debug;
-		GET_SINGLE(GameManager)->OnDebugShow(debug);
+		_debug = !_debug;
+		GET_SINGLE(GameManager)->SetDebugShow(_debug);
 	}
 }
 

@@ -16,7 +16,7 @@ struct Info
 	float _speed = 0;
 	float _dmgMultiplier = 1;
 	float _staggerTime = 0;
-	float _crtRate = 0;
+	float _crtRate = 20;
 	float _crtMultplier = 1.5f;
 
 	bool _isDead = false;
@@ -31,6 +31,7 @@ enum class State
 	Attack,
 	Spawn,
 	Stagger,
+	Stun,
 	Die,
 };
 

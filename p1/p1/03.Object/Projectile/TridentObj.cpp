@@ -99,15 +99,15 @@ void TridentObj::UpdateAnimation()
 	switch (_dir)
 	{
 	case DirState::Left:
-		_ani->GetAnimator()->GetInfo().texture->SetPivot({ 1,0.5f });
 		_ani->SetAnimation(_dirAni[DIR_LEFT]);
+		_ani->GetAnimator()->SetPivot({ 1,0.5f });
 
 		if (_collider)
 			_collider->SetOffset({ -_renderSize.x * 0.5f, 0 });  // 왼쪽으로 이동
 		break;
 	case DirState::Right:
-		_ani->GetAnimator()->GetInfo().texture->SetPivot({ 0,0.5f });
 		_ani->SetAnimation(_dirAni[DIR_RIGHT]);
+		_ani->GetAnimator()->SetPivot({ 0,0.5f });
 
 		if (_collider)
 			_collider->SetOffset({ _renderSize.x * 0.5f, 0 });   // 오른쪽으로 이동

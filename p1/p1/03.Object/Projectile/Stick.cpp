@@ -82,17 +82,17 @@ void Stick::OnTriggerEnter(Collider* collider, Collider* other)
 	{
 		static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
 		//cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
-		_info._pierceCount++;
+		_currentPierceCount++;
 
+		// stickExplode 소환
+		StickExplode* stickExplode = GET_SINGLE(ObjectPool)->Get<StickExplode>(L"StickExplode");
+		stickExplode->SetPos(_pos);
+		stickExplode->SetDamageInfo(_damageInfo);
 
-		if (_info._pierceCount >= 2)
+		GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(stickExplode);
+
+		if (_info._pierceCount <= _currentPierceCount)
 		{
-			// stickExplode 소환
-			StickExplode* stickExplode = GET_SINGLE(ObjectPool)->Get<StickExplode>(L"StickExplode");
-			stickExplode->SetPos(_pos);
-			stickExplode->SetDamageInfo(_damageInfo);
-
-			GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(stickExplode);
 			_isActivity = false;
 		}
 	}
@@ -104,7 +104,7 @@ void Stick::OnTriggerExit(Collider* collider, Collider* other)
 
 void Stick::Reset()
 {
-	_info._pierceCount = 0;
+	_currentPierceCount = 0;
 }
 
 

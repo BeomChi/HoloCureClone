@@ -63,8 +63,8 @@ void Sausage::Init()
 	_levelEffects[3] =
 	{
 		{
-			EffectType::AttackSpeedUp,
-			0.5f,
+			EffectType::KnockbackForce,
+			200.f,
 			0,
 			L"공격이 명중했을 때, 넉백(소)가 발생한다"
 		}
@@ -91,7 +91,7 @@ void Sausage::Init()
 			EffectType::DamageBoost,
 			0.3f,
 			0,
-			L"공격 범위랑 대미지 30% 상승"
+			L""
 		}
 	};
 	_levelEffects[6] =
@@ -122,32 +122,32 @@ void Sausage::Update()
 	_sumTime += deltaTime;
 
 	// 쿨타임이 경과하면 투사체를 발사
-	if (_sumTime - _lastAttackTime >= _info._coolTime)
+	if (_count == 0)
 	{
-		// 오브젝트 풀에서 SausageObj를 꺼냄
-		SausageObj* sausageObj = GET_SINGLE(ObjectPool)->Get<SausageObj>(L"SausageObj");
+		if (_sumTime - _lastAttackTime >= _info._coolTime)
+		{
+			CreateSausage();
 
-		// 플레이어 위치 기준으로 발사 위치 지정
-		sausageObj->SetPos(GetFirePos());
+			if (_isSpecialAbility)
+			{
+				_count = 1;
+				_deltaTime = _sumTime;
+			}
+			else
+			{
+				_lastAttackTime = _sumTime;
+			}
+		}
+	}
+	else
+	{
+		if (_sumTime - _deltaTime >= 0.25f)
+		{
+			CreateSausage();
 
-		// 투사체 크기 설정
-		sausageObj->SetScale(Vec2{ _info._range, _info._range }); 
-
-		// 플레이어의 방향에 따라 투사체 방향 설정
-		Dir dir = GET_SINGLE(GameManager)->GetPlayer()->GetDir();
-		if (dir == DIR_LEFT)
-			sausageObj->SetState(DirState::Left);
-		else
-			sausageObj->SetState(DirState::Right);
-
-		// 실시간 데미지 계산 후 설정
-		sausageObj->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));
-
-		// Scene에 추가하여 게임 내 등장시킴
-		GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(sausageObj);
-
-		// 마지막 공격 시간 갱신
-		_lastAttackTime = _sumTime;
+			_count = 0;
+			_lastAttackTime = _sumTime;
+		}
 	}
 }
 
@@ -183,6 +183,32 @@ Vec2 Sausage::GetFirePos()
 		firePos.x += 1 * _firePosLength;
 
 	return firePos;
+}
+
+void Sausage::CreateSausage()
+{
+	// 오브젝트 풀에서 SausageObj를 꺼냄
+	SausageObj* sausageObj = GET_SINGLE(ObjectPool)->Get<SausageObj>(L"SausageObj");
+
+	// 플레이어 위치 기준으로 발사 위치 지정
+	sausageObj->SetPos(GetFirePos());
+
+	// 투사체 크기 설정
+	sausageObj->SetScale(Vec2{ _info._range, _info._range });
+
+	// 플레이어의 방향에 따라 투사체 방향 설정
+	Dir dir = GET_SINGLE(GameManager)->GetPlayer()->GetDir();
+	if (dir == DIR_LEFT)
+		sausageObj->SetState(DirState::Left);
+	else
+		sausageObj->SetState(DirState::Right);
+
+	// 실시간 데미지 계산 후 설정
+	sausageObj->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));
+	sausageObj->SetKnockbackForce(_knockbackForce);
+
+	// Scene에 추가하여 게임 내 등장시킴
+	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(sausageObj);
 }
 
 
@@ -234,6 +260,10 @@ void Sausage::ApplyEffectByLevel(int32 level)
 				break;
 			case EffectType::SpecialAbility:						// 특수 능력 활성화 (예: 저주가 체인될 때마다 대미지 증가)	
 				_isSpecialAbility = true;
+				break;
+			case EffectType::KnockbackForce:
+				_knockbackForce += effect._value;
+				break;
 			default:												// 없는 경우 경고 메시지
 				assert(false && "Unhandled EffectType in ApplyEffectByLevel()");
 				break;

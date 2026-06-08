@@ -31,5 +31,7 @@ private:
 
 	Animator* _animation = nullptr;
 	AnimationComponent* _ani = nullptr;
+
+	int32 _currentPierceCount = 0;
 };
 

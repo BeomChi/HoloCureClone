@@ -21,7 +21,4 @@ int32 Sprite::GetTransparent()
 	return _texture->GetTransparent();
 }
 
-Vec2 Sprite::GetPivot()
-{
-	return _texture->GetPivot();
-}
+

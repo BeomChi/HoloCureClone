@@ -104,6 +104,7 @@ void FanBeam::Init()
 			L"후방에 빔을 하나 더 발사한다"
 		},
 	};
+
 }
 
 /// @brief 일정 시간마다 전방에 FanBeamObj 생성 및 공격
@@ -119,10 +120,11 @@ void FanBeam::Update()
 		FanBeamObj* fanBeamObj = GET_SINGLE(ObjectPool)->Get<FanBeamObj>(L"FanBeamObj");
 
 		// 발사 위치 설정 (플레이어 앞 방향)
-		fanBeamObj->SetPos(GetFirePos());
+		fanBeamObj->SetPos(GetFirePos(false));
 
 		// 플레이어 방향에 따라 빔 방향 설정
 		Dir dir = GET_SINGLE(GameManager)->GetPlayer()->GetDir();
+
 		if (dir == DIR_LEFT)
 			fanBeamObj->SetState(DirState::Left);
 		else
@@ -136,6 +138,34 @@ void FanBeam::Update()
 
 		// 오브젝트 매니저에 등록
 		GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(fanBeamObj);
+
+		if (_isSpecialAbility)
+		{
+			// 후방 빔 발사
+			FanBeamObj* rearFanBeamObj2 = GET_SINGLE(ObjectPool)->Get<FanBeamObj>(L"FanBeamObj");
+
+			rearFanBeamObj2->SetPos(GetFirePos(_isSpecialAbility));
+
+			// 반대 방향으로 설정
+			if (dir == DIR_LEFT)
+			{
+				rearFanBeamObj2->SetState(DirState::Right);
+			}
+			else
+			{
+				rearFanBeamObj2->SetState(DirState::Left);
+			}
+
+			cout << "Front : " << (dir == DIR_LEFT ? "Left" : "Right") << endl;
+			cout << "Rear  : " << (dir == DIR_LEFT ? "Right" : "Left") << endl;
+
+			// 데미지 및 크기 설정
+			rearFanBeamObj2->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));
+			rearFanBeamObj2->SetScale(Vec2(_info._range, _info._range));
+
+			// 오브젝트 매니저에 등록
+			GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(rearFanBeamObj2);
+		}
 
 		// 마지막 공격 시간 갱신
 		_lastAttackTime = _sumTime;
@@ -163,15 +193,25 @@ void FanBeam::OnUnequipEffect(Player& player)
 
 /// @brief 플레이어 앞 방향 기준 빔 발사 위치 계산
 /// @return Vec2 형태의 위치 값
-Vec2 FanBeam::GetFirePos()
+Vec2 FanBeam::GetFirePos(bool isSpecialAbility)
 {
 	Vector firePos = GET_SINGLE(GameManager)->GetPlayer()->GetPos();
 	Dir dir = GET_SINGLE(GameManager)->GetPlayer()->GetDir();
 
-	if (dir == DIR_LEFT)
-		firePos.x += (-1) * _firePosLength;
+	if (!isSpecialAbility)
+	{
+		if (dir == DIR_LEFT)
+			firePos.x += (-1) * _firePosLength;
+		else
+			firePos.x += 1 * _firePosLength;
+	}
 	else
-		firePos.x += 1 * _firePosLength;
+	{
+		if (dir == DIR_LEFT)
+			firePos.x += 1 * _firePosLength;
+		else
+			firePos.x += (-1) * _firePosLength;
+	}
 
 	return firePos;
 }

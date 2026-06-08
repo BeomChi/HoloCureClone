@@ -20,16 +20,21 @@ public:
 	virtual void OnUnequipEffect(Player& player) override;
 
 	Vec2 GetFirePos();
+
+	void CreateSausage();
 	
 
 private:
 	AOEEquipInfo _info;
 
+	int8 _count = 0;
 	float _sumTime = 0;
 
 	float _firePosLength = 30;
 	float _lastAttackTime = 0;
+	float _knockbackForce = 0;
 
+	float _deltaTime = 0;
 
 	// Equipment을(를) 통해 상속됨
 	virtual void ApplyEffect() override;

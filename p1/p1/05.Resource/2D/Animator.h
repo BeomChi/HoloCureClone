@@ -29,9 +29,11 @@ public:
 	void SetInfo(const AnimationInfo& info) { _info = info; }
 	const AnimationInfo& GetInfo() const { return _info; }
 
-	Vec2 GetPivot();
+	Vec2 GetPivot() { return _pivot; }
+	void SetPivot(Vec2 pivot) { _pivot = pivot; }
 
 private:
 	AnimationInfo _info;
+	Vec2 _pivot = { 0.5f,0.5f };
 };
 

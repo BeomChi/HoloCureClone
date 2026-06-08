@@ -1,5 +1,7 @@
 #include "../Text.h"
 
+class Sprite;
+
 class DamageText : public Text
 {
 	using Super = Text;
@@ -15,6 +17,9 @@ public:
 	void ShowDamage(float damage,Vec2 pos,bool isCritical);
 
 private:
+	Sprite* _sprite[2][10];
+
+	int8 _currentSpriteIndex = 0;
 	float _duration = 2.f; // 텍스트가 화면에 표시되는 시간
 	float _baseDuration = 1.5f; // 텍스트가 화면에 표시되는 시간
 };

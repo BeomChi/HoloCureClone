@@ -17,6 +17,7 @@ PlayerHudPanel::PlayerHudPanel()
 	cout << "[DEBUG] PlayerHudPanel 생성됨" << endl;
 
 	// Ui 매니저 만들면 거기서 가져오는 걸로
+	// 초반에 ui 기본값 세팅할 때 플레이어 정보가 필요하기 때문에, 플레이어가 생성된 이후에 PlayerHudPanel이 생성되어야 함
 	auto _info = GET_SINGLE(GameManager)->GetPlayer()->GetInfo();
 	{
 		// 밑 이미지
@@ -27,7 +28,6 @@ PlayerHudPanel::PlayerHudPanel()
 		hpBar->SetSize({ (float)hpBar->GetSprite()->GetSize().x, (float)hpBar->GetSprite()->GetSize().y });
 		hpBar->SetPos({ 70, 24 });
 		hpBar->SetBarLength((float)hpBar->GetSprite()->GetSize().x);
-		//hpBar->SetValue((float)_info._currentHp, (float)_info._maxHp);
 		hpBar->SetKey(L"hpBarBG");
 		hpBar->SetLayer(LAYER_UI);
 
@@ -66,6 +66,7 @@ PlayerHudPanel::PlayerHudPanel()
 		_hpText = new Text();
 		_hpText->SetPos({ 210.f,18.f });
 		_hpText->SetFontSize(16);
+		_hpText->SetText(format(L"{0}/{1}", _info._currentHp, _info._maxHp));
 		_hpText->SetKey(L"hpText");
 
 		AddPanel(_hpText);

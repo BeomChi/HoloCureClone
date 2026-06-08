@@ -25,5 +25,6 @@ public:
 private:
 
 	float _sumTime = .8f;
+	unordered_map<Collider*, float> _hitCooldownMap;
 };
 

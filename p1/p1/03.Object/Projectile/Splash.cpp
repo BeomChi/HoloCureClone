@@ -74,7 +74,7 @@ void Splash::OnTriggerEnter(Collider* collider, Collider* other)
 	if (other->GetOwner()->GetEntityType() == EntityType::Monster)
 	{
 		static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
-		Knockback(collider->GetOwner(), other->GetOwner(), 800.f);
+		Knockback(collider->GetOwner(), other->GetOwner(), _knockbackForce);
 		////// 넉백을 추가해야함
 		//Vec2 dir = other->GetOwner()->GetPos() - GET_SINGLE(GameManager)->GetPlayer()->GetPos();
 		//dir.Normalize();
@@ -115,15 +115,15 @@ void Splash::UpdateAnimation()
 	switch (_dir)
 	{
 	case DirState::Left:
-		_ani->GetAnimator()->GetInfo().texture->SetPivot({ 1,0.5f });
 		_ani->SetAnimation(_dirAni[DIR_LEFT]);
+		_ani->GetAnimator()->SetPivot({ 1,0.5f });
 
 		if (_collider)
 			_collider->SetOffset({ -_renderSize.x * 0.5f, 0 });  // 왼쪽으로 이동
 		break;
 	case DirState::Right:
-		_ani->GetAnimator()->GetInfo().texture->SetPivot({ 0,0.5f });
 		_ani->SetAnimation(_dirAni[DIR_RIGHT]);
+		_ani->GetAnimator()->SetPivot({ 0,0.5f });
 
 		if (_collider)
 			_collider->SetOffset({ _renderSize.x * 0.5f, 0 });   // 오른쪽으로 이동

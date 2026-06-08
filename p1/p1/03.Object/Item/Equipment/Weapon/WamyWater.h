@@ -29,6 +29,7 @@ private:
 
 	float _firePosLength = 30;
 	float _lastAttackTime = 0;
+	float _knockbackForce = 200.f;
 
 
 	// Equipment을(를) 통해 상속됨

@@ -3,6 +3,7 @@
 
 class Animator;
 class AnimationComponent;
+class Collider;
 
 enum class LavaState
 {
@@ -30,7 +31,7 @@ public:
 
 
 	virtual void OnTriggerStay(Collider* collider, Collider* other) override;
-	
+	virtual void OnTriggerExit(Collider* collider, Collider* other) override;
 
 	virtual void Reset() override;
 
@@ -45,5 +46,7 @@ private:
 	LavaState _state = LavaState::Start;
 	Animator* _lava[3] = {};
 	AnimationComponent* _ani = nullptr;
+
+	unordered_map<Collider*, float> _hitCooldownMap;
 };
 

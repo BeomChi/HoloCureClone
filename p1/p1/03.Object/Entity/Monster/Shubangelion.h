@@ -17,15 +17,13 @@ public:
 
 	virtual void Reset() override;
 
-	virtual void TakeDamage(const DamageInfo& dmg) override;
 	void Move(float deltaTime);
 	void Attack(float deltaTime);
 	void ChangeAttack();
 
 private:
+	int8 _paattenNumber = 0;
 	float _sumTime = 0;
-	float _laserDurationTime = 0;
-	float _pattenrTime = 0;
 	float _attackRange = 0;
 };
 

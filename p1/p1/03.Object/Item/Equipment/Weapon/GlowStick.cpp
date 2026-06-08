@@ -71,7 +71,7 @@ void GlowStick::Init()
 			EffectType::IncreaseProjectileCount,
 			0.f,
 			1,
-			L"던지는 형광봉의 개수가 2개가 된다."
+			L""
 		}
 	};
 	_levelEffects[4] = 

@@ -21,6 +21,8 @@ void Collider::Init()
         {
             _showDebug = isActivity;
         };
+
+    _showDebug = GET_SINGLE(GameManager)->GetDebugShow();
 }
 
 void Collider::Update()
@@ -66,6 +68,7 @@ bool Collider::CheckCollisionBoxToSphere(BoxCollider* b1, SphereCollider* s2)
     return false;
 }
 
+// 회전을 넣고 싶으면 OBB 충돌 체크로 구현해야함
 bool Collider::MyIntersectRect(LPRECT lrRect, GameObject* r1, GameObject* r2)
 {
 #pragma region 중략 : 크기랑 좌표 구하는 부분

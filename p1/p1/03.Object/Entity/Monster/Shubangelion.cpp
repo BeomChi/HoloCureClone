@@ -21,8 +21,9 @@ Shubangelion::~Shubangelion()
 
 void Shubangelion::Init()
 {
-	_aniIdle[DIR_LEFT] = GET_SINGLE(ResourceManager)->GetAnimator(L"Shubangelion_MoveLeft");
-	_aniIdle[DIR_RIGHT] = GET_SINGLE(ResourceManager)->GetAnimator(L"Shubangelion_MoveRight");
+
+	_aniIdle[DIR_LEFT] = GET_SINGLE(ResourceManager)->GetAnimator(L"Shubangelion_Charge");
+	_aniIdle[DIR_RIGHT] = GET_SINGLE(ResourceManager)->GetAnimator(L"Shubangelion_Charge");
 
 	_aniMove[DIR_LEFT] = GET_SINGLE(ResourceManager)->GetAnimator(L"Shubangelion_MoveLeft");
 	_aniMove[DIR_RIGHT] = GET_SINGLE(ResourceManager)->GetAnimator(L"Shubangelion_MoveRight");
@@ -36,8 +37,8 @@ void Shubangelion::Init()
 	_attack = START;
 
 	_score = 500;
-
 	Super::Init();
+
 }
 
 void Shubangelion::Update()
@@ -45,7 +46,6 @@ void Shubangelion::Update()
 	Super::Update();
 
 	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
-	_sumTime += deltaTime;
 
 	if (_target == nullptr)
 		_target = SerachPlayer();
@@ -72,6 +72,10 @@ void Shubangelion::Update()
 		break;
 	}
 	
+	_pos += _velocity * deltaTime;
+
+	// 이동 후 속도 감소 (마찰 같은 느낌)
+	_velocity *= 0.9f; // or 0.8f, 자연 감속
 }
 
 void Shubangelion::Render(HDC hdc)
@@ -83,8 +87,8 @@ void Shubangelion::InitStat()
 {
 	_info._maxHp = 3000.f;
 	_info._currentHp = _info._maxHp;
-	_info._atk = 2.f;
-	_info._speed = 100.f;
+	_info._atk = 40.f;
+	_info._speed = 110.f;
 
 	_attackRange = 300;
 }
@@ -96,28 +100,7 @@ void Shubangelion::Reset()
 	InitStat();
 }
 
-void Shubangelion::TakeDamage(const DamageInfo& dmg)
-{
-	if (_info._currentHp <= 0)
-		return;
 
-
-	// 디버깅용 로그
-	if (dmg._isCritical)
-		cout << "★ 크리티컬 데미지! (" << dmg._finalDamage << ")" << endl;
-	else
-		cout << "일반 데미지 (" << dmg._finalDamage << ")" << endl;
-
-
-	_info._currentHp -= dmg._finalDamage;
-
-	if (_info._currentHp <= 0)
-	{
-		_info._isDead = true;
-		GET_SINGLE(StageManager)->SetClear(true);
-		SetState(State::Die);
-	}
-}
 
 void Shubangelion::Move(float deltaTime)
 {
@@ -136,47 +119,45 @@ void Shubangelion::Move(float deltaTime)
 		SetDir(DIR_LEFT);
 	}
 
-
-	if (dist <= 100)
+	if (dist <= _attackRange / 2)
 	{
-		_info._speed = 0;
-		if (_sumTime >= 0.5f)
-		{
+		_velocity = { 0,0 };
+		_sumTime += deltaTime;
+
+		if (_sumTime >= 2.f)
 			SetState(State::Attack);
-		}
 	}
 	else
-		_info._speed = 100;
-
-	Vector moveDir = dir * _info._speed * deltaTime;
-	_pos += moveDir;
+	{
+		_velocity = dir * _info._speed;
+	}
 }
 
 void Shubangelion::Attack(float deltaTime)
 {
-	_pattenrTime += deltaTime;
-
-	SetenumAttack(START);
-
-	if (!_ani->CheckCurrentAnimationEnd())
-		return;
-
-	if (_pattenrTime == deltaTime)
+	if (_paattenNumber == 0)
 	{
-		ChangeAttack();
+		SetenumAttack(START);
+
+		if (!_ani->CheckCurrentAnimationEnd())
+			return;
+
+		_paattenNumber = 1;
 	}
 
-	if (_pattenrTime >= _laserDurationTime)
+	if (_paattenNumber == 1)
 	{
-		_pattenrTime = 0;
-		_sumTime = 0;
-		SetState(State::Move);
+		ChangeAttack();
 	}
 }
 
 void Shubangelion::ChangeAttack()
 {
 	SetenumAttack(ATTACK);
+
+	if (!_ani->CheckCurrentAnimationEnd())
+		return;
+
 	Vector distance = _target->GetPos() - GetPos();
 	float dist = sqrt(distance.x * distance.x + distance.y * distance.y);
 
@@ -186,4 +167,7 @@ void Shubangelion::ChangeAttack()
 		static_cast<Entity*>(_target)->TakeDamage({ this,_info._atk,false });
 	}
 
+	_paattenNumber = 0;
+	_sumTime = 0;
+	SetState(State::Move);
 }

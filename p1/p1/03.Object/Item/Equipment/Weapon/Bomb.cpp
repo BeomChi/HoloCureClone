@@ -101,11 +101,11 @@ void Bomb::Init()
 			EffectType::RangeIncrease,
 			0.f,
 			1,
-			L"폭탄의 개수가 3개가 된다.[* 이 때 폭탄은 바라보는 방향의 앞쪽에 1개, 그와 120도의 각을 이루면서 뒤로 2개 생성된다.]"
+			L"폭탄의 개수가 3개가 된다."
 		},
 		{
 			// 아무래도 각 무기별로 7렙떄 특수 기능들이 활성화 되는거 같으니 그걸 bool로 해서 각 무기별로 만들자
-			EffectType::SpecialAbility,	// 임시로 None으로 설정, 실제로는 BombObj에서 처리
+			EffectType::SpecialAbility,	// 뭔 소리인지 모르겠네 
 			0.f,
 			0,
 			L"[* 이 때 폭탄은 바라보는 방향의 앞쪽에 1개, 그와 120도의 각을 이루면서 뒤로 2개 생성된다.]"

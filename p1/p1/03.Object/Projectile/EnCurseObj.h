@@ -44,5 +44,7 @@ private:
 	int32 _transition_Range = 100;	// 체인 거리
 	float _transition_Probability = 20.f;			// 체인 확률
 	float _transition_Damage_Increase_Rate = 0.f;
+
+	float _trackingTime = 0.f; // 타겟 추적 시간 (체인 지속 시간 관리용)
 };
 

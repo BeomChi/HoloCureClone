@@ -64,7 +64,7 @@ void PsychoAxe::Init()
 			EffectType::DamageBoost,
 			0.2f,
 			0,
-			L"도끼의 사이즈가 20% 상승, 대미지 20% 상승"
+			L""
 		}
 	};
 	_levelEffects[3] =
@@ -89,7 +89,7 @@ void PsychoAxe::Init()
 			EffectType::DamageBoost,
 			0.33f,
 			0,
-			L"도끼의 사이즈가 20% 상승, 대미지 33% 상승"
+			L""
 		}
 	};
 	_levelEffects[5] =
@@ -104,7 +104,7 @@ void PsychoAxe::Init()
 			EffectType::DurationIncrease,
 			1.f,
 			0,
-			L"도끼의 히트 수 제한이 사라지고, 지속 시간이 1초 상승"
+			L""
 		}
 	};
 	_levelEffects[6] =
