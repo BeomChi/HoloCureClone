@@ -29,7 +29,7 @@ WinAPI와 C++를 기반으로 제작한 HoloCure 클론 프로젝트입니다.
 
 ## 프로젝트 구조
 
-[구조도 이미지(main)] 0
+![구조도 이미지(main)](./p1/이미지%20작업파일/ReadMe_Image/HoloCureCloneMain1-메인%20구조도.drawio.png)
 
 ### Scene System
 
@@ -40,14 +40,10 @@ Scene이 객체의 생성 / 삭제 / 생명주기를 관리하며
 
 #### 개선 전
 
-ObjectManager 0
- └ 모든 객체 관리
-(여기도 나중에 이미지로 바꾸자)
-
+![ObjectManager](./p1/이미지%20작업파일/ReadMe_Image/HoloCureCloneMain1-ObjectManager%20To%20Scene_1.drawio.png)
 #### 개선 후
 
-Scene 0
- └ 각 scene이 객체 관리
+![ObjectManager](./p1/이미지%20작업파일/ReadMe_Image/HoloCureCloneMain1-ObjectManager%20To%20Scene_2.drawio.png)
 
 
 ### Equipment System
@@ -56,7 +52,7 @@ Scene 0
 
 초기에는 Unity Component 구조를 참고하여 조합하는 구조를 고려하였다.
 
-[초기 설계 구조도 이미지] 0
+![초기 설계 구조도 이미지](./p1/이미지%20작업파일/ReadMe_Image/HoloCureCloneMain1-Equipment_1.drawio.png)
 
 장비 데이터를 독립 컴포넌트로 분리하고, 필요한 기능을 조합하여 
 재사용 가능한 구조를 목표로 하였다.
@@ -80,7 +76,7 @@ Scene 0
 
 상속 기반 구조로 가게되었다.
 
-[구조도 이미지(장비 현재)] 0
+![구조도 이미지(장비 현재)](./p1/이미지%20작업파일/ReadMe_Image/HoloCureCloneMain1-Equipment_2.drawio.png)
 
 각 장비가 개별 능력치와 기능들을 직업 구현을 하였고,
 결과적으로 장비 종류에 따라 개별 클래스가 생성되는 구조가 되었다.
