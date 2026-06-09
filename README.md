@@ -290,9 +290,11 @@ UI 배치 수정 시 좌표 수정 후 실행 후 확인
 #### 해결
 
 EditScene을 만들어 Scene 내에서 UI를 선택하여 이동이 가능하게 하고
+
 ![uiSelect](./p1/이미지%20작업파일/ReadMe_Image/uiSelect.gif)
 
 해당 UI의 좌표와 키 값을 저장을 하여 UI 초기화를 할 때 해당 키 값들을 로드하도록 구현하였다.
+
 ![uiLoad](./p1/이미지%20작업파일/ReadMe_Image/uiLoad.gif)
 
 #### 결과
