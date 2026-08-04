@@ -129,10 +129,13 @@ PlayerHudPanel::PlayerHudPanel()
 		_expBar->SetBarLength((float)_expBar->GetSprite()->GetSize().x * 1.248f);
 		_expBar->SetValue((float)_info._exp, (float)_info._maxExp);
 
-		_expConn = move(GET_SINGLE(GameManager)->GetPlayer()->OnExpChanged += [this](float current, float max)
+		_expConn = 
+			move(GET_SINGLE(GameManager)->GetPlayer()->OnExpChanged += 
+				[this](float current, float max)
 			{
 				_expBar->SetValue(current, max);
 			});
+
 		_expBar->SetKey(L"expBar");
 		_expBar->SetLayer(LAYER_UI);
 

@@ -126,7 +126,7 @@ UI는 기능 단위별 Panel로 구성하였다.
 3. UI Panel에 데이터를 전달
 4. 선택시 해당 장비 장착 또는 해당 장비를 가지고 있는 경우 업그레이드를 진행
 
-이미 보유한 장비일 경우 다음 레벨 효과를 표시하도록 구성
+이미 보유한 장비일 경우 다음 레벨 효과를 표시하도록 구성하였다.
 
 #### 특징
 
@@ -460,47 +460,6 @@ if (GET_SINGLE(GameManager)->GetState() != GameState::Playing)
 또한 객체 자체의 버그보다 상위 게임 상태 관리가 예상치 못한 문제의 원인이 될 수 있다는
 점을 경험하였다.
 
-
-### Object Pool 초기화 중복 문제
-
-#### 문제
-
-Object Pool이 객체 부족시 Factory를 통해 객체 생성
-
-![Pool Empty -> Factory Create -> Init() -> 객체 return](./p1/이미지%20작업파일/ReadMe_Image/HoloCureCloneMain1-Pool_1.drawio.png)
-
-이미 초기화 완료 상태였으나 재사용시 추가 Init() 호출이 발생하였다.
-	
-#### 결과
-
-컴포넌트 중복 생성
-Collider 중복
-Animation 중복
-	
-증상 :
-데미지 2회 적용
-애니메이션 중첩 출력 발생
-
-#### 원인
-
-생성 책임 위치 혼동
-
-![Factory : Create -> Init -> return](./p1/이미지%20작업파일/ReadMe_Image/HoloCureCloneMain1-Pool_2.drawio.png)
-
-이미 초기화가 완료된 상태
-재사용 객체는 이미 초기화가 완료된 상태이므로
-추가 Init() 호출은 불필요하였다.
-
-#### 해결
-
-재사용하는 객체(투사체, 몬스터 등)가 Pool에 반환될 때 Reset()을 호출하도록 변경하였다.
-
-Init()은 최초 생성 시 초기화,
-Reset()은 재사용 시 필요한 상태만 초기화하도록 역할을 분리하였다.
-
-#### 배운 점
-
-초기화 책임을 명확히 분리해야하고 분리기준을 명확히 할 것
 
 ## Retrospective
 

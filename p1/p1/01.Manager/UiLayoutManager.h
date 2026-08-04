@@ -47,7 +47,7 @@ public:
 		}
 
 		ofstream file(filename);
-		file << j.dump(4);	// 가동석을 위해 4칸 들여쓰기
+		file << j.dump(4);	// 가독성을 위해 4칸 들여쓰기
 		cout << "[DEBUG] UI 레이아웃 저장 완료. 파일명:"<< filename << endl;
 		file.close();
 	}
