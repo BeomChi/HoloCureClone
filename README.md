@@ -5,6 +5,9 @@ WinAPI와 C++를 기반으로 제작한 HoloCure 클론 프로젝트입니다.
 게임 루프, Scene 관리, Object Pool, Signal(Event) 시스템 등을 직접 구현하며
 게임 프레임워크 구조와 객체 생명주기 관리에 대한 이해를 목표로 진행하였습니다.
 
+## 다운로드
+[Build 다운로드](https://drive.google.com/file/d/1k6_Oj93dDJZt0Q5dRPdtDqnc4D9rU1Bl/view?usp=sharing)
+
 ## 주요 목표
 
 - WinAPI 기반 게임 프레임워크 제작
