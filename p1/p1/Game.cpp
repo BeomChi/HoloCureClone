@@ -78,6 +78,7 @@ void Game::Init(HWND hwnd)
 	HBITMAP prev = (HBITMAP)::SelectObject(hdcBack, _bmpBack); // DC와 BMP를 연결
 	::DeleteObject(prev);
 
+#ifdef _DEBUG
 	AllocConsole(); // 콘솔 생성
 	FILE* fp;
 	freopen_s(&fp, "CONOUT$", "w", stdout);  // 표준 출력 연결
@@ -87,11 +88,18 @@ void Game::Init(HWND hwnd)
 	cout.clear();  // iostream 상태 초기화
 	cin.clear();
 	cerr.clear();
+#endif
+
+#ifdef _DEBUG
+	fs::path resourcePath = L"../Resource";
+#else
+	fs::path resourcePath = L"./Resource";
+#endif
 
 	GET_SINGLE(TimeManager)->Init();
 	GET_SINGLE(InputManager)->Init(hwnd);
 	GET_SINGLE(SoundManager)->Init(hwnd);
-	GET_SINGLE(ResourceManager)->Init(hwnd, fs::path(L"D:\\gitHub\\C++_WinApi\\HoloCureClone\\p1\\Resource"));
+	GET_SINGLE(ResourceManager)->Init(hwnd, resourcePath);
 	GET_SINGLE(SceneManager)->Init();
 
 
@@ -125,12 +133,13 @@ void Game::Render()
 		::TextOut(hdcBack, 20, 480, str.c_str(), static_cast<int32>(str.size()));
 	}*/
 	
+#ifdef _DEBUG
 	{
 		wstring str = std::format(L"FPS({0}), DT({1})", fps, deltaTime);
 		Utils::DrawText(hdcBack, Vec2{ GWinSizeX - 180, 10 }, str);
 		//::TextOut(hdc, GWinSizeX - 180, 10, str.c_str(), static_cast<int32>(str.size()));
 	}
-
+#endif
 	// Double Buffering
 	::BitBlt(hdc, 0, 0, _rect.right, _rect.bottom, hdcBack, 0, 0, SRCCOPY); // 비트 블릿 : 고속 복사
 	::PatBlt(hdcBack, 0, 0, _rect.right, _rect.bottom, WHITENESS);
