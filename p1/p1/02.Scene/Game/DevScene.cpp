@@ -558,10 +558,7 @@ void DevScene::Init()
 	}
 
 #pragma region Sound 
-	// TODO 자고 일어나면 사운드쪽 다시 보기 그리고 방어구 추가하고 랜덤 쪽 손보기
 	{
-		//GET_SINGLE(ResourceManager)->LoadSound(L"Stage01BGM", L"Sound\\Stage01\\Stage01BGM.wav");
-
 		sound = GET_SINGLE(ResourceManager)->GetSound(L"Stage01BGM");
 		sound->Play(true);
 	}
@@ -592,6 +589,7 @@ void DevScene::Update()
 void DevScene::Render(HDC hdc)
 {
 	Super::Render(hdc);
-	GET_SINGLE(SpawnManager)->Render(hdc);
+	// 현재 소환된 몬스터 수 확인용
+	//GET_SINGLE(SpawnManager)->Render(hdc);
 }
 

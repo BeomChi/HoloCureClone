@@ -209,7 +209,6 @@ public:
     }
 
 private:
-    /* ISignal 인터페이스 구현 */
     void Disconnect(size_t id) override
     {
         auto it = remove_if(_slots.begin(), _slots.end(),

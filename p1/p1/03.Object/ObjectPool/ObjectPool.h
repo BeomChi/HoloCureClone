@@ -20,7 +20,7 @@ public:
 	template<typename T>
 	void ReigsterCreator(wstring key);
 
-	void CreateNewObject(wstring key);
+	bool CreateNewObject(wstring key);
 
 	void Clear();
 	void Debug();
@@ -33,12 +33,21 @@ private:
 template<typename T>
 inline T* ObjectPool::Get(wstring key)
 {
-	auto& pool = _objectPool[key];
+	auto it = _objectPool.find(key);
+	if (it == _objectPool.end())
+		return nullptr;
+
+	auto& pool = it->second;
 	
+
 	if (pool.empty())
 	{
-		CreateNewObject(key);
+		if (!CreateNewObject(key))
+			return nullptr;
 	}
+	if (pool.empty())
+		return nullptr;
+
 	static_assert(is_base_of_v<GameObject, T>, "T X GameObject");
 	T* obj = static_cast<T*>(pool.back());
 	pool.pop_back();
