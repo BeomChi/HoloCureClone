@@ -70,10 +70,10 @@ void Player::Init()
 
 		GET_SINGLE(CollisionManager)->AddCollider(boxCollider);
 	}
-	{
-		//CameraComponent* camera = new CameraComponent();
-		//AddComponent(camera);
-	}
+	/*{
+		CameraComponent* camera = new CameraComponent();
+		AddComponent(camera);
+	}*/
 
 	// ÄÄÆ÷³ÍÆ® Init
 	Super::Init();

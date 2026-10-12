@@ -5,6 +5,7 @@
 #include "../../01.Manager/SceneManager.h"
 #include "../../01.Manager/GameManager.h"
 #include "../../03.Object/Entity/Player/Player.h"
+#include "../../04.Component/Camera/CameraComponent.h"
 
 Camera::Camera()
 {
@@ -17,10 +18,18 @@ Camera::~Camera()
 
 void Camera::Init()
 {
+	{
+		CameraComponent* camera = new CameraComponent();
+		AddComponent(camera);
+	}
+
+	Super::Init();
 }
 
 void Camera::Update()
 {
+	Super::Update();
+
 	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
 
 	Input();
@@ -28,17 +37,15 @@ void Camera::Update()
 	if (_target == nullptr)
 	{
 		MoveCamera(deltaTime);
+		return;
 	}
-	else
-	{
-		Vec2 pos = _target->GetPos();
 
-		pos.x = clamp(pos.x, 400.f, 2560.f - 400.f);
-		pos.y = clamp(pos.y, 300.f, 2560.f - 300.f);
+	Vec2 pos = _target->GetPos();
 
-		_pos = pos;
-		GET_SINGLE(SceneManager)->SetCameraPos(_pos);
-	}
+	pos.x = clamp(pos.x, 400.f, 2560.f - 400.f);
+	pos.y = clamp(pos.y, 300.f, 2560.f - 300.f);
+
+	_pos = pos;
 }
 
 void Camera::MoveCamera(float deltaTime)

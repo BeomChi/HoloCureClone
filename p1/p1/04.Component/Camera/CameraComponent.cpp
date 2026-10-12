@@ -18,14 +18,17 @@ void CameraComponent::Init()
 void CameraComponent::Update()
 {
 	if (_owner == nullptr)
+	{
+		cout << "[DEBUG] owner == nullptr!!" << endl;
 		return;
-
+	}
 	Vec2 pos = _owner->GetPos();
 
-	pos.x = clamp(pos.x, 400.f, 2560.f - 400.f);
-	pos.y = clamp(pos.y, 300.f , 2560.f - 300.f);
+	//pos.x = clamp(pos.x, 400.f, 2560.f - 400.f);
+	//pos.y = clamp(pos.y, 300.f, 2560.f - 300.f);
 
 	GET_SINGLE(SceneManager)->SetCameraPos(pos);
+	//cout << "[DEBUG] pos : " << pos.x <<" "<<pos.y << endl;
 }
 
 void CameraComponent::Render(HDC hdc)

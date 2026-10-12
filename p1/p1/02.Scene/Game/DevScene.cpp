@@ -520,6 +520,7 @@ void DevScene::Init()
 	}
 	{
 		Camera* camera = new Camera();
+		camera->Init();
 		camera->SetPos({ 400,400 });
 		camera->SetTarget(GET_SINGLE(GameManager)->GetPlayer());
 		AddObject(camera);

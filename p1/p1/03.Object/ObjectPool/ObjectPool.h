@@ -62,7 +62,8 @@ inline T* ObjectPool::Get(wstring key)
 template<typename T>
 inline void ObjectPool::ReturnObject(wstring key,T* obj)
 {
-	if (obj == nullptr)
+	auto it = _objectPool.find(key);
+	if (obj == nullptr && it == _objectPool.end())
 		return;
 
 	//wcout << L"[RET] key = " << key << endl;
