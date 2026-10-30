@@ -2,6 +2,8 @@
 #include "../Scene.h"
 
 class Sound;
+class Player;
+class UiLayoutManager;
 
 class DevScene : public Scene
 {
@@ -19,5 +21,7 @@ public:
 private:
 	Sound* sound = nullptr;
 	bool _debug = false;
+	Player* _player;
+	UiLayoutManager* _uiLayoutManager;
 };
 

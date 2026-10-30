@@ -5,13 +5,15 @@
 class Player;
 
 
-class GameManager : public Singleton<GameManager>
+class GameManager
 {
-	friend class Singleton<GameManager>;
-
 public:
 	Signal<bool> OnGameOverHudActivity;
 	Signal<bool> OnDebugShow;
+
+	GameManager();
+	~GameManager();
+
 	void Update();
 
 	void SetPlayer(Player* player) 

@@ -27,7 +27,7 @@ void Stick::Init()
 	// component
 	{
 		{
-			_animation = GET_SINGLE(ResourceManager)->GetAnimator(L"Stick");
+			_animation = RESOURCE->GetAnimator(L"Stick");
 			_ani = new AnimationComponent();
 			_ani->SetAnimation(_animation);
 
@@ -56,11 +56,11 @@ void Stick::Update()
 {
 	Super::Update();
 
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 
 	_pos += _info._dir * _info._speed * deltaTime;
 	
-	Vec2 pos = GET_SINGLE(SceneManager)->WorldToScreen(_pos);
+	Vector pos = SCENE->WorldToScreen(_pos);
 
 	if (pos.x <= 0 || pos.y <= 0 ||
 		pos.x >= GWinSizeX || pos.y >= GWinSizeY)
@@ -89,7 +89,7 @@ void Stick::OnTriggerEnter(Collider* collider, Collider* other)
 		stickExplode->SetPos(_pos);
 		stickExplode->SetDamageInfo(_damageInfo);
 
-		GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(stickExplode);
+		SCENE->GetCurrentScene()->AddObject(stickExplode);
 
 		if (_info._pierceCount <= _currentPierceCount)
 		{

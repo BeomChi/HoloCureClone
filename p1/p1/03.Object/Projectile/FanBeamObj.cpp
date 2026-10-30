@@ -26,8 +26,8 @@ void FanBeamObj::Init()
 	{
 		{
 			// 좌우 애니메이션 설정
-			_dirAni[DIR_LEFT] = GET_SINGLE(ResourceManager)->GetAnimator(L"FanBeamLeft");
-			_dirAni[DIR_RIGHT] = GET_SINGLE(ResourceManager)->GetAnimator(L"FanBeamRight");
+			_dirAni[DIR_LEFT] = RESOURCE->GetAnimator(L"FanBeamLeft");
+			_dirAni[DIR_RIGHT] = RESOURCE->GetAnimator(L"FanBeamRight");
 
 			_ani = new AnimationComponent();
 			_ani->Reset();
@@ -73,7 +73,7 @@ void FanBeamObj::Render(HDC hdc)
 
 	Utils::DrawRect(
 		hdc,
-		GET_SINGLE(SceneManager)->WorldToScreen(GetPos()),
+		SCENE->WorldToScreen(GetPos()),
 		10,
 		10
 	);
@@ -141,7 +141,7 @@ void FanBeamObj::UpdateAnimation()
 		_ani->GetAnimator()->SetPivot({ 1,0.5f });
 
 		if (_collider)
-			_collider->SetOffset({ -_renderSize.x * 0.5f, 0 });  // 왼쪽으로 이동
+			_collider->SetOffset(Vector{ -_renderSize.x * 0.5f, 0 });  // 왼쪽으로 이동
 		break;
 	case DirState::Right:
 		cout
@@ -158,7 +158,7 @@ void FanBeamObj::UpdateAnimation()
 		_ani->GetAnimator()->SetPivot({ 0,0.5f });
 
 		if (_collider)
-			_collider->SetOffset({ _renderSize.x * 0.5f, 0 });   // 오른쪽으로 이동
+			_collider->SetOffset(Vector{ _renderSize.x * 0.5f, 0 });   // 오른쪽으로 이동
 		break;
 	}
 }

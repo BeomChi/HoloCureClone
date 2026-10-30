@@ -22,7 +22,7 @@ void BLBookObj::Init()
 	// component
 	{
 		{
-			Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"BLBook");
+			Sprite* sprite = RESOURCE->GetSprite(L"BLBook");
 			SpriteRenderer* renderer = new SpriteRenderer();
 			renderer->SetSprite(sprite);
 			SetSize({ (float)sprite->GetSize().x, (float)sprite->GetSize().y });

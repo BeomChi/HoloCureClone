@@ -25,7 +25,7 @@ void Bullet::Init()
 	// component
 	{
 		{
-			Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"Bullet06");
+			Sprite* sprite = RESOURCE->GetSprite(L"Bullet06");
 			SpriteRenderer* renderer = new SpriteRenderer();
 			renderer->SetSprite(sprite);
 			SetSize({ (float)sprite->GetSize().x, (float)sprite->GetSize().y });
@@ -52,12 +52,12 @@ void Bullet::Update()
 {
 	Super::Update();
 
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 
 	//_info._time += deltaTime;
 
 	_pos += _info._dir * _info._speed * deltaTime;
-	Vec2 pos = GET_SINGLE(SceneManager)->WorldToScreen(_pos);
+	Vector pos = SCENE->WorldToScreen(_pos);
 
 	if (pos.x <= 0 || pos.y <= 0 ||
 		pos.x >= GWinSizeX || pos.y >= GWinSizeY)

@@ -13,7 +13,8 @@
 #include "../../../04.Component/Collision/BoxCollider.h"
 #include "../../../04.Component/Camera/CameraComponent.h"
 #include "../../../04.Component/2D/AnimationComponent.h"
-#include "../../../05.Resource/2D/Animator.h"
+#include "97.Engin/Resource/Texture.h"
+#include "97.Engin/Resource/Animation.h"
 #include "../../../05.Resource/2D/Sprite.h"
 #include "../../../06.Ui/Game/HpBar.h"
 #include "../../../06.Ui/Game/EquipmentSelectHud.h"
@@ -21,11 +22,11 @@
 
 Player::Player()
 {
-	_aniIdle[DIR_LEFT] = GET_SINGLE(ResourceManager)->GetAnimator(L"Gura_IdleLeft");
-	_aniIdle[DIR_RIGHT] = GET_SINGLE(ResourceManager)->GetAnimator(L"Gura_IdleRight");
-	_aniMove[DIR_LEFT] = GET_SINGLE(ResourceManager)->GetAnimator(L"GuraMoveLeft");
-	_aniMove[DIR_RIGHT] = GET_SINGLE(ResourceManager)->GetAnimator(L"GuraMoveRight");
-	_aniDie = GET_SINGLE(ResourceManager)->GetAnimator(L"PlayerDie");
+	_aniIdle[DIR_LEFT] = RESOURCE->Get<Animation>(L"Gura_IdleLeft");
+	_aniIdle[DIR_RIGHT] = RESOURCE->Get<Animation>(L"Gura_IdleRight");
+	_aniMove[DIR_LEFT] = RESOURCE->Get<Animation>(L"GuraMoveLeft");
+	_aniMove[DIR_RIGHT] = RESOURCE->Get<Animation>(L"GuraMoveRight");
+	_aniDie = RESOURCE->Get<Animation>(L"PlayerDie");
 	cout << "[DEBUG] 플레이어 생성. this: " << this << endl;
 }
 
@@ -88,11 +89,11 @@ void Player::Update()
 	if (_state == State::Die)
 	{
 		//_isActivity = false;
-		GET_SINGLE(GameManager)->GameOver();
+		GAMEMANAGER->GameOver();
 		return;
 	}
 
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 	_sumTime += deltaTime;
 
 
@@ -171,7 +172,7 @@ void Player::LevelUp()
 	if (_isChoosingEquipment)
 		return;
 
-	GET_SINGLE(GameManager)->SetState(GameState::Paused);
+	GAMEMANAGER->SetState(GameState::Paused);
 
 	_info._level++;
 	_info._exp -= _info._maxExp;
@@ -212,7 +213,7 @@ void Player::Reset()
 
 void Player::InputMove(float deltaTime)
 {
-	auto input = GET_SINGLE(InputManager);
+	auto input = INPUT;
 	Vector dir = { 0,0 };
 	Dir newDir = _dir;
 
@@ -230,7 +231,7 @@ void Player::InputMove(float deltaTime)
 
 void Player::Idle(float deltaTime)
 {
-	auto input = GET_SINGLE(InputManager);
+	auto input = INPUT;
 	Vector dir = { 0,0 };
 
 	if (input->GetButton(KeyType::W)) { dir.y -= 1; }

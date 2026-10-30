@@ -116,7 +116,7 @@ void Bomb::Init()
 /// @brief 매 프레임마다 호출되어 쿨타임마다 폭탄을 랜덤 위치에 생성
 void Bomb::Update()
 {
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 	_sumTime += deltaTime;
 	
 	// 쿨타임이 지났을 경우 폭탄 생성
@@ -129,7 +129,7 @@ void Bomb::Update()
 			int randY = RandomRange(0, GWinSizeY);
 
 			// 화면 좌표를 월드 좌표로 변환
-			Vec2 randPos = GET_SINGLE(SceneManager)->ScreenToWorld({ (float)randX, (float)randY });
+			Vector randPos = SCENE->ScreenToWorld({ (float)randX, (float)randY });
 
 			// 오브젝트 풀에서 폭탄 객체 꺼내오기
 			BombObj* bombObj = GET_SINGLE(ObjectPool)->Get<BombObj>(L"BombObj");
@@ -140,7 +140,7 @@ void Bomb::Update()
 			bombObj->SetAttackDelay(_info._duration); // 3초 후 폭발
 
 			// 게임 오브젝트로 등록
-			GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(bombObj);
+			SCENE->GetCurrentScene()->AddObject(bombObj);
 
 		}
 		// 마지막 발사 시간 갱신

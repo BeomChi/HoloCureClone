@@ -159,8 +159,8 @@ void Scene::Clear()
 
 bool Scene::CheckGameStateInLayer(int layer)
 {
-	if (GET_SINGLE(GameManager)->GetState() == GameState::Playing || 
-		GET_SINGLE(GameManager)->GetState() == GameState::Title)
+	if (GAMEMANAGER->GetState() == GameState::Playing || 
+		GAMEMANAGER->GetState() == GameState::Title)
 		return true;
 
 	return layer == LAYER_UI;

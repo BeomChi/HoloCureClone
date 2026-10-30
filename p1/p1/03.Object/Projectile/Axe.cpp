@@ -23,7 +23,7 @@ void Axe::Init()
 	// component
 	{
 		{
-			_animation = GET_SINGLE(ResourceManager)->GetAnimator(L"PsychoAxe");
+			_animation = RESOURCE->GetAnimator(L"PsychoAxe");
 			_ani = new AnimationComponent();
 			_ani->SetAnimation(_animation);
 
@@ -52,16 +52,16 @@ void Axe::Update()
 {
 	Super::Update();
 
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 	_info._sumTime += deltaTime;
 
 	
 	float angle = _angle - _info._sumTime * _angularSpeed;
 	float radius = _baseRadius + _info._sumTime * _radiusGrowth;
 
-	Vec2 center = _startPos; // 시작 위치
+	Vector center = _startPos; // 시작 위치
 
-	Vec2 offset = 
+	Vector offset =
 	{
 		cosf(angle) * radius,
 		sinf(angle) * radius
@@ -97,7 +97,7 @@ void Axe::Reset()
 {
 	_info._sumTime = 0;
 
-	Vec2 _startPos = {};
+	Vector _startPos = {};
 	_ani->Reset();
 }
 

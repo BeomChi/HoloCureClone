@@ -3,9 +3,8 @@
 
 class Sound;
 
-class SoundManager : public Singleton<SoundManager>
+class SoundManager
 {
-	friend class Singleton<SoundManager>;
 public:
 	~SoundManager();
 

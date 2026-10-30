@@ -20,9 +20,8 @@ using json = nlohmann::json;
 class GameObject;
 class Ui;
 
-class UiLayoutManager : public Singleton<UiLayoutManager>
+class UiLayoutManager
 {
-	friend class Singleton<UiLayoutManager>;
 public:
 
 	template<typename T>
@@ -40,8 +39,9 @@ public:
 			string name = string(s.begin(), s.end());
 
 			item["name"] = name;
-			item["x"] = obj->GetPos().x;
-			item["y"] = obj->GetPos().y;
+			item["x"] = obj->GetOrAddTransform()->GetPosition().x;
+			item["y"] = obj->GetOrAddTransform()->GetPosition().y;
+			item["z"] = obj->GetOrAddTransform()->GetPosition().z;
 
 			j.push_back(item);
 		}
@@ -73,12 +73,13 @@ public:
 
             int x = item["x"];
             int y = item["y"];
+            int z = item["z"];
 
             for (auto obj : uiList)
             {
                 if (obj->GetKey() == name)
                 {
-                    obj->SetPos(Vec2(x, y));
+					obj->GetOrAddTransform()->SetPosition(Vec3(x, y, z));
                 }
             }
         }

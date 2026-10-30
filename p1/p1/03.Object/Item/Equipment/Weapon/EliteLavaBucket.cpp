@@ -124,7 +124,7 @@ void EliteLavaBucket::Init()
 /// @brief 쿨타임마다 화면에 랜덤한 위치에 용암 장판을 생성
 void EliteLavaBucket::Update()
 {
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 	_sumTime += deltaTime;
 
 	// 쿨타임이 경과하면 용암 생성
@@ -173,7 +173,7 @@ void EliteLavaBucket::CreateLava()
 	int randY = RandomRange(0, GWinSizeY);
 
 	// 화면 좌표를 월드 좌표로 변환
-	Vec2 randPos = GET_SINGLE(SceneManager)->ScreenToWorld({
+	Vector randPos = SCENE->ScreenToWorld({
 		(float)randX, (float)randY
 		});
 
@@ -185,13 +185,13 @@ void EliteLavaBucket::CreateLava()
 	lava->Activate(randPos, _info._duration);
 
 	// 장판 크기 설정
-	lava->SetScale(Vec2(_info._range, _info._range));
+	lava->SetScale(Vector(_info._range, _info._range));
 
 	// 장판 발동 후 약간의 지연 시간 설정 (지속 피해 주기 등)
 	lava->SetAttackDelay(0.5f);
 
 	// 게임 내 오브젝트로 등록
-	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(lava);
+	SCENE->GetCurrentScene()->AddObject(lava);
 }
 
 /// @brief 레벨업 효과 적용용 함수 (예: 쿨타임 감소, 공격 범위 증가 등)

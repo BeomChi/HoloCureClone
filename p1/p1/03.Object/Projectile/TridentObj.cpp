@@ -23,8 +23,8 @@ void TridentObj::Init()
 	// component
 	{
 		{
-			_dirAni[DIR_LEFT] = GET_SINGLE(ResourceManager)->GetAnimator(L"TridentLeft");
-			_dirAni[DIR_RIGHT] = GET_SINGLE(ResourceManager)->GetAnimator(L"TridentRight");
+			_dirAni[DIR_LEFT] = RESOURCE->GetAnimator(L"TridentLeft");
+			_dirAni[DIR_RIGHT] = RESOURCE->GetAnimator(L"TridentRight");
 
 			_ani = new AnimationComponent();
 			_ani->SetAnimation(_dirAni[DIR_RIGHT]);

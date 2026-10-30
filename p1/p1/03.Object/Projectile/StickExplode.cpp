@@ -23,7 +23,7 @@ void StickExplode::Init()
 	// component
 	{
 		{
-			_animation = GET_SINGLE(ResourceManager)->GetAnimator(L"StickExplode");
+			_animation = RESOURCE->GetAnimator(L"StickExplode");
 			_ani = new AnimationComponent();
 			_ani->SetAnimation(_animation);
 

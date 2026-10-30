@@ -22,14 +22,14 @@ Shubangelion::~Shubangelion()
 void Shubangelion::Init()
 {
 
-	_aniIdle[DIR_LEFT] = GET_SINGLE(ResourceManager)->GetAnimator(L"Shubangelion_Charge");
-	_aniIdle[DIR_RIGHT] = GET_SINGLE(ResourceManager)->GetAnimator(L"Shubangelion_Charge");
+	_aniIdle[DIR_LEFT] = RESOURCE->GetAnimator(L"Shubangelion_Charge");
+	_aniIdle[DIR_RIGHT] = RESOURCE->GetAnimator(L"Shubangelion_Charge");
 
-	_aniMove[DIR_LEFT] = GET_SINGLE(ResourceManager)->GetAnimator(L"Shubangelion_MoveLeft");
-	_aniMove[DIR_RIGHT] = GET_SINGLE(ResourceManager)->GetAnimator(L"Shubangelion_MoveRight");
+	_aniMove[DIR_LEFT] = RESOURCE->GetAnimator(L"Shubangelion_MoveLeft");
+	_aniMove[DIR_RIGHT] = RESOURCE->GetAnimator(L"Shubangelion_MoveRight");
 
-	_aniAttack[START] = GET_SINGLE(ResourceManager)->GetAnimator(L"Shubangelion_Charge");
-	_aniAttack[ATTACK] = GET_SINGLE(ResourceManager)->GetAnimator(L"Shubagelion_Attack");
+	_aniAttack[START] = RESOURCE->GetAnimator(L"Shubangelion_Charge");
+	_aniAttack[ATTACK] = RESOURCE->GetAnimator(L"Shubagelion_Attack");
 
 	_ani = new AnimationComponent();
 	_ani->SetAnimation(_aniIdle[_dir]);
@@ -45,7 +45,7 @@ void Shubangelion::Update()
 {
 	Super::Update();
 
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 
 	if (_target == nullptr)
 		_target = SerachPlayer();

@@ -4,6 +4,12 @@ class Component;
 class Collider;
 class BoxCollider;
 
+class MonoBehaviour;
+class Transform;
+class Camera;
+class MeshRenderer;
+class Animator;
+
 
 class GameObject
 {
@@ -22,20 +28,20 @@ public:
 	void RemoveComponent(Component* component);
 
 	// Position
-	void SetPos(Vec2 pos) { _pos = pos; }
-	Vec2 GetPos() { return _pos; }
+	//void SetPos(Vector pos) { _pos = pos; }
+	//Vector GetPos() { return _pos; }
 
 	// Size
-	// 고유 사이즈
-	void SetSize(Vec2 size);
-	Vec2 GetSize() { return _size; }
+	 //고유 사이즈
+	//void SetSize(Vector size);
+	//Vector GetSize() { return _size; }
 
-	// Scale
-	// 렌더 사이즈
-	void SetScale(Vec2 scale);
-	Vec2 GetScale() { return _scale; }
+	 //Scale
+	 //렌더 사이즈
+	//void SetScale(Vector scale);
+	//Vector GetScale() { return _scale; }
 
-	Vec2 GetRenderSize() { return _renderSize; }
+	//Vector GetRenderSize() { return _renderSize; }
 
 	// IsActivity
 	bool GetIsActivity() { return _isActivity; }
@@ -55,13 +61,11 @@ public:
 	virtual void OnTriggerStay(Collider* collider, Collider* other);
 	virtual void OnTriggerExit(Collider* collider, Collider* other);
 
-	void SetCollider(Collider* collider) { _collider = collider; }
-	Collider* GetCollider() { return _collider; }
 
 	void SetLayer(LAYER_TYPE layer) { _layer = layer; }
 	LAYER_TYPE GetLayer() { return _layer; }
 
-	void  AddVelocity(const Vector& v) { _velocity += v; }
+	void  AddVelocity(const Vec2& v) { _velocity += v; }
 
 
 	int RandomRange(int min, int max)
@@ -74,27 +78,41 @@ public:
 	}
 
 
+	Collider* GetCollider();
+	//void SetCollider(Collider* collider) { _collider = collider; }
+
+	Component* GetFixedComponent(ComponentType type);
+	Transform* GetTransform();
+	Camera* GetCamera();
+	MeshRenderer* GetMeshRenderer();
+	Animator* GetAnimator();
+
+	Transform* GetOrAddTransform();
+
+
 private:
 	void Clear();
 
 protected:
 	// VALUE
-	Vec2 _pos = {};
-	Vec2 _size = { 0, 0};
-	Vec2 _scale = { 1,1 };
-	Vec2 _renderSize = { 0,0 };
+	//Vector _pos = {};
+	//Vector _size = { 0, 0};
+	//Vector _scale = { 1,1 };
+	//Vector _renderSize = { 0,0 };
 	Vec2 _velocity = { 0,0 };
+
 	bool _isActivity = true;
 
-	vector<Component*> _components;
+	array<Component*, FIXED_COMPONENT_COUNT> _components;
+	vector<MonoBehaviour*> _scripts;
+	
 
-	wstring _key;
+	wstring _key;			// 오브젝트 이름
 
 	// TYPE
 	LAYER_TYPE _layer = LAYER_OBJECT;
 	EntityType _entityType;				// 사실상 tag ㅇㅅㅇ
 
-
-	Collider* _collider = nullptr;
+	//Collider* _collider = nullptr;
 };
 

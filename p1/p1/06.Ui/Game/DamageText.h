@@ -14,7 +14,7 @@ public:
 	virtual void Render(HDC hdc) override;
 
 	void Reset();
-	void ShowDamage(float damage,Vec2 pos,bool isCritical);
+	void ShowDamage(float damage,Vector pos,bool isCritical);
 
 private:
 	Sprite* _sprite[2][10];

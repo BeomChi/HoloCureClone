@@ -1,9 +1,8 @@
 #pragma once
 #include "Singleton.h"
 
-class TimeManager : public Singleton<TimeManager>
+class TimeManager
 {
-	friend class Singleton<TimeManager>;
 public:
 	void Init();
 	void Update();

@@ -31,14 +31,14 @@ void NormalMonster::Init()
 	wstring moveLeft = monster + L"_MoveLeft";;
 	wstring moveRight = monster + L"_MoveRight";;
 
-	_aniIdle[DIR_LEFT] = GET_SINGLE(ResourceManager)->GetAnimator(idleLeft);
-	_aniIdle[DIR_RIGHT] = GET_SINGLE(ResourceManager)->GetAnimator(idleRight);
+	_aniIdle[DIR_LEFT] = RESOURCE->GetAnimator(idleLeft);
+	_aniIdle[DIR_RIGHT] = RESOURCE->GetAnimator(idleRight);
 
-	_aniMove[DIR_LEFT] = GET_SINGLE(ResourceManager)->GetAnimator(moveLeft);
-	_aniMove[DIR_RIGHT] = GET_SINGLE(ResourceManager)->GetAnimator(moveRight);
+	_aniMove[DIR_LEFT] = RESOURCE->GetAnimator(moveLeft);
+	_aniMove[DIR_RIGHT] = RESOURCE->GetAnimator(moveRight);
 
-	_aniAttack[START] = GET_SINGLE(ResourceManager)->GetAnimator(L"FanSpawn");
-	_aniAttack[ATTACK] = GET_SINGLE(ResourceManager)->GetAnimator(L"FanSpawn");
+	_aniAttack[START] = RESOURCE->GetAnimator(L"FanSpawn");
+	_aniAttack[ATTACK] = RESOURCE->GetAnimator(L"FanSpawn");
 
 	
 	_ani = new AnimationComponent();
@@ -55,7 +55,7 @@ void NormalMonster::Update()
 {
 	Super::Update();
 
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 	
 
 	if (_target == nullptr)

@@ -22,12 +22,12 @@ void ExperinenceObject::Init()
 	int rand = RandomRange(0, 5);
 
 	// 스프라이트 초기화
-	_sprites[0] = GET_SINGLE(ResourceManager)->GetSprite(L"Exp01");
-	_sprites[1] = GET_SINGLE(ResourceManager)->GetSprite(L"Exp02");
-	_sprites[2] = GET_SINGLE(ResourceManager)->GetSprite(L"Exp03");
-	_sprites[3] = GET_SINGLE(ResourceManager)->GetSprite(L"Exp04");
-	_sprites[4] = GET_SINGLE(ResourceManager)->GetSprite(L"Exp05");
-	_sprites[5] = GET_SINGLE(ResourceManager)->GetSprite(L"Exp06");
+	_sprites[0] = RESOURCE->GetSprite(L"Exp01");
+	_sprites[1] = RESOURCE->GetSprite(L"Exp02");
+	_sprites[2] = RESOURCE->GetSprite(L"Exp03");
+	_sprites[3] = RESOURCE->GetSprite(L"Exp04");
+	_sprites[4] = RESOURCE->GetSprite(L"Exp05");
+	_sprites[5] = RESOURCE->GetSprite(L"Exp06");
 
 	// 렌더러 넣어주고
 	_sprite = new SpriteRenderer();

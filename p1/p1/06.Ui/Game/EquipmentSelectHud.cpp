@@ -14,7 +14,7 @@
 // 무조건 플레이어 생성된 이후 만들기
 EquipmentSelectHud::EquipmentSelectHud()
 {
-	auto equips = GET_SINGLE(EquipmentManager)->GetRandomEquipments();
+	auto equips = EQUIPMENT->GetRandomEquipments();
 
 	// _slot은 로직 처리용
 	// _panel은 실제로 화면에 보이는 용
@@ -34,7 +34,7 @@ EquipmentSelectHud::EquipmentSelectHud()
 			});
 	}
 	{
-		_ActivityConn = (GET_SINGLE(GameManager)->GetPlayer()->OnEquipmentSelectHud += [this](bool isActive)
+		_ActivityConn = (GAMEMANAGER->GetPlayer()->OnEquipmentSelectHud += [this](bool isActive)
 			{
 				this->SetIsActivity(isActive);
 				this->Reset();
@@ -73,7 +73,7 @@ void EquipmentSelectHud::Render(HDC hdc)
 
 void EquipmentSelectHud::Reset()
 {
-	auto equips = GET_SINGLE(EquipmentManager)->GetRandomEquipments();
+	auto equips = EQUIPMENT->GetRandomEquipments();
 
 	for (int i = 0; i < equips.size(); i++)
 	{
@@ -92,9 +92,9 @@ void EquipmentSelectHud::OnEquipmentSelected(Equipment* eq)
 	if (eq == nullptr)
 		return;
 
-	Player* player = GET_SINGLE(GameManager)->GetPlayer();
+	Player* player = GAMEMANAGER->GetPlayer();
 
-	GET_SINGLE(EquipmentManager)->AddEquiment(eq);
+	EQUIPMENT->AddEquiment(eq);
 
 
 	player->SetChoosingEquipment(false);
@@ -102,7 +102,7 @@ void EquipmentSelectHud::OnEquipmentSelected(Equipment* eq)
 	this->SetIsActivity(false);
 	
 	// 선택이 끝나면 게임 상태를 Playing으로 변경
-	GET_SINGLE(GameManager)->SetState(GameState::Playing);
+	GAMEMANAGER->SetState(GameState::Playing);
 
 	player->CheckLevelUpExp();
 }

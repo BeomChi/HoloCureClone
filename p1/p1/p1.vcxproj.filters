@@ -121,6 +121,93 @@
     <Filter Include="소스 파일\05.Resource\Sound">
       <UniqueIdentifier>{c05335f1-c5d8-486d-8279-31328ebe943c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\96.Shader">
+      <UniqueIdentifier>{5afa695f-d397-4bbb-838c-12afd66fb162}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Manager\CollisionManager">
+      <UniqueIdentifier>{ad7b56c4-235a-4ce5-873e-0d66cf3ad629}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Manager\EquipmentManager">
+      <UniqueIdentifier>{ae624e07-95b4-411c-87f2-d3bcec7934ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Manager\GameManager">
+      <UniqueIdentifier>{e769af5f-5ec7-48c4-a9d9-85ceb6637ec1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Manager\InputManager">
+      <UniqueIdentifier>{fdd95177-744c-41d8-bc6a-6355ae9d040d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Manager\ResourceManager">
+      <UniqueIdentifier>{1cee3870-ce76-4384-9bf9-4297b0ee3869}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Manager\SceneManager">
+      <UniqueIdentifier>{18fb515a-0ef5-46eb-86b2-ca6ae3ad6fba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Manager\Noting">
+      <UniqueIdentifier>{66408672-3f90-4e9c-913f-2c1e2979939b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Manager\SoundManager">
+      <UniqueIdentifier>{085eb1f4-c645-47d9-831f-6e9bb8dd08b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Manager\SpawnManager">
+      <UniqueIdentifier>{7443439c-906d-4818-bd64-45795cb5d4d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Manager\StageManager">
+      <UniqueIdentifier>{e9b4da59-b457-43fd-b020-ecdcd024083b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Manager\TimeManager">
+      <UniqueIdentifier>{175114f9-454c-4f0f-a893-05b07f9947a6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Manager\UiLayoutManager">
+      <UniqueIdentifier>{48d17d1a-1a94-4772-a456-33ec032dbda2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.Manager\RenderManager">
+      <UniqueIdentifier>{889d9ab6-2f23-43d4-8214-829d89b601d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\97.Engin">
+      <UniqueIdentifier>{e13cd21b-0e37-41c1-9e34-a9e147e5c7f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\97.Engin\Pipeline">
+      <UniqueIdentifier>{86ab7710-955a-4b21-93f2-deaba0833254}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\97.Engin\Pipeline\01.InputAssmbler">
+      <UniqueIdentifier>{c20cf2da-d7ce-4a69-b774-c0c5a97ca591}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\97.Engin\Pipeline\00.Geometry">
+      <UniqueIdentifier>{aca4026b-3618-4825-ae92-12027fbb0b4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\97.Engin\Pipeline\02.VertexShader">
+      <UniqueIdentifier>{ea69d8bf-0ca3-456f-996d-6173da7bbcb1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\97.Engin\Pipeline\03.Rasterizer">
+      <UniqueIdentifier>{5ba75430-9d4e-48b6-a3bc-cbf147cb19f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\97.Engin\Pipeline\04.PixelShader">
+      <UniqueIdentifier>{985b9672-fbc5-4876-9f27-06ddeea3d19e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\97.Engin\Pipeline\05.OutputMerge">
+      <UniqueIdentifier>{4124f9c9-4f22-4ce2-83fb-20d693e8e902}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\97.Engin\Resource">
+      <UniqueIdentifier>{d35618fb-0f17-43de-bcbb-ca11ed5d4d88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\97.Engin\Component">
+      <UniqueIdentifier>{16f6bf10-0db7-4e40-81b5-7d205c22a736}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\97.Engin\Component\Camera">
+      <UniqueIdentifier>{dd9101ec-d703-4548-b4be-2cd50aeed15a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\97.Engin\Component\Animation">
+      <UniqueIdentifier>{c888f4c9-d218-4e90-b7ce-d54b3ce1e9f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\97.Engin\Component\MonoBehaviour">
+      <UniqueIdentifier>{e77eb341-a642-470c-bd8b-d7e4a4b121d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\97.Engin\Component\Renderer">
+      <UniqueIdentifier>{ad94b09b-e5b8-4c81-a807-6bc6f0b3a957}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\97.Engin\Component\Transform">
+      <UniqueIdentifier>{e586557d-a87e-4d38-86db-8c0799f8f415}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -156,21 +243,6 @@
     <ClInclude Include="00.MainGame\p1.h">
       <Filter>소스 파일\00.MainGame</Filter>
     </ClInclude>
-    <ClInclude Include="01.Manager\CollisionManager.h">
-      <Filter>소스 파일\01.Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="01.Manager\InputManager.h">
-      <Filter>소스 파일\01.Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="01.Manager\ResourceManager.h">
-      <Filter>소스 파일\01.Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="01.Manager\SceneManager.h">
-      <Filter>소스 파일\01.Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="01.Manager\Singleton.h">
-      <Filter>소스 파일\01.Manager</Filter>
-    </ClInclude>
     <ClInclude Include="02.Scene\Scene.h">
       <Filter>소스 파일\02.Scene</Filter>
     </ClInclude>
@@ -201,9 +273,6 @@
     <ClInclude Include="03.Object\Entity\Monster\Fubura.h">
       <Filter>소스 파일\03.Object\Game\Entity\Monster\Fubura</Filter>
     </ClInclude>
-    <ClInclude Include="04.Component\Component.h">
-      <Filter>소스 파일\04.Component</Filter>
-    </ClInclude>
     <ClInclude Include="04.Component\Collision\BoxCollider.h">
       <Filter>소스 파일\04.Component\Collision</Filter>
     </ClInclude>
@@ -218,18 +287,6 @@
     </ClInclude>
     <ClInclude Include="04.Component\2D\SpriteRenderer.h">
       <Filter>소스 파일\04.Component\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="05.Resource\ResourceBase.h">
-      <Filter>소스 파일\05.Resource</Filter>
-    </ClInclude>
-    <ClInclude Include="05.Resource\2D\Animator.h">
-      <Filter>소스 파일\05.Resource\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="05.Resource\2D\Sprite.h">
-      <Filter>소스 파일\05.Resource\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="05.Resource\2D\Texture.h">
-      <Filter>소스 파일\05.Resource\2D</Filter>
     </ClInclude>
     <ClInclude Include="04.Component\2D\AnimationComponent.h">
       <Filter>소스 파일\04.Component\2D</Filter>
@@ -254,15 +311,6 @@
     </ClInclude>
     <ClInclude Include="03.Object\Entity\Monster\NormalMonster.h">
       <Filter>소스 파일\03.Object\Game\Entity\Monster\NormalMonster</Filter>
-    </ClInclude>
-    <ClInclude Include="01.Manager\StageManager.h">
-      <Filter>소스 파일\01.Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="01.Manager\GameManager.h">
-      <Filter>소스 파일\01.Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="01.Manager\SpawnManager.h">
-      <Filter>소스 파일\01.Manager</Filter>
     </ClInclude>
     <ClInclude Include="03.Object\Item\Item.h">
       <Filter>소스 파일\03.Object\Game\Item</Filter>
@@ -293,9 +341,6 @@
     </ClInclude>
     <ClInclude Include="03.Object\Item\Equipment\Weapon\BLBook.h">
       <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
-    </ClInclude>
-    <ClInclude Include="01.Manager\EquipmentManager.h">
-      <Filter>소스 파일\01.Manager</Filter>
     </ClInclude>
     <ClInclude Include="06.Ui\Image.h">
       <Filter>소스 파일\06.Ui</Filter>
@@ -387,9 +432,6 @@
     <ClInclude Include="Signal.hpp">
       <Filter>소스 파일\99.Header</Filter>
     </ClInclude>
-    <ClInclude Include="01.Manager\TimeManager.h">
-      <Filter>소스 파일\01.Manager</Filter>
-    </ClInclude>
     <ClInclude Include="06.Ui\Game\EquipmentSelectSlotUi.h">
       <Filter>소스 파일\06.Ui\Game</Filter>
     </ClInclude>
@@ -398,9 +440,6 @@
     </ClInclude>
     <ClInclude Include="05.Resource\Sound\Sound.h">
       <Filter>소스 파일\05.Resource\Sound</Filter>
-    </ClInclude>
-    <ClInclude Include="01.Manager\SoundManager.h">
-      <Filter>소스 파일\01.Manager</Filter>
     </ClInclude>
     <ClInclude Include="06.Ui\Game\GameOverHud.h">
       <Filter>소스 파일\06.Ui\Game</Filter>
@@ -411,14 +450,131 @@
     <ClInclude Include="json.hpp">
       <Filter>소스 파일\99.Header</Filter>
     </ClInclude>
-    <ClInclude Include="01.Manager\UiLayoutManager.h">
-      <Filter>소스 파일\01.Manager</Filter>
-    </ClInclude>
     <ClInclude Include="06.Ui\Text.h">
       <Filter>소스 파일\06.Ui</Filter>
     </ClInclude>
     <ClInclude Include="06.Ui\Game\DamageText.h">
       <Filter>소스 파일\06.Ui\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\CollisionManager.h">
+      <Filter>소스 파일\01.Manager\CollisionManager</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\EquipmentManager.h">
+      <Filter>소스 파일\01.Manager\EquipmentManager</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\GameManager.h">
+      <Filter>소스 파일\01.Manager\GameManager</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\InputManager.h">
+      <Filter>소스 파일\01.Manager\InputManager</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\ResourceManager.h">
+      <Filter>소스 파일\01.Manager\ResourceManager</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\SceneManager.h">
+      <Filter>소스 파일\01.Manager\SceneManager</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\Singleton.h">
+      <Filter>소스 파일\01.Manager\Noting</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\SoundManager.h">
+      <Filter>소스 파일\01.Manager\SoundManager</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\SpawnManager.h">
+      <Filter>소스 파일\01.Manager\SpawnManager</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\StageManager.h">
+      <Filter>소스 파일\01.Manager\StageManager</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\TimeManager.h">
+      <Filter>소스 파일\01.Manager\TimeManager</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\UiLayoutManager.h">
+      <Filter>소스 파일\01.Manager\UiLayoutManager</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Pipeline\00.Geometry\Geometry.h">
+      <Filter>소스 파일\97.Engin\Pipeline\00.Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Pipeline\00.Geometry\GeometryHelper.h">
+      <Filter>소스 파일\97.Engin\Pipeline\00.Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Pipeline\01.InputAssembler\IndexBuffer.h">
+      <Filter>소스 파일\97.Engin\Pipeline\01.InputAssmbler</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Pipeline\01.InputAssembler\InputLayout.h">
+      <Filter>소스 파일\97.Engin\Pipeline\01.InputAssmbler</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Pipeline\03.Rasterizer\RasterizerState.h">
+      <Filter>소스 파일\97.Engin\Pipeline\03.Rasterizer</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Pipeline\02.VertexShader\ShaderBase.h">
+      <Filter>소스 파일\97.Engin\Pipeline\02.VertexShader</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Pipeline\00.Geometry\VertexData.h">
+      <Filter>소스 파일\97.Engin\Pipeline\00.Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Pipeline\01.InputAssembler\VertexBuffer.h">
+      <Filter>소스 파일\97.Engin\Pipeline\01.InputAssmbler</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Pipeline\04.PixelShader\SamplerState.h">
+      <Filter>소스 파일\97.Engin\Pipeline\04.PixelShader</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Pipeline\02.VertexShader\ConstantBuffer.h">
+      <Filter>소스 파일\97.Engin\Pipeline\02.VertexShader</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Pipeline\05.OutputMerge\BlendState.h">
+      <Filter>소스 파일\97.Engin\Pipeline\05.OutputMerge</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Pipeline\Graphics.h">
+      <Filter>소스 파일\97.Engin\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Pipeline\Pipeline.h">
+      <Filter>소스 파일\97.Engin\Pipeline</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Resource\Animation.h">
+      <Filter>소스 파일\97.Engin\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Resource\Material.h">
+      <Filter>소스 파일\97.Engin\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Resource\Mesh.h">
+      <Filter>소스 파일\97.Engin\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Resource\ResourceBase.h">
+      <Filter>소스 파일\97.Engin\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Resource\Shader.h">
+      <Filter>소스 파일\97.Engin\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Resource\Texture.h">
+      <Filter>소스 파일\97.Engin\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\RenderHelper.h">
+      <Filter>소스 파일\01.Manager\RenderManager</Filter>
+    </ClInclude>
+    <ClInclude Include="01.Manager\RenderManager.h">
+      <Filter>소스 파일\01.Manager\RenderManager</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Resource\Sprite.h">
+      <Filter>소스 파일\97.Engin\Resource</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Component\Component.h">
+      <Filter>소스 파일\97.Engin\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Component\Renderer\MeshRenderer.h">
+      <Filter>소스 파일\97.Engin\Component\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Component\Transform\Transform.h">
+      <Filter>소스 파일\97.Engin\Component\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Component\MonoBehaviour\MonoBehaviour.h">
+      <Filter>소스 파일\97.Engin\Component\MonoBehaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Component\Animation\Animator.h">
+      <Filter>소스 파일\97.Engin\Component\Animation</Filter>
+    </ClInclude>
+    <ClInclude Include="97.Engin\Component\Camera\Camera.h">
+      <Filter>소스 파일\97.Engin\Component\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -434,32 +590,11 @@
     <ClCompile Include="Game.cpp">
       <Filter>소스 파일\00.MainGame</Filter>
     </ClCompile>
-    <ClCompile Include="01.Manager\CollisionManager.cpp">
-      <Filter>소스 파일\01.Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="01.Manager\InputManager.cpp">
-      <Filter>소스 파일\01.Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="01.Manager\ResourceManager.cpp">
-      <Filter>소스 파일\01.Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="01.Manager\SceneManager.cpp">
-      <Filter>소스 파일\01.Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="01.Manager\Singleton.cpp">
-      <Filter>소스 파일\01.Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="01.Manager\TimeManager.cpp">
-      <Filter>소스 파일\01.Manager</Filter>
-    </ClCompile>
     <ClCompile Include="02.Scene\Scene.cpp">
       <Filter>소스 파일\02.Scene</Filter>
     </ClCompile>
     <ClCompile Include="02.Scene\Game\DevScene.cpp">
       <Filter>소스 파일\02.Scene\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="03.Object\GameObject.cpp">
-      <Filter>소스 파일\03.Object</Filter>
     </ClCompile>
     <ClCompile Include="03.Object\ObjectFactory.cpp">
       <Filter>소스 파일\03.Object</Filter>
@@ -479,9 +614,6 @@
     <ClCompile Include="03.Object\Entity\Monster\Fubura.cpp">
       <Filter>소스 파일\03.Object\Game\Entity\Monster\Fubura</Filter>
     </ClCompile>
-    <ClCompile Include="04.Component\Component.cpp">
-      <Filter>소스 파일\04.Component</Filter>
-    </ClCompile>
     <ClCompile Include="04.Component\Collision\BoxCollider.cpp">
       <Filter>소스 파일\04.Component\Collision</Filter>
     </ClCompile>
@@ -496,18 +628,6 @@
     </ClCompile>
     <ClCompile Include="04.Component\2D\SpriteRenderer.cpp">
       <Filter>소스 파일\04.Component\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="05.Resource\ResourceBase.cpp">
-      <Filter>소스 파일\05.Resource</Filter>
-    </ClCompile>
-    <ClCompile Include="05.Resource\2D\Animator.cpp">
-      <Filter>소스 파일\05.Resource\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="05.Resource\2D\Sprite.cpp">
-      <Filter>소스 파일\05.Resource\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="05.Resource\2D\Texture.cpp">
-      <Filter>소스 파일\05.Resource\2D</Filter>
     </ClCompile>
     <ClCompile Include="04.Component\2D\AnimationComponent.cpp">
       <Filter>소스 파일\04.Component\2D</Filter>
@@ -532,15 +652,6 @@
     </ClCompile>
     <ClCompile Include="03.Object\Entity\Monster\NormalMonster.cpp">
       <Filter>소스 파일\03.Object\Game\Entity\Monster\NormalMonster</Filter>
-    </ClCompile>
-    <ClCompile Include="01.Manager\StageManager.cpp">
-      <Filter>소스 파일\01.Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="01.Manager\GameManager.cpp">
-      <Filter>소스 파일\01.Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="01.Manager\SpawnManager.cpp">
-      <Filter>소스 파일\01.Manager</Filter>
     </ClCompile>
     <ClCompile Include="03.Object\Item\Item.cpp">
       <Filter>소스 파일\03.Object\Game\Item</Filter>
@@ -571,9 +682,6 @@
     </ClCompile>
     <ClCompile Include="03.Object\Item\Equipment\Weapon\BLBook.cpp">
       <Filter>소스 파일\03.Object\Game\Item\Equipment\Weapon</Filter>
-    </ClCompile>
-    <ClCompile Include="01.Manager\EquipmentManager.cpp">
-      <Filter>소스 파일\01.Manager</Filter>
     </ClCompile>
     <ClCompile Include="06.Ui\Image.cpp">
       <Filter>소스 파일\06.Ui</Filter>
@@ -671,17 +779,11 @@
     <ClCompile Include="05.Resource\Sound\Sound.cpp">
       <Filter>소스 파일\05.Resource\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="01.Manager\SoundManager.cpp">
-      <Filter>소스 파일\01.Manager</Filter>
-    </ClCompile>
     <ClCompile Include="06.Ui\Game\GameOverHud.cpp">
       <Filter>소스 파일\06.Ui\Game</Filter>
     </ClCompile>
     <ClCompile Include="02.Scene\Game\EditScene.cpp">
       <Filter>소스 파일\02.Scene\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="01.Manager\UiLayoutManager.cpp">
-      <Filter>소스 파일\01.Manager</Filter>
     </ClCompile>
     <ClCompile Include="06.Ui\Text.cpp">
       <Filter>소스 파일\06.Ui</Filter>
@@ -691,6 +793,129 @@
     </ClCompile>
     <ClCompile Include="03.Object\ObjectPool\ObjectPool.cpp">
       <Filter>소스 파일\03.Object\Game\ObjectPool</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\CollisionManager.cpp">
+      <Filter>소스 파일\01.Manager\CollisionManager</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\EquipmentManager.cpp">
+      <Filter>소스 파일\01.Manager\EquipmentManager</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\GameManager.cpp">
+      <Filter>소스 파일\01.Manager\GameManager</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\InputManager.cpp">
+      <Filter>소스 파일\01.Manager\InputManager</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\ResourceManager.cpp">
+      <Filter>소스 파일\01.Manager\ResourceManager</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\SceneManager.cpp">
+      <Filter>소스 파일\01.Manager\SceneManager</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\Singleton.cpp">
+      <Filter>소스 파일\01.Manager\Noting</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\SoundManager.cpp">
+      <Filter>소스 파일\01.Manager\SoundManager</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\SpawnManager.cpp">
+      <Filter>소스 파일\01.Manager\SpawnManager</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\StageManager.cpp">
+      <Filter>소스 파일\01.Manager\StageManager</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\TimeManager.cpp">
+      <Filter>소스 파일\01.Manager\TimeManager</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\UiLayoutManager.cpp">
+      <Filter>소스 파일\01.Manager\UiLayoutManager</Filter>
+    </ClCompile>
+    <ClCompile Include="03.Object\GameObject.cpp">
+      <Filter>소스 파일\03.Object</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Pipeline\00.Geometry\Geometry.cpp">
+      <Filter>소스 파일\97.Engin\Pipeline\00.Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Pipeline\00.Geometry\GeometryHelper.cpp">
+      <Filter>소스 파일\97.Engin\Pipeline\00.Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Pipeline\01.InputAssembler\IndexBuffer.cpp">
+      <Filter>소스 파일\97.Engin\Pipeline\01.InputAssmbler</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Pipeline\01.InputAssembler\InputLayout.cpp">
+      <Filter>소스 파일\97.Engin\Pipeline\01.InputAssmbler</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Pipeline\03.Rasterizer\RasterizerState.cpp">
+      <Filter>소스 파일\97.Engin\Pipeline\03.Rasterizer</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Pipeline\02.VertexShader\ShaderBase.cpp">
+      <Filter>소스 파일\97.Engin\Pipeline\02.VertexShader</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Pipeline\00.Geometry\VertexData.cpp">
+      <Filter>소스 파일\97.Engin\Pipeline\00.Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Pipeline\01.InputAssembler\VertexBuffer.cpp">
+      <Filter>소스 파일\97.Engin\Pipeline\01.InputAssmbler</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Pipeline\04.PixelShader\SamplerState.cpp">
+      <Filter>소스 파일\97.Engin\Pipeline\04.PixelShader</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Pipeline\02.VertexShader\ConstantBuffer.cpp">
+      <Filter>소스 파일\97.Engin\Pipeline\02.VertexShader</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Pipeline\05.OutputMerge\BlendState.cpp">
+      <Filter>소스 파일\97.Engin\Pipeline\05.OutputMerge</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Pipeline\Graphics.cpp">
+      <Filter>소스 파일\97.Engin\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Pipeline\Pipeline.cpp">
+      <Filter>소스 파일\97.Engin\Pipeline</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Resource\Animation.cpp">
+      <Filter>소스 파일\97.Engin\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Resource\Material.cpp">
+      <Filter>소스 파일\97.Engin\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Resource\Mesh.cpp">
+      <Filter>소스 파일\97.Engin\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Resource\ResourceBase.cpp">
+      <Filter>소스 파일\97.Engin\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Resource\Shader.cpp">
+      <Filter>소스 파일\97.Engin\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Resource\Texture.cpp">
+      <Filter>소스 파일\97.Engin\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\RenderHelper.cpp">
+      <Filter>소스 파일\01.Manager\RenderManager</Filter>
+    </ClCompile>
+    <ClCompile Include="01.Manager\RenderManager.cpp">
+      <Filter>소스 파일\01.Manager\RenderManager</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Resource\Sprite.cpp">
+      <Filter>소스 파일\97.Engin\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Component\Component.cpp">
+      <Filter>소스 파일\97.Engin\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Component\Renderer\MeshRenderer.cpp">
+      <Filter>소스 파일\97.Engin\Component\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Component\Transform\Transform.cpp">
+      <Filter>소스 파일\97.Engin\Component\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Component\MonoBehaviour\MonoBehaviour.cpp">
+      <Filter>소스 파일\97.Engin\Component\MonoBehaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Component\Animation\Animator.cpp">
+      <Filter>소스 파일\97.Engin\Component\Animation</Filter>
+    </ClCompile>
+    <ClCompile Include="97.Engin\Component\Camera\Camera.cpp">
+      <Filter>소스 파일\97.Engin\Component\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -705,5 +930,10 @@
     <Image Include="p1.ico">
       <Filter>리소스 파일</Filter>
     </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Default.hlsl">
+      <Filter>소스 파일\96.Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

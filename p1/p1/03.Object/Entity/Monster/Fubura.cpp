@@ -20,16 +20,16 @@ Fubura::~Fubura()
 
 void Fubura::Init()
 {
-	_aniIdle[DIR_LEFT] = GET_SINGLE(ResourceManager)->GetAnimator(L"Fubura_MoveLeft");
-	_aniIdle[DIR_RIGHT] = GET_SINGLE(ResourceManager)->GetAnimator(L"Fubura_MoveRight");
+	_aniIdle[DIR_LEFT] = RESOURCE->GetAnimator(L"Fubura_MoveLeft");
+	_aniIdle[DIR_RIGHT] = RESOURCE->GetAnimator(L"Fubura_MoveRight");
 
-	_aniMove[DIR_LEFT] = GET_SINGLE(ResourceManager)->GetAnimator(L"Fubura_MoveLeft");
-	_aniMove[DIR_RIGHT] = GET_SINGLE(ResourceManager)->GetAnimator(L"Fubura_MoveRight");
+	_aniMove[DIR_LEFT] = RESOURCE->GetAnimator(L"Fubura_MoveLeft");
+	_aniMove[DIR_RIGHT] = RESOURCE->GetAnimator(L"Fubura_MoveRight");
 
-	_aniAttack[START] = GET_SINGLE(ResourceManager)->GetAnimator(L"FanSpawn");
-	_aniAttack[ATTACK] = GET_SINGLE(ResourceManager)->GetAnimator(L"FanSpawn");
+	_aniAttack[START] = RESOURCE->GetAnimator(L"FanSpawn");
+	_aniAttack[ATTACK] = RESOURCE->GetAnimator(L"FanSpawn");
 
-	SetScale({ 1.5f, 1.5f });
+	//SetScale({ 1.5f, 1.5f });
 	_ani = new AnimationComponent();
 	_ani->SetAnimation(_aniIdle[_dir]);
 	SetState(State::Move);
@@ -43,7 +43,7 @@ void Fubura::Update()
 {
 	Super::Update();
 
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 	
 
 	if (_target == nullptr)
@@ -168,9 +168,15 @@ void Fubura::LaserPattern()
 		//Vec2 targetpos = GET_SINGLE(SceneManager)->ScreenToWorld(_target->GetPos());
 
 		Laser* laser = GET_SINGLE(ObjectPool)->Get<Laser>(L"Laser");
-		laser->Activate({ _target->GetPos().x - 5,(_target->GetPos().y - 400) + 100.f * (i + 1) }, 5);
+
+		Vector pos;
+		pos.x = _target->GetPos().x - 5;
+		pos.y = (_target->GetPos().y - 400) + 100.f * (i + 1);
+
+		laser->Activate(pos, 5);
 		laser->SetScale({ 1.75,2 });
 		laser->SetDamageInfo({ this,25,false });
-		GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(laser);
+
+		SCENE->GetCurrentScene()->AddObject(laser);
 	}
 }

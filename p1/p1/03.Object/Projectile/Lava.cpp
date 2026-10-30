@@ -18,9 +18,9 @@ Lava::~Lava()
 
 void Lava::Init()
 {
-	_lava[START] = GET_SINGLE(ResourceManager)->GetAnimator(L"LavaStart");
-	_lava[ATTACK] = GET_SINGLE(ResourceManager)->GetAnimator(L"LavaLoop");
-	_lava[END] = GET_SINGLE(ResourceManager)->GetAnimator(L"LavaEnd");
+	_lava[START] = RESOURCE->GetAnimator(L"LavaStart");
+	_lava[ATTACK] = RESOURCE->GetAnimator(L"LavaLoop");
+	_lava[END] = RESOURCE->GetAnimator(L"LavaEnd");
 
 	_ani = new AnimationComponent();
 	_ani->SetAnimation(_lava[START]);
@@ -44,7 +44,7 @@ void Lava::Update()
 {
 	Super::Update();
 
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 	deltaTime = clamp(deltaTime, 0.0f, 0.1f);
 	_sumTime += deltaTime;
 
@@ -80,7 +80,7 @@ void Lava::Render(HDC hdc)
 	//Utils::DrawRect(hdc, _pos, _size.x, _size.y);
 }
 
-void Lava::Activate(Vec2 pos, float duration)
+void Lava::Activate(Vector pos, float duration)
 {
 	SetPos(pos);
 

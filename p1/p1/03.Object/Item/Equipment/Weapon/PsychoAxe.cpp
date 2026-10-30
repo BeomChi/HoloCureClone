@@ -131,7 +131,7 @@ void PsychoAxe::Update()
 {
 
 	// 매 프레임마다 호출되는 업데이트 함수
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 	_sumTime += deltaTime;
 
 	// 마지막 공격 이후 쿨타임이 지났다면 도끼 생성
@@ -143,14 +143,14 @@ void PsychoAxe::Update()
 		cout << "[DEBUG] 도끼 생성됨" << endl;
 		// 데미지 계산 및 초기 설정
 		axe->SetDamageInfo(CalculateDamge(_info._dmgMultiplier)); // 무기의 현재 공격력 설정
-		axe->SetPos(GET_SINGLE(GameManager)->GetPlayer()->GetPos()); // 플레이어 위치에서 시작
+		axe->SetPos(GAMEMANAGER->GetPlayer()->GetPos()); // 플레이어 위치에서 시작
 		cout << "[DEBUG] AxePos : " << axe->GetPos().x << "  " << axe->GetPos().y << endl;
 		axe->SetStartPos(axe->GetPos()); // 시작 위치 저장
 		axe->SetDuration(_info._duration); // 투사체의 지속 시간 설정
-		axe->SetScale(Vec2{ _info._range, _info._range }); // 투사체 크기 설정
+		axe->SetScale(Vector{ _info._range, _info._range }); // 투사체 크기 설정
 		axe->SetLayer(LAYER_AREAATTACK);
 		// 오브젝트 매니저에 추가하여 게임 월드에 등장시킴
-		GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(axe);
+		SCENE->GetCurrentScene()->AddObject(axe);
 
 		// 마지막 공격 시간 업데이트
 		_lastAttackTime = _sumTime;

@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "EquipmentManager.h"
 #include "GameManager.h"
+#include "../03.Object/Entity/Player/Player.h"
 #include "../03.Object/Item/Equipment/Equipment.h"
 #include "../03.Object/Item/Equipment/Weapon/BLBook.h"
 #include "../03.Object/Item/Equipment/Weapon/Bomb.h"
@@ -109,7 +110,7 @@ void EquipmentManager::Init()
 
 void EquipmentManager::UpdateAll()
 {
-	if (GET_SINGLE(GameManager)->GetState() != GameState::Playing)
+	if (GAMEMANAGER->GetState() != GameState::Playing)
 		return;
 
 	for (const vector<Equipment*>& equipObj : _equipments)
@@ -122,20 +123,9 @@ void EquipmentManager::UpdateAll()
 }
 
 
-// 착용중이던 장비 해제 및 메모리 정리
+// 메모리 정리
 void EquipmentManager::Clear()
 {
-	for (const vector<Equipment*>& equipObj : _equipments)
-		for (Equipment* equip : equipObj)
-		{
-			if (equip)
-			{
-				equip->OnUnequipEffect(*GET_SINGLE(GameManager)->GetPlayer());
-				//SAFE_DELETE(equip);
-			}
-
-		}
-
 	for (int32 i = 0; i < _allWeapons.size(); i++)
 		SAFE_DELETE(_allWeapons[i]);
 
@@ -195,7 +185,7 @@ void EquipmentManager::RemoveObject(Equipment* equip)
 	if (it == _equipments[equip->GetType()].end())
 		return;
 
-	(*it)->OnUnequipEffect(*GET_SINGLE(GameManager)->GetPlayer());
+	(*it)->OnUnequipEffect(*GAMEMANAGER->GetPlayer());
 	_equipments[equip->GetType()].erase(it);
 
 	// 이건 생각을 해보자 근데 콜라보 장비 만들때 재료로 뺄때 어차피 렙업하면 안뜨게 해야하니 리스트에서도 
@@ -225,7 +215,7 @@ void EquipmentManager::AddEquiment(Equipment* equip)
 				// 같은 이름의 장비가 이미 착용중인 경우 업그레이드
 				if (eq->GetName() == equip->GetName())
 				{
-					eq->UpgradeEquip(*GET_SINGLE(GameManager)->GetPlayer()); // 장비 업그레이드
+					eq->UpgradeEquip(*GAMEMANAGER->GetPlayer()); // 장비 업그레이드
 
 					_equipmentHud->RefreshSlots(); // UI 갱신
 					return; // 중복 착용 방지
@@ -235,7 +225,7 @@ void EquipmentManager::AddEquiment(Equipment* equip)
 
 	cout << equip->GetType() << endl;
 	_equipments[equip->GetType()].push_back(equip);
-	equip->OnEquipEffect(*GET_SINGLE(GameManager)->GetPlayer());
+	equip->OnEquipEffect(*GAMEMANAGER->GetPlayer());
 	_equipmentHud->RefreshSlots(); // UI 갱신
 }
 
@@ -244,9 +234,22 @@ void EquipmentManager::UpgreadEquipment(Equipment* equip)
 	if(equip == nullptr)
 		return;
 
-	equip->UpgradeEquip(*GET_SINGLE(GameManager)->GetPlayer()); // 장비 업그레이드
+	equip->UpgradeEquip(*GAMEMANAGER->GetPlayer()); // 장비 업그레이드
 
 	_equipmentHud->RefreshSlots(); // UI 갱신
+}
+
+void EquipmentManager::ResetEquipment()
+{
+	for (const vector<Equipment*>& equipObj : _equipments)
+		for (Equipment* equip : equipObj)
+		{
+			if (equip)
+				equip->Init();
+		}
+
+	_equipments[0].clear();
+	_equipments[1].clear();
 }
 
 // 해당 장비를 가지고 있는지 확인하는 용도
@@ -265,4 +268,21 @@ bool EquipmentManager::HasEquipment(wstring name)
 		}
 
 	return false;
+}
+
+void EquipmentManager::UnEquipmentAll(Player* player)
+{
+	if (player == nullptr)
+		return;
+
+	for (const vector<Equipment*>& equipObj : _equipments)
+		for (Equipment* equip : equipObj)
+		{
+			if (equip)
+				equip->OnUnequipEffect(*player);
+
+		}
+
+	// 장비들 초기 상태로 밀어주기
+	ResetEquipment();
 }

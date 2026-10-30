@@ -62,34 +62,35 @@ void EquipmentSlotUi::SetEquipmentSprite(Equipment* eq)
 		return;
 	_eq = eq;
 
-	SetSprite(GET_SINGLE(ResourceManager)->GetSprite(_eq->GetName()));
+	SetSprite(RESOURCE->Get<Sprite>(_eq->GetName()));
 	SetSize({ (float)GetSprite()->GetSize().x, (float)GetSprite()->GetSize().y });
 	SetLayer(LAYER_UI);
 
 	if(_levelImage == nullptr)
 		_levelImage = new Image();
 
-	_levelImage->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"LevelTypeNormal"));
+	_levelImage->SetSprite(RESOURCE->Get<Sprite>(L"LevelTypeNormal"));
 	_levelImage->SetPos({ GetPos().x - (float)GetSprite()->GetSize().x / 2,
 		GetPos().y + ((float)GetSprite()->GetSize().y /2) });
 
 	if(_numberImage == nullptr)
 		_numberImage = new Image();
+
 	cout << "[DEBUG] EquipmentSlotUi::SetEquipmentSprite - Level: " << _eq->GetLevel() << endl;
-	_numberImage->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"NumberTypeNormal" + to_wstring(_eq->GetLevel())));
+	_numberImage->SetSprite(RESOURCE->GetSprite(L"NumberTypeNormal" + to_wstring(_eq->GetLevel())));
 	_numberImage->SetPos({ _levelImage->GetPos().x + 10.f,	_levelImage->GetPos().y + 2 });
 }
 
 void EquipmentSlotUi::SetDefaultWeaponSprite()
 {
-	SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"DefaultWeaponIcon"));
+	SetSprite(RESOURCE->GetSprite(L"DefaultWeaponIcon"));
 	SetSize({ (float)GetSprite()->GetSize().x, (float)GetSprite()->GetSize().y });
 	SetLayer(LAYER_UI);
 }
 
 void EquipmentSlotUi::SetDefaultArmorSprite()
 {
-	SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"DefaultArmorIcon"));
+	SetSprite(RESOURCE->GetSprite(L"DefaultArmorIcon"));
 	SetSize({ (float)GetSprite()->GetSize().x, (float)GetSprite()->GetSize().y });
 	SetLayer(LAYER_UI);
 

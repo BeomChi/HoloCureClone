@@ -4,12 +4,13 @@
 
 class Equipment;
 class EquipmentHud;
+class Player;
 
-class EquipmentManager : public Singleton<EquipmentManager>
+class EquipmentManager
 {
-	friend class Singleton<EquipmentManager>;
+
 public:
-	virtual ~EquipmentManager() override;
+	~EquipmentManager();
 
 	void Init();
 	void UpdateAll();
@@ -23,10 +24,15 @@ public:
 	void SetEquipmentHud(EquipmentHud* equipmentHud) { _equipmentHud = equipmentHud; }
 	void UpgreadEquipment(Equipment* equip);
 
+	void ResetEquipment();
+	
 	bool HasEquipment(wstring name);
 	
 	const vector<Equipment*>& GetGameObjects(int type) const { return _equipments[type]; }
 	
+	void UnEquipmentAll(Player* player);
+
+
 
 private:
 	vector<Equipment*> _equipments[2];	// 착용중인 장비 (여기에 있는건 삭제 x) : 착용해제시 remove 호출

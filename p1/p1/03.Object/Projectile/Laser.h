@@ -24,7 +24,7 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
-	void Activate(Vec2 pos, float duration);
+	void Activate(Vector pos, float duration);
 
 
 	virtual void OnTriggerStay(Collider* collider, Collider* other) override;

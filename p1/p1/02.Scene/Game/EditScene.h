@@ -1,8 +1,10 @@
 #pragma once
 #include "../Scene.h"
 
+
 class GameObject;
 class Panel;
+class UiLayoutManager;
 
 class EditScene : public Scene
 {
@@ -26,6 +28,7 @@ private:
 	Panel* _panel = nullptr;
 
 	bool _isDragging = false;
-	Vec2 _dragOffset = {};
+	Vector _dragOffset = {};
+	UiLayoutManager* _uiLayoutManager;
 };
 

@@ -38,7 +38,7 @@ void AOE::SetScaleMultple(float scale)
 // 넉백 같은거 나중에 버프 효과로 따로 빼서 하는 것도 좋을거 같은디
 void AOE::Knockback(GameObject* obj, GameObject* other, float force)
 {
-	Vec2 dir = other->GetPos() - GET_SINGLE(GameManager)->GetPlayer()->GetPos();
+	Vector dir = other->GetPos() - GAMEMANAGER->GetPlayer()->GetPos();
 	dir.Normalize();
 
 	// 넉백 거리 만큼 dir을 곱해주고 거기에다가 객체의 위치를 더해서 위치를 설정하면 텔포가 되어버리는 데 음

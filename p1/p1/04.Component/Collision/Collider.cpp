@@ -4,8 +4,9 @@
 #include "../../03.Object/GameObject.h"
 #include "BoxCollider.h"
 #include "SphereCollider.h"
+#include "97.Engin/Component/Transform/Transform.h"
 
-Collider::Collider(ColliderType colliderType) :_colliderType(colliderType)
+Collider::Collider(ColliderType colliderType)    :  Super(ComponentType::Collider), _colliderType(colliderType)
 {
     Init();
 }
@@ -17,12 +18,13 @@ Collider::~Collider()
 
 void Collider::Init()
 {
-    _debugShow =GET_SINGLE(GameManager)->OnDebugShow += [this](bool isActivity)
+    _debugShow =
+        GAMEMANAGER->OnDebugShow += [this](bool isActivity)
         {
             _showDebug = isActivity;
         };
 
-    _showDebug = GET_SINGLE(GameManager)->GetDebugShow();
+    _showDebug = GAMEMANAGER->GetDebugShow();
 }
 
 void Collider::Update()
@@ -30,9 +32,9 @@ void Collider::Update()
     
 }
 
-void Collider::Render(HDC hdc)
-{
-}
+//void Collider::Render(HDC hdc)
+//{
+//}
 
 bool Collider::CheckCollision(Collider* other)
 {
@@ -43,20 +45,20 @@ bool Collider::CheckCollisionBoxToBox(BoxCollider* b1, BoxCollider* b2)
 {
     RECT intersect = {};
 
-    return MyIntersectRect(&intersect,b1->GetOwner(),b2->GetOwner());
+    return MyIntersectRect(&intersect,b1->GetGameObject(), b2->GetGameObject());
 }
 
 bool Collider::CheckCollisionSphereToSphere(SphereCollider* s1, SphereCollider* s2)
 {
-    Vec2 p1 = s1->GetOwner()->GetPos();
+    Vec3 p1 = s1->GetGameObject()->GetTransform()->GetPosition();
     float r1 = s1->GetRadius();
 
-
-    Vec2 p2 = s2->GetOwner()->GetPos();
+    
+    Vec3 p2 = s2->GetGameObject()->GetTransform()->GetPosition();
     float r2 = s2->GetRadius();
 
-    Vec2 dir = p1 - p2;
-    float dist = dir.Length();
+    Vec3 dir = p1 - p2;
+    float dist = dir.LengthSquared();
 
 
     return dist <= r1 + r2;
@@ -74,11 +76,11 @@ bool Collider::MyIntersectRect(LPRECT lrRect, GameObject* r1, GameObject* r2)
 #pragma region 중략 : 크기랑 좌표 구하는 부분
 
 
-    Vec2 size1 = r1->GetSize();
-    Vec2 size2 = r2->GetSize();
+    Vec3 size1 = r1->GetTransform()->GetScale();
+    Vec3 size2 = r2->GetTransform()->GetScale();
 
-    Vec2 pos1 = r1->GetCollider()->GetWorldPos();
-    Vec2 pos2 = r2->GetCollider()->GetWorldPos();
+    Vec3 pos1 = r1->GetTransform()->GetPosition();
+    Vec3 pos2 = r2->GetTransform()->GetPosition();
 
     float dx = abs(pos1.x - pos2.x);
     float dy = abs(pos1.y - pos2.y);
@@ -93,10 +95,14 @@ bool Collider::MyIntersectRect(LPRECT lrRect, GameObject* r1, GameObject* r2)
     {
         if (lrRect)
         {
-            lrRect->left = static_cast<int32>(max(r1->GetPos().x - half1X, r2->GetPos().x - half2X));
-            lrRect->right = static_cast<int32>(min(r1->GetPos().x + half1X, r2->GetPos().x + half2X));
-            lrRect->top = static_cast<int32>(max(r1->GetPos().y - half1Y, r2->GetPos().y - half2Y));
-            lrRect->bottom = static_cast<int32>(min(r1->GetPos().y + half1Y, r2->GetPos().y + half2Y));
+            lrRect->left = static_cast<int32>(max(r1->GetTransform()->GetPosition().x - half1X, 
+                r2->GetTransform()->GetPosition().x - half2X));
+            lrRect->right = static_cast<int32>(min(r1->GetTransform()->GetPosition().x + half1X,
+                r2->GetTransform()->GetPosition().x + half2X));
+            lrRect->top = static_cast<int32>(max(r1->GetTransform()->GetPosition().y - half1Y,
+                r2->GetTransform()->GetPosition().y - half2Y));
+            lrRect->bottom = static_cast<int32>(min(r1->GetTransform()->GetPosition().y + half1Y,
+                r2->GetTransform()->GetPosition().y + half2Y));
         }
         return true;
     }
@@ -109,7 +115,7 @@ void Collider::ClearCollisionMap()
     _collsionMap.clear();
 }
 
-Vec2 Collider::GetWorldPos() const
+Vec3 Collider::GetWorldPos() const
 {
-    return _owner->GetPos() + _offset;
+    return _gameObject->GetTransform()->GetPosition() + _offset;
 }

@@ -1,5 +1,5 @@
 #pragma once
-#include "../ResourceBase.h"
+#include "97.Engin/Resource/ResourceBase.h"
 
 enum class SoundType
 {
@@ -9,6 +9,7 @@ enum class SoundType
 
 class Sound : public ResourceBase
 {
+	using Super = ResourceBase;
 public:
 	Sound();
 	virtual ~Sound();
@@ -18,8 +19,8 @@ public:
 	void Stop(bool reset = false);
 
 private:
-	virtual void LoadFile(const wstring& path) {}
-	virtual void SaveFile(const wstring& path) {}
+	virtual void Load(const wstring& path) {}
+	virtual void Save(const wstring& path) {}
 
 private:
 	LPDIRECTSOUNDBUFFER _soundBuffer = nullptr;

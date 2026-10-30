@@ -20,8 +20,8 @@ Laser::~Laser()
 
 void Laser::Init()
 {
-	_laser[START] = GET_SINGLE(ResourceManager)->GetAnimator(L"FuburaLaserStart");
-	_laser[ATTACK] = GET_SINGLE(ResourceManager)->GetAnimator(L"FuburaLaser");
+	_laser[START] = RESOURCE->GetAnimator(L"FuburaLaserStart");
+	_laser[ATTACK] = RESOURCE->GetAnimator(L"FuburaLaser");
 
 	_ani = new AnimationComponent();
 	_ani->SetAnimation(_laser[START]);
@@ -45,7 +45,7 @@ void Laser::Update()
 {
 	Super::Update();
 
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 	_info._sumTime += deltaTime;
 	_info._time += deltaTime;
 
@@ -64,7 +64,7 @@ void Laser::Render(HDC hdc)
 	
 }
 
-void Laser::Activate(Vec2 pos, float duration)
+void Laser::Activate(Vector pos, float duration)
 {
 	SetPos(pos);
 	_info._duration = duration;

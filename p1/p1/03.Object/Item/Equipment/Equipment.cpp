@@ -66,7 +66,7 @@ void Equipment::UpgradeEquip(Player& player)
 /// @details 플레이어 공격력과 플레이어 데미지 배율, 그리고 무기 자체 데미지 배율을 모두 곱해서 최종 데미지를 산출
 DamageInfo  Equipment::CalculateDamge(float dmgMultiplier)
 {
-	Player* player = GET_SINGLE(GameManager)->GetPlayer();
+	Player* player = GAMEMANAGER->GetPlayer();
 	Info playerInfo = player->GetInfo();
 
 	DamageInfo dmg;

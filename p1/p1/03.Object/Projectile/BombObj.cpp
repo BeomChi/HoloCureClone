@@ -21,7 +21,7 @@ void BombObj::Init()
 {// component
 	{
 		{
-			Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"BombObj");
+			Sprite* sprite = RESOURCE->GetSprite(L"BombObj");
 			SpriteRenderer* renderer = new SpriteRenderer();
 			renderer->SetSprite(sprite);
 			SetSize({ (float)sprite->GetSize().x, (float)sprite->GetSize().y });
@@ -39,7 +39,7 @@ void BombObj::Update()
 {
 	Super::Update();
 
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 	deltaTime = clamp(deltaTime, 0.0f, 0.1f);
 
 	_info._time += deltaTime;
@@ -50,7 +50,7 @@ void BombObj::Update()
 		bombExplode->SetPos(GetPos());
 		bombExplode->SetDamageInfo(_damageInfo);
 
-		GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(bombExplode);
+		SCENE->GetCurrentScene()->AddObject(bombExplode);
 
 		SetIsActivity(false);
 	}

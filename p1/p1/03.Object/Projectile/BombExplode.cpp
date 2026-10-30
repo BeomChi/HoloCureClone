@@ -24,7 +24,7 @@ void BombExplode::Init()
 	// component
 	{
 		{
-			_animation = GET_SINGLE(ResourceManager)->GetAnimator(L"BombExplode");
+			_animation = RESOURCE->GetAnimator(L"BombExplode");
 
 			_ani = new AnimationComponent();
 			_ani->SetAnimation(_animation);

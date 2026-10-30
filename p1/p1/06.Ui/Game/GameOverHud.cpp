@@ -23,7 +23,7 @@ GameOverHud::GameOverHud()
 		// 이거 게임 오버 배경? 큰 틀 이미지로 바꿔야 함
 		Image* hud = new Image();
 
-		hud->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"SettingMenuBG"));
+		hud->SetSprite(RESOURCE->GetSprite(L"SettingMenuBG"));
 
 		hud->SetSize({ (float)hud->GetSprite()->GetSize().x, (float)hud->GetSprite()->GetSize().y });
 		hud->SetPos({ 400,250 });
@@ -35,7 +35,7 @@ GameOverHud::GameOverHud()
 	{
 		Image* Icon = new Image();
 
-		Icon->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"GuraIcon"));
+		Icon->SetSprite(RESOURCE->GetSprite(L"GuraIcon"));
 
 		Icon->SetSize({ (float)Icon->GetSprite()->GetSize().x, (float)Icon->GetSprite()->GetSize().y });
 		Icon->SetPos({ 400 ,250 });
@@ -47,7 +47,7 @@ GameOverHud::GameOverHud()
 	{
 		Image* Coin = new Image();
 
-		Coin->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Coin"));
+		Coin->SetSprite(RESOURCE->GetSprite(L"Coin"));
 
 		Coin->SetSize({ (float)Coin->GetSprite()->GetSize().x, (float)Coin->GetSprite()->GetSize().y });
 		Coin->SetScale({ 1.5f,1.5f });
@@ -59,7 +59,7 @@ GameOverHud::GameOverHud()
 	{
 		Image* KillCountUi = new Image();
 
-		KillCountUi->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"KillCount"));
+		KillCountUi->SetSprite(RESOURCE->GetSprite(L"KillCount"));
 
 		KillCountUi->SetSize({ (float)KillCountUi->GetSprite()->GetSize().x, (float)KillCountUi->GetSprite()->GetSize().y });
 		KillCountUi->SetScale({ 1.5f,1.5f });
@@ -75,7 +75,7 @@ GameOverHud::GameOverHud()
 		_levelText->SetPos({ 400.f,50.f });
 		_levelText->SetKey(L"LevelText");
 		_levelText->SetLayer(LAYER_UI);
-		_levelConn = move(GET_SINGLE(GameManager)->GetPlayer()->OnLevelChanged += [this](int32 arg)
+		_levelConn = move(GAMEMANAGER->GetPlayer()->OnLevelChanged += [this](int32 arg)
 			{
 				_levelText->SetText(format(L"Lv.{0}", arg));
 			});
@@ -124,13 +124,13 @@ GameOverHud::GameOverHud()
 		// 버튼 추가
 		_titleButton = new Button();
 		// 버튼 이미지랑 크기 좌표 설정 구역
-		_titleButton->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"DefaultButton"),BS_Default);
-		_titleButton->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"DefaultButtonPress"),BS_Pressed);
+		_titleButton->SetSprite(RESOURCE->GetSprite(L"DefaultButton"),BS_Default);
+		_titleButton->SetSprite(RESOURCE->GetSprite(L"DefaultButtonPress"),BS_Pressed);
 		_titleButton->SetPos({ 400,400 });
 		_titleButton->SetSize({ 180,29 });
 		_titleButton->SetKey(L"TitleButton");
 		_titleButton->SetLayer(LAYER_UI);
-		_titleButton->AddOnClickDelegate(GET_SINGLE(SceneManager), &SceneManager::GoToTitle);
+		_titleButton->AddOnClickDelegate(SCENE, &SceneManager::GoToTitle);
 		AddPanel(_titleButton);
 	}
 	{
@@ -144,7 +144,7 @@ GameOverHud::GameOverHud()
 		AddPanel(_titleText);
 	}
 	{
-		_ActivityConn = (GET_SINGLE(GameManager)->OnGameOverHudActivity += [this](bool isActive)
+		_ActivityConn = (GAMEMANAGER->OnGameOverHudActivity += [this](bool isActive)
 			{
 				this->SetIsActivity(isActive);
 			});

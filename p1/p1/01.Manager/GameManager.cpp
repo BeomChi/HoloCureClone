@@ -4,10 +4,19 @@
 #include "SceneManager.h"
 
 
+GameManager::GameManager()
+{
+}
+
+GameManager::~GameManager()
+{
+	_player = nullptr;
+}
+
 void GameManager::Update()
 {
 	// 전체 플레이 타임
-	_playTime += GET_SINGLE(TimeManager)->GetDeltaTime();
+	_playTime += TIME->GetDeltaTime();
 }
 
 void GameManager::GameOver()

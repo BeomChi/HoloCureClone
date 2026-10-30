@@ -1,6 +1,8 @@
 #pragma once
 #include <cmath>
 #include <windows.h>
+#include "DirectXMath.h"
+#include "SimpleMath.h"
 
 class Entity;
 
@@ -201,7 +203,17 @@ struct VectorInt
 	int32 y = 0;
 };
 
+using Color = DirectX::XMFLOAT4;
+
+using Vec2 = DirectX::SimpleMath::Vector2;
+using Vec3 = DirectX::SimpleMath::Vector3;
+using Vec4 = DirectX::SimpleMath::Vector4;
+using Matrix = DirectX::SimpleMath::Matrix;
+using Quaternion = DirectX::SimpleMath::Quaternion;
+
+
+
 using Pos = Vector;
-using Vec2 = Vector;
+//using Vec2 = Vector;
 using Vec2Int = VectorInt;
 

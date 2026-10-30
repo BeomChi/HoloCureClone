@@ -69,18 +69,18 @@ void SceneManager::ChangeScene(SceneType sceneType)
 	newScene->Init();
 }
 
-Vec2 SceneManager::WorldToScreen(Vec2 pos)
+Vector SceneManager::WorldToScreen(Vector pos)
 {
-	return pos - _cameraPos + Vec2(GWinSizeX / 2, GWinSizeY / 2);
+	return pos - _cameraPos + Vector(GWinSizeX / 2, GWinSizeY / 2);
 }
 
-Vec2 SceneManager::ScreenToWorld(Vec2 pos)
+Vector SceneManager::ScreenToWorld(Vector pos)
 {
-	return pos + _cameraPos - Vec2(GWinSizeX / 2, GWinSizeY / 2);
+	return pos + _cameraPos - Vector(GWinSizeX / 2, GWinSizeY / 2);
 }
 
 void SceneManager::GoToTitle()
 {
-	GET_SINGLE(GameManager)->SetState(GameState::Title);
+	GAMEMANAGER->SetState(GameState::Title);
 	SetNextSceneType(SceneType::StartScene);
 }

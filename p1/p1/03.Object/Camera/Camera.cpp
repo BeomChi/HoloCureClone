@@ -30,7 +30,7 @@ void Camera::Update()
 {
 	Super::Update();
 
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 
 	Input();
 
@@ -40,7 +40,7 @@ void Camera::Update()
 		return;
 	}
 
-	Vec2 pos = _target->GetPos();
+	Vector pos = _target->GetPos();
 
 	pos.x = clamp(pos.x, 400.f, 2560.f - 400.f);
 	pos.y = clamp(pos.y, 300.f, 2560.f - 300.f);
@@ -50,7 +50,7 @@ void Camera::Update()
 
 void Camera::MoveCamera(float deltaTime)
 {
-	auto input = GET_SINGLE(InputManager);
+	auto input = INPUT;
 	Vector dir = { 0,0 };
 
 	if (input->GetButton(KeyType::Up))
@@ -77,17 +77,17 @@ void Camera::MoveCamera(float deltaTime)
 	dir.Normalize();
 	_pos += dir * 200 * deltaTime;
 
-	GET_SINGLE(SceneManager)->SetCameraPos(_pos);
+	//SCENE->SetCameraPos(_pos);
 }
 
 void Camera::Input()
 {
-	auto input = GET_SINGLE(InputManager);
+	auto input = INPUT;
 	if (input->GetButtonDown(KeyType::KEY_0))
 	{
 		if (_target == nullptr)
 		{
-			Player* player = GET_SINGLE(GameManager)->GetPlayer();
+			Player* player = GAMEMANAGER->GetPlayer();
 			GameObject* obj = static_cast<GameObject*>(player);
 			_target = obj;
 		}

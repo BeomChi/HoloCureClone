@@ -29,9 +29,9 @@ void Item::Render(HDC hdc)
 
 void Item::MoveTo(GameObject* obj)
 {
-	float deltatime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltatime = TIME->GetDeltaTime();
 
-	Vec2 dir = obj->GetPos() - GetPos();
+	Vector dir = obj->GetPos() - GetPos();
 	dir.Normalize();
 
 	_pos += dir * deltatime * 100.f;
@@ -47,9 +47,9 @@ bool Item::PlayerDistance()
 	if(_player == nullptr)
 		return false;
 
-	float deltatime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltatime = TIME->GetDeltaTime();
 
-	Vec2 dir = _player->GetPos() - GetPos();
+	Vector dir = _player->GetPos() - GetPos();
 	float distance = dir.Length();
 
 	if (distance < _absorbDistance) 

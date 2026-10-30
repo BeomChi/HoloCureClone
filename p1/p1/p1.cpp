@@ -24,6 +24,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
                     _In_ LPWSTR    lpCmdLine,
                     _In_ int       nCmdShow)
 {
+    _CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
@@ -45,6 +46,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MSG msg = {};
 
     Game game;
+    GGame = &game;
     game.Init(g_hWnd);
 
     uint64 prevTick = 0;
@@ -63,13 +65,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 
             //if (now - prevTick >= 30)
             {
-                game.Update();
-                game.Render();
+                GGame->Update();
+                GGame->Render();
 
                 prevTick = now;
             }
         }
     }
+
+    GGame = nullptr;
 
     return (int) msg.wParam;
 }
@@ -151,19 +155,19 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     {
     case WM_COMMAND:
         {
-            int wmId = LOWORD(wParam);
-            // 메뉴 선택을 구문 분석합니다:
-            switch (wmId)
-            {
-            //case IDM_ABOUT:
-                //DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-                //break;
-            case IDM_EXIT:
-                DestroyWindow(hWnd);
-                break;
-            default:
-                return DefWindowProc(hWnd, message, wParam, lParam);
-            }
+            //int wmId = LOWORD(wParam);
+            //// 메뉴 선택을 구문 분석합니다:
+            //switch (wmId)
+            //{
+            ////case IDM_ABOUT:
+            //    //DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+            //    //break;
+            //case IDM_EXIT:
+            //    DestroyWindow(hWnd);
+            //    break;
+            //default:
+            //    return DefWindowProc(hWnd, message, wParam, lParam);
+            //}
         }
         break;
     case WM_PAINT:

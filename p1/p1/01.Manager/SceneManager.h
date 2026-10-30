@@ -2,9 +2,9 @@
 #include "Singleton.h"
 class Scene;
 
-class SceneManager : public Singleton<SceneManager>
+class SceneManager //: public Singleton<SceneManager>
 {
-	friend class Singleton<SceneManager>;
+	//friend class Singleton<SceneManager>;
 public:
 	void Init();
 	void Update();
@@ -15,11 +15,11 @@ public:
 	void ChangeScene(SceneType sceneType);
 	Scene* GetCurrentScene() { return _scene; }
 
-	Vec2 GetCameraPos() { return _cameraPos; }
-	void SetCameraPos(Vec2 pos) { _cameraPos = pos; }
+	Vector GetCameraPos() { return _cameraPos; }
+	void SetCameraPos(Vector pos) { _cameraPos = pos; }
 
-	Vec2 WorldToScreen(Vec2 pos);
-	Vec2 ScreenToWorld(Vec2 pos);
+	Vector WorldToScreen(Vector pos);
+	Vector ScreenToWorld(Vector pos);
 
 	void SetNextSceneType(SceneType type) { _nextSceneType = type; }
 	SceneType GetSceneType() { return _sceneType; }
@@ -31,6 +31,6 @@ private:
 	SceneType _sceneType = SceneType::None;
 	SceneType _nextSceneType = SceneType::None;
 
-	Vec2 _cameraPos = {};
+	Vector _cameraPos = {};
 };
 

@@ -15,8 +15,8 @@
 // 무조건 플레이어 생성된 이후 만들기
 EquipmentSelectSlotUi::EquipmentSelectSlotUi(Equipment* eq)
 {
-	SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"ItemMune"), BS_Default);
-	SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"ItemMenuSelect"), BS_Pressed);
+	SetSprite(RESOURCE->GetSprite(L"ItemMune"), BS_Default);
+	SetSprite(RESOURCE->GetSprite(L"ItemMenuSelect"), BS_Pressed);
 	SetSize({(float)_sprites[0]->GetSize().x ,(float)_sprites[0]->GetSize().y});
 	SetLayer(LAYER_UI);
 	SetKey(L"EquipmentSelectSlotUi");
@@ -69,7 +69,7 @@ void EquipmentSelectSlotUi::Render(HDC hdc)
 	if (_eq)
 	{
 		int32 level = _eq->GetLevel();
-		if (GET_SINGLE(EquipmentManager)->HasEquipment(_eq->GetName()))
+		if (EQUIPMENT->HasEquipment(_eq->GetName()))
 			level += 1;
 
 		const auto& effects = _eq->GetLevelEffects();
@@ -107,7 +107,7 @@ void EquipmentSelectSlotUi::ButtonEvent(Ui* ui)
 	if (_eq == nullptr)
 		return;
 
-	Player* player = GET_SINGLE(GameManager)->GetPlayer();
+	Player* player = GAMEMANAGER->GetPlayer();
 
 	if (GET_SINGLE(EquipmentManager)->HasEquipment(_eq->GetName()))
 	{
@@ -141,7 +141,7 @@ void EquipmentSelectSlotUi::SetSlot()
 	if (_eq == nullptr)
 		return;
 
-	Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(_eq->GetName());
+	Sprite* sprite = RESOURCE->GetSprite(_eq->GetName());
 	_icon->SetSprite(sprite);
 	_icon->SetSize({ (float)sprite->GetSize().x, (float)sprite->GetSize().y });
 	//_icon->SetPos({ _pos.x,_pos.y});

@@ -108,7 +108,7 @@ void Trident::Init()
 /// @brief 매 프레임마다 호출되어, 쿨타임이 지난 경우 소세지 투사체를 발사함
 void Trident::Update()
 {
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 	_sumTime += deltaTime;
 
 	// 쿨타임이 경과하면 투사체를 발사
@@ -123,7 +123,7 @@ void Trident::Update()
 
 
 			// 플레이어의 방향에 따라 투사체 방향 설정
-			Dir dir = GET_SINGLE(GameManager)->GetPlayer()->GetDir();
+			Dir dir = GAMEMANAGER->GetPlayer()->GetDir();
 			if (dir == DIR_LEFT)
 				tridentObj->SetState(DirState::Left);
 			else
@@ -131,18 +131,18 @@ void Trident::Update()
 
 			// 플레이어 위치 기준으로 발사 위치 지정
 			float offsetY = startOffsetY + 30 * i;
-			Vec2 firePos = GetFirePos();
+			Vec3 firePos = GetFirePos();
 			firePos.y += offsetY;
 
-			tridentObj->SetPos(firePos);
-			tridentObj->SetScale(Vec2{ _info._range, _info._range }); // 공격 범위에 맞게 스케일 설정
+			tridentObj->GetOrAddTransform()->SetPosition(firePos);
+			tridentObj->GetOrAddTransform()->SetScale(Vec3{ _info._range, _info._range,1.f }); // 공격 범위에 맞게 스케일 설정
 
 			// 실시간 데미지 계산 후 설정
 			tridentObj->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));
 
 			// ObjectManager에 추가하여 게임 내 등장시킴
 			// 나중에 ObjectManager 지우고 씬으로 관리 예정
-			GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(tridentObj);
+			SCENE->GetCurrentScene()->AddObject(tridentObj);
 		}
 		// 마지막 공격 시간 갱신
 		_lastAttackTime = _sumTime;
@@ -170,10 +170,10 @@ void Trident::OnUnequipEffect(Player& player)
 
 /// @brief 플레이어 방향을 고려해 투사체의 시작 위치 계산
 /// @return 플레이어 위치 기준으로 좌우 거리만큼 떨어진 위치 반환
-Vec2 Trident::GetFirePos()
+Vec3 Trident::GetFirePos()
 {
-	Vector firePos = GET_SINGLE(GameManager)->GetPlayer()->GetPos();
-	Dir dir = GET_SINGLE(GameManager)->GetPlayer()->GetDir();
+	Vec3 firePos = GAMEMANAGER->GetPlayer()->GetTransform()->GetPosition();
+	Dir dir = GAMEMANAGER->GetPlayer()->GetDir();
 
 	if (dir == DIR_LEFT)
 		firePos.x += (-1) * _firePosLength;

@@ -25,8 +25,8 @@ void EnCurseObj::Init()
 	// component
 	{
 		{
-			_dirAni[DIR_LEFT] = GET_SINGLE(ResourceManager)->GetAnimator(L"EnCurseLeft");
-			_dirAni[DIR_RIGHT] = GET_SINGLE(ResourceManager)->GetAnimator(L"EnCurseRight");
+			_dirAni[DIR_LEFT] = RESOURCE->GetAnimator(L"EnCurseLeft");
+			_dirAni[DIR_RIGHT] = RESOURCE->GetAnimator(L"EnCurseRight");
 
 			_ani = new AnimationComponent();
 			_ani->SetAnimation(_dirAni[DIR_LEFT]);
@@ -56,7 +56,7 @@ void EnCurseObj::Update()
 {
 	Super::Update();
 
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 	if (_target == nullptr)
 	{
 
@@ -74,8 +74,8 @@ void EnCurseObj::Update()
 	}
 	else
 	{
-		Vec2 targetPos = _target->GetPos();
-		Vec2 dir = targetPos - _pos;
+		Vector targetPos = _target->GetPos();
+		Vector dir = targetPos - _pos;
 
 		float distance = dir.Length();
 
@@ -92,7 +92,7 @@ void EnCurseObj::Update()
 	}*/
 	
 
-	Vec2 pos = GET_SINGLE(SceneManager)->WorldToScreen(_pos);
+	Vector pos = SCENE->WorldToScreen(_pos);
 	if (pos.x <= 0 || pos.y <= 0 ||
 		pos.x >= GWinSizeX || pos.y >= GWinSizeY ||
 		_trackingTime >= 10.f)
@@ -143,7 +143,7 @@ void EnCurseObj::OnTriggerEnter(Collider* collider, Collider* other)
 			float random = rand() % 100;
 			if (random < _transition_Probability)
 			{
-				for (GameObject* obj : GET_SINGLE(SceneManager)->GetCurrentScene()->GetGameObjects(LAYER_OBJECT))
+				for (GameObject* obj : SCENE->GetCurrentScene()->GetGameObjects(LAYER_OBJECT))
 				{
 					if (obj == nullptr || !obj->GetIsActivity())
 						continue;
@@ -154,8 +154,8 @@ void EnCurseObj::OnTriggerEnter(Collider* collider, Collider* other)
 					if (obj == other->GetOwner())
 						continue; // 현재 충돌한 오브젝트는 제외
 
-					Vec2 targetPos = obj->GetPos();
-					Vec2 dir = targetPos - _pos;
+					Vector targetPos = obj->GetPos();
+					Vector dir = targetPos - _pos;
 
 					float distance = dir.Length();
 					if (distance <= _transition_Range)

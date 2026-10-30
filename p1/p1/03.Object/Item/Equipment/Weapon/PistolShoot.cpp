@@ -120,7 +120,7 @@ void PistolShoot::Init()
 /// @brief 매 프레임 호출, 일정 쿨타임마다 탄환을 마우스 방향으로 연속 발사
 void PistolShoot::Update()
 {
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 	_sumTime += deltaTime;
 
 	if (!_fire)
@@ -177,9 +177,9 @@ void PistolShoot::OnUnequipEffect(Player& player)
 /// @brief 탄환 발사 위치 계산
 /// @details 플레이어 위치 기준 마우스 방향으로 일정 거리(_firePosLength) 떨어진 지점
 /// @return Vec2 발사 위치
-Vec2 PistolShoot::GetFirePos()
+Vector PistolShoot::GetFirePos()
 {
-	Vector firePos = GET_SINGLE(GameManager)->GetPlayer()->GetPos();
+	Vector firePos = GAMEMANAGER->GetPlayer()->GetPos();
 	Vector dir = GetMousePosToPlayerDir();
 
 	// 플레이어 위치에서 마우스 방향으로 _firePosLength 만큼 이동
@@ -190,11 +190,11 @@ Vec2 PistolShoot::GetFirePos()
 
 /// @brief 플레이어 위치에서 마우스 위치를 월드 좌표로 변환 후 방향 벡터 계산
 /// @return 정규화된 방향 벡터 (Vec2)
-Vec2 PistolShoot::GetMousePosToPlayerDir()
+Vector PistolShoot::GetMousePosToPlayerDir()
 {
-	POINT mousePos = GET_SINGLE(InputManager)->GetMousePos();
-	Vec2 mouseWorldPos = GET_SINGLE(SceneManager)->ScreenToWorld(mousePos);
-	Vector playerPos = GET_SINGLE(GameManager)->GetPlayer()->GetPos();
+	POINT mousePos = INPUT->GetMousePos();
+	Vector mouseWorldPos = SCENE->ScreenToWorld(mousePos);
+	Vector playerPos = GAMEMANAGER->GetPlayer()->GetPos();
 
 	float dirX = mouseWorldPos.x - playerPos.x;
 	float dirY = mouseWorldPos.y - playerPos.y;
@@ -215,7 +215,7 @@ void PistolShoot::CreateBullet()
 	bullet->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));           // 데미지 설정
 	bullet->SetPierceCount(_info._pierceCount);		// 관통 수 설정
 
-	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(bullet); // 게임에 등록
+	SCENE->GetCurrentScene()->AddObject(bullet); // 게임에 등록
 }
 
 void PistolShoot::ApplyEffect()

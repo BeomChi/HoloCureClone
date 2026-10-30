@@ -24,8 +24,8 @@ void SausageObj::Init()
 	// component
 	{
 		{
-			_dirAni[DIR_LEFT] = GET_SINGLE(ResourceManager)->GetAnimator(L"SausageLeft");
-			_dirAni[DIR_RIGHT] = GET_SINGLE(ResourceManager)->GetAnimator(L"SausageRight");
+			_dirAni[DIR_LEFT] = RESOURCE->GetAnimator(L"SausageLeft");
+			_dirAni[DIR_RIGHT] = RESOURCE->GetAnimator(L"SausageRight");
 
 			_ani = new AnimationComponent();
 			_ani->SetAnimation(_dirAni[DIR_RIGHT]);

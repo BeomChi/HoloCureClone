@@ -1,17 +1,19 @@
 #pragma once
-#include "../Component.h"
+#include "97.Engin/Component/Component.h"
+//#include "../GameObject.h"
 
 class Animator;
 
 class AnimationComponent :    public Component
 {
+	using Super = Component;
 public:
 	AnimationComponent();
 	virtual ~AnimationComponent() override;
 
 	virtual void Init() override;
 	virtual void Update() override;
-	virtual void Render(HDC hdc) override;
+	//virtual void Render(HDC hdc) override;
 
 	void SetAnimation(Animator* ani);
 	void Reset();
@@ -20,6 +22,7 @@ public:
 	bool CheckCurrentAnimationEnd();
 
 	Animator* GetAnimator() { return _animator; }
+
 
 private:
 	Animator* _animator = nullptr;

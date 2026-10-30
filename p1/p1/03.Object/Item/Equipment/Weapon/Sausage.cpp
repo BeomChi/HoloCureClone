@@ -118,7 +118,7 @@ void Sausage::Init()
 /// @brief 매 프레임마다 호출되어, 쿨타임이 지난 경우 소세지 투사체를 발사함
 void Sausage::Update()
 {
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 	_sumTime += deltaTime;
 
 	// 쿨타임이 경과하면 투사체를 발사
@@ -172,10 +172,10 @@ void Sausage::OnUnequipEffect(Player& player)
 
 /// @brief 플레이어 방향을 고려해 투사체의 시작 위치 계산
 /// @return 플레이어 위치 기준으로 좌우 거리만큼 떨어진 위치 반환
-Vec2 Sausage::GetFirePos()
+Vector Sausage::GetFirePos()
 {
-	Vector firePos = GET_SINGLE(GameManager)->GetPlayer()->GetPos();
-	Dir dir = GET_SINGLE(GameManager)->GetPlayer()->GetDir();
+	Vector firePos = GAMEMANAGER->GetPlayer()->GetPos();
+	Dir dir = GAMEMANAGER->GetPlayer()->GetDir();
 
 	if (dir == DIR_LEFT)
 		firePos.x += (-1) * _firePosLength;
@@ -194,10 +194,10 @@ void Sausage::CreateSausage()
 	sausageObj->SetPos(GetFirePos());
 
 	// 투사체 크기 설정
-	sausageObj->SetScale(Vec2{ _info._range, _info._range });
+	sausageObj->SetScale(Vector{ _info._range, _info._range });
 
 	// 플레이어의 방향에 따라 투사체 방향 설정
-	Dir dir = GET_SINGLE(GameManager)->GetPlayer()->GetDir();
+	Dir dir = GAMEMANAGER->GetPlayer()->GetDir();
 	if (dir == DIR_LEFT)
 		sausageObj->SetState(DirState::Left);
 	else
@@ -208,7 +208,7 @@ void Sausage::CreateSausage()
 	sausageObj->SetKnockbackForce(_knockbackForce);
 
 	// Scene에 추가하여 게임 내 등장시킴
-	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(sausageObj);
+	SCENE->GetCurrentScene()->AddObject(sausageObj);
 }
 
 

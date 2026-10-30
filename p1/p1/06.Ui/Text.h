@@ -17,7 +17,7 @@ public:
 	void SetText(const wstring& text) { _text = text; }
 	wstring GetText() const { return _text; }
 
-	void SetFontSize(const int32 fontSize);
+	void SetFontSize(const float& fontSize);
 	int32 GetFontSize() const { return _fontSize; }
 
 	void SetColor(const COLORREF color) { _color = color; }

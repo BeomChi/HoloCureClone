@@ -29,26 +29,26 @@ void DamageText::Init()
 {
 	Super::Init();
 
-	_sprite[0][0] = GET_SINGLE(ResourceManager)->GetSprite(L"NumberTypeNormal0");
-	_sprite[0][1] = GET_SINGLE(ResourceManager)->GetSprite(L"NumberTypeNormal1");
-	_sprite[0][2] = GET_SINGLE(ResourceManager)->GetSprite(L"NumberTypeNormal2");
-	_sprite[0][3] = GET_SINGLE(ResourceManager)->GetSprite(L"NumberTypeNormal3");
-	_sprite[0][4] = GET_SINGLE(ResourceManager)->GetSprite(L"NumberTypeNormal4");
-	_sprite[0][5] = GET_SINGLE(ResourceManager)->GetSprite(L"NumberTypeNormal5");
-	_sprite[0][6] = GET_SINGLE(ResourceManager)->GetSprite(L"NumberTypeNormal6");
-	_sprite[0][7] = GET_SINGLE(ResourceManager)->GetSprite(L"NumberTypeNormal7");
-	_sprite[0][8] = GET_SINGLE(ResourceManager)->GetSprite(L"NumberTypeNormal8");
-	_sprite[0][9] = GET_SINGLE(ResourceManager)->GetSprite(L"NumberTypeNormal9");
-	_sprite[1][0] = GET_SINGLE(ResourceManager)->GetSprite(L"NumberTypeExclusive0");
-	_sprite[1][1] = GET_SINGLE(ResourceManager)->GetSprite(L"NumberTypeExclusive1");
-	_sprite[1][2] = GET_SINGLE(ResourceManager)->GetSprite(L"NumberTypeExclusive2");
-	_sprite[1][3] = GET_SINGLE(ResourceManager)->GetSprite(L"NumberTypeExclusive3");
-	_sprite[1][4] = GET_SINGLE(ResourceManager)->GetSprite(L"NumberTypeExclusive4");
-	_sprite[1][5] = GET_SINGLE(ResourceManager)->GetSprite(L"NumberTypeExclusive5");
-	_sprite[1][6] = GET_SINGLE(ResourceManager)->GetSprite(L"NumberTypeExclusive6");
-	_sprite[1][7] = GET_SINGLE(ResourceManager)->GetSprite(L"NumberTypeExclusive7");
-	_sprite[1][8] = GET_SINGLE(ResourceManager)->GetSprite(L"NumberTypeExclusive8");
-	_sprite[1][9] = GET_SINGLE(ResourceManager)->GetSprite(L"NumberTypeExclusive9");
+	_sprite[0][0] = RESOURCE->GetSprite(L"NumberTypeNormal0");
+	_sprite[0][1] = RESOURCE->GetSprite(L"NumberTypeNormal1");
+	_sprite[0][2] = RESOURCE->GetSprite(L"NumberTypeNormal2");
+	_sprite[0][3] = RESOURCE->GetSprite(L"NumberTypeNormal3");
+	_sprite[0][4] = RESOURCE->GetSprite(L"NumberTypeNormal4");
+	_sprite[0][5] = RESOURCE->GetSprite(L"NumberTypeNormal5");
+	_sprite[0][6] = RESOURCE->GetSprite(L"NumberTypeNormal6");
+	_sprite[0][7] = RESOURCE->GetSprite(L"NumberTypeNormal7");
+	_sprite[0][8] = RESOURCE->GetSprite(L"NumberTypeNormal8");
+	_sprite[0][9] = RESOURCE->GetSprite(L"NumberTypeNormal9");
+	_sprite[1][0] = RESOURCE->GetSprite(L"NumberTypeExclusive0");
+	_sprite[1][1] = RESOURCE->GetSprite(L"NumberTypeExclusive1");
+	_sprite[1][2] = RESOURCE->GetSprite(L"NumberTypeExclusive2");
+	_sprite[1][3] = RESOURCE->GetSprite(L"NumberTypeExclusive3");
+	_sprite[1][4] = RESOURCE->GetSprite(L"NumberTypeExclusive4");
+	_sprite[1][5] = RESOURCE->GetSprite(L"NumberTypeExclusive5");
+	_sprite[1][6] = RESOURCE->GetSprite(L"NumberTypeExclusive6");
+	_sprite[1][7] = RESOURCE->GetSprite(L"NumberTypeExclusive7");
+	_sprite[1][8] = RESOURCE->GetSprite(L"NumberTypeExclusive8");
+	_sprite[1][9] = RESOURCE->GetSprite(L"NumberTypeExclusive9");
 
 	SetScale({ 2,2 });
 	_velocity = { 0,-12 };
@@ -58,7 +58,7 @@ void DamageText::Update()
 {
 	Super::Update();
 
-	float dt = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float dt = TIME->GetDeltaTime();
 
 	_duration -= dt;
 	_pos.y += _velocity.y * dt; // 텍스트가 위로 떠오르는 효과
@@ -73,7 +73,7 @@ void DamageText::Update()
 void DamageText::Render(HDC hdc)
 {
 	// 월드 좌표 → 스크린 좌표로 변환 (카메라에 따라 보정됨)
-	Vec2 screenPos = GET_SINGLE(SceneManager)->WorldToScreen(_pos);
+	Vector screenPos = SCENE->WorldToScreen(_pos);
 
 	float offsetX = 0;
 
@@ -125,7 +125,7 @@ void DamageText::Reset()
 	SetColor(RGB(255, 255, 255));
 }
 
-void DamageText::ShowDamage(float damage, Vec2 pos, bool isCritical)
+void DamageText::ShowDamage(float damage, Vector pos, bool isCritical)
 {
 	SetText(std::to_wstring(static_cast<int32>(damage)));
 	SetPos(pos);

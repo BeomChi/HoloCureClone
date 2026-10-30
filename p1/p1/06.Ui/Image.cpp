@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Image.h"
-#include "../05.Resource/2D/Sprite.h"
+//#include "../05.Resource/2D/Sprite.h"
 
 Image::Image()
 {
@@ -22,13 +22,14 @@ void Image::Update()
 	
 }
 
+
 void Image::Render(HDC hdc)
 {
 	
-	if (_sprites)
+	/*if (_sprites)
 	{
 		Vec2Int size = _sprites->GetSize();
-		Vec2 scale = GetScale();
+		Vector scale = GetScale();
 
 		float renderSizeX = (float)size.x * scale.x;
 		float renderSizeY = (float)size.y * scale.y;
@@ -48,6 +49,6 @@ void Image::Render(HDC hdc)
 	else
 	{
 		Utils::DrawRect(hdc, _pos, _size.x, _size.y);
-	}
+	}*/
 }
 

@@ -25,8 +25,8 @@ void Splash::Init()
 	// component
 	{
 		{
-			_dirAni[DIR_LEFT] = GET_SINGLE(ResourceManager)->GetAnimator(L"SplashLeft");
-			_dirAni[DIR_RIGHT] = GET_SINGLE(ResourceManager)->GetAnimator(L"SplashRight");
+			_dirAni[DIR_LEFT] = RESOURCE->GetAnimator(L"SplashLeft");
+			_dirAni[DIR_RIGHT] = RESOURCE->GetAnimator(L"SplashRight");
 
 			_ani = new AnimationComponent();
 			_ani->SetAnimation(_dirAni[DIR_RIGHT]);
@@ -76,7 +76,7 @@ void Splash::OnTriggerEnter(Collider* collider, Collider* other)
 		static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
 		Knockback(collider->GetOwner(), other->GetOwner(), _knockbackForce);
 		////// 넉백을 추가해야함
-		//Vec2 dir = other->GetOwner()->GetPos() - GET_SINGLE(GameManager)->GetPlayer()->GetPos();
+		//Vec2 dir = other->GetOwner()->GetPos() - GAMEMANAGER->GetPlayer()->GetPos();
 		//dir.Normalize();
 
 		//// 넉백 거리 만큼 dir을 곱해주고 거기에다가 객체의 위치를 더해서 위치를 설정하면 텔포가 되어버리는 데 음

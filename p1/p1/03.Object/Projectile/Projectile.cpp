@@ -23,7 +23,7 @@ void Projectile::Update()
 {
 	Super::Update();
 
-	Vec2 pos = GET_SINGLE(SceneManager)->WorldToScreen(_pos);
+	Vector pos = SCENE->WorldToScreen(_pos);
 
 	if (pos.x <= -50 || pos.y <= -50 ||
 		pos.x >= GWinSizeX + 50|| pos.y >= GWinSizeY + 50)

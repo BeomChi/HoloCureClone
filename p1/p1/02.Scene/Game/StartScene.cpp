@@ -4,7 +4,7 @@
 #include "../../01.Manager/SceneManager.h"
 #include "../../01.Manager/GameManager.h"
 #include "../../04.Component/2D/SpriteRenderer.h"
-#include "../../05.Resource/2D/Sprite.h"
+#include "97.Engin/Resource/Sprite.h"
 #include "../../06.Ui/Button.h"
 #include "../../06.Ui/Image.h"
 
@@ -25,22 +25,22 @@ StartScene::~StartScene()
 
 void StartScene::Init()
 {
-	cout << "Scene Start State: " << (int)GET_SINGLE(GameManager)->GetState() << endl;
-	GET_SINGLE(ResourceManager)->LoadSound(L"Stage01BGM", L"Sound\\Stage01\\Stage01BGM.wav");
+	cout << "Scene Start State: " << (int)GAMEMANAGER->GetState() << endl;
+	RESOURCE->LoadSound(L"Stage01BGM", L"Sound\\Stage01\\Stage01BGM.wav");
 
-	GET_SINGLE(ResourceManager)->LoadTexture(L"Start", L"Sprite\\Ui\\Start.bmp");
-	GET_SINGLE(ResourceManager)->LoadTexture(L"Title", L"Sprite\\Ui\\Title.bmp");
-	GET_SINGLE(ResourceManager)->LoadTexture(L"MenuBackground", L"Sprite\\Ui\\menuBackground.bmp");
+	RESOURCE->LoadTexture(L"Start", L"Sprite\\Ui\\Start.bmp");
+	RESOURCE->LoadTexture(L"Title", L"Sprite\\Ui\\Title.bmp");
+	RESOURCE->LoadTexture(L"MenuBackground", L"Sprite\\Ui\\menuBackground.bmp");
 
-	GET_SINGLE(ResourceManager)->CreateSprite(L"Start_Off", GET_SINGLE(ResourceManager)->GetTexture(L"Start"), 0, 0, 150, 150);
-	GET_SINGLE(ResourceManager)->CreateSprite(L"Start_On", GET_SINGLE(ResourceManager)->GetTexture(L"Start"), 150, 0, 150, 150);
-	GET_SINGLE(ResourceManager)->CreateSprite(L"Title", GET_SINGLE(ResourceManager)->GetTexture(L"Title"));
-	GET_SINGLE(ResourceManager)->CreateSprite(L"MenuBackground", GET_SINGLE(ResourceManager)->GetTexture(L"MenuBackground"));
+	RESOURCE->CreateSprite(L"Start_Off", RESOURCE->Get<Texture>(L"Start"), 0, 0, 150, 150);
+	RESOURCE->CreateSprite(L"Start_On", RESOURCE->Get<Texture>(L"Start"), 150, 0, 150, 150);
+	RESOURCE->CreateSprite(L"Title", RESOURCE->Get<Texture>(L"Title"));
+	RESOURCE->CreateSprite(L"MenuBackground", RESOURCE->Get<Texture>(L"MenuBackground"));
 
 	// 버튼 이미지 찾으면 교체하자
 	_ui = new Button();
-	_ui->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Start_Off"), BS_Default);
-	_ui->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Start_On"), BS_Pressed);
+	_ui->SetSprite(RESOURCE->Get<Sprite>(L"Start_Off"), BS_Default);
+	_ui->SetSprite(RESOURCE->Get<Sprite>(L"Start_On"), BS_Pressed);
 	_ui->SetPos({ 400 ,400 });
 	_ui->SetSize({ 150,150 });
 
@@ -51,11 +51,11 @@ void StartScene::Init()
 	AddObject(_ui);
 
 	{
-		Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"Title");
+		Sprite* sprite = RESOURCE->Get<Sprite>(L"Title");
 
 		Image* Title = new Image();
 		Title->SetSprite(sprite);
-		const Vec2Int size = sprite->GetSize();
+		const Vec2 size = sprite->GetSize();
 		Title->SetSize({ (float)sprite->GetSize().x, (float)sprite->GetSize().y });
 
 		Title->SetPos({400,200});
@@ -65,12 +65,12 @@ void StartScene::Init()
 	}
 	{
 		{
-			Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"MenuBackground");
+			Sprite* sprite = RESOURCE->Get<Sprite>(L"MenuBackground");
 
 			Image* background = new Image();
 			background->SetSprite(sprite);
 			background->SetLayer(LAYER_BACKGROUND);
-			const Vec2Int size = sprite->GetSize();
+			const Vec2 size = sprite->GetSize();
 			background->SetSize({ (float)sprite->GetSize().x, (float)sprite->GetSize().y });
 			background->SetScale({ 2,2 });
 			background->SetPos({ 0,50 });
@@ -100,15 +100,15 @@ void StartScene::Render(HDC hdc)
 // 단점이 생긴다면 매프레임마다 검사를 한다는 건데 뭐 그 정도는 괜찮겠지
 void StartScene::GameStart()
 {
-	GET_SINGLE(GameManager)->SetState(GameState::Playing);
-	GET_SINGLE(SceneManager)->SetNextSceneType(SceneType::DevScene);
+	GAMEMANAGER->SetState(GameState::Playing);
+	SCENE->SetNextSceneType(SceneType::DevScene);
 	//GET_SINGLE(SceneManager)->ChangeScnee(SceneType::DevScene);
 }
 
 void StartScene::StartEditMode()
 {
-	GET_SINGLE(GameManager)->SetState(GameState::Playing);
-	GET_SINGLE(SceneManager)->SetNextSceneType(SceneType::EditScene);
+	GAMEMANAGER->SetState(GameState::Playing);
+	SCENE->SetNextSceneType(SceneType::EditScene);
 }
 
 

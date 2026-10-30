@@ -11,33 +11,21 @@
 #include "01.Manager/StageManager.h"
 #include "01.Manager/SoundManager.h"
 #include "01.Manager/UiLayoutManager.h"
+//#include "01.Manager/RenderManager.h"
 #include "03.Object/ObjectPool/ObjectPool.h"
 
 
-//TODO 
-//게임 매니저	
-//역할 : 씬 전환, UI 갱신, 저장 / 로드 연동 포인트 등.
-// 일단 플레이어는 저장할 필요가 없음
-// 굳이 저장을 한다면 도감이나 캐릭터 해방 정도를 저장해야할듯
-// 
-// 
-//보스 추가
-//그 보스가 죽었는지 스테이지 매니저에서 판단해야 하기 때문.
-// 현재 중간 보스 밖에 없기에 보스 만들기
-// 
-// 랜덤으로 나오는 상자 및 강화 모루 추가하기
-// 
-// UI 작업하기
-// 플레이어 관련, 게임 시작화면 관련, 장비, 피격시 데미지 표시
-// 
-// UI 작업하기 전에 하자
-// 
-// 
-//인벤토리가 어느 정도 작동한 뒤 연동해서 마무리.
-// 장판기 같은 지속적으로 딜을 하는 설치기들 데미지 주기 건들여야함
-// 일반 장비 끝나면 레벨업시 장비 강화하는 시스템 추가하기
-// 강화 모루에 접근시 인벤토리 내에 있는 아이템 +1 강 하는 기능 넣기
+// TODO 인강보고 DirectX11 내 구조에 맞춰서 넣어보기 시작하기
 
+// TODO 매니저 중들 싱글톤 해제 및 game에 모으기
+// 일부 매니저들은 각 씬이 들고 있게하기
+// 그 목록
+// SpawnManager, StageManager, UiLayoutManager, CollisionManager
+// 이 4개는 각 씬에서 관리하는 방향으로
+// ObjectPool은 좀 더 고민이 필요
+// 이건 다렉으로 업글후 마저 작업하는 걸로
+
+Game* GGame = nullptr;
 
 Game::Game()
 {
@@ -46,22 +34,31 @@ Game::Game()
 
 Game::~Game()
 {
-	GET_SINGLE(SceneManager)->Clear();
-	GET_SINGLE(ObjectPool)->Clear();
-	GET_SINGLE(ResourceManager)->Clear();
+	// scene에 남아있는 짜바리 선 정리
+	_equipmentManager->Clear();
 
-	TimeManager::DestroyInstance();
-	InputManager::DestroyInstance();
-	GameManager::DestroyInstance();
-	SceneManager::DestroyInstance();
+
+	_sceneManager->Clear();
+	GET_SINGLE(ObjectPool)->Clear();
+	_resourceManager->Clear();
+
+	SAFE_DELETE(_equipmentManager);
+	SAFE_DELETE(_sceneManager);
+
+	SAFE_DELETE(_soundManager);
+	SAFE_DELETE(_resourceManager);
+	//SAFE_DELETE(_renderManager);
+
+	SAFE_DELETE(_gameManager);
+	SAFE_DELETE(_timeManager);
+	SAFE_DELETE(_inputManager);
+
+	SAFE_DELETE(_graphics);
+
 	ObjectPool::DestroyInstance();
-	ResourceManager::DestroyInstance();
 	SpawnManager::DestroyInstance();
 	StageManager::DestroyInstance();
-	EquipmentManager::DestroyInstance();
 	CollisionManager::DestroyInstance();
-	SoundManager::DestroyInstance();
-	UiLayoutManager::DestroyInstance();
 
 	_CrtDumpMemoryLeaks();
 }
@@ -70,6 +67,8 @@ void Game::Init(HWND hwnd)
 {
 	_hwnd = hwnd;
 	hdc = ::GetDC(hwnd);
+
+	_graphics = new Graphics(hwnd);
 
 	::GetClientRect(hwnd, &_rect);
 
@@ -96,47 +95,65 @@ void Game::Init(HWND hwnd)
 	fs::path resourcePath = L"./Resource";
 #endif
 
-	GET_SINGLE(TimeManager)->Init();
-	GET_SINGLE(InputManager)->Init(hwnd);
-	GET_SINGLE(SoundManager)->Init(hwnd);
-	GET_SINGLE(ResourceManager)->Init(hwnd, resourcePath);
-	GET_SINGLE(SceneManager)->Init();
+	_timeManager = new TimeManager();
+	_timeManager->Init();
 
+	_inputManager = new InputManager();
+	_inputManager->Init(hwnd);
 
+	_resourceManager = new ResourceManager(_graphics->GetDevice());
+	_resourceManager->Init(hwnd, resourcePath);
 
-	GET_SINGLE(GameManager)->SetState(GameState::Playing);
-	GET_SINGLE(SceneManager)->ChangeScene(SceneType::StartScene);
+	//_renderManager = new RenderManager(_graphics->GetDevice(), _graphics->GetDeviceContext());
+	//_renderManager->Init();
+
+	_soundManager = new SoundManager();
+	_soundManager->Init(hwnd);
+
+	_sceneManager = new SceneManager();
+	_sceneManager->Init();
+
+	_gameManager = new GameManager();
+	_gameManager->SetState(GameState::Playing);
+
+	_equipmentManager = new EquipmentManager();
+	_equipmentManager->Init();
+
+	SCENE->ChangeScene(SceneType::StartScene);
 }
 
 void Game::Update()
 {
-	GET_SINGLE(TimeManager)->Update();
-	GET_SINGLE(InputManager)->Update();
-	GET_SINGLE(GameManager)->Update();
-	GET_SINGLE(SceneManager)->Update();
+	TIME->Update();
+	INPUT->Update();
+	GAMEMANAGER->Update();
+	SCENE->Update();
 
 }
 
 void Game::Render()
 {
-	GET_SINGLE(SceneManager)->Render(hdcBack);
+	SCENE->Render(hdcBack);
+
+	//RENDER->Update(_graphics);
 
 
-	uint32 fps = GET_SINGLE(TimeManager)->GetFps();
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+#ifdef _DEBUG
+
+	uint32 fps = TIME->GetFps();
+	float deltaTime = TIME->GetDeltaTime();
 
 
-	//TODO define
+	//
 	/*{
-		POINT mousePos = GET_SINGLE(InputManager)->GetMousePos();
+		POINT mousePos = INPUT->GetMousePos();
 		wstring str = std::format(L"Mouse({0}, {1})", mousePos.x, mousePos.y);
 		::TextOut(hdcBack, 20, 480, str.c_str(), static_cast<int32>(str.size()));
 	}*/
 	
-#ifdef _DEBUG
 	{
 		wstring str = std::format(L"FPS({0}), DT({1})", fps, deltaTime);
-		Utils::DrawText(hdcBack, Vec2{ GWinSizeX - 180, 10 }, str);
+		Utils::DrawText(hdcBack, Vector{ GWinSizeX - 180, 10 }, str);
 		//::TextOut(hdc, GWinSizeX - 180, 10, str.c_str(), static_cast<int32>(str.size()));
 	}
 #endif

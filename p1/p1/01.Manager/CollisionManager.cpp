@@ -25,12 +25,12 @@ void CollisionManager::Update()
 			Collider* dest = col[j];
 
 			// 몬스터끼리 충돌 무시
-			if (src->GetOwner()->GetEntityType() == EntityType::Monster
-				&& dest->GetOwner()->GetEntityType() == EntityType::Monster)
+			if (src->GetGameObject()->GetEntityType() == EntityType::Monster
+				&& dest->GetGameObject()->GetEntityType() == EntityType::Monster)
 				continue;
 
 			// 비활성 상태이면 충돌 무시
-			if (!src->GetOwner()->GetIsActivity() || !dest->GetOwner()->GetIsActivity())
+			if (!src->GetGameObject()->GetIsActivity() || !dest->GetGameObject()->GetIsActivity())
 				continue;
 
 
@@ -41,8 +41,8 @@ void CollisionManager::Update()
 				// 처음으로 충돌하면
 				if (src->GetCollisionMap().contains(dest) == false)
 				{
-					src->GetOwner()->OnTriggerEnter(src, dest);
-					dest->GetOwner()->OnTriggerEnter(dest, src);
+					src->GetGameObject()->OnTriggerEnter(src, dest);
+					dest->GetGameObject()->OnTriggerEnter(dest, src);
 					
 					src->GetCollisionMap().insert(dest);
 					dest->GetCollisionMap().insert(src);
@@ -50,8 +50,8 @@ void CollisionManager::Update()
 				// 충돌 중일경우
 				else if (src->GetCollisionMap().contains(dest) == true)
 				{
-					src->GetOwner()->OnTriggerStay(src, dest);
-					dest->GetOwner()->OnTriggerStay(dest, src);
+					src->GetGameObject()->OnTriggerStay(src, dest);
+					dest->GetGameObject()->OnTriggerStay(dest, src);
 				}
 			}
 			else
@@ -59,8 +59,8 @@ void CollisionManager::Update()
 				// 충돌하다가 범위 밖으로 나간 경우
 				if (src->GetCollisionMap().contains(dest) == true)
 				{
-					src->GetOwner()->OnTriggerExit(src, dest);
-					dest->GetOwner()->OnTriggerExit(dest, src);
+					src->GetGameObject()->OnTriggerExit(src, dest);
+					dest->GetGameObject()->OnTriggerExit(dest, src);
 
 					src->GetCollisionMap().erase(dest);
 					dest->GetCollisionMap().erase(src);

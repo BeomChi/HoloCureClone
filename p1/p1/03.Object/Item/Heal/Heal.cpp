@@ -24,7 +24,7 @@ void Heal::Init()
 
 	// 애니메이션 컴포넌트 추가
 	AnimationComponent* ani = new AnimationComponent();
-	ani->SetAnimation(GET_SINGLE(ResourceManager)->GetAnimator(L"HealObject"));
+	ani->SetAnimation(RESOURCE->GetAnimator(L"HealObject"));
 
 	Vec2Int size = ani->GetAnimator()->GetInfo().size;
 	SetSize({ (float)size.x,(float)size.y });

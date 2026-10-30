@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "Bar.h"
-#include "../05.Resource/2D/Sprite.h"
+#include "97.Engin/Resource/Sprite.h"
 
 Bar::Bar()
 {
@@ -35,28 +35,28 @@ void Bar::Update()
 
 void Bar::Render(HDC hdc)
 {
-	if (_sprites == nullptr)
-		return;
+	//if (_sprites == nullptr)
+	//	return;
 
-	float ratio = _currentValue / _maxValue;
-	int fullWidth = _sprites->GetSize().x;
-	int fullHeight = _sprites->GetSize().y;
+	//float ratio = _currentValue / _maxValue;
+	//int fullWidth = _sprites->GetSize().x;
+	//int fullHeight = _sprites->GetSize().y;
 
-	int srcWidth = static_cast<int>(fullWidth * ratio);
-	int dstWidth = static_cast<int>(_size.x * ratio);
+	//int srcWidth = static_cast<int>(fullWidth * ratio);
+	//int dstWidth = static_cast<int>(_size.x * ratio);
 
-	::TransparentBlt(
-		hdc,
-		(int32)_pos.x,					// 왼쪽 정렬을 위해 얘는 사이즈의 반 값을 안뺌
-		(int32)_pos.y - _size.y / 2,
-		dstWidth,
-		(int32)_size.y,
-		_sprites->GetDC(),
-		_sprites->GetPos().x,
-		_sprites->GetPos().y,
-		srcWidth,
-		fullHeight,
-		_sprites->GetTransparent());
+	//::TransparentBlt(
+	//	hdc,
+	//	(int32)_pos.x,					// 왼쪽 정렬을 위해 얘는 사이즈의 반 값을 안뺌
+	//	(int32)_pos.y - _size.y / 2,
+	//	dstWidth,
+	//	(int32)_size.y,
+	//	_sprites->GetDC(),
+	//	_sprites->GetPos().x,
+	//	_sprites->GetPos().y,
+	//	srcWidth,
+	//	fullHeight,
+	//	_sprites->GetTransparent());
 	
 }
 
@@ -70,7 +70,7 @@ void Bar::SetValue(float current, float max)
 void Bar::SetBarLength(float length)
 {
 	_barLength = length;
-	_size.x = _barLength;
+	GetOrAddTransform()->SetScale(Vec3(length, 1, 1));
 }
 
 //void Bar::SetOriginPos(Vec2 pos)

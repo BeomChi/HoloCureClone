@@ -67,7 +67,7 @@ void EquipmentHud::RefreshSlots()
 
 	for (size_t j = 0; j < 2; j++)
 	{
-		const auto& equips = GET_SINGLE(EquipmentManager)->GetGameObjects(j);
+		const auto& equips = EQUIPMENT->GetGameObjects(j);
 		for (size_t i = 0; i < _slot[j].size(); i++)
 		{
 			if (i < equips.size())

@@ -35,7 +35,7 @@ void Entity::Render(HDC hdc)
 
 void Entity::TakeDamage(const DamageInfo& dmg)
 {
-	if (GET_SINGLE(GameManager)->GetState() == GameState::GameOver)
+	if (GAMEMANAGER->GetState() == GameState::GameOver)
 		return;
 
 	if (_info._currentHp <= 0)
@@ -54,7 +54,7 @@ void Entity::TakeDamage(const DamageInfo& dmg)
 	damageText->ShowDamage(dmg._finalDamage, this->GetPos(),dmg._isCritical);
 	damageText->SetFontSize(24);
 
-	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(damageText);
+	SCENE->GetCurrentScene()->AddObject(damageText);
 
 	if (_info._currentHp <= 0)
 	{

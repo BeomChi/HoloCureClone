@@ -129,7 +129,7 @@ void EnCurse::Init()
 /// @brief 매 프레임마다 호출되며, 쿨타임이 지나면 저주 투사체를 생성
 void EnCurse::Update()
 {
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 
 	if (!_fire)
 	{
@@ -202,7 +202,7 @@ void EnCurse::CreateCurse()
 	enCurseObj->SetPos(GetFirePos());
 
 	// 플레이어 방향에 따라 투사체 방향 설정
-	Dir dir = GET_SINGLE(GameManager)->GetPlayer()->GetDir();
+	Dir dir = GAMEMANAGER->GetPlayer()->GetDir();
 	if (dir == DIR_LEFT)
 		enCurseObj->SetState(DirState::Left);
 	else
@@ -219,16 +219,16 @@ void EnCurse::CreateCurse()
 
 
 	// 오브젝트 매니저에 등록
-	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(enCurseObj);
+	SCENE->GetCurrentScene()->AddObject(enCurseObj);
 }
 
 /// @brief 투사체 발사 위치 계산
 /// @details 플레이어의 앞 방향을 기준으로 투사체 생성 위치 설정
 /// @return 발사 좌표 (Vec2)
-Vec2 EnCurse::GetFirePos()
+Vector EnCurse::GetFirePos()
 {
-	Vector firePos = GET_SINGLE(GameManager)->GetPlayer()->GetPos();
-	Dir dir = GET_SINGLE(GameManager)->GetPlayer()->GetDir();
+	Vector firePos = GAMEMANAGER->GetPlayer()->GetPos();
+	Dir dir = GAMEMANAGER->GetPlayer()->GetDir();
 
 	if (dir == DIR_LEFT)
 		firePos.x += (-1) * _firePosLength;

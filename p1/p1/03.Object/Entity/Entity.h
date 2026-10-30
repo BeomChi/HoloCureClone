@@ -3,6 +3,7 @@
 
 class Animator;
 class AnimationComponent;
+class Animation;
 
 struct Info
 {
@@ -65,11 +66,11 @@ protected:
 	Dir _dir = DIR_LEFT;
 	enumAttack _attack = START;
 
-	Animator* _aniIdle[2] = {};
-	Animator* _aniMove[2] = {};
-	Animator* _aniAttack[2] = {};
-	Animator* _aniSpawn = {};
-	Animator* _aniDie = {};
+	Animation* _aniIdle[2] = {};
+	Animation* _aniMove[2] = {};
+	Animation* _aniAttack[2] = {};
+	Animation* _aniSpawn = {};
+	Animation* _aniDie = {};
 
 	AnimationComponent* _ani = nullptr;
 };

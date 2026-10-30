@@ -25,7 +25,7 @@ void Miasma::Init()
 	// component
 	{
 		{
-			Sprite* sprite = GET_SINGLE(ResourceManager)->GetSprite(L"Miasma");
+			Sprite* sprite = RESOURCE->GetSprite(L"Miasma");
 			SpriteRenderer* renderer = new SpriteRenderer();
 			renderer->SetSprite(sprite);
 			SetSize({ (float)sprite->GetSize().x, (float)sprite->GetSize().y });
@@ -55,9 +55,9 @@ void Miasma::Update()
 {
 	Super::Update();
 
-	_sumTime += GET_SINGLE(TimeManager)->GetDeltaTime();
+	_sumTime += TIME->GetDeltaTime();
 
-	SetPos(GET_SINGLE(GameManager)->GetPlayer()->GetPos());
+	SetPos(GAMEMANAGER->GetPlayer()->GetPos());
 }
 
 void Miasma::Render(HDC hdc)

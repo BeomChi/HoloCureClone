@@ -18,12 +18,12 @@ PlayerHudPanel::PlayerHudPanel()
 
 	// Ui 매니저 만들면 거기서 가져오는 걸로
 	// 초반에 ui 기본값 세팅할 때 플레이어 정보가 필요하기 때문에, 플레이어가 생성된 이후에 PlayerHudPanel이 생성되어야 함
-	auto _info = GET_SINGLE(GameManager)->GetPlayer()->GetInfo();
+	auto _info = GAMEMANAGER->GetPlayer()->GetInfo();
 	{
 		// 밑 이미지
 		HpBar* hpBar = new HpBar();
 
-		hpBar->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"PlayerHpBarRed"));
+		hpBar->SetSprite(RESOURCE->GetSprite(L"PlayerHpBarRed"));
 
 		hpBar->SetSize({ (float)hpBar->GetSprite()->GetSize().x, (float)hpBar->GetSprite()->GetSize().y });
 		hpBar->SetPos({ 70, 24 });
@@ -37,7 +37,7 @@ PlayerHudPanel::PlayerHudPanel()
 		// 실제 체력바
 		_hpBar = new HpBar();
 
-		_hpBar->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"PlayerHpBarGreen"));
+		_hpBar->SetSprite(RESOURCE->GetSprite(L"PlayerHpBarGreen"));
 
 		_hpBar->SetSize({ (float)_hpBar->GetSprite()->GetSize().x, (float)_hpBar->GetSprite()->GetSize().y });
 		_hpBar->SetPos({ 70, 24 });
@@ -46,10 +46,10 @@ PlayerHudPanel::PlayerHudPanel()
 		_hpBar->SetValue((float)_info._currentHp, (float)_info._maxHp);
 		_hpBar->SetLayer(LAYER_UI);
 
-		//auto* player = GET_SINGLE(GameManager)->GetPlayer();
+		//auto* player = GAMEMANAGER->GetPlayer();
 		/*cout << "[DEBUG] PlayerHudPanel - Player 주소: " << player << endl;
 		cout << "[DEBUG] PlayerHudPanel - OnHpChanged 주소: " << &(player->OnHpChanged) << endl;
-		_hpConn = GET_SINGLE(GameManager)->GetPlayer()->OnHpChanged +=
+		_hpConn = GAMEMANAGER->GetPlayer()->OnHpChanged +=
 			[this](float current, float max)
 			{
 				cout << "[DEBUG] OnHpChanged 호출됨: " << current << "/" << max << endl;
@@ -58,7 +58,7 @@ PlayerHudPanel::PlayerHudPanel()
 				_hpText = format(L"{0}/{1}", current, max);
 
 			};*/
-		Player* player = GET_SINGLE(GameManager)->GetPlayer();
+		Player* player = GAMEMANAGER->GetPlayer();
 
 		if (player == nullptr)
 			cout << "플레이어 없음" << endl;
@@ -71,7 +71,7 @@ PlayerHudPanel::PlayerHudPanel()
 
 		AddPanel(_hpText);
 
-		_hpConn = (GET_SINGLE(GameManager)->GetPlayer()->OnHpChanged += [this](float current, float max)
+		_hpConn = (GAMEMANAGER->GetPlayer()->OnHpChanged += [this](float current, float max)
 			{
 				_hpBar->SetValue(current, max);
 				_hpText->SetText(format(L"{0}/{1}", current, max));
@@ -83,7 +83,7 @@ PlayerHudPanel::PlayerHudPanel()
 	{
 		Image* hud = new Image();
 
-		hud->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"PlayerHUD1"));
+		hud->SetSprite(RESOURCE->GetSprite(L"PlayerHUD1"));
 
 		hud->SetSize({ (float)hud->GetSprite()->GetSize().x, (float)hud->GetSprite()->GetSize().y });
 		hud->SetPos({ (float)hud->GetSprite()->GetSize().x * 0.5f,50 });
@@ -95,7 +95,7 @@ PlayerHudPanel::PlayerHudPanel()
 	{
 		Image* Icon = new Image();
 
-		Icon->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"GuraIcon"));
+		Icon->SetSprite(RESOURCE->GetSprite(L"GuraIcon"));
 
 		Icon->SetSize({ (float)Icon->GetSprite()->GetSize().x, (float)Icon->GetSprite()->GetSize().y });
 		Icon->SetPos({ (float)Icon->GetSprite()->GetSize().x * 0.5f,39 });
@@ -108,7 +108,7 @@ PlayerHudPanel::PlayerHudPanel()
 		// 경험치 바 배경
 		Image* ExpBarBg = new Image();
 
-		ExpBarBg->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"ExpBarBG"));
+		ExpBarBg->SetSprite(RESOURCE->GetSprite(L"ExpBarBG"));
 
 		ExpBarBg->SetSize({ (float)ExpBarBg->GetSprite()->GetSize().x, (float)ExpBarBg->GetSprite()->GetSize().y });
 		ExpBarBg->SetScale({ 1.248f,1 });
@@ -121,7 +121,7 @@ PlayerHudPanel::PlayerHudPanel()
 		//경험치 바 이미지
 		_expBar = new HpBar();
 
-		_expBar->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"ExpBarFull"));
+		_expBar->SetSprite(RESOURCE->GetSprite(L"ExpBarFull"));
 
 		_expBar->SetSize({ (float)_expBar->GetSprite()->GetSize().x, (float)_expBar->GetSprite()->GetSize().y });
 		_expBar->SetScale({ 1.248f,1 });
@@ -130,7 +130,7 @@ PlayerHudPanel::PlayerHudPanel()
 		_expBar->SetValue((float)_info._exp, (float)_info._maxExp);
 
 		_expConn = 
-			move(GET_SINGLE(GameManager)->GetPlayer()->OnExpChanged += 
+			move(GAMEMANAGER->GetPlayer()->OnExpChanged += 
 				[this](float current, float max)
 			{
 				_expBar->SetValue(current, max);
@@ -145,7 +145,7 @@ PlayerHudPanel::PlayerHudPanel()
 		// 경험치 바 프레임
 		Image* ExpBarFrame = new Image();
 
-		ExpBarFrame->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"ExpBarFrame"));
+		ExpBarFrame->SetSprite(RESOURCE->GetSprite(L"ExpBarFrame"));
 
 		ExpBarFrame->SetSize({ (float)ExpBarFrame->GetSprite()->GetSize().x, (float)ExpBarFrame->GetSprite()->GetSize().y });
 		ExpBarFrame->SetScale({ 1.248f,1 });
@@ -159,7 +159,7 @@ PlayerHudPanel::PlayerHudPanel()
 		_levelText->SetText(format(L"Lv.{0}", 1));
 		_levelText->SetPos({ 745.f,-5.f });
 		_levelText->SetFontSize(30);
-		_levelConn = move(GET_SINGLE(GameManager)->GetPlayer()->OnLevelChanged += [this](int32 arg)
+		_levelConn = move(GAMEMANAGER->GetPlayer()->OnLevelChanged += [this](int32 arg)
 			{
 				_levelText->SetText(format(L"Lv.{0}", arg));
 			});
@@ -170,7 +170,7 @@ PlayerHudPanel::PlayerHudPanel()
 	{
 		Image* Coin = new Image();
 
-		Coin->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"Coin"));
+		Coin->SetSprite(RESOURCE->GetSprite(L"Coin"));
 
 		Coin->SetSize({ (float)Coin->GetSprite()->GetSize().x, (float)Coin->GetSprite()->GetSize().y });
 		Coin->SetScale({ 1.5f,1.5f });
@@ -182,7 +182,7 @@ PlayerHudPanel::PlayerHudPanel()
 	{
 		Image* KillCountUi = new Image();
 
-		KillCountUi->SetSprite(GET_SINGLE(ResourceManager)->GetSprite(L"KillCount"));
+		KillCountUi->SetSprite(RESOURCE->GetSprite(L"KillCount"));
 
 		KillCountUi->SetSize({ (float)KillCountUi->GetSprite()->GetSize().x, (float)KillCountUi->GetSprite()->GetSize().y });
 		KillCountUi->SetScale({ 1.5f,1.5f });

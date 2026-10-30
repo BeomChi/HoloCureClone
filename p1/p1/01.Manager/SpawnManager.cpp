@@ -15,7 +15,7 @@ void SpawnManager::Init()
 
 void SpawnManager::Update()
 {
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 
 	_sumTime += deltaTime;
 	if (_spawnDelay <= _sumTime)
@@ -67,5 +67,5 @@ void SpawnManager::AddSpawner()
 	Spawner* spawner = new Spawner();
 	_spawners.push_back(spawner);
 
-	GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(spawner);
+	SCENE->GetCurrentScene()->AddObject(spawner);
 }

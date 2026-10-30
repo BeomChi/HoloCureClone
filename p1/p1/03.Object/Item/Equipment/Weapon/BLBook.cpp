@@ -124,7 +124,7 @@ void BLBook::Init()
 /// @brief 책 오브젝트들을 순회하며 위치 업데이트 및 생성
 void BLBook::Update()
 {
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 	_sumTime += deltaTime;
 
 	if (_sumTime - _lastAttackTime >= _info._coolTime)
@@ -136,7 +136,7 @@ void BLBook::Update()
 			{
 				auto* obj = GET_SINGLE(ObjectPool)->Get<BLBookObj>(L"BLBook");
 				obj->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));
-				GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(obj);
+				SCENE->GetCurrentScene()->AddObject(obj);
 				_blBook.push_back(obj);
 			}
 			else if (_blBook[i] == nullptr || !_blBook[i]->GetIsActivity())
@@ -155,7 +155,7 @@ void BLBook::Update()
 			continue;
 
 		// 플레이어 기준 위치 계산
-		Vector shieldPos = GET_SINGLE(GameManager)->GetPlayer()->GetPos();
+		Vector shieldPos = GAMEMANAGER->GetPlayer()->GetPos();
 
 		// 회전각 업데이트 (프레임마다 증가, 초당 15도)
 		_shieldRoateAngle += (15 * deltaTime) * PI / 180;
@@ -194,7 +194,7 @@ void BLBook::OnEquipEffect(Player& player)
 	{
 		auto* obj = GET_SINGLE(ObjectPool)->Get<BLBookObj>(L"BLBook");
 		obj->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));
-		GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(obj);
+		SCENE->GetCurrentScene()->AddObject(obj);
 		_blBook.push_back(obj);
 	}
 

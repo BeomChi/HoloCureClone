@@ -42,9 +42,8 @@ enum
 };
 
 
-class InputManager : public Singleton<InputManager>
+class InputManager
 {
-	friend class Singleton<InputManager>;
 public:
 	void Init(HWND hwnd);
 	void Update();

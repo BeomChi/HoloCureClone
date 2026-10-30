@@ -19,8 +19,8 @@ public:
 	// 장비 해제 시 효과 제거
 	virtual void OnUnequipEffect(Player& player) override;
 
-	Vec2 GetFirePos();
-	Vec2 GetMousePosToPlayerDir();
+	Vector GetFirePos();
+	Vector GetMousePosToPlayerDir();
 	void CreateStick();
 
 private:

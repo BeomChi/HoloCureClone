@@ -1,5 +1,5 @@
 #pragma once
-#include "../Component.h"
+#include "97.Engin/Component/Component.h"
 #include "Signal.hpp"
 
 class BoxCollider;
@@ -7,13 +7,14 @@ class SphereCollider;
 
 class Collider : public Component
 {
+	using Super = Component;
 public:
 	Collider(ColliderType colliderType);
 	virtual ~Collider() override;
 
 	virtual void Init() override;
 	virtual void Update() override;
-	virtual void Render(HDC hdc) override;
+	//virtual void Render(HDC hdc) override;
 
 	virtual bool CheckCollision(Collider* other);
 
@@ -29,15 +30,15 @@ public:
 	void ClearCollisionMap();
 
 	unordered_set<Collider*>& GetCollisionMap() { return _collsionMap; }
-	void SetOffset(Vec2 offset) { _offset = offset; }
+	void SetOffset(Vec3 offset) { _offset = offset; }
 
-	Vec2 GetWorldPos() const;
+	Vec3 GetWorldPos() const;
 
 protected:
 	bool _showDebug = false;
 	
 	ColliderType _colliderType;
-	Vec2 _offset = { 0,0 };
+	Vec3 _offset = { 0,0,0 };
 	
 
 private:

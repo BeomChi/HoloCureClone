@@ -26,8 +26,8 @@ Monster::~Monster()
 void Monster::Init()
 {
 	InitCommon();
-	_aniSpawn = GET_SINGLE(ResourceManager)->GetAnimator(L"FanSpawn");
-	_aniDie = GET_SINGLE(ResourceManager)->GetAnimator(L"FanDie");
+	_aniSpawn = RESOURCE->GetAnimator(L"FanSpawn");
+	_aniDie = RESOURCE->GetAnimator(L"FanDie");
 	
 
 }
@@ -51,14 +51,14 @@ void Monster::Update()
 
 			// 경험치 및 아이템 드랍
 			ExperinenceObject* exp = GET_SINGLE(ObjectPool)->Get<ExperinenceObject>(L"Exp");
-			exp->SetPlayer(GET_SINGLE(GameManager)->GetPlayer());
+			exp->SetPlayer(GAMEMANAGER->GetPlayer());
 			exp->SetPos(_pos);
-			GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(exp);
+			SCENE->GetCurrentScene()->AddObject(exp);
 
 			Heal* heal = GET_SINGLE(ObjectPool)->Get<Heal>(L"Heal");
-			heal->SetPlayer(GET_SINGLE(GameManager)->GetPlayer());
+			heal->SetPlayer(GAMEMANAGER->GetPlayer());
 			heal->SetPos(_pos);
-			GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(heal);
+			SCENE->GetCurrentScene()->AddObject(heal);
 			GET_SINGLE(StageManager)->PlusMonsterDieCount();
 
 			cout << "드랍됨" << endl;
@@ -129,7 +129,7 @@ GameObject* Monster::SerachPlayer()
 		}
 	}*/
 
-	auto player = GET_SINGLE(GameManager)->GetPlayer();
+	auto player = GAMEMANAGER->GetPlayer();
 
 	if (player && player->GetIsActivity())
 	{

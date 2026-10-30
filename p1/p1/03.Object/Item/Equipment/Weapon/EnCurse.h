@@ -21,7 +21,7 @@ public:
 
 	void CreateCurse();
 
-	Vec2 GetFirePos();
+	Vector GetFirePos();
 	//Vec2 GetMousePosToPlayerDir();
 
 private:

@@ -13,6 +13,7 @@ obj/
 Debug/
 Release/
 *.log
+*.zip
 
 Resource/Sound/
 *.wav

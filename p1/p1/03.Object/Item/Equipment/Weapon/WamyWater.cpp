@@ -118,10 +118,10 @@ void WamyWater::Init()
 /// @brief 매 프레임마다 호출되어, 쿨타임이 지난 경우 스플레쉬 투사체를 발사함
 void WamyWater::Update()
 {
-	if (GET_SINGLE(GameManager)->GetPlayer() == nullptr)
+	if (GAMEMANAGER->GetPlayer() == nullptr)
 		return;
 
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 	_sumTime += deltaTime;
 
 	// 쿨타임이 경과하면 투사체를 발사
@@ -134,7 +134,7 @@ void WamyWater::Update()
 		splash->SetPos(GetFirePos());
 
 		// 플레이어의 방향에 따라 투사체 방향 설정
-		Dir dir = GET_SINGLE(GameManager)->GetPlayer()->GetDir();
+		Dir dir = GAMEMANAGER->GetPlayer()->GetDir();
 		
 		if (dir == DIR_LEFT)
 			splash->SetState(DirState::Left);
@@ -143,12 +143,12 @@ void WamyWater::Update()
 
 		// 실시간 데미지 계산 후 설정
 		splash->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));
-		splash->SetScale(Vec2{ _info._range, _info._range }); // 투사체 크기 설정
+		splash->SetScale(Vector{ _info._range, _info._range }); // 투사체 크기 설정
 		splash->SetKnockbackForce(_knockbackForce );
 
 		// ObjectManager에 추가하여 게임 내 등장시킴
 		// 나중에 ObjectManager 지우고 씬으로 관리 예정
-		GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(splash);
+		SCENE->GetCurrentScene()->AddObject(splash);
 
 		// 마지막 공격 시간 갱신
 		_lastAttackTime = _sumTime;
@@ -176,10 +176,10 @@ void WamyWater::OnUnequipEffect(Player& player)
 
 /// @brief 플레이어 방향을 고려해 투사체의 시작 위치 계산
 /// @return 플레이어 위치 기준으로 좌우 거리만큼 떨어진 위치 반환
-Vec2 WamyWater::GetFirePos()
+Vector WamyWater::GetFirePos()
 {
-	Vector firePos = GET_SINGLE(GameManager)->GetPlayer()->GetPos();
-	Dir dir = GET_SINGLE(GameManager)->GetPlayer()->GetDir();
+	Vector firePos = GAMEMANAGER->GetPlayer()->GetPos();
+	Dir dir = GAMEMANAGER->GetPlayer()->GetDir();
 
 	if (dir == DIR_LEFT)
 		firePos.x += (-1) * _firePosLength;

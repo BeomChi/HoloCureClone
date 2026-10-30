@@ -24,7 +24,7 @@ Game::Game()
 
 Game::~Game()
 {
-	GET_SINGLE(SceneManager)->Clear();
+	SCENE->Clear();
 	GET_SINGLE(ObjectManager)->Clear();
 	GET_SINGLE(ObjectPool)->Clear();
 
@@ -45,24 +45,24 @@ void Game::Init(HWND hwnd)
 
 	GET_SINGLE(TimeManager)->Init();
 	GET_SINGLE(InputManager)->Init(hwnd);
-	GET_SINGLE(SceneManager)->Init();
+	SCENE->Init();
 
 
 
 
-	GET_SINGLE(SceneManager)->ChangeScnee(SceneType::DevScene);
+	SCENE->ChangeScnee(SceneType::DevScene);
 }
 
 void Game::Update()
 {
 	GET_SINGLE(TimeManager)->Update();
 	GET_SINGLE(InputManager)->Update();
-	GET_SINGLE(SceneManager)->Update();
+	SCENE->Update();
 }
 
 void Game::Render()
 {
-	GET_SINGLE(SceneManager)->Render(hdcBack);
+	SCENE->Render(hdcBack);
 	uint32 fps = GET_SINGLE(TimeManager)->GetFps();
 	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
 

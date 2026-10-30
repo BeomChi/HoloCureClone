@@ -110,7 +110,7 @@ void FanBeam::Init()
 /// @brief 일정 시간마다 전방에 FanBeamObj 생성 및 공격
 void FanBeam::Update()
 {
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 	_sumTime += deltaTime;
 
 	// 쿨타임 경과 시 공격 실행
@@ -123,7 +123,7 @@ void FanBeam::Update()
 		fanBeamObj->SetPos(GetFirePos(false));
 
 		// 플레이어 방향에 따라 빔 방향 설정
-		Dir dir = GET_SINGLE(GameManager)->GetPlayer()->GetDir();
+		Dir dir = GAMEMANAGER->GetPlayer()->GetDir();
 
 		if (dir == DIR_LEFT)
 			fanBeamObj->SetState(DirState::Left);
@@ -134,10 +134,10 @@ void FanBeam::Update()
 		fanBeamObj->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));
 
 		// 크기 설정
-		fanBeamObj->SetScale(Vec2(_info._range, _info._range));
+		fanBeamObj->SetScale(Vector(_info._range, _info._range));
 
 		// 오브젝트 매니저에 등록
-		GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(fanBeamObj);
+		SCENE->GetCurrentScene()->AddObject(fanBeamObj);
 
 		if (_isSpecialAbility)
 		{
@@ -161,10 +161,10 @@ void FanBeam::Update()
 
 			// 데미지 및 크기 설정
 			rearFanBeamObj2->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));
-			rearFanBeamObj2->SetScale(Vec2(_info._range, _info._range));
+			rearFanBeamObj2->SetScale(Vector(_info._range, _info._range));
 
 			// 오브젝트 매니저에 등록
-			GET_SINGLE(SceneManager)->GetCurrentScene()->AddObject(rearFanBeamObj2);
+			SCENE->GetCurrentScene()->AddObject(rearFanBeamObj2);
 		}
 
 		// 마지막 공격 시간 갱신
@@ -193,10 +193,10 @@ void FanBeam::OnUnequipEffect(Player& player)
 
 /// @brief 플레이어 앞 방향 기준 빔 발사 위치 계산
 /// @return Vec2 형태의 위치 값
-Vec2 FanBeam::GetFirePos(bool isSpecialAbility)
+Vector FanBeam::GetFirePos(bool isSpecialAbility)
 {
-	Vector firePos = GET_SINGLE(GameManager)->GetPlayer()->GetPos();
-	Dir dir = GET_SINGLE(GameManager)->GetPlayer()->GetDir();
+	Vector firePos = GAMEMANAGER->GetPlayer()->GetPos();
+	Dir dir = GAMEMANAGER->GetPlayer()->GetDir();
 
 	if (!isSpecialAbility)
 	{

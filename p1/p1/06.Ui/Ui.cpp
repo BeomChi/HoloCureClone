@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Ui.h"
 #include "../01.Manager/InputManager.h"
+#include "97.Engin/Component/Transform/Transform.h"
 
 Ui::Ui()
 {
@@ -27,12 +28,18 @@ void Ui::Render(HDC hdc)
 
 RECT Ui::GetRect()
 {
+	float x = GetOrAddTransform()->GetPosition().x;
+	float y = GetOrAddTransform()->GetPosition().y;
+
+	float cx = GetOrAddTransform()->GetScale().x;
+	float cy = GetOrAddTransform()->GetScale().y;
+
 	RECT rect =
 	{
-		_pos.x - _size.x / 2,
-		_pos.y - _size.y / 2,
-		_pos.x + _size.x / 2,
-		_pos.y + _size.y / 2
+		x - cx/ 2,
+		y - cy / 2,
+		x + cx / 2,
+		y + cy / 2
 	};
 
 	return rect;
@@ -42,7 +49,7 @@ bool Ui::IsMouseInRect()
 {
 	RECT rect = GetRect();
 
-	POINT mousePos = GET_SINGLE(InputManager)->GetMousePos();
+	POINT mousePos = INPUT->GetMousePos();
 
 	if (mousePos.x < rect.left)
 		return false;

@@ -2,7 +2,7 @@
 #include "Sound.h"
 #include "../../01.Manager/SoundManager.h"
 
-Sound::Sound()
+Sound::Sound() : Super(ResourceType::Sound)
 {
 }
 
@@ -48,7 +48,7 @@ bool Sound::LoadWave(fs::path fullPath)
 	_bufferDesc.dwFlags = DSBCAPS_STATIC;
 	_bufferDesc.lpwfxFormat = &wft;
 
-	if (FAILED(GET_SINGLE(SoundManager)->GetSoundDevice()->CreateSoundBuffer(&_bufferDesc, &_soundBuffer, NULL)))
+	if (FAILED(SOUND->GetSoundDevice()->CreateSoundBuffer(&_bufferDesc, &_soundBuffer, NULL)))
 	{
 		::MessageBox(NULL, L"사운드 버퍼 생성 실패", L"", MB_OK);
 		return false;

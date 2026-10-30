@@ -14,10 +14,10 @@ void StageManager::Init()
 
 void StageManager::Update()
 {
-	if (GET_SINGLE(GameManager)->GetState() != GameState::Playing)
+	if (GAMEMANAGER->GetState() != GameState::Playing)
 		return;
 
-	float deltaTime = GET_SINGLE(TimeManager)->GetDeltaTime();
+	float deltaTime = TIME->GetDeltaTime();
 
 	// 스테이니 내에 플레이 타임
 	_time += deltaTime;
@@ -79,7 +79,7 @@ void StageManager::Update()
 		}
 		break;
 	case StageState::Clear:
-		GET_SINGLE(GameManager)->GameOver();
+		GAMEMANAGER->GameOver();
 		break;
 	default:
 		break;
