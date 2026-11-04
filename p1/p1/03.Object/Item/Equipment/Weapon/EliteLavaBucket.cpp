@@ -168,14 +168,7 @@ void EliteLavaBucket::OnUnequipEffect(Player& player)
 
 void EliteLavaBucket::CreateLava()
 {
-	// 화면 내 임의 위치 좌표 생성
-	int randX = RandomRange(0, GWinSizeX);
-	int randY = RandomRange(0, GWinSizeY);
-
-	// 화면 좌표를 월드 좌표로 변환
-	Vector randPos = SCENE->ScreenToWorld({
-		(float)randX, (float)randY
-		});
+	Vec3 randPos = SpawnRandomPositionAroundPlayer();
 
 	// 오브젝트 풀에서 Lava 오브젝트 가져오기
 	Lava* lava = GET_SINGLE(ObjectPool)->Get<Lava>(L"Lava");
@@ -185,7 +178,7 @@ void EliteLavaBucket::CreateLava()
 	lava->Activate(randPos, _info._duration);
 
 	// 장판 크기 설정
-	lava->SetScale(Vector(_info._range, _info._range));
+	lava->GetTransform()->SetScale(Vec3(_info._range, _info._range,1));
 
 	// 장판 발동 후 약간의 지연 시간 설정 (지속 피해 주기 등)
 	lava->SetAttackDelay(0.5f);

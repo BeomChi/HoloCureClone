@@ -3,7 +3,7 @@
 #include "01.Manager/TimeManager.h"
 #include "01.Manager/SceneManager.h"
 #include "01.Manager/ResourceManager.h"
-#include "../../05.Resource/2D/Sprite.h"
+#include "97.Engin/Resource//Sprite.h"
 
 DamageText::DamageText()
 {
@@ -29,28 +29,28 @@ void DamageText::Init()
 {
 	Super::Init();
 
-	_sprite[0][0] = RESOURCE->GetSprite(L"NumberTypeNormal0");
-	_sprite[0][1] = RESOURCE->GetSprite(L"NumberTypeNormal1");
-	_sprite[0][2] = RESOURCE->GetSprite(L"NumberTypeNormal2");
-	_sprite[0][3] = RESOURCE->GetSprite(L"NumberTypeNormal3");
-	_sprite[0][4] = RESOURCE->GetSprite(L"NumberTypeNormal4");
-	_sprite[0][5] = RESOURCE->GetSprite(L"NumberTypeNormal5");
-	_sprite[0][6] = RESOURCE->GetSprite(L"NumberTypeNormal6");
-	_sprite[0][7] = RESOURCE->GetSprite(L"NumberTypeNormal7");
-	_sprite[0][8] = RESOURCE->GetSprite(L"NumberTypeNormal8");
-	_sprite[0][9] = RESOURCE->GetSprite(L"NumberTypeNormal9");
-	_sprite[1][0] = RESOURCE->GetSprite(L"NumberTypeExclusive0");
-	_sprite[1][1] = RESOURCE->GetSprite(L"NumberTypeExclusive1");
-	_sprite[1][2] = RESOURCE->GetSprite(L"NumberTypeExclusive2");
-	_sprite[1][3] = RESOURCE->GetSprite(L"NumberTypeExclusive3");
-	_sprite[1][4] = RESOURCE->GetSprite(L"NumberTypeExclusive4");
-	_sprite[1][5] = RESOURCE->GetSprite(L"NumberTypeExclusive5");
-	_sprite[1][6] = RESOURCE->GetSprite(L"NumberTypeExclusive6");
-	_sprite[1][7] = RESOURCE->GetSprite(L"NumberTypeExclusive7");
-	_sprite[1][8] = RESOURCE->GetSprite(L"NumberTypeExclusive8");
-	_sprite[1][9] = RESOURCE->GetSprite(L"NumberTypeExclusive9");
+	_sprite[0][0] = RESOURCE->Get<Sprite>(L"NumberTypeNormal0");
+	_sprite[0][1] = RESOURCE->Get<Sprite>(L"NumberTypeNormal1");
+	_sprite[0][2] = RESOURCE->Get<Sprite>(L"NumberTypeNormal2");
+	_sprite[0][3] = RESOURCE->Get<Sprite>(L"NumberTypeNormal3");
+	_sprite[0][4] = RESOURCE->Get<Sprite>(L"NumberTypeNormal4");
+	_sprite[0][5] = RESOURCE->Get<Sprite>(L"NumberTypeNormal5");
+	_sprite[0][6] = RESOURCE->Get<Sprite>(L"NumberTypeNormal6");
+	_sprite[0][7] = RESOURCE->Get<Sprite>(L"NumberTypeNormal7");
+	_sprite[0][8] = RESOURCE->Get<Sprite>(L"NumberTypeNormal8");
+	_sprite[0][9] = RESOURCE->Get<Sprite>(L"NumberTypeNormal9");
+	_sprite[1][0] = RESOURCE->Get<Sprite>(L"NumberTypeExclusive0");
+	_sprite[1][1] = RESOURCE->Get<Sprite>(L"NumberTypeExclusive1");
+	_sprite[1][2] = RESOURCE->Get<Sprite>(L"NumberTypeExclusive2");
+	_sprite[1][3] = RESOURCE->Get<Sprite>(L"NumberTypeExclusive3");
+	_sprite[1][4] = RESOURCE->Get<Sprite>(L"NumberTypeExclusive4");
+	_sprite[1][5] = RESOURCE->Get<Sprite>(L"NumberTypeExclusive5");
+	_sprite[1][6] = RESOURCE->Get<Sprite>(L"NumberTypeExclusive6");
+	_sprite[1][7] = RESOURCE->Get<Sprite>(L"NumberTypeExclusive7");
+	_sprite[1][8] = RESOURCE->Get<Sprite>(L"NumberTypeExclusive8");
+	_sprite[1][9] = RESOURCE->Get<Sprite>(L"NumberTypeExclusive9");
 
-	SetScale({ 2,2 });
+	//SetScale({ 2,2 });
 	_velocity = { 0,-12 };
 }
 
@@ -61,7 +61,7 @@ void DamageText::Update()
 	float dt = TIME->GetDeltaTime();
 
 	_duration -= dt;
-	_pos.y += _velocity.y * dt; // 텍스트가 위로 떠오르는 효과
+	//_pos.y += _velocity.y * dt; // 텍스트가 위로 떠오르는 효과
 
 
 	if (_duration <= 0)
@@ -70,52 +70,52 @@ void DamageText::Update()
 	}
 }
 
-void DamageText::Render(HDC hdc)
-{
-	// 월드 좌표 → 스크린 좌표로 변환 (카메라에 따라 보정됨)
-	Vector screenPos = SCENE->WorldToScreen(_pos);
-
-	float offsetX = 0;
-
-	for (wchar_t c : _text)
-	{
-		if (c < L'0' || c > L'9')
-			continue;
-
-		int digit = c - L'0';
-		Sprite* digitSprite = _sprite[_currentSpriteIndex][digit];
-
-		if (digitSprite == nullptr)
-			continue;
-
-		Vec2Int size = digitSprite->GetSize();
-
-		float renderSizeX = (float)size.x * _scale.x;
-		float renderSizeY = (float)size.y * _scale.y;
-
-		
-		if (digitSprite)
-		{
-			::TransparentBlt(
-				hdc,							// 그릴 대상 HDC
-				(int32)(screenPos.x + offsetX),	// 화면상 x좌표
-				(int32)screenPos.y,				// 화면상 y좌표
-				(int32)renderSizeX,					// 그릴 너비
-				(int32)renderSizeY,					// 그릴 높이
-				digitSprite->GetDC(),             // 스프라이트가 그려진 메모리 DC
-				digitSprite->GetPos().x,          // 원본 이미지에서의 x 좌표 (부분 추출용, 보통 0)
-				digitSprite->GetPos().y,          // 원본 이미지에서의 y 좌표
-				digitSprite->GetSize().x,         // 원본 이미지에서의 너비
-				digitSprite->GetSize().y,         // 원본 이미지에서의 높이
-				digitSprite->GetTransparent());   // 투명색 (보통 RGB 값)
-
-			offsetX += renderSizeX; // 다음 숫자 위치로 이동
-		}
-	}
-
-
-	//Super::Render(hdc);
-}
+//void DamageText::Render(HDC hdc)
+//{
+//	// 월드 좌표 → 스크린 좌표로 변환 (카메라에 따라 보정됨)
+//	Vector screenPos = SCENE->WorldToScreen(_pos);
+//
+//	float offsetX = 0;
+//
+//	for (wchar_t c : _text)
+//	{
+//		if (c < L'0' || c > L'9')
+//			continue;
+//
+//		int digit = c - L'0';
+//		Sprite* digitSprite = _sprite[_currentSpriteIndex][digit];
+//
+//		if (digitSprite == nullptr)
+//			continue;
+//
+//		Vec2Int size = digitSprite->GetSize();
+//
+//		float renderSizeX = (float)size.x * _scale.x;
+//		float renderSizeY = (float)size.y * _scale.y;
+//
+//		
+//		if (digitSprite)
+//		{
+//			::TransparentBlt(
+//				hdc,							// 그릴 대상 HDC
+//				(int32)(screenPos.x + offsetX),	// 화면상 x좌표
+//				(int32)screenPos.y,				// 화면상 y좌표
+//				(int32)renderSizeX,					// 그릴 너비
+//				(int32)renderSizeY,					// 그릴 높이
+//				digitSprite->GetDC(),             // 스프라이트가 그려진 메모리 DC
+//				digitSprite->GetPos().x,          // 원본 이미지에서의 x 좌표 (부분 추출용, 보통 0)
+//				digitSprite->GetPos().y,          // 원본 이미지에서의 y 좌표
+//				digitSprite->GetSize().x,         // 원본 이미지에서의 너비
+//				digitSprite->GetSize().y,         // 원본 이미지에서의 높이
+//				digitSprite->GetTransparent());   // 투명색 (보통 RGB 값)
+//
+//			offsetX += renderSizeX; // 다음 숫자 위치로 이동
+//		}
+//	}
+//
+//
+//	//Super::Render(hdc);
+//}
 
 void DamageText::Reset()
 {
@@ -125,10 +125,10 @@ void DamageText::Reset()
 	SetColor(RGB(255, 255, 255));
 }
 
-void DamageText::ShowDamage(float damage, Vector pos, bool isCritical)
+void DamageText::ShowDamage(float damage, Vec3 pos, bool isCritical)
 {
 	SetText(std::to_wstring(static_cast<int32>(damage)));
-	SetPos(pos);
+	GetOrAddTransform()->SetPosition(pos);
 
 	if (isCritical)
 	{

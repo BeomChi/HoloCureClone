@@ -2,7 +2,7 @@
 #include "AOE.h"
 
 class Animator;
-class AnimationComponent;
+class Animation;
 class Collider;
 
 enum class LavaState
@@ -26,7 +26,7 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
-	void Activate(Vector pos, float duration);
+	void Activate(Vec3 pos, float duration);
 
 
 
@@ -44,8 +44,8 @@ private:
 
 	float _sumTime = .8f;
 	LavaState _state = LavaState::Start;
-	Animator* _lava[3] = {};
-	AnimationComponent* _ani = nullptr;
+	Animation* _lava[3] = {};
+	Animator* _ani = nullptr;
 
 	unordered_map<Collider*, float> _hitCooldownMap;
 };

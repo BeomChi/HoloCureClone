@@ -166,47 +166,18 @@ void GlowStick::OnUnequipEffect(Player& player)
 	// 효과 해제 로직 필요시 작성
 }
 
-/// @brief 탄환 발사 위치 계산
-/// @details 플레이어 위치 기준 마우스 방향으로 일정 거리(_firePosLength) 떨어진 지점
-/// @return Vec2 발사 위치
-Vector GlowStick::GetFirePos()
-{
-	Vector firePos = GAMEMANAGER->GetPlayer()->GetPos();
-	Vector dir = GetMousePosToPlayerDir();
 
-	// 플레이어 위치에서 마우스 방향으로 _firePosLength 만큼 이동
-	firePos += dir * _firePosLength;
-
-	return firePos;
-}
-
-/// @brief 플레이어 위치에서 마우스 위치를 월드 좌표로 변환 후 방향 벡터 계산
-/// @return 정규화된 방향 벡터 (Vec2)
-Vector GlowStick::GetMousePosToPlayerDir()
-{
-	POINT mousePos = INPUT->GetMousePos();
-	Vector mouseWorldPos = SCENE->ScreenToWorld(mousePos);
-	Vector playerPos = GAMEMANAGER->GetPlayer()->GetPos();
-
-	float dirX = mouseWorldPos.x - playerPos.x;
-	float dirY = mouseWorldPos.y - playerPos.y;
-
-	Vector dir = { dirX, dirY };
-	dir.Normalize();
-
-	return dir;
-}
 
 void GlowStick::CreateStick()
 {
 	// 오브젝트 풀에서 Bullet 오브젝트를 가져와서 설정
 	Stick* bullet = GET_SINGLE(ObjectPool)->Get<Stick>(L"Stick");
 
-	bullet->SetPos(GetFirePos());                  // 발사 위치 설정
+	bullet->GetTransform()->SetPosition(GetFirePos(_firePosLength));                  // 발사 위치 설정
 	bullet->SetDir(GetMousePosToPlayerDir());      // 마우스 위치 기준 발사 방향 설정
 	bullet->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));           // 데미지 설정
 	bullet->SetStickPierceCount(_info._pierceCount);         // 관통할 형광봉 횟수 설정
-	bullet->SetScale(Vector{ _info._range ,_info._range });            // 형광봉 크기 설정
+	bullet->GetTransform()->SetScale(Vec3{_info._range ,_info._range,1});            // 형광봉 크기 설정
 
 	SCENE->GetCurrentScene()->AddObject(bullet); // 게임에 등록
 }

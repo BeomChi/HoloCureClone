@@ -155,7 +155,7 @@ void BLBook::Update()
 			continue;
 
 		// 플레이어 기준 위치 계산
-		Vector shieldPos = GAMEMANAGER->GetPlayer()->GetPos();
+		Vec3 shieldPos = GAMEMANAGER->GetPlayer()->GetTransform()->GetPosition();
 
 		// 회전각 업데이트 (프레임마다 증가, 초당 15도)
 		_shieldRoateAngle += (15 * deltaTime) * PI / 180;
@@ -168,7 +168,7 @@ void BLBook::Update()
 		shieldPos.y += sin(_shieldRoateAngle + shieldDinstance) * _playerToshield;
 
 		// 위치 적용
-		_blBook[i]->SetPos(shieldPos);
+		_blBook[i]->GetTransform()->SetPosition(shieldPos);
 
 	}
 	

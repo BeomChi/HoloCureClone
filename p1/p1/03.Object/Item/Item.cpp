@@ -6,6 +6,7 @@
 Item::Item()
 {
 	_itemType = ItemType::None;
+	GetOrAddTransform();
 }
 
 Item::~Item()
@@ -22,19 +23,20 @@ void Item::Update()
 	Super::Update();
 }
 
-void Item::Render(HDC hdc)
-{
-	Super::Render(hdc);
-}
+//void Item::Render(HDC hdc)
+//{
+//	Super::Render(hdc);
+//}
 
 void Item::MoveTo(GameObject* obj)
 {
 	float deltatime = TIME->GetDeltaTime();
 
-	Vector dir = obj->GetPos() - GetPos();
+	Vec3 pos = GetTransform()->GetPosition();
+	Vec3 dir = obj->GetTransform()->GetPosition() - pos;
 	dir.Normalize();
 
-	_pos += dir * deltatime * 100.f;
+	pos += dir * deltatime * 100.f;
 }
 
 void Item::Reset()
@@ -48,8 +50,9 @@ bool Item::PlayerDistance()
 		return false;
 
 	float deltatime = TIME->GetDeltaTime();
+	Vec3 pos = GetTransform()->GetPosition();
 
-	Vector dir = _player->GetPos() - GetPos();
+	Vec3 dir = _player->GetTransform()->GetPosition() - pos;
 	float distance = dir.Length();
 
 	if (distance < _absorbDistance) 
@@ -60,7 +63,7 @@ bool Item::PlayerDistance()
 	else if(distance < _player->GetItemAbsorbDistance())
 	{
 		dir.Normalize();
-		SetPos(GetPos() + dir * _moveSpeed * deltatime);
+		GetTransform()->SetPosition(pos + dir * _moveSpeed * deltatime);
 	}
 
 	return true;

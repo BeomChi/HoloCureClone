@@ -199,7 +199,7 @@ void EnCurse::CreateCurse()
 	EnCurseObj* enCurseObj = GET_SINGLE(ObjectPool)->Get<EnCurseObj>(L"EnCurseObj");
 
 	// 발사 위치 설정 (플레이어 앞 방향)
-	enCurseObj->SetPos(GetFirePos());
+	enCurseObj->GetTransform()->SetPosition(GetFirePos());
 
 	// 플레이어 방향에 따라 투사체 방향 설정
 	Dir dir = GAMEMANAGER->GetPlayer()->GetDir();
@@ -225,9 +225,9 @@ void EnCurse::CreateCurse()
 /// @brief 투사체 발사 위치 계산
 /// @details 플레이어의 앞 방향을 기준으로 투사체 생성 위치 설정
 /// @return 발사 좌표 (Vec2)
-Vector EnCurse::GetFirePos()
+Vec3 EnCurse::GetFirePos()
 {
-	Vector firePos = GAMEMANAGER->GetPlayer()->GetPos();
+	Vec3 firePos = GAMEMANAGER->GetPlayer()->GetTransform()->GetPosition();
 	Dir dir = GAMEMANAGER->GetPlayer()->GetDir();
 
 	if (dir == DIR_LEFT)

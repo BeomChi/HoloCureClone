@@ -65,7 +65,7 @@ Texture* ResourceManager::LoadTexture(const wstring& key, const wstring& path, u
 
 	fs::path fullPath = _resourcePath / path;
 
-	Texture* texture = new Texture(_device);
+	texture = new Texture(_device);
 
 	texture->SetName(key);
 	texture->Create(fullPath.wstring());

@@ -5,7 +5,7 @@
 
 
 class Animator;
-class AnimationComponent;
+class Animation;
 
 
 class Axe :   public AOE
@@ -19,7 +19,7 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
-	void SetStartPos(Vector pos) { _startPos = pos; }
+	void SetStartPos(Vec3 pos) { _startPos = pos; }
 	virtual void OnTriggerEnter(Collider* collider, Collider* other) override;
 	void SetDir(Vector dir) { _dir = dir; }
 	virtual void Reset() override;
@@ -32,9 +32,9 @@ private:
 	float _radiusGrowth = 100.f;// 초당 거리 증가
 	float _baseRadius = 25.f;   // 시작 반지름
 
-	Vector _startPos = {};
+	Vec3 _startPos = {};
 
-	Animator* _animation = nullptr;
-	AnimationComponent* _ani = nullptr;
+	Animation* _animation = nullptr;
+	Animator* _ani = nullptr;
 };
 

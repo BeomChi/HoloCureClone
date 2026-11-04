@@ -40,6 +40,6 @@ void Camera::UpdateMatrix()
 	}
 	else
 	{
-		s_matProjection = DirectX::XMMatrixOrthographicLH(8, 6, 0.f, 1.f);
+		s_matProjection = DirectX::XMMatrixOrthographicLH(800, 600, 0.f, 1.f);
 	}
 }

@@ -2,7 +2,7 @@
 #include "AOE.h"
 
 
-
+class SpriteRenderer;
 
 class Miasma :   public AOE
 {
@@ -23,7 +23,7 @@ public:
 
 	virtual void Reset() override;
 private:
-
+	SpriteRenderer* renderer = nullptr;
 	float _sumTime = .8f;
 	unordered_map<Collider*, float> _hitCooldownMap;
 };

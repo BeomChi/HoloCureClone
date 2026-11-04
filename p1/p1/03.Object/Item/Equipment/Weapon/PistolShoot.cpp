@@ -174,43 +174,13 @@ void PistolShoot::OnUnequipEffect(Player& player)
 	// 효과 해제 로직 필요시 작성
 }
 
-/// @brief 탄환 발사 위치 계산
-/// @details 플레이어 위치 기준 마우스 방향으로 일정 거리(_firePosLength) 떨어진 지점
-/// @return Vec2 발사 위치
-Vector PistolShoot::GetFirePos()
-{
-	Vector firePos = GAMEMANAGER->GetPlayer()->GetPos();
-	Vector dir = GetMousePosToPlayerDir();
-
-	// 플레이어 위치에서 마우스 방향으로 _firePosLength 만큼 이동
-	firePos += dir * _firePosLength;
-
-	return firePos;
-}
-
-/// @brief 플레이어 위치에서 마우스 위치를 월드 좌표로 변환 후 방향 벡터 계산
-/// @return 정규화된 방향 벡터 (Vec2)
-Vector PistolShoot::GetMousePosToPlayerDir()
-{
-	POINT mousePos = INPUT->GetMousePos();
-	Vector mouseWorldPos = SCENE->ScreenToWorld(mousePos);
-	Vector playerPos = GAMEMANAGER->GetPlayer()->GetPos();
-
-	float dirX = mouseWorldPos.x - playerPos.x;
-	float dirY = mouseWorldPos.y - playerPos.y;
-
-	Vector dir = { dirX, dirY };
-	dir.Normalize();
-
-	return dir;
-}
 
 void PistolShoot::CreateBullet()
 {
 	// 오브젝트 풀에서 Bullet 오브젝트를 가져와서 설정
 	Bullet* bullet = GET_SINGLE(ObjectPool)->Get<Bullet>(L"Bullet");
 
-	bullet->SetPos(GetFirePos());                  // 발사 위치 설정
+	bullet->GetTransform()->SetPosition(GetFirePos(_firePosLength));                  // 발사 위치 설정
 	bullet->SetDir(GetMousePosToPlayerDir());      // 마우스 위치 기준 발사 방향 설정
 	bullet->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));           // 데미지 설정
 	bullet->SetPierceCount(_info._pierceCount);		// 관통 수 설정

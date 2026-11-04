@@ -6,9 +6,8 @@
 #include "../../03.Object/Entity/Player/Player.h"
 #include "../../03.Object/Entity/Entity.h"
 #include "../../04.Component/Collision/BoxCollider.h"
-#include "../../04.Component/2D/AnimationComponent.h"
-#include "../../05.Resource/2D/Animator.h"
-#include "../../05.Resource/2D/Texture.h"
+#include "97.Engin/Component/Animation/Animator.h"
+#include "97.Engin/Resource/Animation.h"
 
 Splash::Splash()
 {
@@ -25,14 +24,14 @@ void Splash::Init()
 	// component
 	{
 		{
-			_dirAni[DIR_LEFT] = RESOURCE->GetAnimator(L"SplashLeft");
-			_dirAni[DIR_RIGHT] = RESOURCE->GetAnimator(L"SplashRight");
+			_dirAni[DIR_LEFT] = RESOURCE->Get<Animation>(L"SplashLeft");
+			_dirAni[DIR_RIGHT] = RESOURCE->Get<Animation>(L"SplashRight");
 
-			_ani = new AnimationComponent();
+			_ani = new Animator();
 			_ani->SetAnimation(_dirAni[DIR_RIGHT]);
 
-			Vec2Int size = _ani->GetAnimator()->GetInfo().size;
-			SetSize({ (float)size.x , (float)size.y });
+			//Vec2Int size = _ani->GetAnimator()->GetInfo().size;
+			//SetSize({ (float)size.x , (float)size.y });
 
 
 			AddComponent(_ani);
@@ -40,10 +39,10 @@ void Splash::Init()
 		// collider
 		{
 			BoxCollider* collider = new BoxCollider();
-			collider->SetSize(_renderSize);
+			collider->SetSize(_ani->GetCurrentAnimation()->GetTextureSize());
 			collider->SetShowDebug(false);
 			AddComponent(collider);
-			SetCollider(collider);
+			//SetCollider(collider);
 
 			GET_SINGLE(CollisionManager)->AddCollider(collider);
 		}
@@ -56,7 +55,7 @@ void Splash::Update()
 {
 	Super::Update();
 
-	if (_ani->CheckCurrentAnimationEnd())
+	if (_ani->GetCurrentAinmationEndIndex())
 	{
 		_isActivity = false;
 	}
@@ -71,10 +70,10 @@ void Splash::Render(HDC hdc)
 
 void Splash::OnTriggerEnter(Collider* collider, Collider* other)
 {
-	if (other->GetOwner()->GetEntityType() == EntityType::Monster)
+	if (other->GetGameObject()->GetEntityType() == EntityType::Monster)
 	{
-		static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
-		Knockback(collider->GetOwner(), other->GetOwner(), _knockbackForce);
+		static_cast<Entity*>(other->GetGameObject())->TakeDamage(_damageInfo);
+		Knockback(collider->GetGameObject(), other->GetGameObject(), _knockbackForce);
 		////// 넉백을 추가해야함
 		//Vec2 dir = other->GetOwner()->GetPos() - GAMEMANAGER->GetPlayer()->GetPos();
 		//dir.Normalize();
@@ -98,7 +97,8 @@ void Splash::Reset()
 {
 	_ani->Reset();
 	
-	_collider->ClearCollisionMap();
+	GetCollider()->ClearCollisionMap();
+	//_collider->ClearCollisionMap();
 }
 
 void Splash::SetState(DirState dir)
@@ -116,17 +116,17 @@ void Splash::UpdateAnimation()
 	{
 	case DirState::Left:
 		_ani->SetAnimation(_dirAni[DIR_LEFT]);
-		_ani->GetAnimator()->SetPivot({ 1,0.5f });
+		//_ani->GetAnimator()->SetPivot({ 1,0.5f });
 
-		if (_collider)
-			_collider->SetOffset({ -_renderSize.x * 0.5f, 0 });  // 왼쪽으로 이동
+		//if (_collider)
+			//_collider->SetOffset({ -_renderSize.x * 0.5f, 0 });  // 왼쪽으로 이동
 		break;
 	case DirState::Right:
 		_ani->SetAnimation(_dirAni[DIR_RIGHT]);
-		_ani->GetAnimator()->SetPivot({ 0,0.5f });
+		//_ani->GetAnimator()->SetPivot({ 0,0.5f });
 
-		if (_collider)
-			_collider->SetOffset({ _renderSize.x * 0.5f, 0 });   // 오른쪽으로 이동
+		//if (_collider)
+			//_collider->SetOffset({ _renderSize.x * 0.5f, 0 });   // 오른쪽으로 이동
 		break;
 	}
 }

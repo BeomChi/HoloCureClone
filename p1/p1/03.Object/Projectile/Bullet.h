@@ -1,7 +1,7 @@
 #pragma once
 #include "Projectile.h"
 
-
+class SpriteRenderer;
 
 class Bullet :   public Projectile
 {
@@ -21,7 +21,7 @@ public:
 
 	void SetPierceCount(int32 count) { _info._pierceCount = count; }
 private:
-
+	SpriteRenderer* _spriteRenderer = nullptr;
 	int32 _currentPierceCount = 0;
 };
 

@@ -6,8 +6,8 @@
 #include "../../01.Manager/SceneManager.h"
 #include "../../03.Object/Entity/Entity.h"
 #include "../../04.Component/Collision/BoxCollider.h"
-#include "../../04.Component/2D/AnimationComponent.h"
-#include "../../05.Resource/2D/Animator.h"
+#include "97.Engin/Component/Animation/Animator.h"
+#include "97.Engin/Resource/Animation.h"
 
 Axe::Axe()
 {
@@ -23,12 +23,12 @@ void Axe::Init()
 	// component
 	{
 		{
-			_animation = RESOURCE->GetAnimator(L"PsychoAxe");
-			_ani = new AnimationComponent();
+			_animation = RESOURCE->Get<Animation>(L"PsychoAxe");
+			_ani = new Animator();
 			_ani->SetAnimation(_animation);
 
-			Vec2Int size = _ani->GetAnimator()->GetInfo().size;
-			SetSize({ (float)size.x , (float)size.y });
+			//Vec2Int size = _ani->GetAnimator()->GetInfo().size;
+			//SetSize({ (float)size.x , (float)size.y });
 
 
 			AddComponent(_ani);
@@ -36,10 +36,10 @@ void Axe::Init()
 		// collider
 		{
 			BoxCollider* collider = new BoxCollider();
-			collider->SetSize(_renderSize);
+			collider->SetSize(_ani->GetCurrentAnimation()->GetKeyframe(0).size);
 			//collider->SetShowDebug(true);
 			AddComponent(collider);
-			SetCollider(collider);
+			//SetCollider(collider);
 
 			GET_SINGLE(CollisionManager)->AddCollider(collider);
 		}
@@ -59,15 +59,16 @@ void Axe::Update()
 	float angle = _angle - _info._sumTime * _angularSpeed;
 	float radius = _baseRadius + _info._sumTime * _radiusGrowth;
 
-	Vector center = _startPos; // 시작 위치
+	Vec3 center = _startPos; // 시작 위치
 
-	Vector offset =
+	Vec3 offset =
 	{
 		cosf(angle) * radius,
-		sinf(angle) * radius
+		sinf(angle) * radius,
+		0
 	};
 
-	SetPos(center + offset);
+	GetTransform()->SetPosition(center + offset);
 	
 	if (_info._sumTime >= _info._duration)
 	{
@@ -84,9 +85,9 @@ void Axe::Render(HDC hdc)
 
 void Axe::OnTriggerEnter(Collider* collider, Collider* other)
 {
-	if (other->GetOwner()->GetEntityType() == EntityType::Monster)
+	if (other->GetGameObject()->GetEntityType() == EntityType::Monster)
 	{
-		static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
+		static_cast<Entity*>(other->GetGameObject())->TakeDamage(_damageInfo);
 		//cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
 	}
 }

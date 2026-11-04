@@ -65,7 +65,7 @@ public:
 	void SetLayer(LAYER_TYPE layer) { _layer = layer; }
 	LAYER_TYPE GetLayer() { return _layer; }
 
-	void  AddVelocity(const Vec2& v) { _velocity += v; }
+	void  AddVelocity(const Vec3& v) { _velocity += v; }
 
 
 	int RandomRange(int min, int max)
@@ -95,11 +95,12 @@ private:
 
 protected:
 	// VALUE
+	// 트랜스폼으로 옮겼으니 이제 이것들은 안씀
 	//Vector _pos = {};
 	//Vector _size = { 0, 0};
 	//Vector _scale = { 1,1 };
 	//Vector _renderSize = { 0,0 };
-	Vec2 _velocity = { 0,0 };
+	Vec3 _velocity = { 0,0 ,0};
 
 	bool _isActivity = true;
 

@@ -2,7 +2,7 @@
 #include "AOE.h"
 
 class Animator;
-class AnimationComponent;
+class Animation;
 
 
 class BombExplode : public AOE
@@ -27,7 +27,7 @@ public:
 private:
 	vector<Collider*> _collsion;
 	
-	Animator* _animation = nullptr;
-	AnimationComponent* _ani = nullptr;
+	Animation* _animation = nullptr;
+	Animator* _ani = nullptr;
 };
 

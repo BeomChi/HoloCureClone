@@ -6,9 +6,9 @@
 #include "../../01.Manager/CollisionManager.h"
 #include "../../03.Object/Entity/Entity.h"
 #include "../../04.Component/Collision/BoxCollider.h"
-#include "../../04.Component/2D/AnimationComponent.h"
-#include "../../05.Resource/2D/Animator.h"
-#include "../../05.Resource/2D/Texture.h"
+#include "97.Engin/Component/Animation/Animator.h"
+#include "97.Engin/Resource/Animation.h"
+
 
 FanBeamObj::FanBeamObj()
 {
@@ -26,16 +26,16 @@ void FanBeamObj::Init()
 	{
 		{
 			// 좌우 애니메이션 설정
-			_dirAni[DIR_LEFT] = RESOURCE->GetAnimator(L"FanBeamLeft");
-			_dirAni[DIR_RIGHT] = RESOURCE->GetAnimator(L"FanBeamRight");
+			_dirAni[DIR_LEFT] = RESOURCE->Get<Animation>(L"FanBeamLeft");
+			_dirAni[DIR_RIGHT] = RESOURCE->Get<Animation>(L"FanBeamRight");
 
-			_ani = new AnimationComponent();
+			_ani = new Animator();
 			_ani->Reset();
 			SetState(DirState::Right);  // 초기 상태 설정 (예: 오른쪽 방향)
 
 			// 크기를 애니메이션 크기에 맞춰서 설정 SetSize 함수 안에 RenderSize도 같이 설정해줌
-			Vec2Int size = _ani->GetAnimator()->GetInfo().size;
-			SetSize({ (float)size.x , (float)size.y });
+			//Vec2Int size = _ani->GetAnimator()->GetInfo().size;
+			//SetSize({ (float)size.x , (float)size.y });
 
 
 			AddComponent(_ani);
@@ -45,9 +45,9 @@ void FanBeamObj::Init()
 			// 콜라이더
 			// 콜라이터 크기를 렌더 사이즈 맞춰서 설정해줌
 			BoxCollider* collider = new BoxCollider();
-			collider->SetSize(_renderSize);
+			collider->SetSize(_dirAni[DIR_LEFT]->GetKeyframe(0).size);
 			AddComponent(collider);
-			SetCollider(collider);
+			//SetCollider(collider);
 
 			GET_SINGLE(CollisionManager)->AddCollider(collider);
 		}
@@ -61,31 +61,31 @@ void FanBeamObj::Update()
 	Super::Update();
 
 	// 애니메이션이 끝부분에 도달시 비활성화
-	if (_ani->CheckCurrentAnimationEnd())
+	if (_ani->GetCurrentAinmationEndIndex())
 	{
 		_isActivity = false;
 	}
 }
 
-void FanBeamObj::Render(HDC hdc)
-{
-	Super::Render(hdc);
-
-	Utils::DrawRect(
-		hdc,
-		SCENE->WorldToScreen(GetPos()),
-		10,
-		10
-	);
-
-	//Utils::DrawCircle(hdc, _pos, _size);
-}
+//void FanBeamObj::Render(HDC hdc)
+//{
+//	Super::Render(hdc);
+//
+//	Utils::DrawRect(
+//		hdc,
+//		SCENE->WorldToScreen(GetPos()),
+//		10,
+//		10
+//	);
+//
+//	//Utils::DrawCircle(hdc, _pos, _size);
+//}
 
 void FanBeamObj::OnTriggerEnter(Collider* collider, Collider* other)
 {
-	if (other->GetOwner()->GetEntityType() == EntityType::Monster)
+	if (other->GetGameObject()->GetEntityType() == EntityType::Monster)
 	{
-		static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
+		static_cast<Entity*>(other->GetGameObject())->TakeDamage(_damageInfo);
 		//cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
 		_collsion.push_back(other);
 	}
@@ -104,7 +104,8 @@ void FanBeamObj::Reset()
 	_ani->Reset();
 	_dir = DirState::LaserStatEnd;
 
-	_collider->ClearCollisionMap();
+	GetCollider()->ClearCollisionMap();
+	//_collider->ClearCollisionMap();
 	_collsion.clear();
 }
 
@@ -127,7 +128,7 @@ void FanBeamObj::UpdateAnimation()
 	switch (_dir)
 	{
 	case DirState::Left:
-		cout
+		/*cout
 			<< "_renderSize.x = "
 			<< _renderSize.x
 			<< endl;
@@ -135,16 +136,16 @@ void FanBeamObj::UpdateAnimation()
 		cout
 			<< "_collider = "
 			<< (_collider != nullptr)
-			<< endl;
+			<< endl;*/
 		//cout << "UpdateAnimation Left" << endl;
 		_ani->SetAnimation(_dirAni[DIR_LEFT]);
-		_ani->GetAnimator()->SetPivot({ 1,0.5f });
+		//_ani->GetAnimator()->SetPivot({ 1,0.5f });
 
-		if (_collider)
-			_collider->SetOffset(Vector{ -_renderSize.x * 0.5f, 0 });  // 왼쪽으로 이동
+		//if (_collider)
+		//	_collider->SetOffset(Vector{ -_renderSize.x * 0.5f, 0 });  // 왼쪽으로 이동
 		break;
 	case DirState::Right:
-		cout
+		/*cout
 			<< "_renderSize.x = "
 			<< _renderSize.x
 			<< endl;
@@ -152,13 +153,13 @@ void FanBeamObj::UpdateAnimation()
 		cout
 			<< "_collider = "
 			<< (_collider != nullptr)
-			<< endl;
+			<< endl;*/
 		//cout << "UpdateAnimation Right" << endl;
 		_ani->SetAnimation(_dirAni[DIR_RIGHT]);
-		_ani->GetAnimator()->SetPivot({ 0,0.5f });
+		//_ani->GetAnimator()->SetPivot({ 0,0.5f });
 
-		if (_collider)
-			_collider->SetOffset(Vector{ _renderSize.x * 0.5f, 0 });   // 오른쪽으로 이동
+		//if (_collider)
+		//	_collider->SetOffset(Vector{ _renderSize.x * 0.5f, 0 });   // 오른쪽으로 이동
 		break;
 	}
 }

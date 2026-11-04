@@ -2,7 +2,7 @@
 #include "AOE.h"
 
 
-
+class SpriteRenderer;
 
 class BLBookObj :   public AOE
 {
@@ -23,7 +23,7 @@ public:
 
 	virtual void Reset() override;
 private:
-
+	SpriteRenderer* _spriteRenderer = nullptr;
 
 };
 

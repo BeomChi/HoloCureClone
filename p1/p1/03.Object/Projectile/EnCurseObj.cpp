@@ -7,8 +7,8 @@
 #include "../../02.Scene/Scene.h"
 #include "../../03.Object/Entity/Entity.h"
 #include "../../04.Component/Collision/BoxCollider.h"
-#include "../../04.Component/2D/AnimationComponent.h"
-#include "../../05.Resource/2D/Animator.h"
+#include "97.Engin/Component/Animation/Animator.h"
+#include "97.Engin/Resource/Animation.h"
 
 EnCurseObj::EnCurseObj()
 {
@@ -25,14 +25,14 @@ void EnCurseObj::Init()
 	// component
 	{
 		{
-			_dirAni[DIR_LEFT] = RESOURCE->GetAnimator(L"EnCurseLeft");
-			_dirAni[DIR_RIGHT] = RESOURCE->GetAnimator(L"EnCurseRight");
+			_dirAni[DIR_LEFT] = RESOURCE->Get<Animation>(L"EnCurseLeft");
+			_dirAni[DIR_RIGHT] = RESOURCE->Get<Animation>(L"EnCurseRight");
 
-			_ani = new AnimationComponent();
+			_ani = new Animator();
 			_ani->SetAnimation(_dirAni[DIR_LEFT]);
 
-			Vec2Int size = _ani->GetAnimator()->GetInfo().size;
-			SetSize({ (float)size.x , (float)size.y });
+			//Vec2Int size = _ani->GetAnimator()->GetInfo().size;
+			//SetSize({ (float)size.x , (float)size.y });
 
 
 			AddComponent(_ani);
@@ -40,10 +40,10 @@ void EnCurseObj::Init()
 		// collider
 		{
 			BoxCollider* collider = new BoxCollider();
-			collider->SetSize(_renderSize);
+			collider->SetSize(_ani->GetCurrentAnimation()->GetKeyframe(0).size);;
 			collider->SetShowDebug(false);
 			AddComponent(collider);
-			SetCollider(collider);
+			//SetCollider(collider);
 
 			GET_SINGLE(CollisionManager)->AddCollider(collider);
 		}
@@ -57,16 +57,16 @@ void EnCurseObj::Update()
 	Super::Update();
 
 	float deltaTime = TIME->GetDeltaTime();
+	Vec3 pos = GetTransform()->GetPosition();
 	if (_target == nullptr)
 	{
-
 		if (_dir == DirState::Right)
 		{
-			_pos.x += _info._speed * deltaTime;
+			pos.x += _info._speed * deltaTime;
 		}
 		else
 		{
-			_pos.x -= _info._speed * deltaTime;
+			pos.x -= _info._speed * deltaTime;
 		}
 		// 왜 자꾸 제자리에서 안사라지고 있는거지
 		// 추적중인 놈이 죽어서 사라지니 이놈 제자리 걸음하네
@@ -74,25 +74,26 @@ void EnCurseObj::Update()
 	}
 	else
 	{
-		Vector targetPos = _target->GetPos();
-		Vector dir = targetPos - _pos;
+		Vec3 targetPos = _target->GetTransform()->GetPosition();
+		Vec3 dir = targetPos - pos;
 
 		float distance = dir.Length();
 
 		if (distance > 0)
 		{
 			dir.Normalize();
-			_pos += dir * _info._speed * deltaTime;
+			pos += dir * _info._speed * deltaTime;
 		}
 	}
 
+	GetTransform()->SetPosition(pos);
 	/*if (!_target->GetIsActivity())
 	{
 		_target = nullptr;
 	}*/
 	
 
-	Vector pos = SCENE->WorldToScreen(_pos);
+	pos = SCENE->WorldToScreen(Vec2(pos.x,pos.y));
 	if (pos.x <= 0 || pos.y <= 0 ||
 		pos.x >= GWinSizeX || pos.y >= GWinSizeY ||
 		_trackingTime >= 10.f)
@@ -110,7 +111,7 @@ void EnCurseObj::Render(HDC hdc)
 
 void EnCurseObj::OnTriggerEnter(Collider* collider, Collider* other)
 {
-	if (other->GetOwner()->GetEntityType() == EntityType::Monster)
+	if (other->GetGameObject()->GetEntityType() == EntityType::Monster)
 	{
 		if (_isAbility)
 		{
@@ -120,16 +121,16 @@ void EnCurseObj::OnTriggerEnter(Collider* collider, Collider* other)
 		}
 
 		// 추적중이고 타겟이 충돌체랑 같을 경우
-		if (_isTracking && _target == other->GetOwner() && _target->GetIsActivity())
+		if (_isTracking && _target == other->GetGameObject() && _target->GetIsActivity())
 		{
-			static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
+			static_cast<Entity*>(other->GetGameObject())->TakeDamage(_damageInfo);
 			_target = nullptr; // 타겟 초기화
 			_isTracking = false;
 			//cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
 		}
 		else if (!_isTracking) // 추적중이 아니면
 		{
-			static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
+			static_cast<Entity*>(other->GetGameObject())->TakeDamage(_damageInfo);
 			//cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
 		}
 
@@ -151,11 +152,11 @@ void EnCurseObj::OnTriggerEnter(Collider* collider, Collider* other)
 					if (obj->GetEntityType() != EntityType::Monster)
 						continue;
 
-					if (obj == other->GetOwner())
+					if (obj == other->GetGameObject())
 						continue; // 현재 충돌한 오브젝트는 제외
 
-					Vector targetPos = obj->GetPos();
-					Vector dir = targetPos - _pos;
+					Vec3 targetPos = obj->GetTransform()->GetPosition();
+					Vec3 dir = targetPos - GetTransform()->GetPosition();
 
 					float distance = dir.Length();
 					if (distance <= _transition_Range)

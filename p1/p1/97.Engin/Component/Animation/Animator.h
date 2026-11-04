@@ -18,6 +18,9 @@ public:
 	const Keyframe& GetCurrentKeyframe();
 
 	void SetAnimation(Animation* animation) { _currentAnimation = animation; }
+	bool GetCurrentAinmationEndIndex() { return _currentKeyframeIndex >= _currentAnimation->GetKeyframeCount(); }
+
+	void Reset();
 
 private:
 	float _sumTime = 0.f;

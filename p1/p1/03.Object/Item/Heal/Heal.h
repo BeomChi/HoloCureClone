@@ -13,13 +13,12 @@ public:
 
 	virtual void Init() override;
 	virtual void Update() override;
-	virtual void Render(HDC hdc) override;
+	//virtual void Render(HDC hdc) override;
 
 	void AddToHeal(Player* obj);
 	virtual void ApplyEffect() override;
+
 private:
-	int _expArr[6] = { 5,10,25,50,75,100 };
-	int _exp = 0;
-	Sprite* _sprites[6] = {};
+	float _healAmount = 50.f;
 };
 

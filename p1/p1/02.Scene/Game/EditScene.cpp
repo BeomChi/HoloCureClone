@@ -6,13 +6,13 @@
 #include "../../01.Manager/SpawnManager.h"
 #include "../../01.Manager/StageManager.h"
 #include "../../01.Manager/GameManager.h"
+#include "../../01.Manager/SceneManager.h"
 #include "../../01.Manager/EquipmentManager.h"
 #include "../../01.Manager/UiLayoutManager.h"
 #include "../../03.Object/Item/Experinence/ExperinenceObject.h"
 #include "../../03.Object/Entity/Player/Player.h"
 #include "../../03.Object/ObjectPool/ObjectPool.h"
 #include "../../03.Object/Spawner/Spawner.h"
-#include "../../03.Object/Camera/Camera.h"
 #include "../../03.Object/Entity/Monster/Fubura.h"
 #include "../../03.Object/Entity/Monster/Shubangelion.h"
 #include "../../03.Object/Entity/Monster/NormalMonster.h"
@@ -29,10 +29,12 @@
 #include "../../03.Object/Item/Equipment/Weapon/WamyWater.h"
 #include "../../03.Object/Item/Equipment/Weapon/Trident.h"
 #include "../../04.Component/2D/SpriteRenderer.h"
-#include "../../04.Component/2D/AnimationComponent.h"
 #include "97.Engin/Resource/Texture.h"
 #include "97.Engin/Resource/Animation.h"
 #include "97.Engin/Resource/Sprite.h"
+#include "97.Engin/Component/Animation/Animator.h"
+#include "97.Engin/Component/Renderer/MeshRenderer.h"
+#include "97.Engin/Component/Camera/Camera.h"
 #include "../../05.Resource/Sound/Sound.h"
 #include "../../06.Ui/Button.h"
 #include "../../06.Ui/Game/PlayerHudPanel.h"
@@ -232,14 +234,16 @@ void EditScene::Init()
 		Sprite* sprite = RESOURCE->Get<Sprite>(L"Stage01");
 
 		GameObject* background = new GameObject();
+		MeshRenderer* meshRenderer = new MeshRenderer(SCENE->GetGraphics()->GetDevice(), SCENE->GetGraphics()->GetDeviceContext());
 		SpriteRenderer* renderer = new SpriteRenderer();
 		renderer->SetSprite(sprite);
 		background->SetLayer(LAYER_BACKGROUND);
+		background->GetOrAddTransform()->SetScale(Vec3(3, 3, 1));
 
 		const Vec2 size = sprite->GetSize();
 
-		background->SetScale(Vector( 3,3 ));
-		background->SetPos(Vector(size.x / 2, size.y / 2));
+		//background->SetScale(Vector( 3,3 ));
+		background->GetTransform()->SetPosition(Vec3(size.x / 2, size.y / 2, 0));
 
 		background->AddComponent(renderer);
 		AddObject(background);
@@ -256,8 +260,10 @@ void EditScene::Init()
 #pragma region 오브젝트
 	EQUIPMENT->Init();
 	{
-		Camera* camera = new Camera();
-		camera->SetPos({ 400,400 });
+		GameObject* camera = new GameObject();
+		auto cam = new Camera();
+		camera->AddComponent(cam);
+		camera->GetOrAddTransform()->SetPosition({400,400,0});
 		//camera->SetTarget(GAMEMANAGER->GetPlayer());
 		AddObject(camera);
 	}
@@ -340,8 +346,8 @@ void EditScene::Render(HDC hdc)
 bool EditScene::InSideObject(GameObject* obj)
 {
 	POINT mousePos = INPUT->GetMousePos();
-	Vector objPos = obj->GetPos();
-	Vector objSize = obj->GetScale();
+	Vec3 objPos = obj->GetOrAddTransform()->GetPosition();
+	Vec3 objSize = obj->GetTransform()->GetScale();
 
 	return (mousePos.x <= objPos.x + objSize.x &&
 		mousePos.x >= objPos.x - objSize.x &&
@@ -374,7 +380,7 @@ void EditScene::SelectObject()
 							_selectedObject = objects[j];
 							_isDragging = true;
 
-							_dragOffset = Vector(mousePos.x, mousePos.y) - objects[j]->GetPos();
+							_dragOffset = Vec3(mousePos.x, mousePos.y,0) - objects[j]->GetOrAddTransform()->GetPosition();
 							wstring s = _selectedObject->GetKey();
 							return;
 						}
@@ -392,7 +398,7 @@ void EditScene::SelectObject()
 						_selectedObject = panelObjects[i];
 						_isDragging = true;
 
-						_dragOffset = Vector(mousePos.x, mousePos.y) - panelObjects[i]->GetPos();
+						_dragOffset = Vec3(mousePos.x, mousePos.y,0) - panelObjects[i]->GetOrAddTransform()->GetPosition();
 
 						return;
 					}
@@ -414,6 +420,6 @@ void EditScene::MoveSelectedObject()
 		return;
 
 	POINT mousePos = INPUT->GetMousePos();
-	_selectedObject->SetPos(Vector(mousePos.x, mousePos.y) - _dragOffset);
+	_selectedObject->GetOrAddTransform()->SetPosition(Vec3(mousePos.x, mousePos.y, 0) - _dragOffset);
 }
 

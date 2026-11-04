@@ -7,9 +7,9 @@
 #include "../../../01.Manager/StageManager.h"
 #include "../../../03.Object/Projectile/Laser.h"
 #include "../../../03.Object/ObjectPool/ObjectPool.h"
-#include "../../../04.Component/2D/AnimationComponent.h"
 #include "../../../04.Component/Collision/BoxCollider.h"
-#include "../../../05.Resource/2D/Animator.h"
+#include "97.Engin/Component/Animation/Animator.h"
+#include "97.Engin/Resource/Animation.h"
 
 Shubangelion::Shubangelion()
 {
@@ -22,16 +22,16 @@ Shubangelion::~Shubangelion()
 void Shubangelion::Init()
 {
 
-	_aniIdle[DIR_LEFT] = RESOURCE->GetAnimator(L"Shubangelion_Charge");
-	_aniIdle[DIR_RIGHT] = RESOURCE->GetAnimator(L"Shubangelion_Charge");
+	_aniIdle[DIR_LEFT] = RESOURCE->Get<Animation>(L"Shubangelion_Charge");
+	_aniIdle[DIR_RIGHT] = RESOURCE->Get<Animation>(L"Shubangelion_Charge");
 
-	_aniMove[DIR_LEFT] = RESOURCE->GetAnimator(L"Shubangelion_MoveLeft");
-	_aniMove[DIR_RIGHT] = RESOURCE->GetAnimator(L"Shubangelion_MoveRight");
+	_aniMove[DIR_LEFT] = RESOURCE->Get<Animation>(L"Shubangelion_MoveLeft");
+	_aniMove[DIR_RIGHT] = RESOURCE->Get<Animation>(L"Shubangelion_MoveRight");
 
-	_aniAttack[START] = RESOURCE->GetAnimator(L"Shubangelion_Charge");
-	_aniAttack[ATTACK] = RESOURCE->GetAnimator(L"Shubagelion_Attack");
+	_aniAttack[START] = RESOURCE->Get<Animation>(L"Shubangelion_Charge");
+	_aniAttack[ATTACK] = RESOURCE->Get<Animation>(L"Shubagelion_Attack");
 
-	_ani = new AnimationComponent();
+	_ani = new Animator();
 	_ani->SetAnimation(_aniIdle[_dir]);
 	SetState(State::Move);
 	_attack = START;
@@ -63,7 +63,7 @@ void Shubangelion::Update()
 		Attack(deltaTime);
 		break;
 	case State::Spawn:
-		if (_ani->CheckCurrentAnimationEnd())
+		if (_ani->GetCurrentAinmationEndIndex())
 		{
 			SetState(State::Move);
 		}
@@ -72,8 +72,10 @@ void Shubangelion::Update()
 		break;
 	}
 	
-	_pos += _velocity * deltaTime;
+	Vec3 pos = GetTransform()->GetPosition();
+	pos += _velocity * deltaTime;
 
+	GetTransform()->SetPosition(pos);
 	// 이동 후 속도 감소 (마찰 같은 느낌)
 	_velocity *= 0.9f; // or 0.8f, 자연 감속
 }
@@ -104,10 +106,10 @@ void Shubangelion::Reset()
 
 void Shubangelion::Move(float deltaTime)
 {
-	Vector dir = _target->GetPos() - GetPos();
+	Vec3 dir = _target->GetTransform()->GetPosition() - GetTransform()->GetPosition();
 	dir.Normalize();
 
-	Vector distance = _target->GetPos() - GetPos();
+	Vec3 distance = _target->GetTransform()->GetPosition() - GetTransform()->GetPosition();
 	float dist = sqrt(distance.x * distance.x + distance.y * distance.y);
 
 	if (distance.x > 0)
@@ -139,7 +141,7 @@ void Shubangelion::Attack(float deltaTime)
 	{
 		SetenumAttack(START);
 
-		if (!_ani->CheckCurrentAnimationEnd())
+		if (!_ani->GetCurrentAinmationEndIndex())
 			return;
 
 		_paattenNumber = 1;
@@ -155,10 +157,10 @@ void Shubangelion::ChangeAttack()
 {
 	SetenumAttack(ATTACK);
 
-	if (!_ani->CheckCurrentAnimationEnd())
+	if (!_ani->GetCurrentAinmationEndIndex())
 		return;
 
-	Vector distance = _target->GetPos() - GetPos();
+	Vec3 distance = _target->GetTransform()->GetPosition() - GetTransform()->GetPosition();
 	float dist = sqrt(distance.x * distance.x + distance.y * distance.y);
 
 

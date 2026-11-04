@@ -111,7 +111,7 @@ void RenderManager::GettherRenderableObjects()
 		for (const auto& gameObject : gameObjects)
 		{
 			MeshRenderer* meshRenderer = gameObject->GetMeshRenderer();
-			if (meshRenderer)
+			if (meshRenderer && gameObject->GetIsActivity() != false)
 				_renderObjects.push_back(gameObject);
 		}
 	}
@@ -120,7 +120,7 @@ void RenderManager::GettherRenderableObjects()
 	for (const auto& gameObject : gameObjects)
 	{
 		MeshRenderer* meshRenderer = gameObject->GetMeshRenderer();
-		if (meshRenderer)
+		if (meshRenderer && gameObject->GetIsActivity() != false)
 			_renderUiObjects.push_back(gameObject);
 	}
 
@@ -138,7 +138,6 @@ void RenderManager::RenderObjects(vector<GameObject*> renderObject)
 		if (transform == nullptr)
 			continue;
 
-		Vec2 frameSize;
 		Matrix matSize;
 
 		Animator* animator = gameObject->GetAnimator();
@@ -153,13 +152,8 @@ void RenderManager::RenderObjects(vector<GameObject*> renderObject)
 			PushAnimationData();
 			_pipeline->SetConstantBuffer(2, SS_VertexShader, _animationBuffer);
 			_pipeline->SetTexture(0, SS_PixelShader, animator->GetCurrentAnimation()->GetTexture());
-
-			frameSize = keyframe.size;
-			matSize = Matrix::CreateScale(
-				frameSize.x,
-				frameSize.y,
-				1.0f
-			);
+			
+			matSize = SetRenderScale(keyframe.size);
 		}
 		else
 		{
@@ -171,6 +165,8 @@ void RenderManager::RenderObjects(vector<GameObject*> renderObject)
 			PushAnimationData();
 			_pipeline->SetConstantBuffer(2, SS_VertexShader, _animationBuffer);
 			_pipeline->SetTexture(0, SS_PixelShader, meshRenderer->GetTexture());
+
+			matSize = SetRenderScale(meshRenderer->GetTexture()->GetSize());
 		}
 
 		_transformData.matWorld = matSize * transform->GetWorldMatrix();
@@ -195,6 +191,16 @@ void RenderManager::RenderObjects(vector<GameObject*> renderObject)
 		_pipeline->DrawIndexed(meshRenderer->GetMesh()->GetIndexBuffer()->GetCount(), 0, 0);
 
 	}
+}
+
+Matrix RenderManager::SetRenderScale(Vec2 size)
+{
+	Matrix matSize = Matrix::CreateScale(
+		size.x,
+		size.y,
+		1.0f
+	);
+	return matSize;
 }
 
 

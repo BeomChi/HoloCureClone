@@ -110,7 +110,7 @@ void Game::Init(HWND hwnd)
 	_soundManager = new SoundManager();
 	_soundManager->Init(hwnd);
 
-	_sceneManager = new SceneManager();
+	_sceneManager = new SceneManager(_graphics);
 	_sceneManager->Init();
 
 	_gameManager = new GameManager();

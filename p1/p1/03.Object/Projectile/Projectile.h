@@ -3,7 +3,7 @@
 
 struct ProjectileInfo
 {
-	Vector _dir = {0,0};
+	Vec3 _dir = {0,0,0};
 	float _speed = 0;
 
 	int32 _pierceCount = 0; // °üÅë ¼ö
@@ -21,7 +21,7 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
-	void SetDir(Vector dir) { _info._dir = dir; }
+	void SetDir(Vec3 dir) { _info._dir = dir; }
 	void SetDamageInfo(const DamageInfo& info) { _damageInfo = info; }
 
 

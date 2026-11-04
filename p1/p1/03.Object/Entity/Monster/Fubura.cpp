@@ -6,9 +6,9 @@
 #include "../../../02.Scene/Scene.h"
 #include "../../../03.Object/Projectile/Laser.h"
 #include "../../../03.Object/ObjectPool/ObjectPool.h"
-#include "../../../04.Component/2D/AnimationComponent.h"
 #include "../../../04.Component/Collision/BoxCollider.h"
-#include "../../../05.Resource/2D/Animator.h"
+#include "97.Engin/Component/Animation/Animator.h"
+#include "97.Engin/Resource/Animation.h"
 
 Fubura::Fubura()
 {
@@ -20,17 +20,17 @@ Fubura::~Fubura()
 
 void Fubura::Init()
 {
-	_aniIdle[DIR_LEFT] = RESOURCE->GetAnimator(L"Fubura_MoveLeft");
-	_aniIdle[DIR_RIGHT] = RESOURCE->GetAnimator(L"Fubura_MoveRight");
+	_aniIdle[DIR_LEFT] = RESOURCE->Get<Animation>(L"Fubura_MoveLeft");
+	_aniIdle[DIR_RIGHT] = RESOURCE->Get<Animation>(L"Fubura_MoveRight");
 
-	_aniMove[DIR_LEFT] = RESOURCE->GetAnimator(L"Fubura_MoveLeft");
-	_aniMove[DIR_RIGHT] = RESOURCE->GetAnimator(L"Fubura_MoveRight");
+	_aniMove[DIR_LEFT] = RESOURCE->Get<Animation>(L"Fubura_MoveLeft");
+	_aniMove[DIR_RIGHT] = RESOURCE->Get<Animation>(L"Fubura_MoveRight");
 
-	_aniAttack[START] = RESOURCE->GetAnimator(L"FanSpawn");
-	_aniAttack[ATTACK] = RESOURCE->GetAnimator(L"FanSpawn");
+	_aniAttack[START] = RESOURCE->Get<Animation>(L"FanSpawn");
+	_aniAttack[ATTACK] = RESOURCE->Get<Animation>(L"FanSpawn");
 
 	//SetScale({ 1.5f, 1.5f });
-	_ani = new AnimationComponent();
+	_ani = new Animator();
 	_ani->SetAnimation(_aniIdle[_dir]);
 	SetState(State::Move);
 
@@ -64,7 +64,7 @@ void Fubura::Update()
 		Attack(deltaTime);
 		break;
 	case State::Spawn:
-		if (_ani->CheckCurrentAnimationEnd())
+		if (_ani->GetCurrentAinmationEndIndex())
 		{
 			SetState(State::Move);
 		}
@@ -80,7 +80,9 @@ void Fubura::Update()
 		break;
 	}
 	
-	_pos += _velocity * deltaTime;
+	Vec3 pos = GetTransform()->GetPosition();
+	pos += _velocity * deltaTime;
+	GetTransform()->SetPosition(pos);
 
 	// 이동 후 속도 감소 (마찰 같은 느낌)
 	_velocity *= 0.9f; // or 0.8f, 자연 감속
@@ -107,10 +109,10 @@ void Fubura::Reset()
 
 void Fubura::Move(float deltaTime)
 {
-	Vector dir = _target->GetPos() - GetPos();
+	Vec3 dir = _target->GetTransform()->GetPosition() - GetTransform()->GetPosition();
 	dir.Normalize();
 
-	Vector distance = _target->GetPos() - GetPos();
+	Vec3 distance = _target->GetTransform()->GetPosition() - GetTransform()->GetPosition();
 	float dist = sqrt(distance.x * distance.x + distance.y * distance.y);
 
 	if (distance.x > 0)
@@ -169,12 +171,12 @@ void Fubura::LaserPattern()
 
 		Laser* laser = GET_SINGLE(ObjectPool)->Get<Laser>(L"Laser");
 
-		Vector pos;
-		pos.x = _target->GetPos().x - 5;
-		pos.y = (_target->GetPos().y - 400) + 100.f * (i + 1);
+		Vec3 pos;
+		pos.x = _target->GetTransform()->GetPosition().x - 5;
+		pos.y = (_target->GetTransform()->GetPosition().y - 400) + 100.f * (i + 1);
 
 		laser->Activate(pos, 5);
-		laser->SetScale({ 1.75,2 });
+		laser->GetTransform()->SetScale({ 1.75,2,1 });
 		laser->SetDamageInfo({ this,25,false });
 
 		SCENE->GetCurrentScene()->AddObject(laser);

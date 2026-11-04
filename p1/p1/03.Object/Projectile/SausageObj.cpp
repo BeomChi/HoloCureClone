@@ -5,9 +5,9 @@
 #include "../../01.Manager/GameManager.h"
 #include "../../03.Object/Entity/Entity.h"
 #include "../../04.Component/Collision/BoxCollider.h"
-#include "../../04.Component/2D/AnimationComponent.h"
-#include "../../05.Resource/2D/Animator.h"
-#include "../../05.Resource/2D/Texture.h"
+#include "97.Engin/Component/Animation/Animator.h"
+#include "97.Engin/Resource/Animation.h"
+#include "97.Engin/Resource/Texture.h"
 
 SausageObj::SausageObj()
 {
@@ -24,14 +24,14 @@ void SausageObj::Init()
 	// component
 	{
 		{
-			_dirAni[DIR_LEFT] = RESOURCE->GetAnimator(L"SausageLeft");
-			_dirAni[DIR_RIGHT] = RESOURCE->GetAnimator(L"SausageRight");
+			_dirAni[DIR_LEFT] = RESOURCE->Get<Animation>(L"SausageLeft");
+			_dirAni[DIR_RIGHT] = RESOURCE->Get<Animation>(L"SausageRight");
 
-			_ani = new AnimationComponent();
+			_ani = new Animator();
 			_ani->SetAnimation(_dirAni[DIR_RIGHT]);
 
-			Vec2Int size = _ani->GetAnimator()->GetInfo().size;
-			SetSize({ (float)size.x , (float)size.y });
+			//Vec2Int size = _ani->GetAnimator()->GetInfo().size;
+			//SetSize({ (float)size.x , (float)size.y });
 
 
 			AddComponent(_ani);
@@ -39,10 +39,10 @@ void SausageObj::Init()
 		// collider
 		{
 			BoxCollider* collider = new BoxCollider();
-			collider->SetSize(_renderSize);
+			collider->SetSize(_ani->GetCurrentKeyframe().size);
 			collider->SetShowDebug(false);
 			AddComponent(collider);
-			SetCollider(collider);
+			//SetCollider(collider);
 
 			GET_SINGLE(CollisionManager)->AddCollider(collider);
 		}
@@ -55,7 +55,7 @@ void SausageObj::Update()
 {
 	Super::Update();
 
-	if (_ani->CheckCurrentAnimationEnd())
+	if (_ani->GetCurrentAinmationEndIndex())
 	{
 		_isActivity = false;
 	}
@@ -70,10 +70,10 @@ void SausageObj::Render(HDC hdc)
 
 void SausageObj::OnTriggerEnter(Collider* collider, Collider* other)
 {
-	if (other->GetOwner()->GetEntityType() == EntityType::Monster)
+	if (other->GetGameObject()->GetEntityType() == EntityType::Monster)
 	{
-		static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
-		Knockback(collider->GetOwner(), other->GetOwner(), _knockbackForce);
+		static_cast<Entity*>(other->GetGameObject())->TakeDamage(_damageInfo);
+		Knockback(collider->GetGameObject(), other->GetGameObject(), _knockbackForce);
 		//cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
 	}
 }
@@ -84,7 +84,7 @@ void SausageObj::Reset()
 {
 	_ani->Reset();
 	
-	_collider->ClearCollisionMap();
+	//_collider->ClearCollisionMap();
 }
 
 void SausageObj::SetState(DirState dir)
@@ -102,17 +102,17 @@ void SausageObj::UpdateAnimation()
 	{
 	case DirState::Left:
 		_ani->SetAnimation(_dirAni[DIR_LEFT]);
-		_ani->GetAnimator()->SetPivot({ 1,0.5f });
+		//_ani->GetAnimator()->SetPivot({ 1,0.5f });
 
-		if (_collider)
-			_collider->SetOffset({ -_renderSize.x * 0.5f, 0 });  // 왼쪽으로 이동
+		//if (_collider)
+		//	_collider->SetOffset({ -_renderSize.x * 0.5f, 0 });  // 왼쪽으로 이동
 		break;
 	case DirState::Right:
 		_ani->SetAnimation(_dirAni[DIR_RIGHT]);
-		_ani->GetAnimator()->SetPivot({ 0,0.5f });
+		//_ani->GetAnimator()->SetPivot({ 0,0.5f });
 
-		if (_collider)
-			_collider->SetOffset({ _renderSize.x * 0.5f, 0 });   // 오른쪽으로 이동
+		//if (_collider)
+		//	_collider->SetOffset({ _renderSize.x * 0.5f, 0 });   // 오른쪽으로 이동
 		break;
 	}
 }

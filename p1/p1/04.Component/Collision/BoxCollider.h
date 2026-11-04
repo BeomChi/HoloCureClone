@@ -14,10 +14,10 @@ public:
 
 	virtual bool CheckCollision(Collider* other);
 
-	Vector GetSize() { return _size; }
-	void SetSize(Vector size) { _size = size; }
+	Vec2 GetSize() { return _size; }
+	void SetSize(Vec2 size) { _size = size; }
 
 private:
-	Vector _size = {};
+	Vec2 _size = {};
 };
 

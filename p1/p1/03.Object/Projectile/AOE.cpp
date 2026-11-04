@@ -1,11 +1,23 @@
 #include "pch.h"
 #include "AOE.h"
 #include "../../01.Manager/GameManager.h"
+#include "../../01.Manager/SceneManager.h"
+#include "../../01.Manager/ResourceManager.h"
 #include "03.Object/Entity/Entity.h"
 #include "03.Object/Entity/Player/Player.h"
+#include "97.Engin/Component/Transform/Transform.h"
+#include "97.Engin/Component/Renderer/MeshRenderer.h"
 
 AOE::AOE()
 {
+	GetOrAddTransform();
+	auto meshRenderer = new MeshRenderer(SCENE->GetGraphics()->GetDevice(),SCENE->GetGraphics()->GetDeviceContext());
+	AddComponent(meshRenderer);
+
+	auto material = RESOURCE->Get<Material>(L"Default");
+	meshRenderer->SetMaterial(material);
+	auto mesh = RESOURCE->Get<Mesh>(L"Rectangle");
+	meshRenderer->SetMesh(mesh);
 }
 
 AOE::~AOE()
@@ -32,13 +44,14 @@ void AOE::Render(HDC hdc)
 void AOE::SetScaleMultple(float scale)
 {
 	_info._baseScale += scale;
-	SetScale({ _info._baseScale,_info._baseScale });
+	GetTransform()->SetScale(Vec3(_info._baseScale, _info._baseScale, 1));
+	//SetScale({ _info._baseScale,_info._baseScale });
 }
 
 // 넉백 같은거 나중에 버프 효과로 따로 빼서 하는 것도 좋을거 같은디
 void AOE::Knockback(GameObject* obj, GameObject* other, float force)
 {
-	Vector dir = other->GetPos() - GAMEMANAGER->GetPlayer()->GetPos();
+	Vec3 dir = other->GetTransform()->GetPosition() - GAMEMANAGER->GetPlayer()->GetTransform()->GetPosition();
 	dir.Normalize();
 
 	// 넉백 거리 만큼 dir을 곱해주고 거기에다가 객체의 위치를 더해서 위치를 설정하면 텔포가 되어버리는 데 음

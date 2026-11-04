@@ -28,7 +28,7 @@ private:
 	Panel* _panel = nullptr;
 
 	bool _isDragging = false;
-	Vector _dragOffset = {};
+	Vec3 _dragOffset = {};
 	UiLayoutManager* _uiLayoutManager;
 };
 

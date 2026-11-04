@@ -97,6 +97,11 @@ public:
 		return dist(mt);
 	}
 
+	Vec3 SpawnRandomPositionAroundPlayer();
+
+	Vec3 GetFirePos(float firePosLength);
+	Vec3 GetMousePosToPlayerDir();
+
 protected:
 	EquipmentBaseInfo _baseInfo;					// 장비 기본 정보
 	Equip _equipType = Equip::None;					// 장비 타입

@@ -11,9 +11,9 @@
 #include "../../../03.Object/Item/Experinence/ExperinenceObject.h"
 #include "../../../03.Object/Item/Heal/Heal.h"
 #include "../../../03.Object/Entity/Player/Player.h"
-#include "../../../04.Component/2D/AnimationComponent.h"
 #include "../../../04.Component/Collision/BoxCollider.h"
-#include "../../../05.Resource/2D/Animator.h"
+#include "97.Engin/Resource/Animation.h"
+#include "97.Engin/Component/Animation/Animator.h"
 
 Monster::Monster()
 {
@@ -26,8 +26,8 @@ Monster::~Monster()
 void Monster::Init()
 {
 	InitCommon();
-	_aniSpawn = RESOURCE->GetAnimator(L"FanSpawn");
-	_aniDie = RESOURCE->GetAnimator(L"FanDie");
+	_aniSpawn = RESOURCE->Get<Animation>(L"FanSpawn");
+	_aniDie = RESOURCE->Get<Animation>(L"FanDie");
 	
 
 }
@@ -45,19 +45,19 @@ void Monster::Update()
 		}
 
 
-		if (_ani->CheckCurrentAnimationEnd())
+		if (_ani->GetCurrentAinmationEndIndex())
 		{
 			GET_SINGLE(SpawnManager)->SubCurrentSpawnCount();
 
 			// 경험치 및 아이템 드랍
 			ExperinenceObject* exp = GET_SINGLE(ObjectPool)->Get<ExperinenceObject>(L"Exp");
 			exp->SetPlayer(GAMEMANAGER->GetPlayer());
-			exp->SetPos(_pos);
+			exp->GetOrAddTransform()->SetPosition(GetTransform()->GetPosition());
 			SCENE->GetCurrentScene()->AddObject(exp);
 
 			Heal* heal = GET_SINGLE(ObjectPool)->Get<Heal>(L"Heal");
 			heal->SetPlayer(GAMEMANAGER->GetPlayer());
-			heal->SetPos(_pos);
+			heal->GetOrAddTransform()->SetPosition(GetTransform()->GetPosition());
 			SCENE->GetCurrentScene()->AddObject(heal);
 			GET_SINGLE(StageManager)->PlusMonsterDieCount();
 
@@ -90,10 +90,10 @@ void Monster::InitCommon()
 
 	BoxCollider* _boxCollider = new BoxCollider();
 	_boxCollider->SetShowDebug(false);
-	SetCollider(_boxCollider);
+	//SetCollider(_boxCollider);
 
-	Vec2Int size = _ani->GetAnimator()->GetInfo().size;
-	SetSize({ (float)size.x, (float)size.y });
+	//Vec2Int size = _ani->GetAnimator()->GetInfo().size;
+	//SetSize({ (float)size.x, (float)size.y });
 
 	AddComponent(_boxCollider);
 

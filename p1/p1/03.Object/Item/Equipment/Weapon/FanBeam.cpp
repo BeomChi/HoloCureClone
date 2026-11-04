@@ -8,6 +8,7 @@
 #include "../../../../03.Object/ObjectPool/ObjectPool.h"
 #include "../../../../03.Object/Projectile/FanBeamObj.h"
 #include "../../../../03.Object/Entity/Player/Player.h"
+#include "97.Engin/Component/Animation/Animator.h"
 
 
 FanBeam::FanBeam()
@@ -119,8 +120,10 @@ void FanBeam::Update()
 		// 오브젝트 풀에서 FanBeamObj 가져오기
 		FanBeamObj* fanBeamObj = GET_SINGLE(ObjectPool)->Get<FanBeamObj>(L"FanBeamObj");
 
+		_firePosLength = fanBeamObj->GetAnimator()->GetCurrentKeyframe().size.x * 0.5f;
+
 		// 발사 위치 설정 (플레이어 앞 방향)
-		fanBeamObj->SetPos(GetFirePos(false));
+		fanBeamObj->GetTransform()->SetPosition(GetFirePos(false));
 
 		// 플레이어 방향에 따라 빔 방향 설정
 		Dir dir = GAMEMANAGER->GetPlayer()->GetDir();
@@ -134,7 +137,7 @@ void FanBeam::Update()
 		fanBeamObj->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));
 
 		// 크기 설정
-		fanBeamObj->SetScale(Vector(_info._range, _info._range));
+		fanBeamObj->GetTransform()->SetScale(Vec3(_info._range, _info._range,1));
 
 		// 오브젝트 매니저에 등록
 		SCENE->GetCurrentScene()->AddObject(fanBeamObj);
@@ -144,7 +147,8 @@ void FanBeam::Update()
 			// 후방 빔 발사
 			FanBeamObj* rearFanBeamObj2 = GET_SINGLE(ObjectPool)->Get<FanBeamObj>(L"FanBeamObj");
 
-			rearFanBeamObj2->SetPos(GetFirePos(_isSpecialAbility));
+			_firePosLength = rearFanBeamObj2->GetAnimator()->GetCurrentKeyframe().size.x * 0.5f;
+			rearFanBeamObj2->GetTransform()->SetPosition(GetFirePos(_isSpecialAbility));
 
 			// 반대 방향으로 설정
 			if (dir == DIR_LEFT)
@@ -161,7 +165,7 @@ void FanBeam::Update()
 
 			// 데미지 및 크기 설정
 			rearFanBeamObj2->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));
-			rearFanBeamObj2->SetScale(Vector(_info._range, _info._range));
+			rearFanBeamObj2->GetTransform()->SetScale(Vec3(_info._range, _info._range,1));
 
 			// 오브젝트 매니저에 등록
 			SCENE->GetCurrentScene()->AddObject(rearFanBeamObj2);
@@ -193,9 +197,9 @@ void FanBeam::OnUnequipEffect(Player& player)
 
 /// @brief 플레이어 앞 방향 기준 빔 발사 위치 계산
 /// @return Vec2 형태의 위치 값
-Vector FanBeam::GetFirePos(bool isSpecialAbility)
+Vec3 FanBeam::GetFirePos(bool isSpecialAbility)
 {
-	Vector firePos = GAMEMANAGER->GetPlayer()->GetPos();
+	Vec3 firePos = GAMEMANAGER->GetPlayer()->GetTransform()->GetPosition();
 	Dir dir = GAMEMANAGER->GetPlayer()->GetDir();
 
 	if (!isSpecialAbility)

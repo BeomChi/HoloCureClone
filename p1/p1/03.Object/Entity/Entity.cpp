@@ -5,11 +5,16 @@
 #include "../../01.Manager/SceneManager.h"
 #include "../../02.Scene/Scene.h"
 #include "../../03.Object/ObjectPool/ObjectPool.h"
-#include "../../04.Component/2D/AnimationComponent.h"
 #include "../../06.Ui/Game/DamageText.h"
+#include "97.Engin/Component/Animation/Animator.h"
+#include "97.Engin/Component/Renderer/MeshRenderer.h"
 
 Entity::Entity() 
 {
+	auto meshRenderer = new MeshRenderer(SCENE->GetGraphics()->GetDevice(), 
+		SCENE->GetGraphics()->GetDeviceContext());
+	AddComponent(meshRenderer);
+
 }
 
 Entity::~Entity()
@@ -51,7 +56,7 @@ void Entity::TakeDamage(const DamageInfo& dmg)
 	_info._currentHp -= dmg._finalDamage;
 
 	auto damageText = GET_SINGLE(ObjectPool)->Get<DamageText>(L"DamageText");
-	damageText->ShowDamage(dmg._finalDamage, this->GetPos(),dmg._isCritical);
+	damageText->ShowDamage(dmg._finalDamage, this->GetTransform()->GetPosition(), dmg._isCritical);
 	damageText->SetFontSize(24);
 
 	SCENE->GetCurrentScene()->AddObject(damageText);

@@ -5,7 +5,7 @@
 #include "../../../01.Manager/GameManager.h"
 #include "../../../03.Object/Entity/Player/Player.h"
 #include "../../../04.Component/2D/SpriteRenderer.h"
-#include "../../../05.Resource/2D/Sprite.h"
+#include "97.Engin/Resource/Sprite.h"
 
 
 ExperinenceObject::ExperinenceObject()
@@ -22,19 +22,19 @@ void ExperinenceObject::Init()
 	int rand = RandomRange(0, 5);
 
 	// 스프라이트 초기화
-	_sprites[0] = RESOURCE->GetSprite(L"Exp01");
-	_sprites[1] = RESOURCE->GetSprite(L"Exp02");
-	_sprites[2] = RESOURCE->GetSprite(L"Exp03");
-	_sprites[3] = RESOURCE->GetSprite(L"Exp04");
-	_sprites[4] = RESOURCE->GetSprite(L"Exp05");
-	_sprites[5] = RESOURCE->GetSprite(L"Exp06");
+	_sprites[0] = RESOURCE->Get<Sprite>(L"Exp01");
+	_sprites[1] = RESOURCE->Get<Sprite>(L"Exp02");
+	_sprites[2] = RESOURCE->Get<Sprite>(L"Exp03");
+	_sprites[3] = RESOURCE->Get<Sprite>(L"Exp04");
+	_sprites[4] = RESOURCE->Get<Sprite>(L"Exp05");
+	_sprites[5] = RESOURCE->Get<Sprite>(L"Exp06");
 
 	// 렌더러 넣어주고
 	_sprite = new SpriteRenderer();
 	_sprite->SetSprite(_sprites[rand]);
 
-	Vec2Int size = _sprite->GetSprite()->GetSize();
-	SetSize({ (float)size.x,(float)size.y });
+	//Vec2Int size = _sprite->GetSprite()->GetSize();
+	//SetSize({ (float)size.x,(float)size.y });
 
 	AddComponent(_sprite);
 
@@ -50,11 +50,11 @@ void ExperinenceObject::Update()
 	PlayerDistance();
 }
 
-void ExperinenceObject::Render(HDC hdc)
-{
-	Super::Render(hdc);
-
-}
+//void ExperinenceObject::Render(HDC hdc)
+//{
+//	Super::Render(hdc);
+//
+//}
 
 void ExperinenceObject::AddToExp(Player* obj)
 {

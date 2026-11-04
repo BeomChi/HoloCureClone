@@ -8,6 +8,7 @@
 #include "../../../../03.Object/ObjectPool/ObjectPool.h"
 #include "../../../../03.Object/Projectile/Splash.h"
 #include "../../../../03.Object/Entity/Player/Player.h"
+#include "97.Engin/Component/Animation/Animator.h"
 
 
 WamyWater::WamyWater()
@@ -124,15 +125,22 @@ void WamyWater::Update()
 	float deltaTime = TIME->GetDeltaTime();
 	_sumTime += deltaTime;
 
+	//TODO : 소시지랑 같은 로직이므로 위로 올려서 공통화 시키놓기 지금 당장은 빨간줄을 우선해서 지우자
+
 	// 쿨타임이 경과하면 투사체를 발사
 	if (_sumTime - _lastAttackTime >= _info._coolTime)
 	{
 		// 오브젝트 풀에서 SausageObj를 꺼냄
 		Splash* splash = GET_SINGLE(ObjectPool)->Get<Splash>(L"Splash");
 
-		// 플레이어 위치 기준으로 발사 위치 지정
-		splash->SetPos(GetFirePos());
+		_firePosLength = splash->GetAnimator()->GetCurrentKeyframe().size.x * 0.5f;
 
+		// 플레이어 위치 기준으로 발사 위치 지정
+		splash->GetTransform()->SetPosition(GetFirePos());
+
+		// 투사체 크기 설정
+		splash->GetTransform()->SetScale(Vec3{_info._range, _info._range, 1}); 
+		
 		// 플레이어의 방향에 따라 투사체 방향 설정
 		Dir dir = GAMEMANAGER->GetPlayer()->GetDir();
 		
@@ -143,7 +151,6 @@ void WamyWater::Update()
 
 		// 실시간 데미지 계산 후 설정
 		splash->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));
-		splash->SetScale(Vector{ _info._range, _info._range }); // 투사체 크기 설정
 		splash->SetKnockbackForce(_knockbackForce );
 
 		// ObjectManager에 추가하여 게임 내 등장시킴
@@ -176,9 +183,10 @@ void WamyWater::OnUnequipEffect(Player& player)
 
 /// @brief 플레이어 방향을 고려해 투사체의 시작 위치 계산
 /// @return 플레이어 위치 기준으로 좌우 거리만큼 떨어진 위치 반환
-Vector WamyWater::GetFirePos()
+Vec3 WamyWater::GetFirePos()
 {
-	Vector firePos = GAMEMANAGER->GetPlayer()->GetPos();
+
+	Vec3 firePos = GAMEMANAGER->GetPlayer()->GetTransform()->GetPosition();
 	Dir dir = GAMEMANAGER->GetPlayer()->GetDir();
 
 	if (dir == DIR_LEFT)

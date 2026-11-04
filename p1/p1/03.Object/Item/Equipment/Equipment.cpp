@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Equipment.h"
 #include "../../../01.Manager/GameManager.h"
+#include "../../../01.Manager/InputManager.h"
+#include "../../../01.Manager/SceneManager.h"
 #include "../../../03.Object/Entity/Player/Player.h"
 
 Equipment::Equipment()
@@ -79,4 +81,50 @@ DamageInfo  Equipment::CalculateDamge(float dmgMultiplier)
 	dmg._finalDamage = static_cast<int32>(base * (dmg._isCritical ? playerInfo._crtMultplier : 1.0f));
 	cout << "최종 데미지 : " << dmg._finalDamage << endl;
 	return dmg;
+}
+
+Vec3 Equipment::SpawnRandomPositionAroundPlayer()
+{
+	// 윈도우 화면 내 임의 위치 생성
+	int randX = RandomRange(-GWinSizeX / 2, GWinSizeX / 2);
+	int randY = RandomRange(-GWinSizeY / 2, GWinSizeY / 2);
+
+	Vec3 playerPos = GAMEMANAGER->GetPlayer()->GetTransform()->GetPosition();
+
+	// 화면 좌표를 월드 좌표로 변환
+	Vec3 randOffset = { (float)randX, (float)randY, 0 };
+	Vec3 randPos = playerPos + randOffset;
+
+	return randPos;
+}
+
+/// @brief 탄환 발사 위치 계산
+/// @details 플레이어 위치 기준 마우스 방향으로 일정 거리(_firePosLength) 떨어진 지점
+/// @return Vec2 발사 위치
+Vec3 Equipment::GetFirePos(float firePosLength)
+{
+	Vec3 firePos = GAMEMANAGER->GetPlayer()->GetTransform()->GetPosition();
+	Vec3 dir = GetMousePosToPlayerDir();
+
+	// 플레이어 위치에서 마우스 방향으로 _firePosLength 만큼 이동
+	firePos += dir * firePosLength;
+
+	return firePos;
+}
+
+/// @brief 플레이어 위치에서 마우스 위치를 월드 좌표로 변환 후 방향 벡터 계산
+/// @return 정규화된 방향 벡터 (Vec2)
+Vec3 Equipment::GetMousePosToPlayerDir()
+{
+	POINT mousePos = INPUT->GetMousePos();
+	Vec3 mouseWorldPos = SCENE->ScreenToWorld(Vec2(mousePos.x, mousePos.y));
+	Vec3 playerPos = GAMEMANAGER->GetPlayer()->GetTransform()->GetPosition();
+
+	float dirX = mouseWorldPos.x - playerPos.x;
+	float dirY = mouseWorldPos.y - playerPos.y;
+
+	Vec3 dir = { dirX, dirY,0 };
+	dir.Normalize();
+
+	return dir;
 }

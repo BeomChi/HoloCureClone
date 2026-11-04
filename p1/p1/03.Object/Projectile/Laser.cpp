@@ -4,9 +4,9 @@
 #include "../../01.Manager/TimeManager.h"
 #include "../../01.Manager/CollisionManager.h"
 #include "../../03.Object/Entity/Entity.h"
-#include "../../04.Component/2D/AnimationComponent.h"
 #include "../../04.Component/Collision/BoxCollider.h"
-#include "../../05.Resource/2D/Animator.h"
+#include "97.Engin/Component/Animation/Animator.h"
+#include "97.Engin/Resource/Animation.h"
 
 Laser::Laser()
 {
@@ -20,20 +20,20 @@ Laser::~Laser()
 
 void Laser::Init()
 {
-	_laser[START] = RESOURCE->GetAnimator(L"FuburaLaserStart");
-	_laser[ATTACK] = RESOURCE->GetAnimator(L"FuburaLaser");
+	_laser[START] = RESOURCE->Get<Animation>(L"FuburaLaserStart");
+	_laser[ATTACK] = RESOURCE->Get<Animation>(L"FuburaLaser");
 
-	_ani = new AnimationComponent();
+	_ani = new Animator();
 	_ani->SetAnimation(_laser[START]);
 
 	BoxCollider* boxCollider = new BoxCollider();
 	boxCollider->SetShowDebug(false);
-	SetCollider(boxCollider);
+	//SetCollider(boxCollider);
 
 	GET_SINGLE(CollisionManager)->AddCollider(boxCollider);
 
-	Vec2Int size = _ani->GetAnimator()->GetInfo().size;
-	SetSize({ (float)size.x , (float)size.y});
+	//Vec2Int size = _ani->GetAnimator()->GetInfo().size;
+	//SetSize({ (float)size.x , (float)size.y});
 	
 	AddComponent(_ani);
 	AddComponent(boxCollider);
@@ -52,7 +52,7 @@ void Laser::Update()
 	if (_info._time >= _info._duration)
 		SetIsActivity(false);
 
-	if (_ani->CheckCurrentAnimationEnd())
+	if (_ani->GetCurrentAinmationEndIndex())
 	{
 		SetState(LaserState::Fire);
 	}
@@ -64,9 +64,9 @@ void Laser::Render(HDC hdc)
 	
 }
 
-void Laser::Activate(Vector pos, float duration)
+void Laser::Activate(Vec3 pos, float duration)
 {
-	SetPos(pos);
+	GetTransform()->SetPosition(pos);
 	_info._duration = duration;
 	_info._time = 0;
 	_info._sumTime = 0;
@@ -81,14 +81,14 @@ void Laser::OnTriggerStay(Collider* collider, Collider* other)
 	if (_state == LaserState::Start)
 		return;
 
-	if (other->GetOwner()->GetEntityType() == EntityType::Player)
+	if (other->GetGameObject()->GetEntityType() == EntityType::Player)
 	{
 		//_sumTime += GET_SINGLE(TimeManager)->GetDeltaTime();
 
 		if (_info._sumTime >= 1.f)
 		{
 			_info._sumTime = 0;
-			static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
+			static_cast<Entity*>(other->GetGameObject())->TakeDamage(_damageInfo);
 			//cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
 		}
 	}

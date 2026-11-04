@@ -19,7 +19,7 @@ public:
 	// 장비 해제 시 효과 제거
 	virtual void OnUnequipEffect(Player& player) override;
 
-	Vector GetFirePos(bool isSpecialAbility);
+	Vec3 GetFirePos(bool isSpecialAbility);
 	
 
 private:

@@ -45,6 +45,7 @@ inline T* ObjectPool::Get(wstring key)
 		if (!CreateNewObject(key))
 			return nullptr;
 	}
+
 	if (pool.empty())
 		return nullptr;
 

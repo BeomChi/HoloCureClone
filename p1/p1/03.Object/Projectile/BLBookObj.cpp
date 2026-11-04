@@ -7,7 +7,8 @@
 #include "../../03.Object/Entity/Entity.h"
 #include "../../04.Component/Collision/BoxCollider.h"
 #include "../../04.Component/2D/SpriteRenderer.h"
-#include "../../05.Resource/2D/Sprite.h"
+#include "97.Engin/Resource/Sprite.h"
+#include "97.Engin/Resource/Texture.h"
 
 BLBookObj::BLBookObj()
 {
@@ -15,6 +16,7 @@ BLBookObj::BLBookObj()
 
 BLBookObj::~BLBookObj()
 {
+	_spriteRenderer = nullptr;
 }
 
 void BLBookObj::Init()
@@ -22,22 +24,22 @@ void BLBookObj::Init()
 	// component
 	{
 		{
-			Sprite* sprite = RESOURCE->GetSprite(L"BLBook");
-			SpriteRenderer* renderer = new SpriteRenderer();
-			renderer->SetSprite(sprite);
-			SetSize({ (float)sprite->GetSize().x, (float)sprite->GetSize().y });
+			Sprite* sprite = RESOURCE->Get<Sprite>(L"BLBook");
+			_spriteRenderer = new SpriteRenderer();
+			_spriteRenderer->SetSprite(sprite);
+			//SetSize({ (float)sprite->GetSize().x, (float)sprite->GetSize().y });
 
 
-			AddComponent(renderer);
+			AddComponent(_spriteRenderer);
 		}
 		// collider
 		{
 			BoxCollider* collider = new BoxCollider();
-			collider->SetSize(_renderSize);
+			collider->SetSize(_spriteRenderer->GetSprite()->GetTexture()->GetSize());
 			collider->SetShowDebug(false);
 
 			AddComponent(collider);
-			SetCollider(collider);
+			//SetCollider(collider);
 
 			GET_SINGLE(CollisionManager)->AddCollider(collider);
 		}
@@ -67,9 +69,9 @@ void BLBookObj::Render(HDC hdc)
 
 void BLBookObj::OnTriggerEnter(Collider* collider, Collider* other)
 {
-	if (other->GetOwner()->GetEntityType() == EntityType::Monster)
+	if (other->GetGameObject()->GetEntityType() == EntityType::Monster)
 	{
-		static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
+		static_cast<Entity*>(other->GetGameObject())->TakeDamage(_damageInfo);
 		//cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
 
 	}

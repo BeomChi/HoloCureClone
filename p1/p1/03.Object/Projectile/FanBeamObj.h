@@ -5,7 +5,7 @@
 
 
 class Animator;
-class AnimationComponent;
+class Animation;
 class Collider;
 
 class FanBeamObj :   public AOE
@@ -17,7 +17,7 @@ public:
 
 	virtual void Init() override;
 	virtual void Update() override;
-	virtual void Render(HDC hdc) override;
+	//virtual void Render(HDC hdc) override;
 
 	void SetDir(DirState dir) { _dir = dir; }
 	
@@ -36,7 +36,7 @@ private:
 
 	vector<Collider*> _collsion;
 
-	Animator* _dirAni[2] = {};
-	AnimationComponent* _ani = nullptr;
+	Animation* _dirAni[2] = {};
+	Animator* _ani = nullptr;
 };
 

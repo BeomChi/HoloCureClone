@@ -5,9 +5,9 @@
 #include "../../01.Manager/CollisionManager.h"
 #include "../../01.Manager/SceneManager.h"
 #include "../../03.Object/Entity/Entity.h"
-#include "../../04.Component/2D/AnimationComponent.h"
 #include "../../04.Component/Collision/BoxCollider.h"
-#include "../../05.Resource/2D/Animator.h"
+#include "97.Engin/Component/Animation/Animator.h"
+#include "97.Engin/Resource/Animation.h"
 
 BombExplode::BombExplode()
 {
@@ -24,13 +24,13 @@ void BombExplode::Init()
 	// component
 	{
 		{
-			_animation = RESOURCE->GetAnimator(L"BombExplode");
+			_animation = RESOURCE->Get<Animation>(L"BombExplode");
 
-			_ani = new AnimationComponent();
+			_ani = new Animator();
 			_ani->SetAnimation(_animation);
 
-			Vec2Int size = _ani->GetAnimator()->GetInfo().size;
-			SetSize({ (float)size.x , (float)size.y });
+			//Vec2Int size = _ani->Get<Animation>()->GetInfo().size;
+			//SetSize({ (float)size.x , (float)size.y });
 
 
 			AddComponent(_ani);
@@ -38,10 +38,10 @@ void BombExplode::Init()
 		// collider
 		{
 			BoxCollider* collider = new BoxCollider();
-			collider->SetSize(_renderSize);
+			collider->SetSize(_ani->GetCurrentAnimation()->GetKeyframe(0).size);
 			collider->SetShowDebug(false);
 			AddComponent(collider);
-			SetCollider(collider);
+			//SetCollider(collider);
 
 			GET_SINGLE(CollisionManager)->AddCollider(collider);
 		}
@@ -56,7 +56,7 @@ void BombExplode::Update()
 	Super::Update();
 	
 
-	if (_ani->CheckCurrentAnimationEnd())
+	if (_ani->GetCurrentAinmationEndIndex())
 	{
 		_isActivity = false;
 	}
@@ -71,9 +71,9 @@ void BombExplode::Render(HDC hdc)
 
 void BombExplode::OnTriggerEnter(Collider* collider, Collider* other)
 {
-	if (other->GetOwner()->GetEntityType() == EntityType::Monster)
+	if (other->GetGameObject()->GetEntityType() == EntityType::Monster)
 	{
-		static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
+		static_cast<Entity*>(other->GetGameObject())->TakeDamage(_damageInfo);
 		//cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
 	}
 }
@@ -83,6 +83,6 @@ void BombExplode::Reset()
 {
 
 	_ani->Reset();
-
-	_collider->ClearCollisionMap();
+	GetCollider()->ClearCollisionMap();
+	//_collider->ClearCollisionMap();
 }

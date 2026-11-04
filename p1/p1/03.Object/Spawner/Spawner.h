@@ -10,11 +10,13 @@ public:
 
 	virtual void Init() override;
 	virtual void Update() override;
-	virtual void Render(HDC hdc) override;
+	//virtual void Render(HDC hdc) override;
 
 	void NormalMonsterSpawn();
 	void SpawnMidleBoss(int32 Stage);
 	void SpawnBoss(int32 Stage);
+
+	Vec3 SpawnRandomPositionAroundPlayer();
 
 private:
 	

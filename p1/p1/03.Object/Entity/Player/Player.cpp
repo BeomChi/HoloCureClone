@@ -12,10 +12,10 @@
 #include "../../Item/Equipment/Equipment.h"
 #include "../../../04.Component/Collision/BoxCollider.h"
 #include "../../../04.Component/Camera/CameraComponent.h"
-#include "../../../04.Component/2D/AnimationComponent.h"
+#include "97.Engin/Component/Animation/Animator.h"
 #include "97.Engin/Resource/Texture.h"
 #include "97.Engin/Resource/Animation.h"
-#include "../../../05.Resource/2D/Sprite.h"
+#include "97.Engin/Resource/Sprite.h"
 #include "../../../06.Ui/Game/HpBar.h"
 #include "../../../06.Ui/Game/EquipmentSelectHud.h"
 #include "../../../06.Ui/Image.h"
@@ -53,21 +53,24 @@ void Player::Init()
 	
 	// 플레이어에 들어갈 컴포넌트
 	{
-		_ani = new AnimationComponent();
+		_ani = new Animator();
 		_ani->SetAnimation(_aniIdle[_dir]);
-		Vec2Int size = _ani->GetAnimator()->GetInfo().size;
+ 
+		// 이걸 했던 이유
+		// 실제 렌더사이즈를 맞추기 위해
+		//Vec2Int size = _ani->GetAnimator()->GetInfo().size;
 
-		SetSize({ (float)size.x, (float)size.y });
+		//SetSize({ (float)size.x, (float)size.y });
 
 		
-		AddComponent(_ani);
+		//AddComponent(_ani);
 	}
 	{
 		BoxCollider* boxCollider = new BoxCollider();
-		boxCollider->SetSize({ _renderSize.x / 2,_renderSize.y });
+		boxCollider->SetSize(_ani->GetCurrentAnimation()->GetKeyframe(0).size);
 		boxCollider->SetShowDebug(false);
 		AddComponent(boxCollider);
-		SetCollider(boxCollider);
+		//SetCollider(boxCollider);
 
 		GET_SINGLE(CollisionManager)->AddCollider(boxCollider);
 	}
@@ -108,7 +111,10 @@ void Player::Update()
 	}
 
 
-	_pos += _velocity * deltaTime;
+	Vec3 pos = GetTransform()->GetPosition();
+	pos += _velocity * deltaTime;
+
+	GetTransform()->SetPosition(pos);
 
 	// 이동 후 속도 감소 (마찰 같은 느낌)
 	_velocity *= 0.9f; // or 0.8f, 자연 감속
@@ -214,7 +220,7 @@ void Player::Reset()
 void Player::InputMove(float deltaTime)
 {
 	auto input = INPUT;
-	Vector dir = { 0,0 };
+	Vec3 dir = { 0,0 ,0};
 	Dir newDir = _dir;
 
 	if (input->GetButton(KeyType::W)) { dir.y -= 1; }

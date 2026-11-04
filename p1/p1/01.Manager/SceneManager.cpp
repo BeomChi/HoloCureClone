@@ -4,6 +4,15 @@
 #include "../02.Scene/Game/DevScene.h"
 #include "../02.Scene/Game/StartScene.h"
 #include "../02.Scene/Game/EditScene.h"
+#include "97.Engin/Component/Camera/Camera.h"
+
+SceneManager::SceneManager(Graphics* graphics) :_graphics(graphics)
+{
+}
+
+SceneManager::~SceneManager()
+{
+}
 
 void SceneManager::Init()
 {
@@ -69,14 +78,31 @@ void SceneManager::ChangeScene(SceneType sceneType)
 	newScene->Init();
 }
 
-Vector SceneManager::WorldToScreen(Vector pos)
+Vec3 SceneManager::WorldToScreen(Vec2 pos)
 {
-	return pos - _cameraPos + Vector(GWinSizeX / 2, GWinSizeY / 2);
+	//return pos - _cameraPos + Vector(GWinSizeX / 2, GWinSizeY / 2);
+
 }
 
-Vector SceneManager::ScreenToWorld(Vector pos)
+Vec3 SceneManager::ScreenToWorld(Vec2 screenPos)
 {
-	return pos + _cameraPos - Vector(GWinSizeX / 2, GWinSizeY / 2);
+	//return pos + _cameraPos - Vector(GWinSizeX / 2, GWinSizeY / 2);
+	Vec3 worldPos = {};
+
+	// 화면 좌표 -> NDC
+	// -1 ~ 1 범위로 바꾸기 위해
+	float ndcX = (screenPos.x / GWinSizeX) * 2.0f - 1.0f;
+	float ndcY = 1.0f - (screenPos.y / GWinSizeY) * 2.0f;
+
+	// 역 View * Projection 변환
+	Matrix invViewProjection =
+		(Camera::s_matView * Camera::s_matProjection).Invert();
+
+	Vec3 ndcPos = { ndcX, ndcY, 0.0f };
+
+	Vec3::Transform(ndcPos, invViewProjection);
+
+	return ndcPos;
 }
 
 void SceneManager::GoToTitle()

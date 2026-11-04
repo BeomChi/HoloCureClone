@@ -72,6 +72,6 @@ protected:
 	Animation* _aniSpawn = {};
 	Animation* _aniDie = {};
 
-	AnimationComponent* _ani = nullptr;
+	Animator* _ani = nullptr;
 };
 

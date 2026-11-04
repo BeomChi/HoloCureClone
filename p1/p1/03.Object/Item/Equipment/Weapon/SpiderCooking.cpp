@@ -146,7 +146,7 @@ void SpiderCooking::OnEquipEffect(Player& player)
 	// Miasma 데미지 값을 현재 무기 데미지에 맞게 설정
 	_miasma->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));
 	_miasma->SetAttackDelay(_info._attackDelay);
-	_miasma->SetScale(Vector{ _info._range, _info._range }); // 공격 범위에 맞게 스케일 설정
+	_miasma->GetTransform()->SetScale(Vec3{ _info._range, _info._range, 1 }); // 공격 범위에 맞게 스케일 설정
 }
 
 

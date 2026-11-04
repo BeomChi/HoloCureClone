@@ -4,8 +4,8 @@
 #include "../../../01.Manager/SceneManager.h"
 #include "../../../01.Manager/GameManager.h"
 #include "../../../03.Object/Entity/Player/Player.h"
-#include "../../../04.Component/2D/AnimationComponent.h"
-#include "../../../05.Resource/2D/Animator.h"
+#include "97.Engin/Component/Animation/Animator.h"
+#include "97.Engin/Resource/Animation.h"
 
 
 Heal::Heal()
@@ -23,11 +23,11 @@ void Heal::Init()
 
 
 	// 애니메이션 컴포넌트 추가
-	AnimationComponent* ani = new AnimationComponent();
-	ani->SetAnimation(RESOURCE->GetAnimator(L"HealObject"));
+	Animator* ani = new Animator();
+	ani->SetAnimation(RESOURCE->Get<Animation>(L"HealObject"));
 
-	Vec2Int size = ani->GetAnimator()->GetInfo().size;
-	SetSize({ (float)size.x,(float)size.y });
+	//Vec2Int size = ani->GetAnimator()->GetInfo().size;
+	//SetSize({ (float)size.x,(float)size.y });
 
 	AddComponent(ani);
 
@@ -43,15 +43,15 @@ void Heal::Update()
 	PlayerDistance();
 }
 
-void Heal::Render(HDC hdc)
-{
-	Super::Render(hdc);
-
-}
+//void Heal::Render(HDC hdc)
+//{
+//	Super::Render(hdc);
+//
+//}
 
 void Heal::AddToHeal(Player* obj)
 {
-	obj->Heal(50.f);
+	obj->Heal(_healAmount);
 
 }
 

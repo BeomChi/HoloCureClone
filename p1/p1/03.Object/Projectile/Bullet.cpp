@@ -7,7 +7,8 @@
 #include "../../03.Object/Entity/Entity.h"
 #include "../../04.Component/Collision/BoxCollider.h"
 #include "../../04.Component/2D/SpriteRenderer.h"
-#include "../../05.Resource/2D/Sprite.h"
+#include "97.Engin/Resource/Sprite.h"
+#include "97.Engin/Resource/Texture.h"
 
 Bullet::Bullet()
 {
@@ -25,21 +26,21 @@ void Bullet::Init()
 	// component
 	{
 		{
-			Sprite* sprite = RESOURCE->GetSprite(L"Bullet06");
-			SpriteRenderer* renderer = new SpriteRenderer();
-			renderer->SetSprite(sprite);
-			SetSize({ (float)sprite->GetSize().x, (float)sprite->GetSize().y });
+			Sprite* sprite = RESOURCE->Get<Sprite>(L"Bullet06");
+			_spriteRenderer = new SpriteRenderer();
+			_spriteRenderer->SetSprite(sprite);
+			//SetSize({ (float)sprite->GetSize().x, (float)sprite->GetSize().y });
 
 
-			AddComponent(renderer);
+			AddComponent(_spriteRenderer);
 		}
 		// collider
 		{
 			BoxCollider* collider = new BoxCollider();
-			collider->SetSize(_renderSize);
+			collider->SetSize(_spriteRenderer->GetSprite()->GetSize());
 			collider->SetShowDebug(false);
 			AddComponent(collider);
-			SetCollider(collider);
+			//SetCollider(collider);
 
 			GET_SINGLE(CollisionManager)->AddCollider(collider);
 		}
@@ -56,9 +57,12 @@ void Bullet::Update()
 
 	//_info._time += deltaTime;
 
-	_pos += _info._dir * _info._speed * deltaTime;
-	Vector pos = SCENE->WorldToScreen(_pos);
+	Vec3 pos = GetTransform()->GetPosition();
+	pos += _info._dir * _info._speed * deltaTime;
+	
+	GetTransform()->SetPosition(pos);
 
+	pos = SCENE->WorldToScreen(Vec2(pos.x, pos.y));
 	if (pos.x <= 0 || pos.y <= 0 ||
 		pos.x >= GWinSizeX || pos.y >= GWinSizeY)
 	{
@@ -76,9 +80,9 @@ void Bullet::Render(HDC hdc)
 void Bullet::OnTriggerEnter(Collider* collider, Collider* other)
 {
 	Super::OnTriggerEnter(collider, other);
-	if (other->GetOwner()->GetEntityType() == EntityType::Monster)
+	if (other->GetGameObject()->GetEntityType() == EntityType::Monster)
 	{
-		static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
+		static_cast<Entity*>(other->GetGameObject())->TakeDamage(_damageInfo);
 		//cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
 		_currentPierceCount++;
 

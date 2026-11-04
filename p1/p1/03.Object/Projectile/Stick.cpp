@@ -9,8 +9,8 @@
 #include "../../03.Object/Projectile/StickExplode.h"
 #include "../../03.Object/ObjectPool/ObjectPool.h"
 #include "../../04.Component/Collision/BoxCollider.h"
-#include "../../04.Component/2D/AnimationComponent.h"
-#include "../../05.Resource/2D/Animator.h"
+#include "97.Engin/Component/Animation/Animator.h"
+#include "97.Engin/Resource/Animation.h"
 
 Stick::Stick()
 {
@@ -27,12 +27,12 @@ void Stick::Init()
 	// component
 	{
 		{
-			_animation = RESOURCE->GetAnimator(L"Stick");
-			_ani = new AnimationComponent();
+			_animation = RESOURCE->Get<Animation>(L"Stick");
+			_ani = new Animator();
 			_ani->SetAnimation(_animation);
 
-			Vec2Int size = _ani->GetAnimator()->GetInfo().size;
-			SetSize({ (float)size.x , (float)size.y });
+			//Vec2Int size = _ani->GetAnimator()->GetInfo().size;
+			//SetSize({ (float)size.x , (float)size.y });
 
 
 			AddComponent(_ani);
@@ -40,10 +40,10 @@ void Stick::Init()
 		// collider
 		{
 			BoxCollider* collider = new BoxCollider();
-			collider->SetSize(_renderSize);
+			collider->SetSize(_ani->GetCurrentAnimation()->GetKeyframe(0).size);
 			collider->SetShowDebug(false);
 			AddComponent(collider);
-			SetCollider(collider);
+			//SetCollider(collider);
 
 			GET_SINGLE(CollisionManager)->AddCollider(collider);
 		}
@@ -58,9 +58,10 @@ void Stick::Update()
 
 	float deltaTime = TIME->GetDeltaTime();
 
-	_pos += _info._dir * _info._speed * deltaTime;
+	Vec3 pos = GetTransform()->GetPosition();
+	pos += _info._dir * _info._speed * deltaTime;
 	
-	Vector pos = SCENE->WorldToScreen(_pos);
+	Vec3 pos = SCENE->WorldToScreen(Vec2(pos.x,pos.y));
 
 	if (pos.x <= 0 || pos.y <= 0 ||
 		pos.x >= GWinSizeX || pos.y >= GWinSizeY)
@@ -78,15 +79,15 @@ void Stick::Render(HDC hdc)
 
 void Stick::OnTriggerEnter(Collider* collider, Collider* other)
 {
-	if (other->GetOwner()->GetEntityType() == EntityType::Monster)
+	if (other->GetGameObject()->GetEntityType() == EntityType::Monster)
 	{
-		static_cast<Entity*>(other->GetOwner())->TakeDamage(_damageInfo);
+		static_cast<Entity*>(other->GetGameObject())->TakeDamage(_damageInfo);
 		//cout << "데미지 들어감 : " << _damageInfo._finalDamage << endl;
 		_currentPierceCount++;
 
 		// stickExplode 소환
 		StickExplode* stickExplode = GET_SINGLE(ObjectPool)->Get<StickExplode>(L"StickExplode");
-		stickExplode->SetPos(_pos);
+		stickExplode->GetTransform()->SetPosition(GetTransform()->GetPosition());
 		stickExplode->SetDamageInfo(_damageInfo);
 
 		SCENE->GetCurrentScene()->AddObject(stickExplode);

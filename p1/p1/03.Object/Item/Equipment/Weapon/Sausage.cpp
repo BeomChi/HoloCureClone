@@ -8,6 +8,7 @@
 #include "../../../../03.Object/ObjectPool/ObjectPool.h"
 #include "../../../../03.Object/Projectile/SausageObj.h"
 #include "../../../../03.Object/Entity/Player/Player.h"
+#include "97.Engin/Component/Animation/Animator.h"
 
 
 Sausage::Sausage()
@@ -152,10 +153,10 @@ void Sausage::Update()
 }
 
 /// @brief 무기 자체의 렌더링은 없음 (투사체가 별도로 처리함)
-void Sausage::Render(HDC hdc)
-{
-	// Sausage 무기는 별도의 시각 효과가 없으므로 비워둠
-}
+//void Sausage::Render(HDC hdc)
+//{
+//	// Sausage 무기는 별도의 시각 효과가 없으므로 비워둠
+//}
 
 /// @brief 무기 장착 시 플레이어에게 부여되는 효과
 void Sausage::OnEquipEffect(Player& player)
@@ -172,9 +173,9 @@ void Sausage::OnUnequipEffect(Player& player)
 
 /// @brief 플레이어 방향을 고려해 투사체의 시작 위치 계산
 /// @return 플레이어 위치 기준으로 좌우 거리만큼 떨어진 위치 반환
-Vector Sausage::GetFirePos()
+Vec3 Sausage::GetFirePos()
 {
-	Vector firePos = GAMEMANAGER->GetPlayer()->GetPos();
+	Vec3 firePos = GAMEMANAGER->GetPlayer()->GetTransform()->GetPosition();
 	Dir dir = GAMEMANAGER->GetPlayer()->GetDir();
 
 	if (dir == DIR_LEFT)
@@ -190,14 +191,18 @@ void Sausage::CreateSausage()
 	// 오브젝트 풀에서 SausageObj를 꺼냄
 	SausageObj* sausageObj = GET_SINGLE(ObjectPool)->Get<SausageObj>(L"SausageObj");
 
+	// 생성지점을 플레이어 위치 기준에서 애니메이션 크기의 절만만큼 떨어진 곳에 생성하기 위해
+	_firePosLength = sausageObj->GetAnimator()->GetCurrentKeyframe().size.x * 0.5f;
+
 	// 플레이어 위치 기준으로 발사 위치 지정
-	sausageObj->SetPos(GetFirePos());
+	sausageObj->GetTransform()->SetPosition(GetFirePos());
 
 	// 투사체 크기 설정
-	sausageObj->SetScale(Vector{ _info._range, _info._range });
+	sausageObj->GetTransform()->SetScale(Vec3{ _info._range, _info._range, 1 });
 
 	// 플레이어의 방향에 따라 투사체 방향 설정
 	Dir dir = GAMEMANAGER->GetPlayer()->GetDir();
+
 	if (dir == DIR_LEFT)
 		sausageObj->SetState(DirState::Left);
 	else

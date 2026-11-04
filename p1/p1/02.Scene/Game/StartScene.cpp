@@ -41,8 +41,8 @@ void StartScene::Init()
 	_ui = new Button();
 	_ui->SetSprite(RESOURCE->Get<Sprite>(L"Start_Off"), BS_Default);
 	_ui->SetSprite(RESOURCE->Get<Sprite>(L"Start_On"), BS_Pressed);
-	_ui->SetPos({ 400 ,400 });
-	_ui->SetSize({ 150,150 });
+	_ui->GetTransform()->SetPosition({ 400 ,400,0 });
+	//_ui->SetSize({ 150,150 });
 
 	_ui->SetLayer(LAYER_UI);
 	_ui->SetKey(L"StartButton");
@@ -56,9 +56,9 @@ void StartScene::Init()
 		Image* Title = new Image();
 		Title->SetSprite(sprite);
 		const Vec2 size = sprite->GetSize();
-		Title->SetSize({ (float)sprite->GetSize().x, (float)sprite->GetSize().y });
+		//Title->SetSize({ (float)sprite->GetSize().x, (float)sprite->GetSize().y });
 
-		Title->SetPos({400,200});
+		Title->GetTransform()->SetPosition({400,200,0});
 
 		AddObject(Title);
 		_uis.push_back(Title);
@@ -71,9 +71,9 @@ void StartScene::Init()
 			background->SetSprite(sprite);
 			background->SetLayer(LAYER_BACKGROUND);
 			const Vec2 size = sprite->GetSize();
-			background->SetSize({ (float)sprite->GetSize().x, (float)sprite->GetSize().y });
-			background->SetScale({ 2,2 });
-			background->SetPos({ 0,50 });
+			//background->SetSize({ (float)sprite->GetSize().x, (float)sprite->GetSize().y });
+			background->GetTransform()->SetScale({ 2,2,1 });
+			background->GetTransform()->SetPosition({ 0,50,0 });
 
 			AddObject(background);
 			_uis.push_back(background);

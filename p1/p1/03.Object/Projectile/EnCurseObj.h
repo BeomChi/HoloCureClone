@@ -5,7 +5,7 @@
 
 
 class Animator;
-class AnimationComponent;
+class Animation;
 
 
 class EnCurseObj :   public Projectile
@@ -35,8 +35,8 @@ private:
 	GameObject* _target = nullptr; // 타겟 오브젝트 (적)
 	DirState _dir;
 
-	Animator* _dirAni[2] = {};
-	AnimationComponent* _ani = nullptr;
+	Animation* _dirAni[2] = {};
+	Animator* _ani = nullptr;
 
 	bool _isAbility = false; // 능력 사용 여부
 	bool _isTracking = false; // 타겟 추적 여부

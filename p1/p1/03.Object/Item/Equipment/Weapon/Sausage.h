@@ -11,7 +11,7 @@ public:
 
 	virtual void Init() override;
 	virtual void Update() override;
-	virtual void Render(HDC hdc) override;
+	//virtual void Render(HDC hdc) override;
 
 	// 장비 착용 시 패시브 효과 적용
 	virtual void OnEquipEffect(Player& player) override;
@@ -19,7 +19,7 @@ public:
 	// 장비 해제 시 효과 제거
 	virtual void OnUnequipEffect(Player& player) override;
 
-	Vector GetFirePos();
+	Vec3 GetFirePos();
 
 	void CreateSausage();
 	

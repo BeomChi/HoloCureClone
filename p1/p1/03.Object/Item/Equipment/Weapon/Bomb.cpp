@@ -124,19 +124,14 @@ void Bomb::Update()
 	{
 		for (int i = 0; i < _info._count; i++)
 		{
-			// 윈도우 화면 내 임의 위치 생성
-			int randX = RandomRange(0, GWinSizeX);
-			int randY = RandomRange(0, GWinSizeY);
-
-			// 화면 좌표를 월드 좌표로 변환
-			Vector randPos = SCENE->ScreenToWorld({ (float)randX, (float)randY });
+			Vec3 randPos = SpawnRandomPositionAroundPlayer();
 
 			// 오브젝트 풀에서 폭탄 객체 꺼내오기
 			BombObj* bombObj = GET_SINGLE(ObjectPool)->Get<BombObj>(L"BombObj");
 
 			// 데미지 및 위치 설정
 			bombObj->SetDamageInfo(CalculateDamge(_info._dmgMultiplier));
-			bombObj->SetPos(randPos);
+			bombObj->GetTransform()->SetPosition(randPos);
 			bombObj->SetAttackDelay(_info._duration); // 3초 후 폭발
 
 			// 게임 오브젝트로 등록

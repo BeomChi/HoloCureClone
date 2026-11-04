@@ -5,8 +5,8 @@
 
 
 
+class Animation;
 class Animator;
-class AnimationComponent;
 class Collider;
 
 class Splash :   public AOE
@@ -37,7 +37,7 @@ private:
 
 	float _knockbackForce = 0.f;
 
-	Animator* _dirAni[2] = {};
-	AnimationComponent* _ani = nullptr;
+	Animation* _dirAni[2] = {};
+	Animator* _ani = nullptr;
 };
 

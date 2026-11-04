@@ -8,6 +8,7 @@
 #include "../../../../03.Object/ObjectPool/ObjectPool.h"
 #include "../../../../03.Object/Projectile/TridentObj.h"
 #include "../../../../03.Object/Entity/Player/Player.h"
+#include "97.Engin/Component/Animation/Animator.h"
 
 
 Trident::Trident()
@@ -103,6 +104,11 @@ void Trident::Init()
 			L"포크 모양으로 3번 찌른다" 
 		}
 	};
+	TridentObj* tridentObj = GET_SINGLE(ObjectPool)->Get<TridentObj>(L"TridentObj");
+
+	_firePosLength = tridentObj->GetAnimator()->GetCurrentKeyframe().size.x * 0.5f;
+	GET_SINGLE(ObjectPool)->ReturnObject(tridentObj->GetKey(), tridentObj);
+
 }
 
 /// @brief 매 프레임마다 호출되어, 쿨타임이 지난 경우 소세지 투사체를 발사함
@@ -114,6 +120,7 @@ void Trident::Update()
 	// 쿨타임이 경과하면 투사체를 발사
 	if (_sumTime - _lastAttackTime >= _info._coolTime)
 	{
+		// 투사체 수에 따라 발사 위치를 조정하여 중앙 정렬
 		float startOffsetY = -30 * (_info._count - 1) / 2.f;
 
 		for (int i = 0; i < _info._count; i++)
@@ -121,9 +128,11 @@ void Trident::Update()
 			// 오브젝트 풀에서 SausageObj를 꺼냄
 			TridentObj* tridentObj = GET_SINGLE(ObjectPool)->Get<TridentObj>(L"TridentObj");
 
+			_firePosLength = tridentObj->GetAnimator()->GetCurrentKeyframe().size.x * 0.5f;
 
 			// 플레이어의 방향에 따라 투사체 방향 설정
 			Dir dir = GAMEMANAGER->GetPlayer()->GetDir();
+
 			if (dir == DIR_LEFT)
 				tridentObj->SetState(DirState::Left);
 			else
@@ -172,8 +181,10 @@ void Trident::OnUnequipEffect(Player& player)
 /// @return 플레이어 위치 기준으로 좌우 거리만큼 떨어진 위치 반환
 Vec3 Trident::GetFirePos()
 {
-	Vec3 firePos = GAMEMANAGER->GetPlayer()->GetTransform()->GetPosition();
-	Dir dir = GAMEMANAGER->GetPlayer()->GetDir();
+	auto* player = GAMEMANAGER->GetPlayer();
+	Vec3 firePos = player->GetTransform()->GetPosition();
+	Dir dir = player->GetDir();
+	
 
 	if (dir == DIR_LEFT)
 		firePos.x += (-1) * _firePosLength;

@@ -6,6 +6,10 @@ class Texture;
 class Sprite;
 class Animation;
 class Sound;
+class Shader;
+class Mesh;
+class Material;
+
 
 class ResourceManager
 {

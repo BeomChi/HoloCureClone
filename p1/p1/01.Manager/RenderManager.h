@@ -20,6 +20,7 @@ private:
 	void GettherRenderableObjects();
 	void RenderObjects(vector<GameObject*> renderObject);
 
+	Matrix SetRenderScale(Vec2 size);
 
 private:
 	ComPtr<ID3D11Device> _device;

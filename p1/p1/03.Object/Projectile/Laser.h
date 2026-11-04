@@ -2,7 +2,7 @@
 #include "AOE.h"
 
 class Animator;
-class AnimationComponent;
+class Animation;
 
 enum class LaserState
 {
@@ -24,7 +24,7 @@ public:
 	virtual void Update() override;
 	virtual void Render(HDC hdc) override;
 
-	void Activate(Vector pos, float duration);
+	void Activate(Vec3 pos, float duration);
 
 
 	virtual void OnTriggerStay(Collider* collider, Collider* other) override;
@@ -36,7 +36,7 @@ public:
 private:
 
 	LaserState _state = LaserState::Start;
-	Animator* _laser[2] = {};
-	AnimationComponent* _ani = nullptr;
+	Animation* _laser[2] = {};
+	Animator* _ani = nullptr;
 };
 

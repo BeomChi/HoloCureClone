@@ -54,3 +54,9 @@ const Keyframe& Animator::GetCurrentKeyframe()
 {
 	return _currentAnimation->GetKeyframe(_currentKeyframeIndex);
 }
+
+void Animator::Reset()
+{
+	_sumTime = 0;
+	_currentKeyframeIndex = 0;
+}

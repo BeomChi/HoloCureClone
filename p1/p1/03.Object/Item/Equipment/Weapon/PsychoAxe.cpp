@@ -140,14 +140,14 @@ void PsychoAxe::Update()
 		// 오브젝트 풀에서 Axe 투사체를 꺼내옴
 		Axe* axe = GET_SINGLE(ObjectPool)->Get<Axe>(L"Axe");
 
-		cout << "[DEBUG] 도끼 생성됨" << endl;
+		//cout << "[DEBUG] 도끼 생성됨" << endl;
 		// 데미지 계산 및 초기 설정
 		axe->SetDamageInfo(CalculateDamge(_info._dmgMultiplier)); // 무기의 현재 공격력 설정
-		axe->SetPos(GAMEMANAGER->GetPlayer()->GetPos()); // 플레이어 위치에서 시작
-		cout << "[DEBUG] AxePos : " << axe->GetPos().x << "  " << axe->GetPos().y << endl;
-		axe->SetStartPos(axe->GetPos()); // 시작 위치 저장
+		axe->GetTransform()->SetPosition(GAMEMANAGER->GetPlayer()->GetTransform()->GetPosition()); // 플레이어 위치에서 시작
+		//cout << "[DEBUG] AxePos : " << axe->GetPos().x << "  " << axe->GetPos().y << endl;
+		axe->SetStartPos(axe->GetTransform()->GetPosition()); // 시작 위치 저장
 		axe->SetDuration(_info._duration); // 투사체의 지속 시간 설정
-		axe->SetScale(Vector{ _info._range, _info._range }); // 투사체 크기 설정
+		axe->GetTransform()->SetScale(Vec3{ _info._range, _info._range, 1 }); // 투사체 크기 설정
 		axe->SetLayer(LAYER_AREAATTACK);
 		// 오브젝트 매니저에 추가하여 게임 월드에 등장시킴
 		SCENE->GetCurrentScene()->AddObject(axe);
