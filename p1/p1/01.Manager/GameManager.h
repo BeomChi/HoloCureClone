@@ -1,5 +1,4 @@
 #pragma once
-#include "Singleton.h"
 #include "Signal.hpp"
 
 class Player;

@@ -15,6 +15,10 @@ Entity::Entity()
 		SCENE->GetGraphics()->GetDeviceContext());
 	AddComponent(meshRenderer);
 
+	auto material = RESOURCE->Get<Material>(L"Default");
+	meshRenderer->SetMaterial(material);
+	auto mesh = RESOURCE->Get<Mesh>(L"Rectangle");
+	meshRenderer->SetMesh(mesh);
 }
 
 Entity::~Entity()

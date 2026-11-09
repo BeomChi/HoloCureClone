@@ -5,11 +5,11 @@
 #include "../../01.Manager/StageManager.h"
 #include "../../01.Manager/SceneManager.h"
 #include "../../03.Object/Entity/Player/Player.h"
-#include "../../05.Resource/2D/Sprite.h"
 #include "../../06.Ui/Image.h"
 #include "../../06.Ui/Game/HpBar.h"
 #include "../../06.Ui/Button.h"
 #include "../../06.Ui/Text.h"
+#include "97.Engin/Resource/Sprite.h"
 
 
 
@@ -23,10 +23,10 @@ GameOverHud::GameOverHud()
 		// 이거 게임 오버 배경? 큰 틀 이미지로 바꿔야 함
 		Image* hud = new Image();
 
-		hud->SetSprite(RESOURCE->GetSprite(L"SettingMenuBG"));
+		hud->SetSprite(RESOURCE->Get<Sprite>(L"SettingMenuBG"));
 
-		hud->SetSize({ (float)hud->GetSprite()->GetSize().x, (float)hud->GetSprite()->GetSize().y });
-		hud->SetPos({ 400,250 });
+		//hud->SetSize({ (float)hud->GetSprite()->GetSize().x, (float)hud->GetSprite()->GetSize().y });
+		hud->GetTransform()->SetPosition({ 400,250 ,0});
 		hud->SetKey(L"SettingMenuBG");
 		hud->SetLayer(LAYER_UI);
 
@@ -35,10 +35,10 @@ GameOverHud::GameOverHud()
 	{
 		Image* Icon = new Image();
 
-		Icon->SetSprite(RESOURCE->GetSprite(L"GuraIcon"));
+		Icon->SetSprite(RESOURCE->Get<Sprite>(L"GuraIcon"));
 
-		Icon->SetSize({ (float)Icon->GetSprite()->GetSize().x, (float)Icon->GetSprite()->GetSize().y });
-		Icon->SetPos({ 400 ,250 });
+		//Icon->SetSize({ (float)Icon->GetSprite()->GetSize().x, (float)Icon->GetSprite()->GetSize().y });
+		Icon->GetTransform()->SetPosition({ 400 ,250,0 });
 		Icon->SetKey(L"GuraIcon");
 		Icon->SetLayer(LAYER_UI);
 
@@ -47,11 +47,11 @@ GameOverHud::GameOverHud()
 	{
 		Image* Coin = new Image();
 
-		Coin->SetSprite(RESOURCE->GetSprite(L"Coin"));
+		Coin->SetSprite(RESOURCE->Get<Sprite>(L"Coin"));
 
-		Coin->SetSize({ (float)Coin->GetSprite()->GetSize().x, (float)Coin->GetSprite()->GetSize().y });
-		Coin->SetScale({ 1.5f,1.5f });
-		Coin->SetPos({ 400.f, 330.f });
+		//Coin->SetSize({ (float)Coin->GetSprite()->GetSize().x, (float)Coin->GetSprite()->GetSize().y });
+		Coin->GetTransform()->SetScale({1.5f,1.5f,1});
+		Coin->GetTransform()->SetPosition({ 400.f, 330.f ,0});
 		Coin->SetKey(L"Coin");
 		Coin->SetLayer(LAYER_UI);
 		AddPanel(Coin);
@@ -59,11 +59,11 @@ GameOverHud::GameOverHud()
 	{
 		Image* KillCountUi = new Image();
 
-		KillCountUi->SetSprite(RESOURCE->GetSprite(L"KillCount"));
+		KillCountUi->SetSprite(RESOURCE->Get<Sprite>(L"KillCount"));
 
-		KillCountUi->SetSize({ (float)KillCountUi->GetSprite()->GetSize().x, (float)KillCountUi->GetSprite()->GetSize().y });
-		KillCountUi->SetScale({ 1.5f,1.5f });
-		KillCountUi->SetPos({ 400.f, 290.f });
+		//KillCountUi->SetSize({ (float)KillCountUi->GetSprite()->GetSize().x, (float)KillCountUi->GetSprite()->GetSize().y });
+		KillCountUi->GetTransform()->SetScale({1.5f,1.5f,1});
+		KillCountUi->GetTransform()->SetPosition({ 400.f, 290.f,0 });
 		KillCountUi->SetKey(L"KillCount");
 		KillCountUi->SetLayer(LAYER_UI);
 		AddPanel(KillCountUi);
@@ -72,7 +72,7 @@ GameOverHud::GameOverHud()
 		_levelText = new Text();
 		_levelText->SetText(format(L"Lv.{0}", 1));
 		_levelText->SetFontSize(28);
-		_levelText->SetPos({ 400.f,50.f });
+		_levelText->GetTransform()->SetPosition({ 400.f,50.f,0 });
 		_levelText->SetKey(L"LevelText");
 		_levelText->SetLayer(LAYER_UI);
 		_levelConn = move(GAMEMANAGER->GetPlayer()->OnLevelChanged += [this](int32 arg)
@@ -85,7 +85,7 @@ GameOverHud::GameOverHud()
 		_killText = new Text();
 		_killText->SetText(format(L"{0}", 0));
 		_killText->SetFontSize(28);
-		_killText->SetPos({ 400.f,200.f });
+		_killText->GetTransform()->SetPosition({ 400.f,200.f,0 });
 		_killText->SetKey(L"KillCountText");
 		_killText->SetLayer(LAYER_UI);
 		_killConn = (GET_SINGLE(StageManager)->OnKillCountChanged += [this](int32 arg)
@@ -98,7 +98,7 @@ GameOverHud::GameOverHud()
 		_coinText = new Text();
 		_coinText->SetText(format(L"{0}", 0));
 		_coinText->SetFontSize(28);
-		_coinText->SetPos({ 400.f,100.f });
+		_coinText->GetTransform()->SetPosition({ 400.f,100.f,0 });
 		_coinText->SetKey(L"CoinText");
 		_coinText->SetLayer(LAYER_UI);
 		_coinConn = (GET_SINGLE(StageManager)->OnCoinCountChanged += [this](int32 arg)
@@ -111,7 +111,7 @@ GameOverHud::GameOverHud()
 		_timeText = new Text();
 		_timeText->SetText(format(L"Play Time : {0}:{1}", 0, 0));
 		_timeText->SetFontSize(28);
-		_timeText->SetPos({ 400.f,200.f });
+		_timeText->GetTransform()->SetPosition({ 400.f,200.f ,0});
 		_timeText->SetKey(L"TimeText");
 		_timeText->SetLayer(LAYER_UI);
 		_timeConn = (GET_SINGLE(StageManager)->OnTimeChanged += [this](int32 arg)
@@ -124,10 +124,10 @@ GameOverHud::GameOverHud()
 		// 버튼 추가
 		_titleButton = new Button();
 		// 버튼 이미지랑 크기 좌표 설정 구역
-		_titleButton->SetSprite(RESOURCE->GetSprite(L"DefaultButton"),BS_Default);
-		_titleButton->SetSprite(RESOURCE->GetSprite(L"DefaultButtonPress"),BS_Pressed);
-		_titleButton->SetPos({ 400,400 });
-		_titleButton->SetSize({ 180,29 });
+		_titleButton->SetSprite(RESOURCE->Get<Sprite>(L"DefaultButton"),BS_Default);
+		_titleButton->SetSprite(RESOURCE->Get<Sprite>(L"DefaultButtonPress"),BS_Pressed);
+		_titleButton->GetTransform()->SetPosition({ 400,400,0 });
+		//_titleButton->SetSize({ 180,29 });
 		_titleButton->SetKey(L"TitleButton");
 		_titleButton->SetLayer(LAYER_UI);
 		_titleButton->AddOnClickDelegate(SCENE, &SceneManager::GoToTitle);
@@ -137,7 +137,7 @@ GameOverHud::GameOverHud()
 		_titleText = new Text();
 		_titleText->SetText(L"Title");
 		_titleText->SetFontSize(28);
-		_titleText->SetPos({ 400.f,600.f });
+		_titleText->GetTransform()->SetPosition({ 400.f,600.f,0 });
 		_titleText->SetKey(L"TitleText");
 		_titleText->SetLayer(LAYER_UI);
 		_titleText->SetColor(RGB(40, 40, 40));

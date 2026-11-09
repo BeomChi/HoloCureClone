@@ -5,10 +5,10 @@
 #include "../../01.Manager/EquipmentManager.h"
 #include "../../03.Object/Entity/Player/Player.h"
 #include "../../03.Object/Item/Equipment/Equipment.h"
-#include "../../05.Resource/2D/Sprite.h"
 #include "../../06.Ui/Image.h"
 #include "../../06.Ui/Game/HpBar.h"
 #include "../../06.Ui/Game/EquipmentSelectSlotUi.h"
+#include "97.Engin/Resource/Sprite.h"
 
 
 // 무조건 플레이어 생성된 이후 만들기
@@ -21,8 +21,9 @@ EquipmentSelectHud::EquipmentSelectHud()
 	for (int i = 0; i < equips.size(); i++)
 	{
 		EquipmentSelectSlotUi* slot = new EquipmentSelectSlotUi(equips[i]);
-		slot->SetPos({ 400.f, 200.f + (i * 65) });
-		slot->GetIcon()->SetPos({ slot->GetPos().x - 160, slot->GetPos().y + 5 });
+		slot->GetTransform()->SetPosition({ 400.f, 200.f + (i * 65),0 });
+		slot->GetIcon()->GetTransform()->SetPosition({ slot->GetTransform()->GetPosition().x - 160,
+			slot->GetTransform()->GetPosition().y + 5 ,0 });
 		slot->SetKey(format(L"slot{0}", i));
 		_slot.push_back(slot);	
 		AddPanel(slot);	

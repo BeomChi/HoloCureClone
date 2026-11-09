@@ -1,6 +1,14 @@
 #pragma once
 #include "97.Engin/Resource/ResourceBase.h"
 
+#include "97.Engin/Resource/Texture.h"
+#include "97.Engin/Resource/Animation.h"
+#include "97.Engin/Resource/Material.h"
+#include "97.Engin/Resource/Shader.h"
+#include "97.Engin/Resource/Mesh.h"
+#include "97.Engin/Resource/Sprite.h"
+#include "../05.Resource/Sound/Sound.h"
+
 
 class Texture;
 class Sprite;

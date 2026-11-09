@@ -3,7 +3,7 @@
 
 class Sprite;
 
-class SpriteRenderer :    public Component
+class SpriteRenderer : public Component
 {
 	using Super = Component;
 public:

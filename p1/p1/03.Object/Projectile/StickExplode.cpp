@@ -80,6 +80,6 @@ void StickExplode::OnTriggerEnter(Collider* collider, Collider* other)
 void StickExplode::Reset()
 {
 	_ani->Reset();
-
-	_collider->ClearCollisionMap();
+	GetCollider()->ClearCollisionMap();
+	//_collider->ClearCollisionMap();
 }

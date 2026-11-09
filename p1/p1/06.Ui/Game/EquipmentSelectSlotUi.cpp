@@ -7,17 +7,17 @@
 #include "../../02.Scene/Scene.h"
 #include "../../03.Object/Item/Equipment/Equipment.h"
 #include "../../03.Object/Entity/Player/Player.h"
-#include "../../05.Resource/2D/Sprite.h"
 #include "../../06.Ui/Image.h"
 #include "../../06.Ui/Text.h"
+#include "97.Engin/Resource/Sprite.h"
 
 
 // 무조건 플레이어 생성된 이후 만들기
 EquipmentSelectSlotUi::EquipmentSelectSlotUi(Equipment* eq)
 {
-	SetSprite(RESOURCE->GetSprite(L"ItemMune"), BS_Default);
-	SetSprite(RESOURCE->GetSprite(L"ItemMenuSelect"), BS_Pressed);
-	SetSize({(float)_sprites[0]->GetSize().x ,(float)_sprites[0]->GetSize().y});
+	SetSprite(RESOURCE->Get<Sprite>(L"ItemMune"), BS_Default);
+	SetSprite(RESOURCE->Get<Sprite>(L"ItemMenuSelect"), BS_Pressed);
+	//SetSize({(float)_sprites[0]->GetSize().x ,(float)_sprites[0]->GetSize().y});
 	SetLayer(LAYER_UI);
 	SetKey(L"EquipmentSelectSlotUi");
 
@@ -60,47 +60,47 @@ void EquipmentSelectSlotUi::Update()
 	
 }
 
-void EquipmentSelectSlotUi::Render(HDC hdc)
-{
-	Super::Render(hdc);
-	
-	//_iconFrame->Render(hdc);
-	
-	if (_eq)
-	{
-		int32 level = _eq->GetLevel();
-		if (EQUIPMENT->HasEquipment(_eq->GetName()))
-			level += 1;
-
-		const auto& effects = _eq->GetLevelEffects();
-		auto it = effects.find(level);
-
-		if (it != effects.end())
-		{
-			for (const auto& eff : it->second)
-			{
-				//if (eff._desc.empty())
-				//	cout << "[DEBUG]텅 비어있는 있네~ 정신나갈거 같네" << endl;
-				
-				//std::wcout.imbue(std::locale(""));
-				//wcout << L"[효과 설명]: " << eff._desc << endl;
-				//cout << "길이: " << eff._desc.length() << endl;
-
-				Utils::DrawTextFont(
-					hdc,
-					{ _pos.x - 120, _pos.y - 15},	// 좌표
-					eff._desc,							// 내용
-					18,								// 글자 크기
-					RGB(255, 255, 255),				// 색상
-					L"맑은 고딕",					// 폰트
-					310, 68);						// 가로, 세로
-
-			}
-		}
-	}
-
-	_icon->Render(hdc);
-}
+//void EquipmentSelectSlotUi::Render(HDC hdc)
+//{
+//	Super::Render(hdc);
+//	
+//	//_iconFrame->Render(hdc);
+//	
+//	if (_eq)
+//	{
+//		int32 level = _eq->GetLevel();
+//		if (EQUIPMENT->HasEquipment(_eq->GetName()))
+//			level += 1;
+//
+//		const auto& effects = _eq->GetLevelEffects();
+//		auto it = effects.find(level);
+//
+//		if (it != effects.end())
+//		{
+//			for (const auto& eff : it->second)
+//			{
+//				//if (eff._desc.empty())
+//				//	cout << "[DEBUG]텅 비어있는 있네~ 정신나갈거 같네" << endl;
+//				
+//				//std::wcout.imbue(std::locale(""));
+//				//wcout << L"[효과 설명]: " << eff._desc << endl;
+//				//cout << "길이: " << eff._desc.length() << endl;
+//
+//				Utils::DrawTextFont(
+//					hdc,
+//					{ _pos.x - 120, _pos.y - 15},	// 좌표
+//					eff._desc,							// 내용
+//					18,								// 글자 크기
+//					RGB(255, 255, 255),				// 색상
+//					L"맑은 고딕",					// 폰트
+//					310, 68);						// 가로, 세로
+//
+//			}
+//		}
+//	}
+//
+//	_icon->Render(hdc);
+//}
 /*
 void EquipmentSelectSlotUi::ButtonEvent(Ui* ui)
 {
@@ -141,9 +141,9 @@ void EquipmentSelectSlotUi::SetSlot()
 	if (_eq == nullptr)
 		return;
 
-	Sprite* sprite = RESOURCE->GetSprite(_eq->GetName());
+	Sprite* sprite = RESOURCE->Get<Sprite>(_eq->GetName());
 	_icon->SetSprite(sprite);
-	_icon->SetSize({ (float)sprite->GetSize().x, (float)sprite->GetSize().y });
+	//_icon->SetSize({ (float)sprite->GetSize().x, (float)sprite->GetSize().y });
 	//_icon->SetPos({ _pos.x,_pos.y});
 }
 

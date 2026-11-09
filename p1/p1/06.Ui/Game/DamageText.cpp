@@ -4,6 +4,7 @@
 #include "01.Manager/SceneManager.h"
 #include "01.Manager/ResourceManager.h"
 #include "97.Engin/Resource//Sprite.h"
+#include "../../04.Component/2D/SpriteRenderer.h"
 
 DamageText::DamageText()
 {
@@ -52,22 +53,36 @@ void DamageText::Init()
 
 	//SetScale({ 2,2 });
 	_velocity = { 0,-12 };
+
+	_spriteRenderer = new SpriteRenderer();
+	_spriteRenderer->SetSprite(_sprite[0][0]);
+	AddComponent(_spriteRenderer);
 }
 
 void DamageText::Update()
 {
 	Super::Update();
 
-	float dt = TIME->GetDeltaTime();
+	Time();
 
-	_duration -= dt;
-	//_pos.y += _velocity.y * dt; // 텍스트가 위로 떠오르는 효과
-
-
-	if (_duration <= 0)
+	float offsetX = 0;
+	for (wchar_t c : _text)
 	{
-		SetIsActivity(false); // 텍스트 비활성화
+		if (c < L'0' || c > L'9')
+			continue;
+
+		int digit = c - L'0';
+		Sprite* digitSprite = _sprite[_currentSpriteIndex][digit];
+
+		if (digitSprite == nullptr)
+			continue;
+
+		offsetX += digitSprite->GetSize().x;
+		Vec3 pos = GetTransform()->GetPosition();
+		pos.x += offsetX;	// 다음 숫자 위치로 이동
+		GetTransform()->SetPosition(pos);
 	}
+
 }
 
 //void DamageText::Render(HDC hdc)
@@ -136,3 +151,14 @@ void DamageText::ShowDamage(float damage, Vec3 pos, bool isCritical)
 	}
 }
 
+void DamageText::Time()
+{
+	float dt = TIME->GetDeltaTime();
+
+	_duration -= dt;
+
+	if (_duration <= 0)
+	{
+		SetIsActivity(false); // 텍스트 비활성화
+	}
+}

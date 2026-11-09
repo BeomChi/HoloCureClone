@@ -6,6 +6,7 @@
 #include "../../01.Manager/SceneManager.h"
 #include "../../01.Manager/TimeManager.h"
 #include "../../03.Object/GameObject.h"
+#include "../../97.Engin/Resource/Animation.h"
 
 AnimationComponent::AnimationComponent() : Super(ComponentType::Animator)
 {
@@ -81,7 +82,7 @@ void AnimationComponent::Update()
 //	);
 //}
 
-void AnimationComponent::SetAnimation(Animator* ani)
+void AnimationComponent::SetAnimation(Animation* ani)
 {
 	if (_animator && _animator == ani)
 		return;
@@ -99,10 +100,10 @@ void AnimationComponent::Reset()
 
 int32 AnimationComponent::CheckAnimation(int32 frame)
 {
-	//return _idx == frame;
+	return _idx == frame;
 }
 
 bool AnimationComponent::CheckCurrentAnimationEnd()
 {
-	//return _idx == _animator->GetInfo().end;
+	return _idx == _animator->GetKeyframeCount() - 1;
 }

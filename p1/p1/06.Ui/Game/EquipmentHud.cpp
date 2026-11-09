@@ -4,11 +4,10 @@
 #include "../../01.Manager/GameManager.h"
 #include "../../01.Manager/EquipmentManager.h"
 #include "../../03.Object/Entity/Player/Player.h"
-#include "../../05.Resource/2D/Sprite.h"
 #include "../../06.Ui/Image.h"
 #include "../../06.Ui/Game/HpBar.h"
 #include "../../06.Ui/Game/EquipmentSlotUi.h"
-
+#include "97.Engin/Resource/Sprite.h"
 
 // 무조건 플레이어 생성된 이후 만들기
 EquipmentHud::EquipmentHud()
@@ -39,7 +38,7 @@ void EquipmentHud::Init()
 		for (int i = 0; i < 6; ++i)
 		{
 			auto* slot = new EquipmentSlotUi();
-			slot->SetPos({ 68.f + (23.f * i), 47.f + (28.f *j)});
+			slot->GetTransform()->SetPosition({ 68.f + (23.f * i), 47.f + (28.f * j),0 });
 			slot->SetKey(format(L"slot{0}{1}", j, i));
 			AddPanel(slot);
 			_slot[j].push_back(slot);

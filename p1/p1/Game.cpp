@@ -11,7 +11,7 @@
 #include "01.Manager/StageManager.h"
 #include "01.Manager/SoundManager.h"
 #include "01.Manager/UiLayoutManager.h"
-//#include "01.Manager/RenderManager.h"
+#include "01.Manager/RenderManager.h"
 #include "03.Object/ObjectPool/ObjectPool.h"
 
 
@@ -47,7 +47,7 @@ Game::~Game()
 
 	SAFE_DELETE(_soundManager);
 	SAFE_DELETE(_resourceManager);
-	//SAFE_DELETE(_renderManager);
+	SAFE_DELETE(_renderManager);
 
 	SAFE_DELETE(_gameManager);
 	SAFE_DELETE(_timeManager);
@@ -70,12 +70,12 @@ void Game::Init(HWND hwnd)
 
 	_graphics = new Graphics(hwnd);
 
-	::GetClientRect(hwnd, &_rect);
+	//::GetClientRect(hwnd, &_rect);
 
-	hdcBack = ::CreateCompatibleDC(hdc); // hdc와 호환되는 DC를 생성
-	_bmpBack = ::CreateCompatibleBitmap(hdc, _rect.right, _rect.bottom); // hdc와 호환되는 비트맵 생성
-	HBITMAP prev = (HBITMAP)::SelectObject(hdcBack, _bmpBack); // DC와 BMP를 연결
-	::DeleteObject(prev);
+	//hdcBack = ::CreateCompatibleDC(hdc); // hdc와 호환되는 DC를 생성
+	//_bmpBack = ::CreateCompatibleBitmap(hdc, _rect.right, _rect.bottom); // hdc와 호환되는 비트맵 생성
+	//HBITMAP prev = (HBITMAP)::SelectObject(hdcBack, _bmpBack); // DC와 BMP를 연결
+	//::DeleteObject(prev);
 
 #ifdef _DEBUG
 	AllocConsole(); // 콘솔 생성
@@ -104,8 +104,8 @@ void Game::Init(HWND hwnd)
 	_resourceManager = new ResourceManager(_graphics->GetDevice());
 	_resourceManager->Init(hwnd, resourcePath);
 
-	//_renderManager = new RenderManager(_graphics->GetDevice(), _graphics->GetDeviceContext());
-	//_renderManager->Init();
+	_renderManager = new RenderManager(_graphics->GetDevice(), _graphics->GetDeviceContext());
+	_renderManager->Init();
 
 	_soundManager = new SoundManager();
 	_soundManager->Init(hwnd);
@@ -117,7 +117,7 @@ void Game::Init(HWND hwnd)
 	_gameManager->SetState(GameState::Playing);
 
 	_equipmentManager = new EquipmentManager();
-	_equipmentManager->Init();
+	//_equipmentManager->Init();
 
 	SCENE->ChangeScene(SceneType::StartScene);
 }
@@ -133,15 +133,15 @@ void Game::Update()
 
 void Game::Render()
 {
-	SCENE->Render(hdcBack);
+	//SCENE->Render(hdcBack);
 
-	//RENDER->Update(_graphics);
+	RENDER->Update(_graphics);
 
 
 #ifdef _DEBUG
 
-	uint32 fps = TIME->GetFps();
-	float deltaTime = TIME->GetDeltaTime();
+	/*uint32 fps = TIME->GetFps();
+	float deltaTime = TIME->GetDeltaTime();*/
 
 
 	//
@@ -152,12 +152,12 @@ void Game::Render()
 	}*/
 	
 	{
-		wstring str = std::format(L"FPS({0}), DT({1})", fps, deltaTime);
-		Utils::DrawText(hdcBack, Vector{ GWinSizeX - 180, 10 }, str);
+		/*wstring str = std::format(L"FPS({0}), DT({1})", fps, deltaTime);
+		Utils::DrawText(hdcBack, Vector{ GWinSizeX - 180, 10 }, str);*/
 		//::TextOut(hdc, GWinSizeX - 180, 10, str.c_str(), static_cast<int32>(str.size()));
 	}
 #endif
 	// Double Buffering
-	::BitBlt(hdc, 0, 0, _rect.right, _rect.bottom, hdcBack, 0, 0, SRCCOPY); // 비트 블릿 : 고속 복사
-	::PatBlt(hdcBack, 0, 0, _rect.right, _rect.bottom, WHITENESS);
+	//::BitBlt(hdc, 0, 0, _rect.right, _rect.bottom, hdcBack, 0, 0, SRCCOPY); // 비트 블릿 : 고속 복사
+	//::PatBlt(hdcBack, 0, 0, _rect.right, _rect.bottom, WHITENESS);
 }

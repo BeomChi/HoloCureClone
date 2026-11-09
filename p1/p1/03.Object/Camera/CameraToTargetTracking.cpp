@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "Camera.h"
+#include "CameraToTargetTracking.h"
 #include "../../01.Manager/InputManager.h"
 #include "../../01.Manager/TimeManager.h"
 #include "../../01.Manager/SceneManager.h"
@@ -7,26 +7,21 @@
 #include "../../03.Object/Entity/Player/Player.h"
 #include "../../04.Component/Camera/CameraComponent.h"
 
-Camera::Camera()
+CameraToTargetTracking::CameraToTargetTracking()
 {
 }
 
-Camera::~Camera()
+CameraToTargetTracking::~CameraToTargetTracking()
 {
 	_target = nullptr;
 }
 
-void Camera::Init()
+void CameraToTargetTracking::Init()
 {
-	{
-		CameraComponent* camera = new CameraComponent();
-		AddComponent(camera);
-	}
-
 	Super::Init();
 }
 
-void Camera::Update()
+void CameraToTargetTracking::Update()
 {
 	Super::Update();
 
@@ -40,18 +35,18 @@ void Camera::Update()
 		return;
 	}
 
-	Vector pos = _target->GetPos();
+	Vec3 pos = _target->GetTransform()->GetPosition();
 
 	pos.x = clamp(pos.x, 400.f, 2560.f - 400.f);
 	pos.y = clamp(pos.y, 300.f, 2560.f - 300.f);
 
-	_pos = pos;
+	GetTransform()->SetPosition(pos);
 }
 
-void Camera::MoveCamera(float deltaTime)
+void CameraToTargetTracking::MoveCamera(float deltaTime)
 {
 	auto input = INPUT;
-	Vector dir = { 0,0 };
+	Vec3 dir = { 0,0,0 };
 
 	if (input->GetButton(KeyType::Up))
 	{
@@ -74,13 +69,14 @@ void Camera::MoveCamera(float deltaTime)
 		return;
 	
 
+	Vec3 pos = GetTransform()->GetPosition();
 	dir.Normalize();
-	_pos += dir * 200 * deltaTime;
-
+	pos += dir * 200 * deltaTime;
+	GetTransform()->SetPosition(pos);
 	//SCENE->SetCameraPos(_pos);
 }
 
-void Camera::Input()
+void CameraToTargetTracking::Input()
 {
 	auto input = INPUT;
 	if (input->GetButtonDown(KeyType::KEY_0))
@@ -98,7 +94,7 @@ void Camera::Input()
 	}
 }
 
-void Camera::SetTarget(GameObject* target)
+void CameraToTargetTracking::SetTarget(GameObject* target)
 {
 	_target = target;
 }

@@ -36,10 +36,10 @@ void AOE::Update()
 	Super::Update();
 }
 
-void AOE::Render(HDC hdc)
-{
-	Super::Render(hdc);
-}
+//void AOE::Render(HDC hdc)
+//{
+//	Super::Render(hdc);
+//}
 
 void AOE::SetScaleMultple(float scale)
 {

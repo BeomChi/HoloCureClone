@@ -6,8 +6,10 @@
 #include "01.Manager/SceneManager.h"
 #include "02.Scene/Scene.h"
 #include "03.Object/GameObject.h"
+#include "04.Component/2D/SpriteRenderer.h"
 #include "97.Engin/Resource/Mesh.h"
 #include "97.Engin/Resource/Texture.h"
+#include "97.Engin/Resource/Sprite.h"
 #include "97.Engin/Component/Animation/Animator.h"
 #include "97.Engin/Component/Transform/Transform.h"
 
@@ -51,11 +53,25 @@ void RenderManager::Init()
 	_blendState = new BlendState(_device);
 	_blendState->Create();
 
-	uiProjection = Matrix::CreateOrthographicOffCenter(
+	/*uiProjection = Matrix::CreateOrthographicOffCenter(
 		0.0f, GWinSizeX,
 		GWinSizeY, 0.0f,
-		0.0f, 1.0f
+		-1.0f, 1.0f
 	);
+
+	uiProjection = Matrix::CreateScale(
+		0.0025f,
+		0.00333333f,
+		1.0f
+	);*/
+
+	uiProjection = Matrix(
+		0.0025f, 0.0f, 0.0f, 0.0f,
+		0.0f, 0.00333333f, 0.0f, 0.0f,
+		0.0f, 0.0f, 1.0f, 0.0f,
+		0.0f, 0.0f, 0.0f, 1.0f
+	);
+
 }
 
 void RenderManager::Update(Graphics* graphics)
@@ -86,7 +102,19 @@ void RenderManager::PushUiCameraData()
 {
 	_cameraData.matView = Matrix::Identity;
 	_cameraData.matProjection = uiProjection;
+	//_cameraData.matView = Matrix::Identity;
+	//_cameraData.matProjection = Matrix::CreateScale(0.5f, 0.5f, 1.f);
 
+	/*cout << "UI PROJECTION" << endl;
+
+	for (int i = 0; i < 4; i++)
+	{
+		cout
+			<< _cameraData.matProjection.m[i][0] << " "
+			<< _cameraData.matProjection.m[i][1] << " "
+			<< _cameraData.matProjection.m[i][2] << " "
+			<< _cameraData.matProjection.m[i][3] << endl;
+	}*/
 	_cameraBuffer->CopyData(_cameraData);
 }
 
@@ -141,6 +169,7 @@ void RenderManager::RenderObjects(vector<GameObject*> renderObject)
 		Matrix matSize;
 
 		Animator* animator = gameObject->GetAnimator();
+		SpriteRenderer* spriteRenderer = gameObject->GetSpriteRenderer();
 		if (animator)
 		{
 			const Keyframe& keyframe = animator->GetCurrentKeyframe();
@@ -155,6 +184,19 @@ void RenderManager::RenderObjects(vector<GameObject*> renderObject)
 			
 			matSize = SetRenderScale(keyframe.size);
 		}
+		else if (spriteRenderer)
+		{
+			const SpriteInfo& sprite = spriteRenderer->GetSprite()->GetInfo();
+			_animationData.spriteOffset = sprite.offset;
+			_animationData.spriteSize = sprite.size;
+			_animationData.textureSize = spriteRenderer->GetSprite()->GetTexture()->GetSize();
+			_animationData.useAnimation = 1.f;
+
+			PushAnimationData();
+			_pipeline->SetConstantBuffer(2, SS_VertexShader, _animationBuffer);
+			_pipeline->SetTexture(0, SS_PixelShader, spriteRenderer->GetSprite()->GetTexture());
+			matSize = SetRenderScale(sprite.size);
+		}
 		else
 		{
 			_animationData.spriteOffset = Vec2(0.f, 0.f);
@@ -168,9 +210,40 @@ void RenderManager::RenderObjects(vector<GameObject*> renderObject)
 
 			matSize = SetRenderScale(meshRenderer->GetTexture()->GetSize());
 		}
-
 		_transformData.matWorld = matSize * transform->GetWorldMatrix();
+		//_transformData.matWorld = transform->GetWorldMatrix() * matSize;
+		//_transformData.matWorld = Matrix::CreateScale(1.f, 1.f, 1.f);
+		//_transformData.matWorld = Matrix::Identity;
+
+		//cout << "WORLD BEFORE COPY" << endl;
+
+		//for (int i = 0; i < 4; i++)
+		//{
+		//	cout
+		//		<< _transformData.matWorld.m[i][0] << " "
+		//		<< _transformData.matWorld.m[i][1] << " "
+		//		<< _transformData.matWorld.m[i][2] << " "
+		//		<< _transformData.matWorld.m[i][3] << endl;
+		//}
 		PushTransformData();
+
+		/*cout << "WORLD" << endl;
+		Matrix world = transform->GetWorldMatrix();
+		for (int i = 0; i < 4; i++)
+		{
+			cout
+				<< world.m[i][0] << " "
+				<< world.m[i][1] << " "
+				<< world.m[i][2] << " "
+				<< world.m[i][3] << endl;
+		}*/
+
+		/*Vec3 pos = transform->GetPosition();
+
+		cout << "Render Pos : "
+			<< pos.x << " "
+			<< pos.y << " "
+			<< pos.z << endl;*/
 
 		PipelineInfo info;
 		info.inputLayout = meshRenderer->GetInputLayout();

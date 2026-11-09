@@ -9,6 +9,7 @@ class Transform;
 class Camera;
 class MeshRenderer;
 class Animator;
+class SpriteRenderer;
 
 
 class GameObject
@@ -86,6 +87,7 @@ public:
 	Camera* GetCamera();
 	MeshRenderer* GetMeshRenderer();
 	Animator* GetAnimator();
+	SpriteRenderer* GetSpriteRenderer();
 
 	Transform* GetOrAddTransform();
 
@@ -104,7 +106,7 @@ protected:
 
 	bool _isActivity = true;
 
-	array<Component*, FIXED_COMPONENT_COUNT> _components;
+	array<Component*, FIXED_COMPONENT_COUNT> _components{};
 	vector<MonoBehaviour*> _scripts;
 	
 

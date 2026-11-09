@@ -82,6 +82,7 @@ using namespace Microsoft::WRL;
 #include "97.Engin/Pipeline/05.OutputMerge/BlendState.h"
 #include "97.Engin/Pipeline/Pipeline.h"
 #include "97.Engin/Component/Transform/Transform.h"
+#include "97.Engin/Resource/Texture.h"
 
 // Game
 #include "00.MainGame/Game.h"

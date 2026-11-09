@@ -4,6 +4,7 @@
 #include "../02.Scene/Game/DevScene.h"
 #include "../02.Scene/Game/StartScene.h"
 #include "../02.Scene/Game/EditScene.h"
+#include "../03.Object/GameObject.h"
 #include "97.Engin/Component/Camera/Camera.h"
 
 SceneManager::SceneManager(Graphics* graphics) :_graphics(graphics)
@@ -80,8 +81,19 @@ void SceneManager::ChangeScene(SceneType sceneType)
 
 Vec3 SceneManager::WorldToScreen(Vec2 pos)
 {
-	//return pos - _cameraPos + Vector(GWinSizeX / 2, GWinSizeY / 2);
+	Vec3 worldPos = { pos.x, pos.y, 0 };
 
+	Vec4 clipPos = Vec4::Transform(
+		Vec4(worldPos.x, worldPos.y, worldPos.z, 1.0f),
+		Camera::s_matView * Camera::s_matProjection
+	);
+
+	float ndcX = clipPos.x / clipPos.w;
+	float ndcY = clipPos.y / clipPos.w;
+	float screenX = (ndcX + 1.0f) * 0.5f * GWinSizeX;
+	float screenY = (1.0f - ndcY) * 0.5f * GWinSizeY;
+
+	return { screenX, screenY, 0 };
 }
 
 Vec3 SceneManager::ScreenToWorld(Vec2 screenPos)

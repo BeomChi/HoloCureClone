@@ -208,6 +208,9 @@
     <Filter Include="소스 파일\97.Engin\Component\Transform">
       <UniqueIdentifier>{e586557d-a87e-4d38-86db-8c0799f8f415}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\99.Header\Banana">
+      <UniqueIdentifier>{0954967e-6a88-44d4-ad33-e72b22951524}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -324,7 +327,7 @@
     <ClInclude Include="03.Object\Item\Equipment\Equipment.h">
       <Filter>소스 파일\03.Object\Game\Item\Equipment</Filter>
     </ClInclude>
-    <ClInclude Include="03.Object\Camera\Camera.h">
+    <ClInclude Include="03.Object\Camera\CameraToTargetTracking.h">
       <Filter>소스 파일\03.Object\Game\Camera</Filter>
     </ClInclude>
     <ClInclude Include="03.Object\Projectile\Lava.h">
@@ -576,6 +579,9 @@
     <ClInclude Include="97.Engin\Component\Camera\Camera.h">
       <Filter>소스 파일\97.Engin\Component\Camera</Filter>
     </ClInclude>
+    <ClInclude Include="SimpleMath.h">
+      <Filter>소스 파일\99.Header\Banana</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
@@ -665,7 +671,7 @@
     <ClCompile Include="03.Object\Item\Equipment\Equipment.cpp">
       <Filter>소스 파일\03.Object\Game\Item\Equipment</Filter>
     </ClCompile>
-    <ClCompile Include="03.Object\Camera\Camera.cpp">
+    <ClCompile Include="03.Object\Camera\CameraToTargetTracking.cpp">
       <Filter>소스 파일\03.Object\Game\Camera</Filter>
     </ClCompile>
     <ClCompile Include="03.Object\Projectile\Lava.cpp">
@@ -917,6 +923,9 @@
     <ClCompile Include="97.Engin\Component\Camera\Camera.cpp">
       <Filter>소스 파일\97.Engin\Component\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="SimpleMath.cpp">
+      <Filter>소스 파일\99.Header\Banana</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="p1.rc">
@@ -935,5 +944,10 @@
     <FxCompile Include="Default.hlsl">
       <Filter>소스 파일\96.Shader</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="SimpleMath.inl">
+      <Filter>소스 파일\99.Header\Banana</Filter>
+    </None>
   </ItemGroup>
 </Project>

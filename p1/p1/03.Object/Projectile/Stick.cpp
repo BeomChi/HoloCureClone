@@ -61,7 +61,12 @@ void Stick::Update()
 	Vec3 pos = GetTransform()->GetPosition();
 	pos += _info._dir * _info._speed * deltaTime;
 	
-	Vec3 pos = SCENE->WorldToScreen(Vec2(pos.x,pos.y));
+	GetTransform()->SetPosition(pos);
+
+	// 그럼 순서가 중요하겠네
+	// 일단 위치설정하고 그 다음에 이게 화면 밖으로 나갔는지 체크하는게 맞겠지?
+	pos = SCENE->WorldToScreen(Vec2(pos.x,pos.y));
+
 
 	if (pos.x <= 0 || pos.y <= 0 ||
 		pos.x >= GWinSizeX || pos.y >= GWinSizeY)

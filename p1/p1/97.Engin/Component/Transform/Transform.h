@@ -65,7 +65,7 @@ private:
 	Vec3 _look;
 
 private:
-	Transform* _parent;
+	Transform* _parent = nullptr;
 	vector<Transform*> _children;
 
 };

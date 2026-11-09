@@ -2,6 +2,7 @@
 #include "Ui.h"
 
 class Sprite;
+class SpriteRenderer;
 
 enum ButtonState
 {
@@ -36,7 +37,7 @@ protected:
 	Sprite* _currentSprite = nullptr;
 	Sprite* _sprites[BS_MaxCount] = {};
 	ButtonState _state = BS_Default;
-
+	SpriteRenderer* _spriteRenderer = nullptr;
 	float _sumTime = 0;
 
 public:

@@ -1,12 +1,6 @@
 #include "pch.h"
 #include "ResourceManager.h"
-#include "97.Engin/Resource/Texture.h"
-#include "97.Engin/Resource/Animation.h"
-#include "97.Engin/Resource/Material.h"
-#include "97.Engin/Resource/Shader.h"
-#include "97.Engin/Resource/Mesh.h"
-#include "97.Engin/Resource/Sprite.h"
-#include "../05.Resource/Sound/Sound.h"
+
 
 
 ResourceManager::ResourceManager(ComPtr<ID3D11Device> device) : _device(device)
@@ -22,6 +16,435 @@ void ResourceManager::Init(HWND hwnd, fs::path resourcePath)
 {
 	_hwnd = hwnd;
 	_resourcePath = resourcePath;
+
+	CreateDefaultTexture();
+	CreateDefaultAnimation();
+	CreateDefaultShader();
+	CreateDefaultMaterial();
+	CreateDefaultMesh();
+
+	LoadTexture(L"Title", L"Sprite/Ui/Title.png");
+	LoadTexture(L"MenuBackground", L"Sprite\\Ui\\menuBackground.bmp");
+	LoadTexture(L"Start", L"Sprite\\Ui\\Start.bmp");
+
+	CreateSprite(L"Start_Off", Get<Texture>(L"Start"), 0, 0, 150, 150);
+	CreateSprite(L"Start_On", Get<Texture>(L"Start"), 150, 0, 150, 150);
+	CreateSprite(L"Title", Get<Texture>(L"Title"));
+	CreateSprite(L"MenuBackground", Get<Texture>(L"MenuBackground"));
+
+	LoadTexture(L"Stage01", L"Sprite\\Map\\Stage01.bmp");
+
+	LoadTexture(L"GuraLeft", L"Sprite\\Player\\GuraAniLeft.bmp");
+	LoadTexture(L"GuraRight", L"Sprite\\Player\\GuraAniRight.bmp");
+	LoadTexture(L"GuraImage", L"Sprite\\Player\\Gura.bmp");
+	LoadTexture(L"PlayerDie", L"Sprite\\Player\\PlayerDie.bmp");
+	LoadTexture(L"GuraIcon", L"Sprite\\Player\\GuraIcon.bmp");
+
+	LoadTexture(L"FuburaLeft", L"Sprite\\Monster\\Fubura\\FuburaLeft.bmp");
+	LoadTexture(L"FuburaRight", L"Sprite\\Monster\\Fubura\\FuburaRight.bmp");
+	LoadTexture(L"FuburaLaserStart", L"Sprite\\Monster\\Fubura\\LaserStart.bmp");
+	LoadTexture(L"FuburaLaser", L"Sprite\\Monster\\Fubura\\Laser.bmp");
+	
+	LoadTexture(L"ShubagelionAttack", L"Sprite\\Monster\\Shubangelion\\ShubagelionAttack.bmp");
+	LoadTexture(L"ShubangelionCharge", L"Sprite\\Monster\\Shubangelion\\ShubangelionCharge.bmp");
+	LoadTexture(L"ShubangelionLeft", L"Sprite\\Monster\\Shubangelion\\ShubangelionLeft.bmp");
+	LoadTexture(L"ShubangelionRight", L"Sprite\\Monster\\Shubangelion\\ShubangelionRight.bmp");
+
+	LoadTexture(L"SukonbuLeft", L"Sprite\\Monster\\Sukonbu\\SukonbuLeft.bmp");
+	LoadTexture(L"SukonbuRight", L"Sprite\\Monster\\Sukonbu\\SukonbuRight.bmp");
+	LoadTexture(L"SukonbuTypeB", L"Sprite\\Monster\\Sukonbu\\SukonbuTypeB.bmp");
+	LoadTexture(L"SukonbuTypeK", L"Sprite\\Monster\\Sukonbu\\SukonbuTypeK.bmp");
+	LoadTexture(L"SukonbuTypeN", L"Sprite\\Monster\\Sukonbu\\SukonbuTypeN.bmp");
+	LoadTexture(L"SukonbuTypeT", L"Sprite\\Monster\\Sukonbu\\SukonbuTypeT.bmp");
+
+	// 장비
+	LoadTexture(L"FanSpawn", L"Sprite\\Object\\FanSpawn.bmp");
+	LoadTexture(L"FanDie", L"Sprite\\Object\\FanDie.bmp");
+	LoadTexture(L"Exp", L"Sprite\\Object\\Exp.bmp");
+	LoadTexture(L"HealObject", L"Sprite\\Object\\Hamburger.bmp");
+	LoadTexture(L"Bullets", L"Sprite\\Object\\Bullets.bmp");
+	LoadTexture(L"BLBook", L"Sprite\\Object\\BLBook.bmp");
+	LoadTexture(L"Miasma", L"Sprite\\Object\\Miasma.bmp");
+	LoadTexture(L"BombObj", L"Sprite\\Object\\Bomb.bmp");
+
+
+	LoadTexture(L"EnCurse", L"Sprite\\Object\\EnCurse.bmp");
+	LoadTexture(L"FanBeam", L"Sprite\\Object\\FanBeam.bmp");
+	LoadTexture(L"LavaStart", L"Sprite\\Object\\LavaStart.bmp");
+	LoadTexture(L"LavaLoop", L"Sprite\\Object\\LavaLoop.bmp");
+	LoadTexture(L"LavaEnd", L"Sprite\\Object\\LavaEnd.bmp");
+	LoadTexture(L"Explode", L"Sprite\\Object\\Explode.bmp");
+	LoadTexture(L"PsychoAxe", L"Sprite\\Object\\PsychoAxe.bmp");
+	LoadTexture(L"Stick", L"Sprite\\Object\\Stick.bmp");
+	LoadTexture(L"StickExplode", L"Sprite\\Object\\StickExplode.bmp");
+	LoadTexture(L"Sausage", L"Sprite\\Object\\Sausage.bmp");
+	LoadTexture(L"Splash", L"Sprite\\Object\\Splash.bmp");
+	LoadTexture(L"TridentObj", L"Sprite\\Object\\Trident.bmp");
+
+	// UI
+	LoadTexture(L"PlayerHpBar", L"Sprite\\Ui\\PlayerHpBar.bmp");
+	LoadTexture(L"PlayerHUD1", L"Sprite\\Ui\\PlayerHUD1.bmp");
+	LoadTexture(L"ExpBarFrame", L"Sprite\\Ui\\ExpBarFrame.bmp");
+	LoadTexture(L"ExpBar", L"Sprite\\Ui\\ExpBar.bmp");
+	LoadTexture(L"DefaultEquipmentIcon", L"Sprite\\Ui\\DefaultEquipmentIcon.bmp");
+	LoadTexture(L"WeaponIcon_1", L"Sprite\\Ui\\WeaponIcon_1.bmp");
+	LoadTexture(L"WeaponIcon_2", L"Sprite\\Ui\\WeaponIcon_2.bmp");
+	LoadTexture(L"ItmeMenu_Menu", L"Sprite\\Ui\\ItmeMenu_Menu.bmp");
+	LoadTexture(L"Trident", L"Sprite\\Ui\\Trident.bmp");
+	LoadTexture(L"Pistol", L"Sprite\\Ui\\Pistol.bmp");
+	LoadTexture(L"KillCount_Coin", L"Sprite\\Ui\\KillCount_Coin.bmp");
+	LoadTexture(L"Numbers", L"Sprite\\Ui\\Numbers.bmp");
+	LoadTexture(L"Level", L"Sprite\\Ui\\Level.bmp");
+	LoadTexture(L"SettingMenuBG", L"Sprite\\Ui\\SettingMenue.bmp");
+	LoadTexture(L"DefaultButtonImage", L"Sprite\\Ui\\SettingButton.bmp");
+
+	CreateSprite(L"Stage01", Get<Texture>(L"Stage01"));
+	CreateSprite(L"SettingMenuBG",Get<Texture>(L"SettingMenuBG"));
+
+	CreateSprite(L"Exp01", Get<Texture>(L"Exp"), 0, 0, 16, 18);
+	CreateSprite(L"Exp02", Get<Texture>(L"Exp"), 16, 0, 16, 18);
+	CreateSprite(L"Exp03", Get<Texture>(L"Exp"), 32, 0, 16, 18);
+	CreateSprite(L"Exp04", Get<Texture>(L"Exp"), 48, 0, 16, 18);
+	CreateSprite(L"Exp05", Get<Texture>(L"Exp"), 64, 0, 16, 18);
+	CreateSprite(L"Exp06", Get<Texture>(L"Exp"), 80, 0, 16, 18);
+
+	CreateSprite(L"Bullet01", Get<Texture>(L"Bullets"), 0, 0, 17, 17);
+	CreateSprite(L"Bullet02", Get<Texture>(L"Bullets"), 17, 0, 17, 17);
+	CreateSprite(L"Bullet03", Get<Texture>(L"Bullets"), 34, 0, 17, 17);
+	CreateSprite(L"Bullet04", Get<Texture>(L"Bullets"), 51, 0, 17, 17);
+	CreateSprite(L"Bullet05", Get<Texture>(L"Bullets"), 68, 0, 17, 17);
+	CreateSprite(L"Bullet06", Get<Texture>(L"Bullets"), 85, 0, 17, 17);
+
+	CreateSprite(L"BLBook", Get<Texture>(L"BLBook"));
+	CreateSprite(L"Miasma", Get<Texture>(L"Miasma"));
+	CreateSprite(L"BombObj", Get<Texture>(L"BombObj"));
+
+	CreateSprite(L"PlayerHpBarGreen", Get<Texture>(L"PlayerHpBar"), 0, 0, 129, 6);
+	CreateSprite(L"PlayerHpBarRed", Get<Texture>(L"PlayerHpBar"), 129, 0, 129, 6);
+	CreateSprite(L"PlayerHpBarPuple", Get<Texture>(L"PlayerHpBar"), 258, 0, 129, 6);
+
+	CreateSprite(L"PlayerHUD1", Get<Texture>(L"PlayerHUD1"), 199, 0, 199, 87);
+	CreateSprite(L"GuraIcon", Get<Texture>(L"GuraIcon"));
+
+	CreateSprite(L"ExpBarBG", Get<Texture>(L"ExpBarFrame"), 0, 0, 650, 26);
+	CreateSprite(L"ExpBarFrame", Get<Texture>(L"ExpBarFrame"), 650, 0, 650, 26);
+	CreateSprite(L"ExpBar", Get<Texture>(L"ExpBar"), 0, 0, 650, 26);
+	CreateSprite(L"ExpBarFull", Get<Texture>(L"ExpBar"), 0, 26, 650, 26);
+
+	CreateSprite(L"DefaultWeaponIcon", Get<Texture>(L"DefaultEquipmentIcon"), 0, 0, 12, 11);
+	CreateSprite(L"DefaultArmorIcon", Get<Texture>(L"DefaultEquipmentIcon"), 12, 0, 12,11);
+
+	CreateSprite(L"ItemMenuSelect", Get<Texture>(L"ItmeMenu_Menu"), 0, 0, 386, 68);
+	CreateSprite(L"ItemMune", Get<Texture>(L"ItmeMenu_Menu"), 386, 0, 386, 68);
+	CreateSprite(L"ItemMenuSelectDie", Get<Texture>(L"ItmeMenu_Menu"), 0, 68, 386, 68);
+	CreateSprite(L"ItemMenuDie", Get<Texture>(L"ItmeMenu_Menu"), 386, 68, 386, 68);
+
+	CreateSprite(L"SpiderCooking", Get<Texture>(L"WeaponIcon_1"), 0, 0, 25, 20);
+	CreateSprite(L"EliteLavaBucket", Get<Texture>(L"WeaponIcon_1"), 25, 0, 25, 20);
+	CreateSprite(L"Bomb", Get<Texture>(L"WeaponIcon_1"), 50, 0, 25, 20);
+	CreateSprite(L"PsychoAxe", Get<Texture>(L"WeaponIcon_1"), 75, 0, 25, 20);
+	CreateSprite(L"BLBook", Get<Texture>(L"WeaponIcon_1"), 100, 0, 25, 20);
+	CreateSprite(L"FanBeam", Get<Texture>(L"WeaponIcon_1"), 125, 0, 25, 20);
+	CreateSprite(L"GlowStick", Get<Texture>(L"WeaponIcon_1"), 150, 0, 25, 20);
+
+	CreateSprite(L"Sausage", Get<Texture>(L"WeaponIcon_2"), 0, 0, 25, 22);
+	CreateSprite(L"EnCurse", Get<Texture>(L"WeaponIcon_2"), 25, 0, 25, 22);
+	CreateSprite(L"WamyWater", Get<Texture>(L"WeaponIcon_2"), 50, 0, 25, 22);
+	CreateSprite(L"Trident", Get<Texture>(L"Trident"));
+	CreateSprite(L"PistolShoot", Get<Texture>(L"Pistol"));
+	CreateSprite(L"KillCount", Get<Texture>(L"KillCount_Coin"), 0, 0, 15, 15);
+	CreateSprite(L"Coin", Get<Texture>(L"KillCount_Coin"), 15, 0, 15, 15);
+	CreateSprite(L"DefaultButton", Get<Texture>(L"DefaultButtonImage"), 0, 0, 180, 29);
+	CreateSprite(L"DefaultButtonPress", Get<Texture>(L"DefaultButtonImage"), 0, 29, 180, 29);
+
+	CreateSprite(L"LevelTypeNormal", Get<Texture>(L"Level"), 0, 0, 20, 9);
+	CreateSprite(L"LevelTypeCollabo", Get<Texture>(L"Level"), 20, 0, 20, 9);
+	CreateSprite(L"LevelTypeExclusive", Get<Texture>(L"Level"), 40, 0, 20, 9);
+
+	CreateSprite(L"NumberTypeNormal0", Get<Texture>(L"Numbers"), 0, 0, 5, 7);
+	CreateSprite(L"NumberTypeNormal1", Get<Texture>(L"Numbers"), 5, 0, 5, 7);
+	CreateSprite(L"NumberTypeNormal2", Get<Texture>(L"Numbers"), 10, 0, 5, 7);
+	CreateSprite(L"NumberTypeNormal3", Get<Texture>(L"Numbers"), 15, 0, 5, 7);
+	CreateSprite(L"NumberTypeNormal4", Get<Texture>(L"Numbers"), 20, 0, 5, 7);
+	CreateSprite(L"NumberTypeNormal5", Get<Texture>(L"Numbers"), 25, 0, 5, 7);
+	CreateSprite(L"NumberTypeNormal6", Get<Texture>(L"Numbers"), 30, 0, 5, 7);
+	CreateSprite(L"NumberTypeNormal7", Get<Texture>(L"Numbers"), 35, 0, 5, 7);
+	CreateSprite(L"NumberTypeNormal8", Get<Texture>(L"Numbers"), 40, 0, 5, 7);
+	CreateSprite(L"NumberTypeNormal9", Get<Texture>(L"Numbers"), 45, 0, 5, 7);
+
+	CreateSprite(L"NumberTypeCollabo0", Get<Texture>(L"Numbers"), 0, 7, 5, 7);
+	CreateSprite(L"NumberTypeCollabo1", Get<Texture>(L"Numbers"), 5, 7, 5, 7);
+	CreateSprite(L"NumberTypeCollabo2", Get<Texture>(L"Numbers"), 10, 7, 5, 7);
+	CreateSprite(L"NumberTypeCollabo3", Get<Texture>(L"Numbers"), 15, 7, 5, 7);
+	CreateSprite(L"NumberTypeCollabo4", Get<Texture>(L"Numbers"), 20, 7, 5, 7);
+	CreateSprite(L"NumberTypeCollabo5", Get<Texture>(L"Numbers"), 25, 7, 5, 7);
+	CreateSprite(L"NumberTypeCollabo6", Get<Texture>(L"Numbers"), 30, 7, 5, 7);
+	CreateSprite(L"NumberTypeCollabo7", Get<Texture>(L"Numbers"), 35, 7, 5, 7);
+	CreateSprite(L"NumberTypeCollabo8", Get<Texture>(L"Numbers"), 40, 7, 5, 7);
+	CreateSprite(L"NumberTypeCollabo9", Get<Texture>(L"Numbers"), 45, 7, 5, 7);
+
+	CreateSprite(L"NumberTypeExclusive0", Get<Texture>(L"Numbers"), 0, 14, 5, 7);
+	CreateSprite(L"NumberTypeExclusive1", Get<Texture>(L"Numbers"), 5, 14, 5, 7);
+	CreateSprite(L"NumberTypeExclusive2", Get<Texture>(L"Numbers"), 10, 14, 5, 7);
+	CreateSprite(L"NumberTypeExclusive3", Get<Texture>(L"Numbers"), 15, 14, 5, 7);
+	CreateSprite(L"NumberTypeExclusive4", Get<Texture>(L"Numbers"), 20, 14, 5, 7);
+	CreateSprite(L"NumberTypeExclusive5", Get<Texture>(L"Numbers"), 25, 14, 5, 7);
+	CreateSprite(L"NumberTypeExclusive6", Get<Texture>(L"Numbers"), 30, 14, 5, 7);
+	CreateSprite(L"NumberTypeExclusive7", Get<Texture>(L"Numbers"), 35, 14, 5, 7);
+	CreateSprite(L"NumberTypeExclusive8", Get<Texture>(L"Numbers"), 40, 14, 5, 7);
+	CreateSprite(L"NumberTypeExclusive9", Get<Texture>(L"Numbers"), 45, 14, 5, 7);
+	{
+		{
+			Texture* texture = Get<Texture>(L"GuraLeft");
+			Animation* ani = CreateAnimator(L"Gura_IdleLeft");
+			//ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 64,34 },0.5f }, 3, 0);
+			//ani->SetInfo({ texture, L"Gura_IdleLeft", {64,34}, 0, 2, 0, 0.5f });
+		}
+		{
+			Texture* texture = Get<Texture>(L"GuraLeft");
+			Animation* ani = CreateAnimator(L"GuraMoveLeft");
+			//ani->SetInfo({ texture, L"GuraMoveLeft",{64,34}, 0, 5, 1, 0.5f });
+		}
+		{
+			Texture* texture = Get<Texture>(L"GuraRight");
+			Animation* ani = CreateAnimator(L"Gura_IdleRight");
+			//ani->SetInfo({ texture, L"Gura_IdleRight",{64,34}, 0, 2, 0, 0.5f });
+		}
+		{
+			Texture* texture = Get<Texture>(L"GuraRight");
+			Animation* ani = CreateAnimator(L"GuraMoveRight");
+			//ani->SetInfo({ texture, L"GuraMoveRight",{64,34}, 0, 5, 1, 0.5f });
+		}
+	}
+	{
+		{
+			Texture* texture = Get<Texture>(L"FuburaLeft");
+			Animation* ani = CreateAnimator(L"Fubura_MoveLeft");
+			//ani->SetInfo({ texture, L"Fubura_MoveLeft",{82,57}, 0, 11, 0, 1.f });
+		}
+		{
+			Texture* texture = Get<Texture>(L"FuburaRight");
+			Animation* ani = CreateAnimator(L"Fubura_MoveRight");
+			//ani->SetInfo({ texture, L"Fubura_MoveRight",{82,57}, 0, 11, 0, 1.f });
+		}
+		{
+			Texture* texture = Get<Texture>(L"FuburaLaserStart");
+			Animation* ani = CreateAnimator(L"FuburaLaserStart");
+			//ani->SetInfo({ texture, L"FuburaLaserStart",{465,50}, 0, 22, 0, 0.8f });
+		}
+		{
+			Texture* texture = Get<Texture>(L"FuburaLaser");
+			Animation* ani = CreateAnimator(L"FuburaLaser");
+			//ani->SetInfo({ texture, L"FuburaLaser",{465,50}, 0, 11, 0, 1.f });
+		}
+	}
+	{
+		{
+			Texture* texture = Get<Texture>(L"ShubangelionLeft");
+			Animation* ani = CreateAnimator(L"Shubangelion_MoveLeft");
+			//ani->SetInfo({ texture, L"Shubangelion_MoveLeft",{128,135}, 0, 7, 0, 1.f });
+		}
+		{
+			Texture* texture = Get<Texture>(L"ShubangelionRight");
+			Animation* ani = CreateAnimator(L"Shubangelion_MoveRight");
+			//ani->SetInfo({ texture, L"Shubangelion_MoveRight",{128,135}, 0, 7, 0, 1.f });
+		}
+		{
+			Texture* texture = Get<Texture>(L"ShubangelionCharge");
+			Animation* ani = CreateAnimator(L"Shubangelion_Charge");
+			//ani->SetInfo({ texture, L"Shubangelion_Charge",{128,135}, 0, 2, 0, 2.f });
+		}
+		{
+			Texture* texture = Get<Texture>(L"ShubagelionAttack");
+			Animation* ani = CreateAnimator(L"Shubagelion_Attack");
+			//ani->SetInfo({ texture, L"Shubagelion_Attack",{128,135}, 0, 9, 0, 1.f });
+		}
+	}
+
+#pragma region 오브젝트
+
+
+	// 오브젝트
+	{
+#pragma region 몬스터 공격 이펙트 애니메이션
+		{
+			Texture* texture = Get<Texture>(L"FanSpawn");
+			Animation* ani = CreateAnimator(L"FanSpawn");
+			//ani->SetInfo({ texture, L"FanSpawn",{67,114}, 0, 3, 0, 0.25f,false });
+		}
+		{
+			Texture* texture = Get<Texture>(L"FanDie");
+			Animation* ani = CreateAnimator(L"FanDie");
+			//ani->SetInfo({ texture, L"FanSpawn",{48,48}, 0, 9, 0, 0.5f,false });
+		}
+		{
+			Texture* texture = Get<Texture>(L"HealObject");
+			Animation* ani = CreateAnimator(L"HealObject");
+			//ani->SetInfo({ texture, L"HealObject",{32,32}, 0, 7, 0, 1.f });
+		}
+		{
+			Texture* texture = Get<Texture>(L"PlayerDie");
+			Animation* ani = CreateAnimator(L"PlayerDie");
+			//ani->SetInfo({ texture, L"PlayerDie",{32,32}, 0, 3, 0, 1.f });
+		}
+#pragma endregion
+
+#pragma region 장비 이펙트 애니메이션
+
+
+		// 장비
+		{
+			// 무기
+			{
+				{
+					Texture* texture = Get<Texture>(L"LavaStart");
+					Animation* ani = CreateAnimator(L"LavaStart");
+					//ani->SetInfo({ texture, L"LavaStart",{127,127}, 0, 8, 0, 0.5f });
+				}
+				{
+					Texture* texture = Get<Texture>(L"LavaLoop");
+					Animation* ani = CreateAnimator(L"LavaLoop");
+					//ani->SetInfo({ texture, L"LavaLoop",{127,127}, 0, 13, 0, 1.f });
+				}
+				{
+					Texture* texture = Get<Texture>(L"LavaEnd");
+					Animation* ani = CreateAnimator(L"LavaEnd");
+					//ani->SetInfo({ texture, L"LavaEnd",{127,127}, 0, 5, 0, 0.5f });
+				}
+				{
+					Texture* texture = Get<Texture>(L"EnCurse");
+					Animation* ani = CreateAnimator(L"EnCurseRight");
+					//ani->SetInfo({ texture, L"EnCurseRight",{36,21}, 0, 7, 0, 0.5f });
+				}
+				{
+					Texture* texture = Get<Texture>(L"EnCurse");
+					Animation* ani = CreateAnimator(L"EnCurseLeft");
+					//ani->SetInfo({ texture, L"EnCurseLeft",{36,21}, 0, 7, 1, 0.5f });
+				}
+				{
+					Texture* texture = Get<Texture>(L"FanBeam");
+					Animation* ani = CreateAnimator(L"FanBeamRight");
+					//ani->SetInfo({ texture, L"FanBeamRight",{466,51}, 0, 9, 0, 1.f });
+				}
+				{
+					Texture* texture = Get<Texture>(L"FanBeam");
+					Animation* ani = CreateAnimator(L"FanBeamLeft");
+					//ani->SetInfo({ texture, L"FanBeamLeft",{466,51}, 0, 9, 1, 1.f });
+				}
+				{
+					Texture* texture = Get<Texture>(L"Explode");
+					Animation* ani = CreateAnimator(L"BombExplode");
+					//ani->SetInfo({ texture, L"BombExplode",{128,128}, 0, 12, 0, 1.f });
+				}
+				{
+					Texture* texture = Get<Texture>(L"PsychoAxe");
+					Animation* ani = CreateAnimator(L"PsychoAxe");
+					//ani->SetInfo({ texture, L"PsychoAxe",{46,46}, 0, 7, 0, 1.f });
+				}
+				{
+					Texture* texture = Get<Texture>(L"Stick");
+					Animation* ani = CreateAnimator(L"Stick");
+					//ani->SetInfo({ texture, L"Stick",{46,46}, 0, 7, 0, 1.f });
+				}
+				{
+					Texture* texture = Get<Texture>(L"StickExplode");
+					Animation* ani = CreateAnimator(L"StickExplode");
+					//ani->SetInfo({ texture, L"StickExplode",{93,91}, 0, 6, 0, 1.f });
+				}
+				{
+					Texture* texture = Get<Texture>(L"Sausage");
+					Animation* ani = CreateAnimator(L"SausageRight");
+					//ani->SetInfo({ texture, L"SausageRight",{128,128}, 0, 4, 0, 1.f });
+				}
+				{
+					Texture* texture = Get<Texture>(L"Sausage");
+					Animation* ani = CreateAnimator(L"SausageLeft");
+					//ani->SetInfo({ texture, L"SausageLeft",{128,128}, 0, 4, 1, 1.f });
+				}
+				{
+					Texture* texture = Get<Texture>(L"Splash");
+					Animation* ani = CreateAnimator(L"SplashRight");
+					//ani->SetInfo({ texture, L"SplashRight",{128,128}, 0, 5,0, 0.25f });
+				}
+				{
+					Texture* texture = Get<Texture>(L"Splash");
+					Animation* ani = CreateAnimator(L"SplashLeft");
+					//ani->SetInfo({ texture, L"SplashLeft",{128,128}, 0, 5, 1, 0.25f });
+				}
+				{
+					Texture* texture = Get<Texture>(L"TridentObj");
+					Animation* ani = CreateAnimator(L"TridentRight");
+					//ani->SetInfo({ texture, L"TridentRight",{200,32}, 0, 6, 0, 0.5f });
+				}
+				{
+					Texture* texture = Get<Texture>(L"TridentObj");
+					Animation* ani = CreateAnimator(L"TridentLeft");
+					//ani->SetInfo({ texture, L"TridentLeft",{200,32}, 0, 6, 1, 0.5f });
+				}
+			}
+		}
+	}
+#pragma endregion
+
+#pragma region 몬스터 애니메이션
+
+
+	// 몬스터
+	{
+		{
+			Texture* texture = Get<Texture>(L"SukonbuLeft");
+			Animation* ani = CreateAnimator(L"Sukonbu_MoveLeft");
+			//ani->SetInfo({ texture, L"Sukonbu_MoveLeft",{64,64}, 0, 2, 0, 1.f });
+		}
+		{
+			Texture* texture = Get<Texture>(L"SukonbuRight");
+			Animation* ani = CreateAnimator(L"Sukonbu_MoveRight");
+			//ani->SetInfo({ texture, L"Sukonbu_MoveRight",{64,64}, 0, 2, 0, 1.f });
+		}
+		{
+			Texture* texture = Get<Texture>(L"SukonbuTypeB");
+			Animation* ani = CreateAnimator(L"SukonbuTypeB_MoveLeft");
+			//ani->SetInfo({ texture, L"SukonbuTypeB_MoveLeft",{42,32}, 0, 1, 1, 1.f });
+		}
+		{
+			Texture* texture = Get<Texture>(L"SukonbuTypeB");
+			Animation* ani = CreateAnimator(L"SukonbuTypeB_MoveRight");
+			//ani->SetInfo({ texture, L"SukonbuTypeB_MoveRight",{42,32}, 0, 1, 0, 1.f });
+		}
+		{
+			Texture* texture = Get<Texture>(L"SukonbuTypeK");
+			Animation* ani = CreateAnimator(L"SukonbuTypeK_MoveLeft");
+			//ani->SetInfo({ texture, L"SukonbuTypeK_MoveLeft",{32,32}, 0, 2, 1, 1.f });
+		}
+		{
+			Texture* texture = Get<Texture>(L"SukonbuTypeK");
+			Animation* ani = CreateAnimator(L"SukonbuTypeK_MoveRight");
+			//ani->SetInfo({ texture, L"SukonbuTypeK_MoveRight",{32,32}, 0, 2, 0, 1.f });
+		}
+		{
+			Texture* texture = Get<Texture>(L"SukonbuTypeN");
+			Animation* ani = CreateAnimator(L"SukonbuTypeN_MoveLeft");
+			//ani->SetInfo({ texture, L"SukonbuTypeN_MoveLeft",{32,32}, 0, 2, 1, 1.f });
+		}
+		{
+			Texture* texture = Get<Texture>(L"SukonbuTypeN");
+			Animation* ani = CreateAnimator(L"SukonbuTypeN_MoveRight");
+			//ani->SetInfo({ texture, L"SukonbuTypeN_MoveRight",{32,32}, 0, 2, 0, 1.f });
+		}
+		{
+			Texture* texture = Get<Texture>(L"SukonbuTypeT");
+			Animation* ani = CreateAnimator(L"SukonbuTypeT_MoveLeft");
+			//ani->SetInfo({ texture, L"SukonbuTypeT_MoveLeft",{42,36}, 0, 1, 1, 1.f });
+		}
+		{
+			Texture* texture = Get<Texture>(L"SukonbuTypeT");
+			Animation* ani = CreateAnimator(L"SukonbuTypeT_MoveRight");
+			//ani->SetInfo({ texture, L"SukonbuTypeT_MoveRight",{42,36}, 0, 1, 0, 1.f });
+		}
+
+#pragma endregion
+	}
+#pragma endregion
 }
 
 void ResourceManager::Clear()
@@ -132,18 +555,20 @@ Sound* ResourceManager::LoadSound(const wstring& key, const wstring& path)
 void ResourceManager::CreateDefaultTexture()
 {
 	{
+		//fs::path fullPath = _resourcePath / L"Sprite/Ui/Title.png";
 		fs::path fullPath = _resourcePath / L"엘따끄.png";
-		auto texture = new Texture(_device);
+		LoadTexture(L"엘렐레", fullPath);
+		/*auto texture = new Texture(_device);
 		texture->SetName(L"엘렐레");
 		texture->Create(fullPath.wstring());
-		Add(texture->GetName(), texture);
+		Add(texture->GetName(), texture);*/
 	}
 	{
-		fs::path fullPath = _resourcePath / L"Sprite\\Player\\GuraAniLeft.bmp";
+		/*fs::path fullPath = _resourcePath / L"Sprite\\Player\\GuraAniLeft.bmp";
 		auto texture = new Texture(_device);
 		texture->SetName(L"Gura");
 		texture->Create(fullPath.wstring());
-		Add(texture->GetName(), texture);
+		Add(texture->GetName(), texture);*/
 	}
 
 

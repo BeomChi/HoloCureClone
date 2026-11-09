@@ -9,6 +9,7 @@
 #include "../01.Manager/CollisionManager.h"
 #include "../04.Component/Collision/Collider.h"
 #include "../04.Component/Collision/BoxCollider.h"
+#include "../04.Component/2D/SpriteRenderer.h"
 
 GameObject::GameObject()
 {
@@ -173,6 +174,12 @@ Animator* GameObject::GetAnimator()
 {
 	Component* component = GetFixedComponent(ComponentType::Animator);
 	return static_cast<Animator*>(component);
+}
+
+SpriteRenderer* GameObject::GetSpriteRenderer()
+{
+	Component* component = GetFixedComponent(ComponentType::SpriteRenderer);
+	return static_cast<SpriteRenderer*>(component);
 }
 
 

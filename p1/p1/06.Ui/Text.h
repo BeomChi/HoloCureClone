@@ -12,7 +12,7 @@ public:
 
 	virtual void Init() override;
 	virtual void Update() override;
-	virtual void Render(HDC hdc) override;
+	//virtual void Render(HDC hdc) override;
 
 	void SetText(const wstring& text) { _text = text; }
 	wstring GetText() const { return _text; }

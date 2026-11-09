@@ -2,7 +2,7 @@
 #include "97.Engin/Component/Component.h"
 //#include "../GameObject.h"
 
-class Animator;
+class Animation;
 
 class AnimationComponent :    public Component
 {
@@ -15,17 +15,17 @@ public:
 	virtual void Update() override;
 	//virtual void Render(HDC hdc) override;
 
-	void SetAnimation(Animator* ani);
+	void SetAnimation(Animation* ani);
 	void Reset();
 
 	int32 CheckAnimation(int32 frame);
 	bool CheckCurrentAnimationEnd();
 
-	Animator* GetAnimator() { return _animator; }
+	Animation* GetAnimator() { return _animator; }
 
 
 private:
-	Animator* _animator = nullptr;
+	Animation* _animator = nullptr;
 	int32 _idx = 0;
 	float _sumTime = 0.f;
 };

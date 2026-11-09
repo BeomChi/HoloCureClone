@@ -104,10 +104,10 @@ void Trident::Init()
 			L"포크 모양으로 3번 찌른다" 
 		}
 	};
-	TridentObj* tridentObj = GET_SINGLE(ObjectPool)->Get<TridentObj>(L"TridentObj");
+	//TridentObj* tridentObj = GET_SINGLE(ObjectPool)->Get<TridentObj>(L"TridentObj");
 
-	_firePosLength = tridentObj->GetAnimator()->GetCurrentKeyframe().size.x * 0.5f;
-	GET_SINGLE(ObjectPool)->ReturnObject(tridentObj->GetKey(), tridentObj);
+	//_firePosLength = tridentObj->GetAnimator()->GetCurrentKeyframe().size.x * 0.5f;
+	//GET_SINGLE(ObjectPool)->ReturnObject(tridentObj->GetKey(), tridentObj);
 
 }
 

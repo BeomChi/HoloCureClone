@@ -1,6 +1,6 @@
 #include "pch.h"
 #include "HpBar.h"
-#include "../../05.Resource/2D/Sprite.h"
+#include "../../97.Engin/Resource/Sprite.h"
 
 HpBar::HpBar()
 {

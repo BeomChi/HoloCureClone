@@ -2,6 +2,7 @@
 #include "Button.h"
 #include "../01.Manager/InputManager.h"
 #include "../01.Manager/TimeManager.h"
+#include "../04.Component/2D/SpriteRenderer.h"
 #include "97.Engin/Resource/Sprite.h"
 
 Button::Button()
@@ -15,6 +16,7 @@ Button::~Button()
 void Button::Init()
 {
 	Super::Init();
+	_spriteRenderer = GetSpriteRenderer();
 	SetButtonState(BS_Default);
 }
 
@@ -86,5 +88,8 @@ void Button::SetButtonState(ButtonState state)
 	_state = state;
 
 	if (_sprites[state])
+	{
 		SetCurrentSprite(_sprites[state]);
+		_spriteRenderer->SetSprite(_currentSprite);
+	}
 }

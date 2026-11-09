@@ -1,10 +1,24 @@
 #include "pch.h"
 #include "Ui.h"
 #include "../01.Manager/InputManager.h"
+#include "../01.Manager/SceneManager.h"
+#include "../01.Manager/ResourceManager.h"
 #include "97.Engin/Component/Transform/Transform.h"
+#include "97.Engin/Component/Renderer/MeshRenderer.h"
 
 Ui::Ui()
 {
+	/*Transform* transform = new Transform();
+	AddComponent(transform);
+
+	auto meshRenderer = new MeshRenderer(SCENE->GetGraphics()->GetDevice(),
+		SCENE->GetGraphics()->GetDeviceContext());
+	AddComponent(meshRenderer);
+
+	auto material = RESOURCE->Get<Material>(L"Default");
+	meshRenderer->SetMaterial(material);
+	auto mesh = RESOURCE->Get<Mesh>(L"Rectangle");
+	meshRenderer->SetMesh(mesh);*/
 }
 
 Ui::~Ui()
@@ -31,15 +45,18 @@ RECT Ui::GetRect()
 	float x = GetOrAddTransform()->GetPosition().x;
 	float y = GetOrAddTransform()->GetPosition().y;
 
-	float cx = GetOrAddTransform()->GetScale().x;
-	float cy = GetOrAddTransform()->GetScale().y;
+	float cx = _renderSize.x * GetOrAddTransform()->GetScale().x;
+	float cy = _renderSize.y * GetOrAddTransform()->GetScale().y;
+
+	float screenX = GWinSizeX * 0.5f + x;
+	float screenY = GWinSizeY * 0.5f - y;
 
 	RECT rect =
 	{
-		x - cx/ 2,
-		y - cy / 2,
-		x + cx / 2,
-		y + cy / 2
+		screenX - cx/ 2,
+		screenY - cy / 2,
+		screenX + cx / 2,
+		screenY + cy / 2
 	};
 
 	return rect;

@@ -3,6 +3,13 @@
 
 class Texture;
 
+struct SpriteInfo
+{
+	Vec2 offset = { 0.f,0.f };
+	Vec2 size = { 0.f,0.f };
+	Vec2 pivot = { 0.5f,0.5f };
+};
+
 class Sprite :    public ResourceBase
 {
 	using Super = ResourceBase;
@@ -13,19 +20,18 @@ public:
 
 	Texture* GetTexture() { return _texture; }
 
-	Vec2 GetPos() const { return _offset; }
-	Vec2 GetSize() const { return _size; }
+	Vec2 GetOffset() const { return _info.offset; }
+	Vec2 GetSize() const { return _info.size; }
+
+	SpriteInfo& GetInfo() { return _info; }
 	
 
-	Vec2 GetPivot() { return _pivot; }
-	void SetPivot(Vec2 pivot) { _pivot = pivot; }
+	Vec2 GetPivot() { return _info.pivot; }
+	void SetPivot(Vec2 pivot) { _info.pivot = pivot; }
 
 private:
 	Texture* _texture = nullptr;
 
-	Vec2 _pivot = { 0.5f,0.5f };
-
-	Vec2 _offset = { 0.f,0.f };
-	Vec2 _size = { 0.f,0.f };
+	SpriteInfo _info;
 };
 

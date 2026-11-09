@@ -4,10 +4,10 @@
 #include "../../01.Manager/GameManager.h"
 #include "../../01.Manager/StageManager.h"
 #include "../../03.Object/Entity/Player/Player.h"
-#include "../../05.Resource/2D/Sprite.h"
 #include "../../06.Ui/Image.h"
 #include "../../06.Ui/Game/HpBar.h"
 #include "../../06.Ui/Text.h"
+#include "97.Engin/Resource/Sprite.h"
 
 
 
@@ -23,10 +23,10 @@ PlayerHudPanel::PlayerHudPanel()
 		// 밑 이미지
 		HpBar* hpBar = new HpBar();
 
-		hpBar->SetSprite(RESOURCE->GetSprite(L"PlayerHpBarRed"));
+		hpBar->SetSprite(RESOURCE->Get<Sprite>(L"PlayerHpBarRed"));
 
-		hpBar->SetSize({ (float)hpBar->GetSprite()->GetSize().x, (float)hpBar->GetSprite()->GetSize().y });
-		hpBar->SetPos({ 70, 24 });
+		//hpBar->SetSize({ (float)hpBar->GetSprite()->GetSize().x, (float)hpBar->GetSprite()->GetSize().y });
+		hpBar->GetOrAddTransform()->SetPosition({ 70, 24,0 });
 		hpBar->SetBarLength((float)hpBar->GetSprite()->GetSize().x);
 		hpBar->SetKey(L"hpBarBG");
 		hpBar->SetLayer(LAYER_UI);
@@ -37,10 +37,10 @@ PlayerHudPanel::PlayerHudPanel()
 		// 실제 체력바
 		_hpBar = new HpBar();
 
-		_hpBar->SetSprite(RESOURCE->GetSprite(L"PlayerHpBarGreen"));
+		_hpBar->SetSprite(RESOURCE->Get<Sprite>(L"PlayerHpBarGreen"));
 
-		_hpBar->SetSize({ (float)_hpBar->GetSprite()->GetSize().x, (float)_hpBar->GetSprite()->GetSize().y });
-		_hpBar->SetPos({ 70, 24 });
+		//_hpBar->SetSize({ (float)_hpBar->GetSprite()->GetSize().x, (float)_hpBar->GetSprite()->GetSize().y });
+		_hpBar->GetTransform()->SetPosition({70, 24 ,0});
 		_hpBar->SetBarLength((float)_hpBar->GetSprite()->GetSize().x);
 		_hpBar->SetKey(L"hpBar");
 		_hpBar->SetValue((float)_info._currentHp, (float)_info._maxHp);
@@ -64,7 +64,7 @@ PlayerHudPanel::PlayerHudPanel()
 			cout << "플레이어 없음" << endl;
 
 		_hpText = new Text();
-		_hpText->SetPos({ 210.f,18.f });
+		_hpText->GetTransform()->SetPosition({ 210.f,18.f,0 });
 		_hpText->SetFontSize(16);
 		_hpText->SetText(format(L"{0}/{1}", _info._currentHp, _info._maxHp));
 		_hpText->SetKey(L"hpText");
@@ -83,10 +83,10 @@ PlayerHudPanel::PlayerHudPanel()
 	{
 		Image* hud = new Image();
 
-		hud->SetSprite(RESOURCE->GetSprite(L"PlayerHUD1"));
+		hud->SetSprite(RESOURCE->Get<Sprite>(L"PlayerHUD1"));
 
-		hud->SetSize({ (float)hud->GetSprite()->GetSize().x, (float)hud->GetSprite()->GetSize().y });
-		hud->SetPos({ (float)hud->GetSprite()->GetSize().x * 0.5f,50 });
+		//hud->SetSize({ (float)hud->GetSprite()->GetSize().x, (float)hud->GetSprite()->GetSize().y });
+		hud->GetOrAddTransform()->SetPosition({(float)hud->GetSprite()->GetSize().x * 0.5f,50 ,0});
 		hud->SetKey(L"PlayerHudBG");
 		hud->SetLayer(LAYER_UI);
 
@@ -95,10 +95,10 @@ PlayerHudPanel::PlayerHudPanel()
 	{
 		Image* Icon = new Image();
 
-		Icon->SetSprite(RESOURCE->GetSprite(L"GuraIcon"));
+		Icon->SetSprite(RESOURCE->Get<Sprite>(L"GuraIcon"));
 
-		Icon->SetSize({ (float)Icon->GetSprite()->GetSize().x, (float)Icon->GetSprite()->GetSize().y });
-		Icon->SetPos({ (float)Icon->GetSprite()->GetSize().x * 0.5f,39 });
+		//Icon->SetSize({ (float)Icon->GetSprite()->GetSize().x, (float)Icon->GetSprite()->GetSize().y });
+		Icon->GetOrAddTransform()->SetPosition({ (float)Icon->GetSprite()->GetSize().x * 0.5f,39,0 });
 		Icon->SetKey(L"PlayerIcon");
 		Icon->SetLayer(LAYER_UI);
 
@@ -108,11 +108,11 @@ PlayerHudPanel::PlayerHudPanel()
 		// 경험치 바 배경
 		Image* ExpBarBg = new Image();
 
-		ExpBarBg->SetSprite(RESOURCE->GetSprite(L"ExpBarBG"));
+		ExpBarBg->SetSprite(RESOURCE->Get<Sprite>(L"ExpBarBG"));
 
-		ExpBarBg->SetSize({ (float)ExpBarBg->GetSprite()->GetSize().x, (float)ExpBarBg->GetSprite()->GetSize().y });
-		ExpBarBg->SetScale({ 1.248f,1 });
-		ExpBarBg->SetPos({ (float)ExpBarBg->GetSprite()->GetSize().x * 0.5f,(float)ExpBarBg->GetSprite()->GetSize().y * 0.5f });
+		//ExpBarBg->SetSize({ (float)ExpBarBg->GetSprite()->GetSize().x, (float)ExpBarBg->GetSprite()->GetSize().y });
+		ExpBarBg->GetTransform()->SetScale({ 1.248f,1,1 });
+		ExpBarBg->GetTransform()->SetPosition({ (float)ExpBarBg->GetSprite()->GetSize().x * 0.5f,(float)ExpBarBg->GetSprite()->GetSize().y * 0.5f,0.f });
 		ExpBarBg->SetKey(L"expBarBG");
 		ExpBarBg->SetLayer(LAYER_UI);
 		AddPanel(ExpBarBg);
@@ -121,11 +121,11 @@ PlayerHudPanel::PlayerHudPanel()
 		//경험치 바 이미지
 		_expBar = new HpBar();
 
-		_expBar->SetSprite(RESOURCE->GetSprite(L"ExpBarFull"));
+		_expBar->SetSprite(RESOURCE->Get<Sprite>(L"ExpBarFull"));
 
-		_expBar->SetSize({ (float)_expBar->GetSprite()->GetSize().x, (float)_expBar->GetSprite()->GetSize().y });
-		_expBar->SetScale({ 1.248f,1 });
-		_expBar->SetPos({ 0, 13 });
+		//_expBar->GetTransform()->SetSize({ (float)_expBar->GetSprite()->GetSize().x, (float)_expBar->GetSprite()->GetSize().y });
+		_expBar->GetTransform()->SetScale({ 1.248f,1,1 });
+		_expBar->GetTransform()->SetPosition({ 0, 13,0 });
 		_expBar->SetBarLength((float)_expBar->GetSprite()->GetSize().x * 1.248f);
 		_expBar->SetValue((float)_info._exp, (float)_info._maxExp);
 
@@ -145,11 +145,11 @@ PlayerHudPanel::PlayerHudPanel()
 		// 경험치 바 프레임
 		Image* ExpBarFrame = new Image();
 
-		ExpBarFrame->SetSprite(RESOURCE->GetSprite(L"ExpBarFrame"));
+		ExpBarFrame->SetSprite(RESOURCE->Get<Sprite>(L"ExpBarFrame"));
 
-		ExpBarFrame->SetSize({ (float)ExpBarFrame->GetSprite()->GetSize().x, (float)ExpBarFrame->GetSprite()->GetSize().y });
-		ExpBarFrame->SetScale({ 1.248f,1 });
-		ExpBarFrame->SetPos({ (float)ExpBarFrame->GetSprite()->GetSize().x * 0.5f,(float)ExpBarFrame->GetSprite()->GetSize().y * 0.5f });
+		//ExpBarFrame->SetSize({ (float)ExpBarFrame->GetSprite()->GetSize().x, (float)ExpBarFrame->GetSprite()->GetSize().y });
+		ExpBarFrame->GetTransform()->SetScale({ 1.248f,1,1 });
+		ExpBarFrame->GetTransform()->SetPosition({ (float)ExpBarFrame->GetSprite()->GetSize().x * 0.5f,(float)ExpBarFrame->GetSprite()->GetSize().y * 0.5f,0.f });
 		ExpBarFrame->SetKey(L"expBarFrame");
 		ExpBarFrame->SetLayer(LAYER_UI);
 		AddPanel(ExpBarFrame);
@@ -157,7 +157,7 @@ PlayerHudPanel::PlayerHudPanel()
 	{
 		_levelText = new Text();
 		_levelText->SetText(format(L"Lv.{0}", 1));
-		_levelText->SetPos({ 745.f,-5.f });
+		_levelText->GetTransform()->SetPosition({745.f,-5.f,0});
 		_levelText->SetFontSize(30);
 		_levelConn = move(GAMEMANAGER->GetPlayer()->OnLevelChanged += [this](int32 arg)
 			{
@@ -170,11 +170,11 @@ PlayerHudPanel::PlayerHudPanel()
 	{
 		Image* Coin = new Image();
 
-		Coin->SetSprite(RESOURCE->GetSprite(L"Coin"));
+		Coin->SetSprite(RESOURCE->Get<Sprite>(L"Coin"));
 
-		Coin->SetSize({ (float)Coin->GetSprite()->GetSize().x, (float)Coin->GetSprite()->GetSize().y });
-		Coin->SetScale({ 1.5f,1.5f });
-		Coin->SetPos({ 675.f, 50.f });
+		//Coin->SetSize({ (float)Coin->GetSprite()->GetSize().x, (float)Coin->GetSprite()->GetSize().y });
+		Coin->GetTransform()->SetScale({ 1.5f,1.5f,1 });
+		Coin->GetTransform()->SetPosition({ 675.f, 50.f,0 });
 		Coin->SetKey(L"coin");
 		Coin->SetLayer(LAYER_UI);
 		AddPanel(Coin);
@@ -182,11 +182,11 @@ PlayerHudPanel::PlayerHudPanel()
 	{
 		Image* KillCountUi = new Image();
 
-		KillCountUi->SetSprite(RESOURCE->GetSprite(L"KillCount"));
+		KillCountUi->SetSprite(RESOURCE->Get<Sprite>(L"KillCount"));
 
-		KillCountUi->SetSize({ (float)KillCountUi->GetSprite()->GetSize().x, (float)KillCountUi->GetSprite()->GetSize().y });
-		KillCountUi->SetScale({ 1.5f,1.5f });
-		KillCountUi->SetPos({ 675.f, 90.f });
+		//KillCountUi->SetSize({ (float)KillCountUi->GetSprite()->GetSize().x, (float)KillCountUi->GetSprite()->GetSize().y });
+		KillCountUi->GetTransform()->SetScale({ 1.5f,1.5f ,1});
+		KillCountUi->GetTransform()->SetPosition({ 675.f, 90.f,0 });
 		KillCountUi->SetKey(L"killCount");
 		KillCountUi->SetLayer(LAYER_UI);
 		AddPanel(KillCountUi);
@@ -194,7 +194,7 @@ PlayerHudPanel::PlayerHudPanel()
 	{
 		_killText = new Text();
 		_killText->SetText(format(L"{0}", 0));
-		_killText->SetPos({ 700.f,35.f });
+		_killText->GetTransform()->SetPosition({ 700.f,35.f,0 });
 		_killText->SetFontSize(32);
 		_killConn = GET_SINGLE(StageManager)->OnKillCountChanged += [this](int32 arg)
 			{
@@ -208,7 +208,7 @@ PlayerHudPanel::PlayerHudPanel()
 	{
 		_coinText = new Text();
 		_coinText->SetText(format(L"{0}", 0));
-		_coinText->SetPos({ 700.f,75.f });
+		_coinText->GetTransform()->SetPosition({ 700.f,75.f,0 });
 		_coinText->SetFontSize(32);
 		_coinConn = (GET_SINGLE(StageManager)->OnCoinCountChanged += [this](int32 arg)
 			{
@@ -221,7 +221,7 @@ PlayerHudPanel::PlayerHudPanel()
 	{
 		_stageText = new Text();
 		_stageText->SetText(L"Stage 1");
-		_stageText->SetPos({ 400.f,20.f });
+		_stageText->GetTransform()->SetPosition({ 400.f,20.f,0 });
 		_stageText->SetFontSize(18);
 		_stageText->SetKey(L"stageText");
 		_stageText->SetLayer(LAYER_UI);
@@ -230,7 +230,7 @@ PlayerHudPanel::PlayerHudPanel()
 	{
 		_timeText = new Text();
 		_timeText->SetText(format(L"{0}:{1}", 0, 0));
-		_timeText->SetPos({ 400.f,32.f });
+		_timeText->GetTransform()->SetPosition({ 400.f,32.f,0 });
 		_timeText->SetFontSize(32);
 		_timeConn = (GET_SINGLE(StageManager)->OnTimeChanged += [this](int32 arg)
 			{

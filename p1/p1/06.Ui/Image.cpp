@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "Image.h"
+#include "../97.Engin/Resource/Sprite.h"
 //#include "../05.Resource/2D/Sprite.h"
 
 Image::Image()

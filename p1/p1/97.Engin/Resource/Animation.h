@@ -31,6 +31,7 @@ public:
     const Keyframe& GetKeyframe(int32 index);
     int32 GetKeyframeCount();
     void AddKeyframe(const Keyframe& keyframe);
+    void AddKeyframesByCount(Texture* texture, const Keyframe& keyframe, int frameCount, int rowIndex, bool loop = true);
 
 private:
     bool _loop;

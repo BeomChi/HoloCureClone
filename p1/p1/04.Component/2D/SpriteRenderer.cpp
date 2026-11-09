@@ -4,7 +4,7 @@
 #include "../../01.Manager/SceneManager.h"
 #include "../../03.Object/GameObject.h"
 
-SpriteRenderer::SpriteRenderer() : Super(ComponentType::Sprite)
+SpriteRenderer::SpriteRenderer() : Super(ComponentType::SpriteRenderer)
 {
 }
 
