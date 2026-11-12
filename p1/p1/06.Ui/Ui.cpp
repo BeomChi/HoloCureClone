@@ -8,7 +8,7 @@
 
 Ui::Ui()
 {
-	/*Transform* transform = new Transform();
+	Transform* transform = new Transform();
 	AddComponent(transform);
 
 	auto meshRenderer = new MeshRenderer(SCENE->GetGraphics()->GetDevice(),
@@ -18,7 +18,7 @@ Ui::Ui()
 	auto material = RESOURCE->Get<Material>(L"Default");
 	meshRenderer->SetMaterial(material);
 	auto mesh = RESOURCE->Get<Mesh>(L"Rectangle");
-	meshRenderer->SetMesh(mesh);*/
+	meshRenderer->SetMesh(mesh);
 }
 
 Ui::~Ui()

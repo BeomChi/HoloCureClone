@@ -57,7 +57,7 @@ void ObjectPool::Init()
 	ReigsterCreator<DamageText>(L"DamageText");
 
 	for (wstring key : {L"Bullet", L"Laser", L"Lava", L"BLBook", L"EnCurseObj", L"FanBeamObj",
-		L"BombExplode", L"BombObj", L"Axe", L"SausageObj", L"Splash", L"Stick", L"StickExplode", L"TridentObj"})
+		L"BombExplode", L"BombObj", L"Axe", L"SausageObj", L"Splash", L"Stick", L"StickExplode", L"TridentObj", L"Fubura"})
 	{
 		for (int i = 0; i < 3; i++)
 		{

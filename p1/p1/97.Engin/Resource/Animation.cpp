@@ -25,6 +25,10 @@ Vec2 Animation::GetTextureSize()
 
 const Keyframe& Animation::GetKeyframe(int32 index)
 {
+    cout << "[DEBUG] index : " << index
+        << " / size : " << _keyframes.size()
+        << endl;
+
     return _keyframes[index];
 }
 

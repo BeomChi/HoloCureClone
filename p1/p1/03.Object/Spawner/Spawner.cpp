@@ -41,7 +41,9 @@ void Spawner::NormalMonsterSpawn()
 	Vec3 pos = SpawnRandomPositionAroundPlayer();
 
 	Monster* monster = GET_SINGLE(ObjectPool)->Get<NormalMonster>(L"NormalMonster");
-	monster->GetTransform()->SetPosition({ pos.x,pos.y,0 });
+	if (monster == nullptr)
+		cout << "Banana" << endl;
+	monster->GetOrAddTransform()->SetPosition({ pos.x,pos.y,0 });
 	monster->SetState(State::Spawn);
 	SCENE->GetCurrentScene()->AddObject(monster);
 
@@ -56,7 +58,10 @@ void Spawner::SpawnMidleBoss(int32 Stage)
 	Vec3 pos = SpawnRandomPositionAroundPlayer();
 
 	Monster* monster = GET_SINGLE(ObjectPool)->Get<Fubura>(L"Fubura");
-	monster->GetTransform()->SetPosition({ pos.x,pos.y,0 });
+	if (monster == nullptr)
+		cout << "Banana" << endl;
+
+	monster->GetOrAddTransform()->SetPosition({ pos.x,pos.y,0 });
 	monster->SetState(State::Spawn);
 	SCENE->GetCurrentScene()->AddObject(monster);
 
@@ -68,7 +73,9 @@ void Spawner::SpawnBoss(int32 Stage)
 	Vec3 pos = SpawnRandomPositionAroundPlayer();
 
 	Monster* monster = GET_SINGLE(ObjectPool)->Get<Shubangelion>(L"Shubangelion");
-	monster->GetTransform()->SetPosition({ pos.x,pos.y,0 });
+	if (monster == nullptr)
+		cout << "Banana" << endl;
+	monster->GetOrAddTransform()->SetPosition({ pos.x,pos.y,0 });
 	monster->SetKey(L"Boss");
 	SCENE->GetCurrentScene()->AddObject(monster);
 	

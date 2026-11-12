@@ -63,7 +63,7 @@ void Player::Init()
 		//SetSize({ (float)size.x, (float)size.y });
 
 		
-		//AddComponent(_ani);
+		AddComponent(_ani);
 	}
 	{
 		BoxCollider* boxCollider = new BoxCollider();
@@ -223,8 +223,8 @@ void Player::InputMove(float deltaTime)
 	Vec3 dir = { 0,0 ,0};
 	Dir newDir = _dir;
 
-	if (input->GetButton(KeyType::W)) { dir.y -= 1; }
-	if (input->GetButton(KeyType::S)) { dir.y += 1; }
+	if (input->GetButton(KeyType::W)) { dir.y += 1; }
+	if (input->GetButton(KeyType::S)) { dir.y -= 1; }
 	if (input->GetButton(KeyType::A)) { dir.x -= 1;		newDir = DIR_LEFT; }
 	if (input->GetButton(KeyType::D)) { dir.x += 1;		newDir = DIR_RIGHT; }
 

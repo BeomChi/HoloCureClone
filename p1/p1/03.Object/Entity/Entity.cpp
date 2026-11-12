@@ -11,6 +11,8 @@
 
 Entity::Entity() 
 {
+	GetOrAddTransform();
+
 	auto meshRenderer = new MeshRenderer(SCENE->GetGraphics()->GetDevice(), 
 		SCENE->GetGraphics()->GetDeviceContext());
 	AddComponent(meshRenderer);

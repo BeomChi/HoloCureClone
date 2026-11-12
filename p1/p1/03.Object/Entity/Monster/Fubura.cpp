@@ -36,6 +36,8 @@ void Fubura::Init()
 
 	_score = 500;
 
+	AddComponent(_ani);
+
 	Super::Init();
 }
 

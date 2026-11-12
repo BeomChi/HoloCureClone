@@ -24,5 +24,14 @@ public:
 		int width = 300,
 		int height = 100);
 
+	static HBITMAP CreateTextBitmap(
+		const wstring& str,
+		int fontSize,
+		COLORREF color,
+		const wstring& fontName,
+		int width,
+		int height
+	);
+
 };
 

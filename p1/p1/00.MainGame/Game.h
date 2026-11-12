@@ -33,6 +33,9 @@ public:
 	SoundManager* GetSoundManager() { return _soundManager; }
 	RenderManager* GetRenderManager() { return _renderManager; }
 
+	HDC GetHdcBack() { return hdcBack; }
+	HDC GetHdc() { return hdc; }
+
 private:
 	HWND _hwnd = {};
 	HDC hdc = {};

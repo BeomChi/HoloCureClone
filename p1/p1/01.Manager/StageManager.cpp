@@ -36,7 +36,7 @@ void StageManager::Update()
 		break;
 	case StageState::Spawning:
 		// 일정 시간 후 중간 보스 하나 소환 카운트 +1 다시 일반 몬스터 소환
-		cout << "Spawning" << endl;
+		//cout << "Spawning" << endl;
 		GET_SINGLE(SpawnManager)->Update();
 
 		if (_time - _lastMidleBossSpawnTime >= 30 && _spawnMidleBossCount < 4)

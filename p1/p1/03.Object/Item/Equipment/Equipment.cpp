@@ -79,7 +79,7 @@ DamageInfo  Equipment::CalculateDamge(float dmgMultiplier)
 
 	float base = playerInfo._atk * playerInfo._dmgMultiplier * dmgMultiplier;
 	dmg._finalDamage = static_cast<int32>(base * (dmg._isCritical ? playerInfo._crtMultplier : 1.0f));
-	cout << "최종 데미지 : " << dmg._finalDamage << endl;
+	//cout << "최종 데미지 : " << dmg._finalDamage << endl;
 	return dmg;
 }
 

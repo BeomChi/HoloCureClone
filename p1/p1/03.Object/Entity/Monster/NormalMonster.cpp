@@ -45,8 +45,11 @@ void NormalMonster::Init()
 	_ani->SetAnimation(_aniIdle[_dir]);
 	SetState(State::Move);
 
+	AddComponent(_ani);
+
 	_score = 100;
 	_attackRange = 50;
+
 
 	Super::Init();
 }

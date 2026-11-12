@@ -34,6 +34,7 @@ void Shubangelion::Init()
 	_ani = new Animator();
 	_ani->SetAnimation(_aniIdle[_dir]);
 	SetState(State::Move);
+	AddComponent(_ani);
 	_attack = START;
 
 	_score = 500;

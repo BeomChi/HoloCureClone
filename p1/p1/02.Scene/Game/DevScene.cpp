@@ -6,6 +6,7 @@
 #include "../../01.Manager/SpawnManager.h"
 #include "../../01.Manager/StageManager.h"
 #include "../../01.Manager/GameManager.h"
+#include "../../01.Manager/SceneManager.h"
 #include "../../01.Manager/EquipmentManager.h"
 #include "../../01.Manager/UiLayoutManager.h"
 #include "../../03.Object/Item/Experinence/ExperinenceObject.h"
@@ -40,6 +41,7 @@
 #include "../../06.Ui/Game/EquipmentSelectHud.h"
 #include "../../06.Ui/Game/GameOverHud.h"
 #include "97.Engin/Component/Camera/Camera.h"
+#include "97.Engin/Component/Renderer/MeshRenderer.h"
 
 
 DevScene::DevScene()
@@ -239,6 +241,16 @@ void DevScene::Init()
 		background->SetLayer(LAYER_BACKGROUND);
 
 		const Vec2 size = sprite->GetSize();
+
+		auto meshRenderer = new MeshRenderer(SCENE->GetGraphics()->GetDevice(),
+			SCENE->GetGraphics()->GetDeviceContext());
+
+		background->AddComponent(meshRenderer);
+
+		auto material = RESOURCE->Get<Material>(L"Default");
+		meshRenderer->SetMaterial(material);
+		auto mesh = RESOURCE->Get<Mesh>(L"Rectangle");
+		meshRenderer->SetMesh(mesh);
 
 		background->GetOrAddTransform()->SetScale({3,3,1});
 		background->GetOrAddTransform()->SetPosition(Vec3(size.x / 2, size.y / 2, 0));
@@ -532,7 +544,7 @@ void DevScene::Init()
 		cameraComp->SetTarget(GAMEMANAGER->GetPlayer());
 	}
 
-	{
+	/*{
 		PlayerHudPanel* hudPanel = new PlayerHudPanel();
 		hudPanel->SetLayer(LAYER_UI);
 
@@ -562,7 +574,7 @@ void DevScene::Init()
 
 		_uiLayoutManager->Load("ui_layoutGameOverlay.json", hudPanel->GetPanels());
 		AddObject(hudPanel);
-	}
+	}*/
 
 #pragma region Sound 
 	{

@@ -197,22 +197,25 @@ void ResourceManager::Init(HWND hwnd, fs::path resourcePath)
 		{
 			Texture* texture = Get<Texture>(L"GuraLeft");
 			Animation* ani = CreateAnimator(L"Gura_IdleLeft");
-			//ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 64,34 },0.5f }, 3, 0);
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 64,34 },0.5f }, 3, 0);
 			//ani->SetInfo({ texture, L"Gura_IdleLeft", {64,34}, 0, 2, 0, 0.5f });
 		}
 		{
 			Texture* texture = Get<Texture>(L"GuraLeft");
 			Animation* ani = CreateAnimator(L"GuraMoveLeft");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 64,34 },0.5f }, 6, 1);
 			//ani->SetInfo({ texture, L"GuraMoveLeft",{64,34}, 0, 5, 1, 0.5f });
 		}
 		{
 			Texture* texture = Get<Texture>(L"GuraRight");
 			Animation* ani = CreateAnimator(L"Gura_IdleRight");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 64,34 },0.5f }, 3, 0);
 			//ani->SetInfo({ texture, L"Gura_IdleRight",{64,34}, 0, 2, 0, 0.5f });
 		}
 		{
 			Texture* texture = Get<Texture>(L"GuraRight");
 			Animation* ani = CreateAnimator(L"GuraMoveRight");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 64,34 },0.5f }, 6, 1);
 			//ani->SetInfo({ texture, L"GuraMoveRight",{64,34}, 0, 5, 1, 0.5f });
 		}
 	}
@@ -220,21 +223,25 @@ void ResourceManager::Init(HWND hwnd, fs::path resourcePath)
 		{
 			Texture* texture = Get<Texture>(L"FuburaLeft");
 			Animation* ani = CreateAnimator(L"Fubura_MoveLeft");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 82,57 },1.f }, 12, 0);
 			//ani->SetInfo({ texture, L"Fubura_MoveLeft",{82,57}, 0, 11, 0, 1.f });
 		}
 		{
 			Texture* texture = Get<Texture>(L"FuburaRight");
 			Animation* ani = CreateAnimator(L"Fubura_MoveRight");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 82,57 },1.f }, 12, 0);
 			//ani->SetInfo({ texture, L"Fubura_MoveRight",{82,57}, 0, 11, 0, 1.f });
 		}
 		{
 			Texture* texture = Get<Texture>(L"FuburaLaserStart");
 			Animation* ani = CreateAnimator(L"FuburaLaserStart");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 465,50 },1.f }, 23, 0);
 			//ani->SetInfo({ texture, L"FuburaLaserStart",{465,50}, 0, 22, 0, 0.8f });
 		}
 		{
 			Texture* texture = Get<Texture>(L"FuburaLaser");
 			Animation* ani = CreateAnimator(L"FuburaLaser");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 465,50 },1.f }, 12, 0);
 			//ani->SetInfo({ texture, L"FuburaLaser",{465,50}, 0, 11, 0, 1.f });
 		}
 	}
@@ -242,21 +249,25 @@ void ResourceManager::Init(HWND hwnd, fs::path resourcePath)
 		{
 			Texture* texture = Get<Texture>(L"ShubangelionLeft");
 			Animation* ani = CreateAnimator(L"Shubangelion_MoveLeft");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 128,135 },1.f }, 8, 0);
 			//ani->SetInfo({ texture, L"Shubangelion_MoveLeft",{128,135}, 0, 7, 0, 1.f });
 		}
 		{
 			Texture* texture = Get<Texture>(L"ShubangelionRight");
 			Animation* ani = CreateAnimator(L"Shubangelion_MoveRight");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 128,135 },1.f }, 8, 0);
 			//ani->SetInfo({ texture, L"Shubangelion_MoveRight",{128,135}, 0, 7, 0, 1.f });
 		}
 		{
 			Texture* texture = Get<Texture>(L"ShubangelionCharge");
 			Animation* ani = CreateAnimator(L"Shubangelion_Charge");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 128,135 },2.f }, 3, 0);
 			//ani->SetInfo({ texture, L"Shubangelion_Charge",{128,135}, 0, 2, 0, 2.f });
 		}
 		{
 			Texture* texture = Get<Texture>(L"ShubagelionAttack");
 			Animation* ani = CreateAnimator(L"Shubagelion_Attack");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 128,135 },1.f }, 10, 0);
 			//ani->SetInfo({ texture, L"Shubagelion_Attack",{128,135}, 0, 9, 0, 1.f });
 		}
 	}
@@ -270,21 +281,25 @@ void ResourceManager::Init(HWND hwnd, fs::path resourcePath)
 		{
 			Texture* texture = Get<Texture>(L"FanSpawn");
 			Animation* ani = CreateAnimator(L"FanSpawn");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 67,114 },0.25f }, 4, 0,false);
 			//ani->SetInfo({ texture, L"FanSpawn",{67,114}, 0, 3, 0, 0.25f,false });
 		}
 		{
 			Texture* texture = Get<Texture>(L"FanDie");
 			Animation* ani = CreateAnimator(L"FanDie");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 48,48 },0.5f }, 10, 0, false);
 			//ani->SetInfo({ texture, L"FanSpawn",{48,48}, 0, 9, 0, 0.5f,false });
 		}
 		{
 			Texture* texture = Get<Texture>(L"HealObject");
 			Animation* ani = CreateAnimator(L"HealObject");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 32,32 },1.f }, 8, 0);
 			//ani->SetInfo({ texture, L"HealObject",{32,32}, 0, 7, 0, 1.f });
 		}
 		{
 			Texture* texture = Get<Texture>(L"PlayerDie");
 			Animation* ani = CreateAnimator(L"PlayerDie");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 32,32 },1.f }, 4, 0);
 			//ani->SetInfo({ texture, L"PlayerDie",{32,32}, 0, 3, 0, 1.f });
 		}
 #pragma endregion
@@ -299,86 +314,103 @@ void ResourceManager::Init(HWND hwnd, fs::path resourcePath)
 				{
 					Texture* texture = Get<Texture>(L"LavaStart");
 					Animation* ani = CreateAnimator(L"LavaStart");
+					ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 127,127 },0.5f }, 9, 0);
 					//ani->SetInfo({ texture, L"LavaStart",{127,127}, 0, 8, 0, 0.5f });
 				}
 				{
 					Texture* texture = Get<Texture>(L"LavaLoop");
 					Animation* ani = CreateAnimator(L"LavaLoop");
+					ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 127,127 },1.f }, 14, 0);
 					//ani->SetInfo({ texture, L"LavaLoop",{127,127}, 0, 13, 0, 1.f });
 				}
 				{
 					Texture* texture = Get<Texture>(L"LavaEnd");
 					Animation* ani = CreateAnimator(L"LavaEnd");
+					ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 127,127 },0.5f }, 6, 0);
 					//ani->SetInfo({ texture, L"LavaEnd",{127,127}, 0, 5, 0, 0.5f });
 				}
 				{
 					Texture* texture = Get<Texture>(L"EnCurse");
 					Animation* ani = CreateAnimator(L"EnCurseRight");
+					ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 36,21 },0.5f }, 8, 0);
 					//ani->SetInfo({ texture, L"EnCurseRight",{36,21}, 0, 7, 0, 0.5f });
 				}
 				{
 					Texture* texture = Get<Texture>(L"EnCurse");
 					Animation* ani = CreateAnimator(L"EnCurseLeft");
+					ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 36,21 },0.5f }, 8, 1);
 					//ani->SetInfo({ texture, L"EnCurseLeft",{36,21}, 0, 7, 1, 0.5f });
 				}
 				{
 					Texture* texture = Get<Texture>(L"FanBeam");
 					Animation* ani = CreateAnimator(L"FanBeamRight");
+					ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 466,51 },1.f }, 10, 0);
 					//ani->SetInfo({ texture, L"FanBeamRight",{466,51}, 0, 9, 0, 1.f });
 				}
 				{
 					Texture* texture = Get<Texture>(L"FanBeam");
 					Animation* ani = CreateAnimator(L"FanBeamLeft");
+					ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 466,51 },1.f }, 10, 1);
 					//ani->SetInfo({ texture, L"FanBeamLeft",{466,51}, 0, 9, 1, 1.f });
 				}
 				{
 					Texture* texture = Get<Texture>(L"Explode");
 					Animation* ani = CreateAnimator(L"BombExplode");
+					ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 128,128 },1.f }, 13, 0);
 					//ani->SetInfo({ texture, L"BombExplode",{128,128}, 0, 12, 0, 1.f });
 				}
 				{
 					Texture* texture = Get<Texture>(L"PsychoAxe");
 					Animation* ani = CreateAnimator(L"PsychoAxe");
+					ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 46,46 },1.0f }, 8, 0);
 					//ani->SetInfo({ texture, L"PsychoAxe",{46,46}, 0, 7, 0, 1.f });
 				}
 				{
 					Texture* texture = Get<Texture>(L"Stick");
 					Animation* ani = CreateAnimator(L"Stick");
+					ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 46,46 },1.0f }, 8, 0);
 					//ani->SetInfo({ texture, L"Stick",{46,46}, 0, 7, 0, 1.f });
 				}
 				{
 					Texture* texture = Get<Texture>(L"StickExplode");
 					Animation* ani = CreateAnimator(L"StickExplode");
+					ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 93,91 },1.0f }, 7, 0);
 					//ani->SetInfo({ texture, L"StickExplode",{93,91}, 0, 6, 0, 1.f });
 				}
 				{
 					Texture* texture = Get<Texture>(L"Sausage");
 					Animation* ani = CreateAnimator(L"SausageRight");
+					ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 128,128 },1.0f }, 5, 0);
 					//ani->SetInfo({ texture, L"SausageRight",{128,128}, 0, 4, 0, 1.f });
 				}
 				{
 					Texture* texture = Get<Texture>(L"Sausage");
 					Animation* ani = CreateAnimator(L"SausageLeft");
+					ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 128,128 },1.0f }, 5, 1);
 					//ani->SetInfo({ texture, L"SausageLeft",{128,128}, 0, 4, 1, 1.f });
 				}
 				{
 					Texture* texture = Get<Texture>(L"Splash");
 					Animation* ani = CreateAnimator(L"SplashRight");
+					ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 128,128 },0.25f }, 6, 0);
 					//ani->SetInfo({ texture, L"SplashRight",{128,128}, 0, 5,0, 0.25f });
 				}
 				{
 					Texture* texture = Get<Texture>(L"Splash");
 					Animation* ani = CreateAnimator(L"SplashLeft");
+					ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 128,128 },0.25f }, 6, 1);
 					//ani->SetInfo({ texture, L"SplashLeft",{128,128}, 0, 5, 1, 0.25f });
 				}
 				{
 					Texture* texture = Get<Texture>(L"TridentObj");
 					Animation* ani = CreateAnimator(L"TridentRight");
+					ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 200,32 },0.5f }, 7, 0);
 					//ani->SetInfo({ texture, L"TridentRight",{200,32}, 0, 6, 0, 0.5f });
 				}
 				{
 					Texture* texture = Get<Texture>(L"TridentObj");
 					Animation* ani = CreateAnimator(L"TridentLeft");
+					ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 200,32 },0.5f }, 7, 1);
 					//ani->SetInfo({ texture, L"TridentLeft",{200,32}, 0, 6, 1, 0.5f });
 				}
 			}
@@ -394,51 +426,61 @@ void ResourceManager::Init(HWND hwnd, fs::path resourcePath)
 		{
 			Texture* texture = Get<Texture>(L"SukonbuLeft");
 			Animation* ani = CreateAnimator(L"Sukonbu_MoveLeft");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 64,64 },1.f }, 3, 0);
 			//ani->SetInfo({ texture, L"Sukonbu_MoveLeft",{64,64}, 0, 2, 0, 1.f });
 		}
 		{
 			Texture* texture = Get<Texture>(L"SukonbuRight");
 			Animation* ani = CreateAnimator(L"Sukonbu_MoveRight");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 64,64 },1.f }, 3, 0);
 			//ani->SetInfo({ texture, L"Sukonbu_MoveRight",{64,64}, 0, 2, 0, 1.f });
 		}
 		{
 			Texture* texture = Get<Texture>(L"SukonbuTypeB");
 			Animation* ani = CreateAnimator(L"SukonbuTypeB_MoveLeft");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 42,32 },1.f }, 2, 1);
 			//ani->SetInfo({ texture, L"SukonbuTypeB_MoveLeft",{42,32}, 0, 1, 1, 1.f });
 		}
 		{
 			Texture* texture = Get<Texture>(L"SukonbuTypeB");
 			Animation* ani = CreateAnimator(L"SukonbuTypeB_MoveRight");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 42,32 },1.f }, 2, 0);
 			//ani->SetInfo({ texture, L"SukonbuTypeB_MoveRight",{42,32}, 0, 1, 0, 1.f });
 		}
 		{
 			Texture* texture = Get<Texture>(L"SukonbuTypeK");
 			Animation* ani = CreateAnimator(L"SukonbuTypeK_MoveLeft");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 32,32 },1.f }, 3, 1);
 			//ani->SetInfo({ texture, L"SukonbuTypeK_MoveLeft",{32,32}, 0, 2, 1, 1.f });
 		}
 		{
 			Texture* texture = Get<Texture>(L"SukonbuTypeK");
 			Animation* ani = CreateAnimator(L"SukonbuTypeK_MoveRight");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 32,32 },1.f }, 3, 0);
 			//ani->SetInfo({ texture, L"SukonbuTypeK_MoveRight",{32,32}, 0, 2, 0, 1.f });
 		}
 		{
 			Texture* texture = Get<Texture>(L"SukonbuTypeN");
 			Animation* ani = CreateAnimator(L"SukonbuTypeN_MoveLeft");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 32,32 },1.f }, 3, 1);
 			//ani->SetInfo({ texture, L"SukonbuTypeN_MoveLeft",{32,32}, 0, 2, 1, 1.f });
 		}
 		{
 			Texture* texture = Get<Texture>(L"SukonbuTypeN");
 			Animation* ani = CreateAnimator(L"SukonbuTypeN_MoveRight");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 32,32 },1.f }, 3, 0);
 			//ani->SetInfo({ texture, L"SukonbuTypeN_MoveRight",{32,32}, 0, 2, 0, 1.f });
 		}
 		{
 			Texture* texture = Get<Texture>(L"SukonbuTypeT");
 			Animation* ani = CreateAnimator(L"SukonbuTypeT_MoveLeft");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 42,36 },1.f }, 2, 1);
 			//ani->SetInfo({ texture, L"SukonbuTypeT_MoveLeft",{42,36}, 0, 1, 1, 1.f });
 		}
 		{
 			Texture* texture = Get<Texture>(L"SukonbuTypeT");
 			Animation* ani = CreateAnimator(L"SukonbuTypeT_MoveRight");
+			ani->AddKeyframesByCount(texture, { { 0.f,0.f },{ 42,36 },1.f }, 2, 0);
 			//ani->SetInfo({ texture, L"SukonbuTypeT_MoveRight",{42,36}, 0, 1, 0, 1.f });
 		}
 
@@ -557,11 +599,12 @@ void ResourceManager::CreateDefaultTexture()
 	{
 		//fs::path fullPath = _resourcePath / L"Sprite/Ui/Title.png";
 		fs::path fullPath = _resourcePath / L"¿¤µû²ô.png";
-		LoadTexture(L"¿¤·¼·¹", fullPath);
-		/*auto texture = new Texture(_device);
+		//LoadTexture(L"¿¤·¼·¹", fullPath);
+		auto texture = new Texture(_device);
 		texture->SetName(L"¿¤·¼·¹");
 		texture->Create(fullPath.wstring());
-		Add(texture->GetName(), texture);*/
+
+		Add(texture->GetName(), texture);
 	}
 	{
 		/*fs::path fullPath = _resourcePath / L"Sprite\\Player\\GuraAniLeft.bmp";

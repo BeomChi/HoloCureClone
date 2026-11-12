@@ -70,7 +70,7 @@ void Game::Init(HWND hwnd)
 
 	_graphics = new Graphics(hwnd);
 
-	//::GetClientRect(hwnd, &_rect);
+	::GetClientRect(hwnd, &_rect);
 
 	//hdcBack = ::CreateCompatibleDC(hdc); // hdc와 호환되는 DC를 생성
 	//_bmpBack = ::CreateCompatibleBitmap(hdc, _rect.right, _rect.bottom); // hdc와 호환되는 비트맵 생성
@@ -140,24 +140,110 @@ void Game::Render()
 
 #ifdef _DEBUG
 
-	/*uint32 fps = TIME->GetFps();
-	float deltaTime = TIME->GetDeltaTime();*/
+	//uint32 fps = TIME->GetFps();
+	//float deltaTime = TIME->GetDeltaTime();
+	//{
+	//	HBITMAP bitmap = Utils::CreateTextBitmap(
+	//		L"Hello",
+	//		24,
+	//		RGB(255, 255, 255),
+	//		L"맑은 고딕",
+	//		200,
+	//		50
+	//	);
+	//	HDC memDC = CreateCompatibleDC(hdcBack);
+	//	HBITMAP oldBitmap = (HBITMAP)SelectObject(memDC, bitmap);
 
+	//	BitBlt(
+	//		hdcBack,
+	//		100, 100,
+	//		200, 50,
+	//		memDC,
+	//		0, 0,
+	//		SRCCOPY
+	//	);
 
+	//	BITMAP bm{};
+	//	GetObject(bitmap, sizeof(BITMAP), &bm);
+
+	//	cout
+	//		<< "Bitmap Width: " << bm.bmWidth
+	//		<< ", Height: " << bm.bmHeight
+	//		<< ", BitsPixel: " << bm.bmBitsPixel
+	//		<< endl;
+
+	//	BITMAPINFO bi{};
+	//	bi.bmiHeader.biSize = sizeof(BITMAPINFOHEADER);
+	//	bi.bmiHeader.biWidth = bm.bmWidth;
+	//	bi.bmiHeader.biHeight = -bm.bmHeight;
+	//	bi.bmiHeader.biPlanes = 1;
+	//	bi.bmiHeader.biBitCount = 32;
+	//	bi.bmiHeader.biCompression = BI_RGB;
+
+	//	vector<uint8> pixels(
+	//		bm.bmWidth * bm.bmHeight * 4
+	//	);
+
+	//	int result = GetDIBits(
+	//		memDC,
+	//		bitmap,
+	//		0,
+	//		bm.bmHeight,
+	//		pixels.data(),
+	//		&bi,
+	//		DIB_RGB_COLORS
+	//	);
+
+	//	cout << "GetDIBites: " << result << endl;
+
+	//	D3D11_TEXTURE2D_DESC desc{};
+	//	desc.Width = 200;
+	//	desc.Height = 50;
+	//	desc.MipLevels = 1;
+	//	desc.ArraySize = 1;
+	//	desc.Format = DXGI_FORMAT_B8G8R8A8_UNORM;
+	//	desc.SampleDesc.Count = 1;
+	//	desc.Usage = D3D11_USAGE_DEFAULT;
+	//	desc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
+
+	//	D3D11_SUBRESOURCE_DATA data{};
+	//	data.pSysMem = pixels.data();
+	//	data.SysMemPitch = 200 * 4;
+
+	//	ComPtr<ID3D11Texture2D> texture;
+
+	//	HRESULT hr = _graphics->GetDevice()->CreateTexture2D(
+	//		&desc,
+	//		&data,
+	//		texture.GetAddressOf()
+	//	);
+
+	//	ComPtr<ID3D11ShaderResourceView> srv;
+
+	//	hr = _graphics->GetDevice()->CreateShaderResourceView(
+	//		texture.Get(),
+	//		nullptr,
+	//		srv.GetAddressOf()
+	//	);
+
+	//	SelectObject(memDC, oldBitmap);
+	//	DeleteDC(memDC);
+	//	DeleteObject(bitmap);
+	//}
 	//
-	/*{
-		POINT mousePos = INPUT->GetMousePos();
-		wstring str = std::format(L"Mouse({0}, {1})", mousePos.x, mousePos.y);
-		::TextOut(hdcBack, 20, 480, str.c_str(), static_cast<int32>(str.size()));
-	}*/
-	
-	{
-		/*wstring str = std::format(L"FPS({0}), DT({1})", fps, deltaTime);
-		Utils::DrawText(hdcBack, Vector{ GWinSizeX - 180, 10 }, str);*/
-		//::TextOut(hdc, GWinSizeX - 180, 10, str.c_str(), static_cast<int32>(str.size()));
-	}
+//	{
+//		POINT mousePos = INPUT->GetMousePos();
+//		wstring str = std::format(L"Mouse({0}, {1})", mousePos.x, mousePos.y);
+//		::TextOut(hdcBack, 20, 480, str.c_str(), static_cast<int32>(str.size()));
+//	}
+//	
+//	{
+//		wstring str = std::format(L"FPS({0}), DT({1})", fps, deltaTime);
+//		Utils::DrawText(hdcBack, Vector{ GWinSizeX - 180, 10 }, str);
+//		::TextOut(hdc, GWinSizeX - 180, 10, str.c_str(), static_cast<int32>(str.size()));
+//	}
 #endif
-	// Double Buffering
-	//::BitBlt(hdc, 0, 0, _rect.right, _rect.bottom, hdcBack, 0, 0, SRCCOPY); // 비트 블릿 : 고속 복사
-	//::PatBlt(hdcBack, 0, 0, _rect.right, _rect.bottom, WHITENESS);
+//	// Double Buffering
+//	::BitBlt(hdc, 0, 0, _rect.right, _rect.bottom, hdcBack, 0, 0, SRCCOPY); // 비트 블릿 : 고속 복사
+//	::PatBlt(hdcBack, 0, 0, _rect.right, _rect.bottom, WHITENESS);
 }

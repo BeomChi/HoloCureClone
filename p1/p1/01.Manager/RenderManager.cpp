@@ -158,6 +158,9 @@ void RenderManager::RenderObjects(vector<GameObject*> renderObject)
 {
 	for (const auto& gameObject : renderObject)
 	{
+		if (!gameObject->GetIsActivity())
+			continue;
+
 		MeshRenderer* meshRenderer = gameObject->GetMeshRenderer();
 		if (meshRenderer == nullptr)
 			continue;
@@ -209,41 +212,28 @@ void RenderManager::RenderObjects(vector<GameObject*> renderObject)
 			_pipeline->SetTexture(0, SS_PixelShader, meshRenderer->GetTexture());
 
 			matSize = SetRenderScale(meshRenderer->GetTexture()->GetSize());
-		}
-		_transformData.matWorld = matSize * transform->GetWorldMatrix();
-		//_transformData.matWorld = transform->GetWorldMatrix() * matSize;
-		//_transformData.matWorld = Matrix::CreateScale(1.f, 1.f, 1.f);
-		//_transformData.matWorld = Matrix::Identity;
 
-		//cout << "WORLD BEFORE COPY" << endl;
+			auto texture = meshRenderer->GetTexture();
 
-		//for (int i = 0; i < 4; i++)
-		//{
-		//	cout
-		//		<< _transformData.matWorld.m[i][0] << " "
-		//		<< _transformData.matWorld.m[i][1] << " "
-		//		<< _transformData.matWorld.m[i][2] << " "
-		//		<< _transformData.matWorld.m[i][3] << endl;
-		//}
-		PushTransformData();
-
-		/*cout << "WORLD" << endl;
-		Matrix world = transform->GetWorldMatrix();
-		for (int i = 0; i < 4; i++)
-		{
 			cout
-				<< world.m[i][0] << " "
-				<< world.m[i][1] << " "
-				<< world.m[i][2] << " "
-				<< world.m[i][3] << endl;
-		}*/
+				<< "Texture Size: "
+				<< texture->GetSize().x
+				<< ", "
+				<< texture->GetSize().y
+				<< endl;
 
-		/*Vec3 pos = transform->GetPosition();
+			Vec3 pos = transform->GetPosition();
 
-		cout << "Render Pos : "
-			<< pos.x << " "
-			<< pos.y << " "
-			<< pos.z << endl;*/
+			cout
+				<< "Position: "
+				<< pos.x << ", "
+				<< pos.y << ", "
+				<< pos.z
+				<< endl;
+		}
+
+		_transformData.matWorld = matSize * transform->GetWorldMatrix();
+		PushTransformData();
 
 		PipelineInfo info;
 		info.inputLayout = meshRenderer->GetInputLayout();

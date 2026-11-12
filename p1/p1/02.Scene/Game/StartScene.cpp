@@ -4,12 +4,13 @@
 #include "../../01.Manager/SceneManager.h"
 #include "../../01.Manager/GameManager.h"
 #include "../../04.Component/2D/SpriteRenderer.h"
-#include "97.Engin/Resource/Sprite.h"
 #include "../../06.Ui/Button.h"
 #include "../../06.Ui/Image.h"
 #include "97.Engin/Component/Transform/Transform.h"
 #include "97.Engin/Component/Renderer/MeshRenderer.h"
 #include "97.Engin/Component/Camera/Camera.h"
+#include "97.Engin/Resource/Texture.h"
+#include "97.Engin/Resource/Sprite.h"
 
 StartScene::StartScene()
 {
@@ -29,7 +30,7 @@ StartScene::~StartScene()
 void StartScene::Init()
 {
 	cout << "Scene Start State: " << (int)GAMEMANAGER->GetState() << endl;
-	//RESOURCE->LoadSound(L"Stage01BGM", L"Sound\\Stage01\\Stage01BGM.wav");
+	RESOURCE->LoadSound(L"Stage01BGM", L"Sound\\Stage01\\Stage01BGM.wav");
 
 	//RESOURCE->LoadTexture(L"Title", L"Sprite/Ui/Title.png");
 	//RESOURCE->LoadTexture(L"MenuBackground", L"Sprite\\Ui\\menuBackground.bmp");
@@ -39,6 +40,7 @@ void StartScene::Init()
 	//RESOURCE->CreateSprite(L"Start_On", RESOURCE->Get<Texture>(L"Start"), 150, 0, 150, 150);
 	//RESOURCE->CreateSprite(L"Title", RESOURCE->Get<Texture>(L"Title"));
 	//RESOURCE->CreateSprite(L"MenuBackground", RESOURCE->Get<Texture>(L"MenuBackground"));
+	
 
 	// Camera
 	{
@@ -53,14 +55,14 @@ void StartScene::Init()
 
 	// 버튼 이미지 찾으면 교체하자
 	_ui = new Button();
-	auto meshRenderer = new MeshRenderer(SCENE->GetGraphics()->GetDevice(), SCENE->GetGraphics()->GetDeviceContext());
+	/*auto meshRenderer = new MeshRenderer(SCENE->GetGraphics()->GetDevice(), SCENE->GetGraphics()->GetDeviceContext());
 	_ui->AddComponent(meshRenderer);
 
 	auto material = RESOURCE->Get<Material>(L"Default");
 	meshRenderer->SetMaterial(material);
 
 	auto mesh = RESOURCE->Get<Mesh>(L"Rectangle");
-	meshRenderer->SetMesh(mesh);
+	meshRenderer->SetMesh(mesh);*/
 
 	_ui->SetSprite(RESOURCE->Get<Sprite>(L"Start_Off"), BS_Default);
 	_ui->SetSprite(RESOURCE->Get<Sprite>(L"Start_On"), BS_Pressed);
@@ -133,6 +135,41 @@ void StartScene::Init()
 	//	}
 	//}
 
+
+	{
+		HBITMAP bitmap = Utils::CreateTextBitmap(
+			L"Hello",
+			24,
+			RGB(255, 255, 255),
+			L"맑은 고딕",
+			200,
+			50
+		);
+
+		Texture* texture = new Texture(SCENE->GetGraphics()->GetDevice());
+		texture->SetName(L"HelloTexture");
+		texture->Create(bitmap);
+		RESOURCE->Add<Texture>(texture->GetName(), texture);
+
+		DeleteObject(bitmap);
+
+		GameObject* test = new GameObject();
+
+		auto meshRenderer = new MeshRenderer(SCENE->GetGraphics()->GetDevice(), SCENE->GetGraphics()->GetDeviceContext());
+		test->AddComponent(meshRenderer);
+
+		auto material = RESOURCE->Get<Material>(L"Default");
+		meshRenderer->SetMaterial(material);
+
+		material->SetTexture(texture);
+
+		auto mesh = RESOURCE->Get<Mesh>(L"Rectangle");
+		meshRenderer->SetMesh(mesh);
+
+		test->GetOrAddTransform()->SetPosition({ 0, 0, 0 });
+		test->SetLayer(LAYER_UI);
+		AddObject(test);
+	}
 
 	Super::Init();
 }
