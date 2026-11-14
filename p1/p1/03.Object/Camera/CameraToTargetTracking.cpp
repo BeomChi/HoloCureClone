@@ -37,8 +37,8 @@ void CameraToTargetTracking::Update()
 
 	Vec3 pos = _target->GetTransform()->GetPosition();
 
-	pos.x = clamp(pos.x, 400.f, 2560.f - 400.f);
-	pos.y = clamp(pos.y, 300.f, 2560.f - 300.f);
+	pos.x = clamp(pos.x, -1920.f + 400.f, 1920.f - 400.f);
+	pos.y = clamp(pos.y, -1920.f + 300.f, 1920.f - 300.f);
 
 	GetTransform()->SetPosition(pos);
 }

@@ -61,6 +61,10 @@ private:
 	void CreateDefaultMaterial();
 	void CreateDefaultMesh();
 
+	void LoadGameResouresTexture();
+	void CreateameResouresSprite();
+	void CreateameResouresAnimation();
+
 private:
 	HWND _hwnd = {};
 	fs::path _resourcePath;

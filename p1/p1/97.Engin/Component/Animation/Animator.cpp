@@ -36,9 +36,14 @@ void Animator::Update()
 		if (_currentKeyframeIndex >= totalCount)
 		{
 			if (animation->IsLoop())
+			{
 				_currentKeyframeIndex = 0;
+			}
 			else
-				_currentKeyframeIndex  = totalCount- 1;
+			{
+				_currentKeyframeIndex = totalCount - 1;
+			}
+			_isAnimationEnd = true;
 		}
 
 		_sumTime = 0;
@@ -59,4 +64,5 @@ void Animator::Reset()
 {
 	_sumTime = 0;
 	_currentKeyframeIndex = 0;
+	_isAnimationEnd = false;
 }

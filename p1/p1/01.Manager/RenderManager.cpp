@@ -136,6 +136,9 @@ void RenderManager::GettherRenderableObjects()
 	for (int i = 0; i < LAYER_UI; i++)
 	{
 		auto& gameObjects = SCENE->GetCurrentScene()->GetGameObjects(i);
+
+		//cout << dec<<"Layer " << i << " : " << gameObjects.size() << endl;
+
 		for (const auto& gameObject : gameObjects)
 		{
 			MeshRenderer* meshRenderer = gameObject->GetMeshRenderer();
@@ -143,14 +146,18 @@ void RenderManager::GettherRenderableObjects()
 				_renderObjects.push_back(gameObject);
 		}
 	}
-	auto& gameObjects = SCENE->GetCurrentScene()->GetGameObjects(LAYER_UI);
 
+	auto& gameObjects = SCENE->GetCurrentScene()->GetGameObjects(LAYER_UI);
 	for (const auto& gameObject : gameObjects)
 	{
 		MeshRenderer* meshRenderer = gameObject->GetMeshRenderer();
 		if (meshRenderer && gameObject->GetIsActivity() != false)
+		{
 			_renderUiObjects.push_back(gameObject);
+		}
+
 	}
+	//cout << "UI " << " : " << gameObjects.size() << endl;
 
 }
 
@@ -215,21 +222,21 @@ void RenderManager::RenderObjects(vector<GameObject*> renderObject)
 
 			auto texture = meshRenderer->GetTexture();
 
-			cout
+			/*cout
 				<< "Texture Size: "
 				<< texture->GetSize().x
 				<< ", "
 				<< texture->GetSize().y
-				<< endl;
+				<< endl;*/
 
 			Vec3 pos = transform->GetPosition();
 
-			cout
+			/*cout
 				<< "Position: "
 				<< pos.x << ", "
 				<< pos.y << ", "
 				<< pos.z
-				<< endl;
+				<< endl;*/
 		}
 
 		_transformData.matWorld = matSize * transform->GetWorldMatrix();

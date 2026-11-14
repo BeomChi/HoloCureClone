@@ -8,7 +8,7 @@
 
 DamageText::DamageText()
 {
-	
+	SetLayer(LAYER_OBJECT);
 }
 
 DamageText::~DamageText()
@@ -65,7 +65,7 @@ void DamageText::Update()
 
 	Time();
 
-	float offsetX = 0;
+	float offsetY = 0;
 	for (wchar_t c : _text)
 	{
 		if (c < L'0' || c > L'9')
@@ -77,9 +77,9 @@ void DamageText::Update()
 		if (digitSprite == nullptr)
 			continue;
 
-		offsetX += digitSprite->GetSize().x;
+		offsetY += digitSprite->GetSize().y;
 		Vec3 pos = GetTransform()->GetPosition();
-		pos.x += offsetX;	// 다음 숫자 위치로 이동
+		pos.y += offsetY;	// 다음 숫자 위치로 이동
 		GetTransform()->SetPosition(pos);
 	}
 

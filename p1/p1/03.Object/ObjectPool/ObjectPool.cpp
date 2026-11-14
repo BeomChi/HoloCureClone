@@ -88,6 +88,7 @@ bool ObjectPool::CreateNewObject(wstring key)
 		return false;
 
 	obj->SetKey(key);
+	obj->SetIsActivity(false);
 	_objectPool[key].push_back(obj);
 
 	return true;

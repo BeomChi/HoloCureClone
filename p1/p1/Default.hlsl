@@ -64,7 +64,6 @@ float4 PS(VS_OUTPUT input) : SV_Target
 {
     float4 color = texture0.Sample(sampler0, input.uv);
     //color *= input.color;
-    //color.a = 1.0f;
     
     return color;
 }

@@ -66,170 +66,6 @@ EditScene::~EditScene()
 void EditScene::Init()
 {
 	Super::Init();
-
-	{
-		RESOURCE->LoadTexture(L"Stage01", L"Sprite\\Map\\Stage01.bmp");
-
-		RESOURCE->LoadTexture(L"GuraLeft", L"Sprite\\Player\\GuraAniLeft.bmp");
-		RESOURCE->LoadTexture(L"GuraRight", L"Sprite\\Player\\GuraAniRight.bmp");
-		RESOURCE->LoadTexture(L"GuraImage", L"Sprite\\Player\\Gura.bmp");
-		RESOURCE->LoadTexture(L"PlayerDie", L"Sprite\\Player\\PlayerDie.bmp");
-		RESOURCE->LoadTexture(L"GuraIcon", L"Sprite\\Player\\GuraIcon.bmp");
-
-		RESOURCE->LoadTexture(L"FuburaLeft", L"Sprite\\Monster\\Fubura\\FuburaLeft.bmp");
-		RESOURCE->LoadTexture(L"FuburaRight", L"Sprite\\Monster\\Fubura\\FuburaRight.bmp");
-		RESOURCE->LoadTexture(L"FuburaLaserStart", L"Sprite\\Monster\\Fubura\\LaserStart.bmp");
-		RESOURCE->LoadTexture(L"FuburaLaser", L"Sprite\\Monster\\Fubura\\Laser.bmp");
-
-		RESOURCE->LoadTexture(L"ShubagelionAttack", L"Sprite\\Monster\\Shubangelion\\ShubagelionAttack.bmp");
-		RESOURCE->LoadTexture(L"ShubangelionCharge", L"Sprite\\Monster\\Shubangelion\\ShubangelionCharge.bmp");
-		RESOURCE->LoadTexture(L"ShubangelionLeft", L"Sprite\\Monster\\Shubangelion\\ShubangelionLeft.bmp");
-		RESOURCE->LoadTexture(L"ShubangelionRight", L"Sprite\\Monster\\Shubangelion\\ShubangelionRight.bmp");
-
-		RESOURCE->LoadTexture(L"SukonbuLeft", L"Sprite\\Monster\\Sukonbu\\SukonbuLeft.bmp");
-		RESOURCE->LoadTexture(L"SukonbuRight", L"Sprite\\Monster\\Sukonbu\\SukonbuRight.bmp");
-		RESOURCE->LoadTexture(L"SukonbuTypeB", L"Sprite\\Monster\\Sukonbu\\SukonbuTypeB.bmp");
-		RESOURCE->LoadTexture(L"SukonbuTypeK", L"Sprite\\Monster\\Sukonbu\\SukonbuTypeK.bmp");
-		RESOURCE->LoadTexture(L"SukonbuTypeN", L"Sprite\\Monster\\Sukonbu\\SukonbuTypeN.bmp");
-		RESOURCE->LoadTexture(L"SukonbuTypeT", L"Sprite\\Monster\\Sukonbu\\SukonbuTypeT.bmp");
-
-		// 장비
-		RESOURCE->LoadTexture(L"FanSpawn", L"Sprite\\Object\\FanSpawn.bmp");
-		RESOURCE->LoadTexture(L"FanDie", L"Sprite\\Object\\FanDie.bmp");
-		RESOURCE->LoadTexture(L"Exp", L"Sprite\\Object\\Exp.bmp");
-		RESOURCE->LoadTexture(L"HealObject", L"Sprite\\Object\\Hamburger.bmp");
-		RESOURCE->LoadTexture(L"Bullets", L"Sprite\\Object\\Bullets.bmp");
-		RESOURCE->LoadTexture(L"BLBook", L"Sprite\\Object\\BLBook.bmp");
-		RESOURCE->LoadTexture(L"Miasma", L"Sprite\\Object\\Miasma.bmp");
-		RESOURCE->LoadTexture(L"BombObj", L"Sprite\\Object\\Bomb.bmp");
-
-
-		RESOURCE->LoadTexture(L"EnCurse", L"Sprite\\Object\\EnCurse.bmp");
-		RESOURCE->LoadTexture(L"FanBeam", L"Sprite\\Object\\FanBeam.bmp");
-		RESOURCE->LoadTexture(L"LavaStart", L"Sprite\\Object\\LavaStart.bmp");
-		RESOURCE->LoadTexture(L"LavaLoop", L"Sprite\\Object\\LavaLoop.bmp");
-		RESOURCE->LoadTexture(L"LavaEnd", L"Sprite\\Object\\LavaEnd.bmp");
-		RESOURCE->LoadTexture(L"Explode", L"Sprite\\Object\\Explode.bmp");
-		RESOURCE->LoadTexture(L"PsychoAxe", L"Sprite\\Object\\PsychoAxe.bmp");
-		RESOURCE->LoadTexture(L"Stick", L"Sprite\\Object\\Stick.bmp");
-		RESOURCE->LoadTexture(L"StickExplode", L"Sprite\\Object\\StickExplode.bmp");
-		RESOURCE->LoadTexture(L"Sausage", L"Sprite\\Object\\Sausage.bmp");
-		RESOURCE->LoadTexture(L"Splash", L"Sprite\\Object\\Splash.bmp");
-		RESOURCE->LoadTexture(L"TridentObj", L"Sprite\\Object\\Trident.bmp");
-
-		// UI
-		RESOURCE->LoadTexture(L"PlayerHpBar", L"Sprite\\Ui\\PlayerHpBar.bmp");
-		RESOURCE->LoadTexture(L"PlayerHUD1", L"Sprite\\Ui\\PlayerHUD1.bmp");
-		RESOURCE->LoadTexture(L"ExpBarFrame", L"Sprite\\Ui\\ExpBarFrame.bmp");
-		RESOURCE->LoadTexture(L"ExpBar", L"Sprite\\Ui\\ExpBar.bmp");
-		RESOURCE->LoadTexture(L"DefaultEquipmentIcon", L"Sprite\\Ui\\DefaultEquipmentIcon.bmp");
-		RESOURCE->LoadTexture(L"WeaponIcon_1", L"Sprite\\Ui\\WeaponIcon_1.bmp");
-		RESOURCE->LoadTexture(L"WeaponIcon_2", L"Sprite\\Ui\\WeaponIcon_2.bmp");
-		RESOURCE->LoadTexture(L"ItmeMenu_Menu", L"Sprite\\Ui\\ItmeMenu_Menu.bmp");
-		RESOURCE->LoadTexture(L"Trident", L"Sprite\\Ui\\Trident.bmp");
-		RESOURCE->LoadTexture(L"KillCount_Coin", L"Sprite\\Ui\\KillCount_Coin.bmp");
-		RESOURCE->LoadTexture(L"Numbers", L"Sprite\\Ui\\Numbers.bmp");
-		RESOURCE->LoadTexture(L"Level", L"Sprite\\Ui\\Level.bmp");
-		RESOURCE->LoadTexture(L"SettingMenuBG", L"Sprite\\Ui\\SettingMenue.bmp");
-		RESOURCE->LoadTexture(L"DefaultButtonImage", L"Sprite\\Ui\\SettingButton.bmp");
-
-		RESOURCE->CreateSprite(L"Stage01", RESOURCE->Get<Texture>(L"Stage01"));
-		RESOURCE->CreateSprite(L"SettingMenuBG", RESOURCE->Get<Texture>(L"SettingMenuBG"));
-
-		RESOURCE->CreateSprite(L"Exp01", RESOURCE->Get<Texture>(L"Exp"), 0, 0, 16, 18);
-		RESOURCE->CreateSprite(L"Exp02", RESOURCE->Get<Texture>(L"Exp"), 16, 0, 16, 18);
-		RESOURCE->CreateSprite(L"Exp03", RESOURCE->Get<Texture>(L"Exp"), 32, 0, 16, 18);
-		RESOURCE->CreateSprite(L"Exp04", RESOURCE->Get<Texture>(L"Exp"), 48, 0, 16, 18);
-		RESOURCE->CreateSprite(L"Exp05", RESOURCE->Get<Texture>(L"Exp"), 64, 0, 16, 18);
-		RESOURCE->CreateSprite(L"Exp06", RESOURCE->Get<Texture>(L"Exp"), 80, 0, 16, 18);
-
-		RESOURCE->CreateSprite(L"Bullet01", RESOURCE->Get<Texture>(L"Bullets"), 0, 0, 17, 17);
-		RESOURCE->CreateSprite(L"Bullet02", RESOURCE->Get<Texture>(L"Bullets"), 17, 0, 17, 17);
-		RESOURCE->CreateSprite(L"Bullet03", RESOURCE->Get<Texture>(L"Bullets"), 34, 0, 17, 17);
-		RESOURCE->CreateSprite(L"Bullet04", RESOURCE->Get<Texture>(L"Bullets"), 51, 0, 17, 17);
-		RESOURCE->CreateSprite(L"Bullet05", RESOURCE->Get<Texture>(L"Bullets"), 68, 0, 17, 17);
-		RESOURCE->CreateSprite(L"Bullet06", RESOURCE->Get<Texture>(L"Bullets"), 85, 0, 17, 17);
-
-		RESOURCE->CreateSprite(L"BLBook", RESOURCE->Get<Texture>(L"BLBook"));
-		RESOURCE->CreateSprite(L"Miasma", RESOURCE->Get<Texture>(L"Miasma"));
-		RESOURCE->CreateSprite(L"BombObj", RESOURCE->Get<Texture>(L"BombObj"));
-
-		RESOURCE->CreateSprite(L"PlayerHpBarGreen", RESOURCE->Get<Texture>(L"PlayerHpBar"), 0, 0, 129, 6);
-		RESOURCE->CreateSprite(L"PlayerHpBarRed", RESOURCE->Get<Texture>(L"PlayerHpBar"), 129, 0, 129, 6);
-		RESOURCE->CreateSprite(L"PlayerHpBarPuple", RESOURCE->Get<Texture>(L"PlayerHpBar"), 258, 0, 129, 6);
-
-		RESOURCE->CreateSprite(L"PlayerHUD1", RESOURCE->Get<Texture>(L"PlayerHUD1"), 199, 0, 199, 87);
-		RESOURCE->CreateSprite(L"GuraIcon", RESOURCE->Get<Texture>(L"GuraIcon"));
-
-		RESOURCE->CreateSprite(L"ExpBarBG", RESOURCE->Get<Texture>(L"ExpBarFrame"), 0, 0, 650, 26);
-		RESOURCE->CreateSprite(L"ExpBarFrame", RESOURCE->Get<Texture>(L"ExpBarFrame"), 650, 0, 650, 26);
-		RESOURCE->CreateSprite(L"ExpBar", RESOURCE->Get<Texture>(L"ExpBar"), 0, 0, 650, 26);
-		RESOURCE->CreateSprite(L"ExpBarFull", RESOURCE->Get<Texture>(L"ExpBar"), 0, 26, 650, 26);
-
-		RESOURCE->CreateSprite(L"DefaultWeaponIcon", RESOURCE->Get<Texture>(L"DefaultEquipmentIcon"), 0, 0, 12, 11);
-		RESOURCE->CreateSprite(L"DefaultArmorIcon", RESOURCE->Get<Texture>(L"DefaultEquipmentIcon"), 12, 0, 12.11);
-
-		RESOURCE->CreateSprite(L"ItemMenuSelect", RESOURCE->Get<Texture>(L"ItmeMenu_Menu"), 0, 0, 386, 68);
-		RESOURCE->CreateSprite(L"ItemMune", RESOURCE->Get<Texture>(L"ItmeMenu_Menu"), 386, 0, 386, 68);
-		RESOURCE->CreateSprite(L"ItemMenuSelectDie", RESOURCE->Get<Texture>(L"ItmeMenu_Menu"), 0, 68, 386, 68);
-		RESOURCE->CreateSprite(L"ItemMenuDie", RESOURCE->Get<Texture>(L"ItmeMenu_Menu"), 386, 68, 386, 68);
-
-		RESOURCE->CreateSprite(L"SpiderCooking", RESOURCE->Get<Texture>(L"WeaponIcon_1"), 0, 0, 25, 20);
-		RESOURCE->CreateSprite(L"EliteLavaBucket", RESOURCE->Get<Texture>(L"WeaponIcon_1"), 25, 0, 25, 20);
-		RESOURCE->CreateSprite(L"Bomb", RESOURCE->Get<Texture>(L"WeaponIcon_1"), 50, 0, 25, 20);
-		RESOURCE->CreateSprite(L"PsychoAxe", RESOURCE->Get<Texture>(L"WeaponIcon_1"), 75, 0, 25, 20);
-		RESOURCE->CreateSprite(L"BLBook", RESOURCE->Get<Texture>(L"WeaponIcon_1"), 100, 0, 25, 20);
-		RESOURCE->CreateSprite(L"FanBeam", RESOURCE->Get<Texture>(L"WeaponIcon_1"), 125, 0, 25, 20);
-		RESOURCE->CreateSprite(L"GlowStick", RESOURCE->Get<Texture>(L"WeaponIcon_1"), 150, 0, 25, 20);
-
-		RESOURCE->CreateSprite(L"Sausage", RESOURCE->Get<Texture>(L"WeaponIcon_2"), 0, 0, 25, 22);
-		RESOURCE->CreateSprite(L"EnCurse", RESOURCE->Get<Texture>(L"WeaponIcon_2"), 25, 0, 25, 22);
-		RESOURCE->CreateSprite(L"WamyWater", RESOURCE->Get<Texture>(L"WeaponIcon_2"), 50, 0, 25, 22);
-		RESOURCE->CreateSprite(L"Trident", RESOURCE->Get<Texture>(L"Trident"));
-		RESOURCE->CreateSprite(L"PistolShoot", RESOURCE->Get<Texture>(L"Trident"));
-		RESOURCE->CreateSprite(L"KillCount", RESOURCE->Get<Texture>(L"KillCount_Coin"),0,0,15,15);
-		RESOURCE->CreateSprite(L"Coin", RESOURCE->Get<Texture>(L"KillCount_Coin"),15,0,15,15);
-		RESOURCE->CreateSprite(L"DefaultButton", RESOURCE->Get<Texture>(L"DefaultButtonImage"),0,0,180,29);
-		RESOURCE->CreateSprite(L"DefaultButtonPress", RESOURCE->Get<Texture>(L"DefaultButtonImage"),0,29,180,29);
-
-		RESOURCE->CreateSprite(L"LevelTypeNormal", RESOURCE->Get<Texture>(L"Level"),0,0,20,9);
-		RESOURCE->CreateSprite(L"LevelTypeCollabo", RESOURCE->Get<Texture>(L"Level"),20,0,20,9);
-		RESOURCE->CreateSprite(L"LevelTypeExclusive", RESOURCE->Get<Texture>(L"Level"),40,0,20,9);
-
-		RESOURCE->CreateSprite(L"NumberTypeNormal0", RESOURCE->Get<Texture>(L"Numbers"),0 ,0,5,7);
-		RESOURCE->CreateSprite(L"NumberTypeNormal1", RESOURCE->Get<Texture>(L"Numbers"),5 ,0,5,7);
-		RESOURCE->CreateSprite(L"NumberTypeNormal2", RESOURCE->Get<Texture>(L"Numbers"),10,0,5,7);
-		RESOURCE->CreateSprite(L"NumberTypeNormal3", RESOURCE->Get<Texture>(L"Numbers"),15,0,5,7);
-		RESOURCE->CreateSprite(L"NumberTypeNormal4", RESOURCE->Get<Texture>(L"Numbers"),20,0,5,7);
-		RESOURCE->CreateSprite(L"NumberTypeNormal5", RESOURCE->Get<Texture>(L"Numbers"),25,0,5,7);
-		RESOURCE->CreateSprite(L"NumberTypeNormal6", RESOURCE->Get<Texture>(L"Numbers"),30,0,5,7);
-		RESOURCE->CreateSprite(L"NumberTypeNormal7", RESOURCE->Get<Texture>(L"Numbers"),35,0,5,7);
-		RESOURCE->CreateSprite(L"NumberTypeNormal8", RESOURCE->Get<Texture>(L"Numbers"),40,0,5,7);
-		RESOURCE->CreateSprite(L"NumberTypeNormal9", RESOURCE->Get<Texture>(L"Numbers"),45,0,5,7);
-
-		RESOURCE->CreateSprite(L"NumberTypeCollabo0", RESOURCE->Get<Texture>(L"Numbers"), 0,  7, 5, 7);
-		RESOURCE->CreateSprite(L"NumberTypeCollabo1", RESOURCE->Get<Texture>(L"Numbers"), 5,  7, 5, 7);
-		RESOURCE->CreateSprite(L"NumberTypeCollabo2", RESOURCE->Get<Texture>(L"Numbers"), 10, 7, 5, 7);
-		RESOURCE->CreateSprite(L"NumberTypeCollabo3", RESOURCE->Get<Texture>(L"Numbers"), 15, 7, 5, 7);
-		RESOURCE->CreateSprite(L"NumberTypeCollabo4", RESOURCE->Get<Texture>(L"Numbers"), 20, 7, 5, 7);
-		RESOURCE->CreateSprite(L"NumberTypeCollabo5", RESOURCE->Get<Texture>(L"Numbers"), 25, 7, 5, 7);
-		RESOURCE->CreateSprite(L"NumberTypeCollabo6", RESOURCE->Get<Texture>(L"Numbers"), 30, 7, 5, 7);
-		RESOURCE->CreateSprite(L"NumberTypeCollabo7", RESOURCE->Get<Texture>(L"Numbers"), 35, 7, 5, 7);
-		RESOURCE->CreateSprite(L"NumberTypeCollabo8", RESOURCE->Get<Texture>(L"Numbers"), 40, 7, 5, 7);
-		RESOURCE->CreateSprite(L"NumberTypeCollabo9", RESOURCE->Get<Texture>(L"Numbers"), 45, 7, 5, 7);
-
-		RESOURCE->CreateSprite(L"NumberTypeExclusive0", RESOURCE->Get<Texture>(L"Numbers"), 0, 14, 5, 7);
-		RESOURCE->CreateSprite(L"NumberTypeExclusive1", RESOURCE->Get<Texture>(L"Numbers"), 5, 14, 5, 7);
-		RESOURCE->CreateSprite(L"NumberTypeExclusive2", RESOURCE->Get<Texture>(L"Numbers"), 10,14, 5, 7);
-		RESOURCE->CreateSprite(L"NumberTypeExclusive3", RESOURCE->Get<Texture>(L"Numbers"), 15,14, 5, 7);
-		RESOURCE->CreateSprite(L"NumberTypeExclusive4", RESOURCE->Get<Texture>(L"Numbers"), 20,14, 5, 7);
-		RESOURCE->CreateSprite(L"NumberTypeExclusive5", RESOURCE->Get<Texture>(L"Numbers"), 25,14, 5, 7);
-		RESOURCE->CreateSprite(L"NumberTypeExclusive6", RESOURCE->Get<Texture>(L"Numbers"), 30,14, 5, 7);
-		RESOURCE->CreateSprite(L"NumberTypeExclusive7", RESOURCE->Get<Texture>(L"Numbers"), 35,14, 5, 7);
-		RESOURCE->CreateSprite(L"NumberTypeExclusive8", RESOURCE->Get<Texture>(L"Numbers"), 40,14, 5, 7);
-		RESOURCE->CreateSprite(L"NumberTypeExclusive9", RESOURCE->Get<Texture>(L"Numbers"), 45,14, 5, 7);
-
-	}
 	{
 		Sprite* sprite = RESOURCE->Get<Sprite>(L"Stage01");
 
@@ -248,13 +84,6 @@ void EditScene::Init()
 		background->AddComponent(renderer);
 		AddObject(background);
 	}
-	{
-		// 피벗 및 스프라이트 테스트 용
-		Texture* texture = RESOURCE->Get<Texture>(L"GuraImage");
-		//texture->SetPivot({ 0,2 });
-		RESOURCE->CreateSprite(L"GuraImage", texture);
-	}
-
 
 
 #pragma region 오브젝트
@@ -263,7 +92,7 @@ void EditScene::Init()
 		GameObject* camera = new GameObject();
 		auto cam = new Camera();
 		camera->AddComponent(cam);
-		camera->GetOrAddTransform()->SetPosition({400,400,0});
+		camera->GetOrAddTransform()->SetPosition({0,0,0});
 		//camera->SetTarget(GAMEMANAGER->GetPlayer());
 		AddObject(camera);
 	}

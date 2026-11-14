@@ -55,14 +55,6 @@ void StartScene::Init()
 
 	// 버튼 이미지 찾으면 교체하자
 	_ui = new Button();
-	/*auto meshRenderer = new MeshRenderer(SCENE->GetGraphics()->GetDevice(), SCENE->GetGraphics()->GetDeviceContext());
-	_ui->AddComponent(meshRenderer);
-
-	auto material = RESOURCE->Get<Material>(L"Default");
-	meshRenderer->SetMaterial(material);
-
-	auto mesh = RESOURCE->Get<Mesh>(L"Rectangle");
-	meshRenderer->SetMesh(mesh);*/
 
 	_ui->SetSprite(RESOURCE->Get<Sprite>(L"Start_Off"), BS_Default);
 	_ui->SetSprite(RESOURCE->Get<Sprite>(L"Start_On"), BS_Pressed);
@@ -100,43 +92,38 @@ void StartScene::Init()
 
 		auto mesh = RESOURCE->Get<Mesh>(L"Rectangle");
 		meshRenderer->SetMesh(mesh);
-		//Title->SetSprite(sprite);
 
 		auto spriteRenderer = new SpriteRenderer();
 		spriteRenderer->SetSprite(sprite);
 		Title->AddComponent(spriteRenderer);
 		Title->SetLayer(LAYER_UI);
-		//const Vec2 size = sprite->GetSize();
-		//Title->SetSize({ (float)sprite->GetSize().x, (float)sprite->GetSize().y });
-
 
 		AddObject(Title);
 		_uis.push_back(Title);
 	}
-	//{
-	//	{
-	//		Sprite* sprite = RESOURCE->Get<Sprite>(L"MenuBackground");
-
-	//		Image* background = new Image();
-	//		background->SetSprite(sprite);
-	//		background->SetLayer(LAYER_BACKGROUND);
-
-	//		auto spriteRenderer = new SpriteRenderer();
-	//		spriteRenderer->SetSprite(sprite);
-	//		background->AddComponent(spriteRenderer);
-
-	//		//const Vec2 size = sprite->GetSize();
-	//		//background->SetSize({ (float)sprite->GetSize().x, (float)sprite->GetSize().y });
-	//		background->GetOrAddTransform()->SetScale({ 2,2,1 });
-	//		background->GetTransform()->SetPosition({ 0,50,0 });
-
-	//		AddObject(background);
-	//		_uis.push_back(background);
-	//	}
-	//}
-
-
 	{
+
+		Sprite* sprite = RESOURCE->Get<Sprite>(L"MenuBackground");
+
+		Image* background = new Image();
+		background->SetSprite(sprite);
+		background->SetLayer(LAYER_BACKGROUND);
+
+		auto spriteRenderer = new SpriteRenderer();
+		spriteRenderer->SetSprite(sprite);
+		background->AddComponent(spriteRenderer);
+
+		background->GetOrAddTransform()->SetScale({ 2.f,2.f,1.f });
+		background->GetTransform()->SetPosition({ 100,0,0 });
+
+		AddObject(background);
+		_uis.push_back(background);
+
+	}
+
+
+	/*{
+		// bitmap으로 텍스트 만들어보는 실험
 		HBITMAP bitmap = Utils::CreateTextBitmap(
 			L"Hello",
 			24,
@@ -169,7 +156,7 @@ void StartScene::Init()
 		test->GetOrAddTransform()->SetPosition({ 0, 0, 0 });
 		test->SetLayer(LAYER_UI);
 		AddObject(test);
-	}
+	}*/
 
 	Super::Init();
 }

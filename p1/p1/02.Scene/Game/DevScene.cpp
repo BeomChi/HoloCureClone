@@ -253,7 +253,7 @@ void DevScene::Init()
 		meshRenderer->SetMesh(mesh);
 
 		background->GetOrAddTransform()->SetScale({3,3,1});
-		background->GetOrAddTransform()->SetPosition(Vec3(size.x / 2, size.y / 2, 0));
+		//background->GetOrAddTransform()->SetPosition(Vec3(size.x / 2, size.y / 2, 0));
 
 		background->AddComponent(renderer);
 		AddObject(background);
@@ -513,8 +513,8 @@ void DevScene::Init()
 
 	GET_SINGLE(ObjectPool)->Init();
 
-	GET_SINGLE(SpawnManager)->Init();
-	GET_SINGLE(StageManager)->StartStage();
+	//GET_SINGLE(SpawnManager)->Init();
+	//GET_SINGLE(StageManager)->StartStage();
 	EQUIPMENT->Init();
 
 	_uiLayoutManager = new UiLayoutManager();
@@ -590,7 +590,7 @@ void DevScene::Update()
 {
 	Super::Update();
 
-	GET_SINGLE(StageManager)->Update();
+	//GET_SINGLE(StageManager)->Update();
 	EQUIPMENT->UpdateAll();
 
 	if (INPUT->GetButtonDown(KeyType::Q))

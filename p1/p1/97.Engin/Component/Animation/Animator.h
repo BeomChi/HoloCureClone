@@ -18,7 +18,7 @@ public:
 	const Keyframe& GetCurrentKeyframe();
 
 	void SetAnimation(Animation* animation) { _currentAnimation = animation; }
-	bool GetCurrentAinmationEndIndex() { return _currentKeyframeIndex >= _currentAnimation->GetKeyframeCount(); }
+	bool GetCurrentAinmationEndIndex() { return _isAnimationEnd; }
 
 	void Reset();
 
@@ -27,5 +27,6 @@ private:
 
 	int32 _currentKeyframeIndex = 0;
 	Animation* _currentAnimation;
+	bool _isAnimationEnd = false;
 };
 
